@@ -414,6 +414,244 @@
       color: #fffbeb;
     }
 
+    /* School notice board (Christmas Gifts Wall) */
+    .school-notice-board {
+      position: relative;
+      border-radius: 1.1rem;
+      padding: 1.1rem 1rem 1.25rem;
+      background:
+        radial-gradient(circle at 18% 22%, rgba(90, 50, 20, 0.2) 0 1.5px, transparent 2px),
+        radial-gradient(circle at 62% 38%, rgba(70, 40, 15, 0.16) 0 1px, transparent 2px),
+        radial-gradient(circle at 35% 70%, rgba(90, 50, 20, 0.18) 0 1.5px, transparent 2.5px),
+        radial-gradient(circle at 78% 78%, rgba(70, 40, 15, 0.14) 0 1px, transparent 2px),
+        linear-gradient(145deg, #d2b07a 0%, #c49a5c 40%, #b8894f 78%, #c9a46a 100%);
+      border: 10px solid #6b3e1f;
+      box-shadow:
+        inset 0 0 0 3px #8b5a2b,
+        0 22px 40px -18px rgba(60, 30, 10, 0.45);
+      max-height: min(74vh, 700px);
+      overflow-y: auto;
+    }
+    .school-notice-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-bottom: 0.85rem;
+    }
+    .school-notice-plaque {
+      background: #1E6B3B;
+      color: #fef9c3;
+      border: 3px solid #fbbf24;
+      border-radius: 0.65rem;
+      padding: 0.35rem 1rem;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1rem, 2.4vw, 1.45rem);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      box-shadow: 0 4px 0 #14532D;
+      transform: rotate(-1.5deg);
+    }
+    .notice-board-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.55rem 0.85rem;
+      align-items: start;
+      padding: 0.55rem 0.35rem 0.85rem;
+    }
+    .notice-deco {
+      position: absolute;
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 0.35rem 0.55rem;
+      border-radius: 0.2rem;
+      box-shadow: 1px 2px 0 rgba(0,0,0,0.18);
+      z-index: 1;
+      pointer-events: none;
+      max-width: 120px;
+      line-height: 1.25;
+    }
+    .notice-deco.sticky-yellow {
+      background: #fde047;
+      color: #713f12;
+      top: 4.6rem;
+      left: 0.85rem;
+      transform: rotate(-8deg);
+    }
+    .notice-deco.sticky-pink {
+      background: #fda4af;
+      color: #881337;
+      top: 4.4rem;
+      right: 1rem;
+      transform: rotate(7deg);
+    }
+    .notice-flyer {
+      position: relative;
+      background: #fffdf5;
+      border: 1px solid rgba(100, 80, 40, 0.22);
+      box-shadow: 2px 4px 0 rgba(60, 40, 15, 0.18), 0 10px 18px -10px rgba(0,0,0,0.28);
+      padding: 0.85rem 0.75rem 0.75rem;
+      text-align: left;
+      transition: transform 0.2s ease;
+    }
+    .notice-flyer::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      width: 16px;
+      height: 16px;
+      margin-left: -8px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 35% 35%, #fca5a5, #b91c1c 55%, #7f1d1d);
+      box-shadow: 0 2px 3px rgba(0,0,0,0.35);
+      z-index: 2;
+    }
+    .notice-flyer:nth-child(5n+1) { transform: rotate(-4.8deg); background: #fffdf5; margin-top: 0.15rem; }
+    .notice-flyer:nth-child(5n+2) { transform: rotate(3.6deg); background: #fff7ed; margin-top: 1.15rem; }
+    .notice-flyer:nth-child(5n+3) { transform: rotate(-2.4deg); background: #f0fdf4; margin-top: 0.35rem; }
+    .notice-flyer:nth-child(5n+4) { transform: rotate(4.2deg); background: #eff6ff; margin-top: 0.95rem; }
+    .notice-flyer:nth-child(5n+5) { transform: rotate(-3.4deg); background: #fef2f2; margin-top: 0.55rem; }
+    .notice-flyer:hover { transform: rotate(0deg) scale(1.04); z-index: 3; }
+    .notice-flyer .prize-card-photo {
+      aspect-ratio: 1 / 1;
+      min-height: 88px;
+      border-radius: 0.35rem;
+      border-style: solid;
+      border-color: #d6c7a8;
+      background: #faf6ea;
+      margin-bottom: 0.55rem;
+    }
+    .notice-flyer .prize-card-photo:hover { border-color: #C8372D; background: #fff7ed; }
+    .notice-tape {
+      position: absolute;
+      top: 6px;
+      right: 10px;
+      width: 42px;
+      height: 14px;
+      background: rgba(250, 204, 21, 0.55);
+      transform: rotate(18deg);
+      border: 1px solid rgba(180, 140, 20, 0.35);
+      pointer-events: none;
+    }
+    .notice-flyer .winner-slot {
+      border-radius: 0.4rem;
+      background: rgba(255,255,255,0.7);
+      border: 1px dashed #94a3b8;
+      color: #64748b;
+      justify-content: flex-start;
+      font-size: 0.68rem;
+    }
+    .notice-flyer .winner-slot.filled {
+      background: #fef3c7;
+      border-color: #d97724;
+      border-style: solid;
+      color: #92400e;
+    }
+
+    /* School leaderboard (Grand Prizes Wall) */
+    .school-leaderboard {
+      position: relative;
+      border-radius: 1rem;
+      padding: 1rem 1rem 1.15rem;
+      background: linear-gradient(180deg, #1a3a55 0%, #23486A 55%, #1a3650 100%);
+      border: 8px solid #b4692e;
+      box-shadow:
+        inset 0 0 0 3px #d97724,
+        0 22px 40px -18px rgba(15, 40, 70, 0.5);
+      max-height: min(74vh, 700px);
+      overflow-y: auto;
+    }
+    .school-leaderboard-header {
+      text-align: center;
+      margin-bottom: 0.75rem;
+    }
+    .school-leaderboard-banner {
+      display: inline-block;
+      background: linear-gradient(90deg, #C8372D, #D97724);
+      color: #fff;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.05rem, 2.5vw, 1.55rem);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.4rem 1.25rem;
+      border-radius: 0.35rem;
+      border: 2px solid #fde68a;
+      box-shadow: 0 4px 0 #7f1d1d;
+      transform: rotate(-0.8deg);
+    }
+    .school-leaderboard-sub {
+      margin-top: 0.45rem;
+      color: #cbd5e1;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .leaderboard-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+    .lb-row {
+      display: grid;
+      grid-template-columns: 56px 72px 1fr;
+      gap: 0.7rem;
+      align-items: center;
+      background: rgba(255,255,255,0.96);
+      border: 2px solid rgba(251, 191, 36, 0.45);
+      border-radius: 0.75rem;
+      padding: 0.55rem 0.65rem;
+      text-align: left;
+      box-shadow: 0 6px 14px -10px rgba(0,0,0,0.4);
+    }
+    .lb-row.rank-1 { border-color: #f59e0b; background: linear-gradient(90deg, #fffbeb, #fff); }
+    .lb-row.rank-2 { border-color: #94a3b8; background: linear-gradient(90deg, #f8fafc, #fff); }
+    .lb-row.rank-3 { border-color: #d97724; background: linear-gradient(90deg, #fff7ed, #fff); }
+    .lb-row.is-locked {
+      background: repeating-linear-gradient(-45deg, #f8fafc, #f8fafc 8px, #eef2f7 8px, #eef2f7 16px);
+      border-style: dashed;
+      opacity: 0.92;
+    }
+    .lb-rank-badge {
+      width: 48px;
+      height: 48px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #fff;
+      box-shadow: 0 4px 0 rgba(0,0,0,0.18);
+    }
+    .lb-row .prize-card-photo {
+      aspect-ratio: 1 / 1;
+      min-height: 64px;
+      border-radius: 0.55rem;
+    }
+    .lb-row .winner-slot {
+      border-radius: 0.45rem;
+      background: #f1f5f9;
+      border: 1px dashed #94a3b8;
+      color: #64748b;
+      justify-content: flex-start;
+      font-size: 0.72rem;
+    }
+    .lb-row .winner-slot.filled {
+      background: #ecfdf5;
+      border-color: #1E6B3B;
+      border-style: solid;
+      color: #14532D;
+    }
+    @media (max-width: 640px) {
+      .lb-row { grid-template-columns: 44px 56px 1fr; gap: 0.45rem; }
+      .lb-rank-badge { width: 40px; height: 40px; font-size: 0.9rem; }
+    }
+
     #festiveScatter {
       position: fixed;
       inset: 0;
@@ -1267,24 +1505,23 @@
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 14: CHRISTMAS GIFTS WALL                                         -->
+  <!-- SLIDE 14: CHRISTMAS GIFTS WALL (SCHOOL NOTICE BOARD)                  -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center" data-title="15. Christmas Gifts Wall">
     <div class="max-w-6xl w-full">
-      <div class="text-center mb-4">
-        <span class="px-4 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-900 text-xs font-extrabold uppercase tracking-widest">
-          🎁 Christmas Gifts • Batch Prizes
-        </span>
-        <h1 class="font-festive-display text-4xl sm:text-5xl font-bold text-[#1E6B3B] tracking-tight mt-2" contenteditable="true">
-          CHRISTMAS GIFTS WALL
-        </h1>
-        <p class="text-xs text-slate-500 font-semibold mt-1">Listed top → down · batches 3 → 3 → 4 → 3 → 1 · upload photos &amp; winners auto-fill</p>
-      </div>
-
       <input type="file" id="phase1PrizePhotoInput" accept="image/*" class="hidden" />
-
-      <div id="christmasGiftsWall" class="prize-wall-list">
-        <!-- filled by JS: vertical winner list -->
+      <div class="school-notice-board">
+        <div class="notice-deco sticky-yellow">Don't peel!<br/>老師留步</div>
+        <div class="notice-deco sticky-pink">Winners up!<br/>得獎名單</div>
+        <div class="school-notice-header">
+          <div class="school-notice-plaque" contenteditable="true">📌 Notice Board · 聖誕禮物公佈欄</div>
+        </div>
+        <p class="text-center text-[11px] font-bold text-[#5b3a1a]/90 mb-2">
+          Pin-up style · batches 3 → 3 → 4 → 3 → 1 · tap flyer to add photo
+        </p>
+        <div id="christmasGiftsWall" class="notice-board-grid">
+          <!-- filled by JS: pinned notice flyers -->
+        </div>
       </div>
     </div>
   </section>
@@ -1352,24 +1589,19 @@
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 17: GRAND PRIZES WALL                                           -->
+  <!-- SLIDE 17: GRAND PRIZES WALL (SCHOOL LEADERBOARD)                       -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center" data-title="18. Grand Prizes Wall">
-    <div class="max-w-6xl w-full">
-      <div class="text-center mb-4">
-        <span class="px-4 py-1.5 rounded-full bg-red-100 border border-red-300 text-red-700 text-xs font-extrabold uppercase tracking-widest">
-          👑 Grand Prizes • Premium Honor Roll
-        </span>
-        <h1 class="font-festive-display text-4xl sm:text-5xl font-bold text-[#1E6B3B] tracking-tight mt-2" contenteditable="true">
-          GRAND PRIZES WALL
-        </h1>
-        <p class="text-xs text-slate-500 font-semibold mt-1">Listed top → down · Rank #1 (best) first · upload prize photos</p>
-      </div>
-
+    <div class="max-w-5xl w-full">
       <input type="file" id="phase2PrizePhotoInput" accept="image/*" class="hidden" />
-
-      <div id="grandPrizesWall" class="prize-wall-list">
-        <!-- filled by JS: vertical winner list #1→#6 -->
+      <div class="school-leaderboard">
+        <div class="school-leaderboard-header">
+          <div class="school-leaderboard-banner" contenteditable="true">🏆 Honor Roll Leaderboard · 榮譽榜</div>
+          <div class="school-leaderboard-sub">Grand Prizes · Rank #1 first · posted outside the gym</div>
+        </div>
+        <div id="grandPrizesWall" class="leaderboard-rows">
+          <!-- filled by JS: ranked leaderboard rows -->
+        </div>
       </div>
     </div>
   </section>
@@ -1850,19 +2082,18 @@
           return `<div class="winner-slot ${w ? 'filled' : ''}">${w ? escapeHTML(w.name) : `Winner ${slotIdx + 1}`}</div>`;
         }).join('');
         const photo = christmasGiftPhotos[idx];
-        return `<div class="festive-card rounded-2xl p-3 border-2 prize-wall-row" style="border-color:${gift.color}">
+        return `<article class="notice-flyer">
+          <span class="notice-tape" aria-hidden="true"></span>
           <div id="phase1PhotoBox${idx}" onclick="triggerPhase1PhotoUpload(${idx})" class="prize-card-photo">
-            ${photo ? `<img src="${photo}" alt="Gift ${idx + 1}" />` : `<i class="fa-solid fa-camera text-xl mb-1"></i><span class="text-[10px] font-bold">Gift Photo</span>`}
+            ${photo ? `<img src="${photo}" alt="Gift ${idx + 1}" />` : `<i class="fa-solid fa-camera text-xl mb-1"></i><span class="text-[10px] font-bold">Pin a photo</span>`}
           </div>
-          <div class="min-w-0 flex flex-col gap-1.5">
-            <div class="flex items-center justify-between gap-2 flex-wrap">
-              <span class="px-2 py-0.5 rounded text-white font-black text-[11px] uppercase" style="background:${gift.color}">Gift ${idx + 1} · ×${gift.qty}</span>
-              <button type="button" onclick="triggerPhase1PhotoUpload(${idx})" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
-            </div>
-            <input type="text" class="w-full text-sm font-black text-slate-800 bg-transparent border-b border-dashed border-slate-300 focus:outline-none focus:border-[#C8372D] py-1" value="${escapeHTML(christmasGiftNames[idx])}" onchange="christmasGiftNames[${idx}]=this.value; updateBatchLabels();" />
-            <div class="winner-list-stack">${slots}</div>
+          <div class="flex items-center justify-between gap-2 mb-1">
+            <span class="px-2 py-0.5 rounded text-white font-black text-[10px] uppercase tracking-wide" style="background:${gift.color}">Gift ${idx + 1} · ×${gift.qty}</span>
+            <button type="button" onclick="triggerPhase1PhotoUpload(${idx})" class="text-[10px] font-bold text-[#6b3e1f] hover:underline cursor-pointer"><i class="fa-solid fa-thumbtack"></i> Photo</button>
           </div>
-        </div>`;
+          <input type="text" class="w-full text-sm font-black text-slate-800 bg-transparent border-b border-dashed border-amber-700/30 focus:outline-none focus:border-[#C8372D] py-1 mb-1.5 font-festive-display" value="${escapeHTML(christmasGiftNames[idx])}" onchange="christmasGiftNames[${idx}]=this.value; updateBatchLabels();" />
+          <div class="winner-list-stack">${slots}</div>
+        </article>`;
       }).join('');
     }
 
@@ -1874,17 +2105,20 @@
         const w = winnersPhase2.find(x => x.rankIndex === idx);
         const photo = grandPrizePhotos[idx];
         const title = w ? (grandPrizeNames[idx] || prize.name) : `🔒 Mystery Prize #${prize.rank}`;
-        return `<div class="festive-card rounded-2xl p-3 border-2 prize-wall-row" style="border-color:${prize.color}">
+        const medal = prize.rank === 1 ? '🥇' : prize.rank === 2 ? '🥈' : prize.rank === 3 ? '🥉' : `#${prize.rank}`;
+        const lockedClass = w ? '' : ' is-locked';
+        return `<div class="lb-row rank-${prize.rank}${lockedClass}">
+          <div class="lb-rank-badge" style="background:${prize.color}" title="Rank ${prize.rank}">${medal}</div>
           <div id="phase2PhotoBox${idx}" onclick="triggerPhase2PhotoUpload(${idx})" class="prize-card-photo">
-            ${photo ? `<img src="${photo}" alt="Grand ${idx + 1}" />` : `<i class="fa-solid fa-gift text-xl mb-1"></i><span class="text-[10px] font-bold">${w ? 'Prize Photo' : 'Surprise'}</span>`}
+            ${photo ? `<img src="${photo}" alt="Grand ${idx + 1}" />` : `<i class="fa-solid fa-gift text-lg mb-0.5"></i><span class="text-[9px] font-bold">${w ? 'Photo' : '???'}</span>`}
           </div>
-          <div class="min-w-0 flex flex-col gap-1.5">
+          <div class="min-w-0 flex flex-col gap-1">
             <div class="flex items-center justify-between gap-2 flex-wrap">
-              <span class="px-2 py-0.5 rounded text-white font-black text-[11px] uppercase" style="background:${prize.color}">Rank #${prize.rank}</span>
-              <button type="button" onclick="triggerPhase2PhotoUpload(${idx})" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
+              <span class="text-[10px] font-black uppercase tracking-wider text-slate-500">Rank #${prize.rank}</span>
+              <button type="button" onclick="triggerPhase2PhotoUpload(${idx})" class="text-[10px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
             </div>
-            <input type="text" class="w-full text-sm font-black text-slate-800 bg-transparent border-b border-dashed border-slate-300 focus:outline-none focus:border-[#D97724] py-1" value="${escapeHTML(title)}" onchange="grandPrizeNames[${idx}]=this.value; updateBatchLabels();" />
-            <div class="winner-slot ${w ? 'filled' : ''}">${w ? escapeHTML(w.name) : 'Awaiting winner'}</div>
+            <input type="text" class="w-full text-sm sm:text-base font-black text-slate-800 bg-transparent border-b border-dashed border-slate-300 focus:outline-none focus:border-[#D97724] py-0.5" value="${escapeHTML(title)}" onchange="grandPrizeNames[${idx}]=this.value; updateBatchLabels();" />
+            <div class="winner-slot ${w ? 'filled' : ''}">${w ? escapeHTML(w.name) : 'TBA — awaiting winner'}</div>
           </div>
         </div>`;
       }).join('');
@@ -2155,7 +2389,8 @@
       { id: 'mcs', label: 'MCs Intro', slides: [1], trackKey: 'maruko' },
       { id: 'headmaster', label: 'Headmaster Intro', slides: [2], trackKey: 'dumbledore' },
       { id: 'buffet', label: 'Buffet', slides: [3], trackKey: 'buffet' },
-      { id: 'games', label: 'Games', slides: [4, 5, 6, 7, 8, 9, 10, 11], trackKey: 'game2' },
+      { id: 'game1', label: 'Game 1 Midterm', slides: [4, 5], trackKey: 'game1' },
+      { id: 'game2', label: 'Game 2 FYP', slides: [6, 7, 8, 9, 10, 11], trackKey: 'game2' },
       { id: 'recess', label: 'Recess', slides: [12], trackKey: 'recess' },
       { id: 'christmasGifts', label: 'Christmas Gifts', slides: [13, 14], trackKey: 'luckyDraw' },
       { id: 'bestDressed', label: 'Best Dressed', slides: [15], trackKey: 'buffet' },
