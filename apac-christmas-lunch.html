@@ -288,11 +288,38 @@
       border-style: solid;
       color: #fffbeb;
     }
+
+    #festiveScatter {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 8;
+      overflow: hidden;
+    }
+    .scatter-item {
+      position: absolute;
+      font-size: clamp(1.1rem, 2.2vw, 1.8rem);
+      opacity: 0.55;
+      filter: drop-shadow(0 2px 4px rgba(15, 23, 42, 0.12));
+      animation: scatterFloat 7s ease-in-out infinite;
+      user-select: none;
+    }
+    @keyframes scatterFloat {
+      0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
+      50% { transform: translateY(-10px) rotate(calc(var(--rot, 0deg) + 8deg)); }
+    }
+    #livestreamLayout.stream-expanded #livestreamFrameBox {
+      grid-column: 1 / -1;
+    }
+    #livestreamLayout.stream-expanded #vdoQrPanel {
+      display: none;
+    }
   </style>
 </head>
 <body class="bg-white">
 
   <canvas id="snowCanvas"></canvas>
+  <div id="festiveScatter" aria-hidden="true"></div>
   <div id="companyLogoBadge"><img id="companyLogoImg" alt="Company logo" /></div>
 
   <audio id="bgmAudio" loop preload="auto"></audio>
@@ -778,10 +805,6 @@
         </div>
 
         <div class="flex flex-wrap items-center gap-2">
-          <button type="button" onclick="ringSchoolBell(this)" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-[#D97724] to-[#F59E0B] hover:from-[#b45309] hover:to-[#D97724] text-white text-xs font-black transition cursor-pointer shadow flex items-center gap-1.5" title="Ring School Bell">
-            <i class="fa-solid fa-bell"></i> School Bell
-          </button>
-          <div class="h-5 w-px bg-slate-300 mx-0.5"></div>
           <button type="button" onclick="adjustCookTimer(-30)" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-extrabold border border-slate-300 cursor-pointer">-30s</button>
           <div class="px-4 py-1 rounded-xl bg-slate-900 font-mono text-2xl sm:text-4xl font-black text-amber-300 tracking-wider shadow-inner" id="cookTimerDisplay">
             03:00
@@ -796,13 +819,19 @@
         </div>
       </div>
 
-      <div class="grid grid-cols-1 xl:grid-cols-12 gap-3 flex-1 min-h-0">
-        <div id="livestreamFrameBox" class="xl:col-span-8 rounded-3xl bg-slate-950 border-4 border-dashed border-slate-400 shadow-2xl relative overflow-hidden flex flex-col items-center justify-center text-center min-h-[280px]">
+      <div id="livestreamLayout" class="grid grid-cols-1 xl:grid-cols-12 gap-3 flex-1 min-h-0">
+        <div id="livestreamFrameBox" class="xl:col-span-8 rounded-3xl bg-slate-950 border-4 border-dashed border-slate-400 shadow-2xl relative overflow-hidden flex flex-col items-center justify-center text-center min-h-[280px] transition-all">
           <video id="liveCameraVideo" autoplay playsinline muted class="hidden absolute inset-0 w-full h-full object-contain bg-black"></video>
           <iframe id="vdoNinjaFrame" class="hidden absolute inset-0 w-full h-full border-0 bg-black" allow="autoplay;camera;microphone;fullscreen;display-capture;encrypted-media" allowfullscreen></iframe>
 
           <button type="button" onclick="stopLiveWebcam()" id="stopCamBtn" class="hidden absolute top-3 right-3 z-20 px-3 py-1.5 rounded-xl bg-slate-900/75 hover:bg-red-600 text-white/90 hover:text-white text-xs font-bold backdrop-blur-md border border-white/20 transition cursor-pointer shadow-lg">
             <i class="fa-solid fa-video-slash mr-1"></i> Disconnect
+          </button>
+          <button type="button" onclick="goFullStage()" id="goFullStageBtn" class="hidden absolute top-3 left-3 z-20 px-3 py-1.5 rounded-xl bg-[#1E6B3B]/90 hover:bg-[#14532D] text-white text-xs font-bold backdrop-blur-md border border-white/20 transition cursor-pointer shadow-lg">
+            <i class="fa-solid fa-expand mr-1"></i> Full Stage
+          </button>
+          <button type="button" onclick="showVdoQrPanel()" id="showQrBtn" class="hidden absolute top-3 left-3 z-20 px-3 py-1.5 rounded-xl bg-slate-900/75 hover:bg-[#23486A] text-white/90 text-xs font-bold backdrop-blur-md border border-white/20 transition cursor-pointer shadow-lg">
+            <i class="fa-solid fa-qrcode mr-1"></i> Show QR
           </button>
 
           <div id="livestreamPlaceholderUI" class="relative z-10 max-w-lg mx-auto text-white space-y-3 p-6">
@@ -819,10 +848,10 @@
           </div>
         </div>
 
-        <div class="xl:col-span-4 festive-card rounded-3xl p-4 border-2 border-[#C8372D]/40 flex flex-col items-center text-center gap-3">
+        <div id="vdoQrPanel" class="xl:col-span-4 festive-card rounded-3xl p-4 border-2 border-[#C8372D]/40 flex flex-col items-center text-center gap-3">
           <span class="px-3 py-1 rounded-lg bg-[#C8372D] text-white font-black text-[11px] uppercase tracking-wider">Scan to Broadcast</span>
           <h3 class="font-festive-display text-xl font-bold text-slate-800">Phone Floor Cam</h3>
-          <p class="text-[11px] text-slate-600 font-semibold leading-relaxed">Scan with your phone → allow camera → stream appears on stage.</p>
+          <p class="text-[11px] text-slate-600 font-semibold leading-relaxed">Scan with your phone → allow camera → stream goes full stage.</p>
           <div id="vdoQrBox" class="rounded-xl border-2 border-slate-200 bg-white p-2 shadow w-[196px] h-[196px] flex items-center justify-center overflow-hidden"></div>
           <div class="w-full text-left space-y-1.5">
             <div class="text-[10px] font-black uppercase tracking-wider text-slate-500">Room</div>
@@ -878,10 +907,7 @@
           </h1>
         </div>
         <div class="flex items-center gap-2 flex-wrap">
-          <div class="inline-flex rounded-xl border-2 border-slate-200 overflow-hidden bg-white shadow-sm">
-            <button type="button" id="phase1ModeBtn" onclick="setDrawPhase(1)" class="px-3 py-1.5 text-xs font-black bg-[#C8372D] text-white cursor-pointer">Christmas Gifts</button>
-            <button type="button" id="phase2ModeBtn" onclick="setDrawPhase(2)" class="px-3 py-1.5 text-xs font-black text-slate-700 hover:bg-slate-50 cursor-pointer">Grand Prizes</button>
-          </div>
+          <span id="drawModeHint" class="px-3 py-1.5 rounded-xl bg-white border-2 border-slate-200 text-slate-700 text-xs font-black">Christmas Gifts only</span>
           <button type="button" id="soundToggleBtn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white hover:bg-slate-100 text-slate-700 font-extrabold text-xs border-2 border-slate-200 transition shadow-sm cursor-pointer">
             <i id="soundIcon" class="fa-solid fa-volume-high text-[#C8372D]"></i>
             <span id="soundStatusText">SFX On</span>
@@ -1036,19 +1062,19 @@
   <section class="slide flex-col items-center justify-center text-center" data-title="16. Grand Prizes Intro">
     <div class="festive-card max-w-4xl w-full rounded-3xl p-10 sm:p-14 border-4 border-[#D97724]">
       <div class="w-20 h-20 mx-auto mb-5 rounded-3xl bg-gradient-to-tr from-[#C8372D] to-[#D97724] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
-        <i class="fa-solid fa-crown"></i>
+        <i class="fa-solid fa-gift"></i>
       </div>
       <span class="px-4 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-amber-900 text-xs font-extrabold uppercase tracking-widest">
-        👑 Grand Prizes • Premium Ranks #1–#6
+        ✨ Surprise Finale
       </span>
       <h1 class="font-festive-display text-5xl sm:text-7xl font-bold text-[#C8372D] tracking-tight mt-4 mb-3" contenteditable="true">
         GRAND PRIZES
       </h1>
       <p class="text-lg sm:text-2xl text-slate-600 font-bold max-w-2xl mx-auto mb-8" contenteditable="true">
-        Six premium prizes — one winner for each rank from #1 to #6!
+        Time for the surprise finale — roll the wheel again for the premium prizes!
       </p>
       <button type="button" onclick="startPhase2Draw()" class="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#C8372D] to-[#D97724] hover:from-[#b91c1c] hover:to-[#b45309] text-white font-black text-lg sm:text-xl tracking-wide shadow-xl transition transform hover:scale-105 active:scale-95 cursor-pointer">
-        <i class="fa-solid fa-dharmachakra"></i> Open Grand Prizes Spinner
+        <i class="fa-solid fa-dharmachakra"></i> Roll Wheel for Grand Prizes
       </button>
     </div>
   </section>
@@ -1158,11 +1184,13 @@
 
   <script>
     let currentSlideIdx = 0;
-    let items = [
+    const DEFAULT_ROSTER = [
       "Alexander Wright", "Beatrix Potter", "Charles Darwin",
       "Diana Prince", "Edward Norton", "Fiona Gallagher",
       "George Lucas", "Hannah Abbott", "Ian Malcolm", "Julia Roberts"
     ];
+    let items = [...DEFAULT_ROSTER];
+    let masterRoster = [...DEFAULT_ROSTER]; // full class list for re-rolling Grand Prizes
     let winners = [];
     let winnersPhase1 = []; // Christmas Gifts winners (flat, chronological)
     let winnersPhase2 = []; // Grand Prizes winners (flat, chronological)
@@ -1180,6 +1208,7 @@
     let vdoPushUrl = '';
     let christmasBatchIndex = 0; // 0..4 into CHRISTMAS_BATCHES
     let grandPrizeIndex = 0; // 0..5 into GRAND_PRIZES
+    let preferGrandOnSpinner = false; // armed by "Roll Wheel for Grand Prizes"
 
     const CHRISTMAS_BATCHES = [
       { id: 'giftA', qty: 3, name: 'Christmas Gift A', color: '#C8372D' },
@@ -1243,12 +1272,11 @@
       setTimeout(() => confetti({ particleCount: 70, angle: 120, spread: 55, origin: { x: 1, y: 0.7 }, colors }), 280);
     }
 
-    function setDrawPhase(phase) {
+    function setDrawPhase(phase, opts = {}) {
       drawPhase = phase === 2 ? 2 : 1;
       winners = drawPhase === 1 ? winnersPhase1 : winnersPhase2;
       const badge = document.getElementById('drawPhaseBadge');
-      const p1 = document.getElementById('phase1ModeBtn');
-      const p2 = document.getElementById('phase2ModeBtn');
+      const hint = document.getElementById('drawModeHint');
       const batchPanel = document.getElementById('christmasBatchPanel');
       const grandPanel = document.getElementById('grandSpinPanel');
       if (badge) {
@@ -1257,25 +1285,35 @@
           ? 'px-3 py-1 rounded-xl bg-[#C8372D] text-white font-black text-xs uppercase tracking-wider shadow'
           : 'px-3 py-1 rounded-xl bg-[#D97724] text-white font-black text-xs uppercase tracking-wider shadow';
       }
-      if (p1 && p2) {
-        p1.className = drawPhase === 1
-          ? 'px-3 py-1.5 text-xs font-black bg-[#C8372D] text-white cursor-pointer'
-          : 'px-3 py-1.5 text-xs font-black text-slate-700 hover:bg-slate-50 cursor-pointer';
-        p2.className = drawPhase === 2
-          ? 'px-3 py-1.5 text-xs font-black bg-[#D97724] text-white cursor-pointer'
-          : 'px-3 py-1.5 text-xs font-black text-slate-700 hover:bg-slate-50 cursor-pointer';
+      if (hint) {
+        hint.textContent = drawPhase === 1 ? 'Christmas Gifts only' : 'Grand Prizes · fresh roll';
+        hint.className = drawPhase === 1
+          ? 'px-3 py-1.5 rounded-xl bg-white border-2 border-slate-200 text-slate-700 text-xs font-black'
+          : 'px-3 py-1.5 rounded-xl bg-amber-50 border-2 border-amber-300 text-amber-900 text-xs font-black';
       }
       if (batchPanel) batchPanel.classList.toggle('hidden', drawPhase !== 1);
       if (grandPanel) grandPanel.classList.toggle('hidden', drawPhase !== 2);
       updateBatchLabels();
       updateWinnersListUI();
-      showToast(drawPhase === 1 ? 'Christmas Gifts spinner active' : 'Grand Prizes spinner active');
+      if (!opts.silent) {
+        showToast(drawPhase === 1 ? 'Christmas Gifts spinner active' : 'Grand Prizes spinner active');
+      }
     }
 
     function startPhase2Draw() {
-      setDrawPhase(2);
+      // Surprise finale: re-roll with a fresh wheel (exclude Christmas winners by default)
+      const christmasNames = new Set(winnersPhase1.map(w => w.name));
+      const remaining = masterRoster.filter(n => !christmasNames.has(n));
+      items = remaining.length ? [...remaining] : [...masterRoster];
+      winnersPhase2 = [];
+      grandPrizeIndex = 0;
+      preferGrandOnSpinner = true;
+      syncInputFromItems();
+      setDrawPhase(2, { silent: true });
       goToSlide(12);
-      showToast('Grand Prizes spinner ready');
+      showToast(remaining.length
+        ? `Grand Prizes ready — rolling again with ${items.length} names`
+        : 'Grand Prizes ready — full roster restored for a fresh roll');
     }
 
     function updateBatchLabels() {
@@ -1315,8 +1353,9 @@
       if (roomLabel) roomLabel.textContent = vdoRoomId;
       if (pushLink) { pushLink.href = vdoPushUrl; pushLink.textContent = vdoPushUrl; }
       renderVdoQr(vdoPushUrl);
-      loadVdoNinjaStream(customVdoNinjaUrl);
-      showToast('Scan QR with phone to broadcast');
+      // Keep QR visible until the host confirms the camera is live
+      loadVdoNinjaStream(customVdoNinjaUrl, { expand: false });
+      showToast('Scan QR with phone, then tap Full Stage');
     }
 
     function renderVdoQr(url) {
@@ -1352,23 +1391,52 @@
       navigator.clipboard.writeText(vdoPushUrl).then(() => showToast('Push link copied')).catch(() => showToast(vdoPushUrl));
     }
 
-    function loadVdoNinjaStream(url) {
+    function setLivestreamExpanded(expanded) {
+      const layout = document.getElementById('livestreamLayout');
+      const showQrBtn = document.getElementById('showQrBtn');
+      const goLiveBtn = document.getElementById('goFullStageBtn');
+      if (layout) layout.classList.toggle('stream-expanded', !!expanded);
+      if (showQrBtn) showQrBtn.classList.toggle('hidden', !expanded);
+      if (goLiveBtn) {
+        const hasStream = !document.getElementById('vdoNinjaFrame')?.classList.contains('hidden')
+          || !document.getElementById('liveCameraVideo')?.classList.contains('hidden');
+        goLiveBtn.classList.toggle('hidden', !!expanded || !hasStream);
+      }
+    }
+
+    function showVdoQrPanel() {
+      setLivestreamExpanded(false);
+      showToast('QR panel shown');
+    }
+
+    function loadVdoNinjaStream(url, opts = {}) {
       const viewUrl = url || customVdoNinjaUrl;
       if (!viewUrl) { showToast('Start a VDO room first', 'error'); return; }
       customVdoNinjaUrl = viewUrl;
-      if (activeMediaStream) { activeMediaStream.getTracks().forEach(t => t.stop()); activeMediaStream = null; }
+      if (typeof activeMediaStream !== 'undefined' && activeMediaStream) {
+        activeMediaStream.getTracks().forEach(t => t.stop());
+        activeMediaStream = null;
+      }
       const videoEl = document.getElementById('liveCameraVideo');
       if (videoEl) { videoEl.classList.add('hidden'); videoEl.srcObject = null; }
       const frame = document.getElementById('vdoNinjaFrame');
       const placeholderUI = document.getElementById('livestreamPlaceholderUI');
       const stopBtn = document.getElementById('stopCamBtn');
       const frameBox = document.getElementById('livestreamFrameBox');
+      const goLiveBtn = document.getElementById('goFullStageBtn');
       frame.src = viewUrl;
       frame.classList.remove('hidden');
       placeholderUI.classList.add('hidden');
       stopBtn.classList.remove('hidden');
+      if (goLiveBtn) goLiveBtn.classList.remove('hidden');
       frameBox.classList.remove('border-dashed', 'border-slate-400');
       frameBox.classList.add('border-solid', 'border-[#1E6B3B]');
+      setLivestreamExpanded(!!opts.expand);
+    }
+
+    function goFullStage() {
+      setLivestreamExpanded(true);
+      showToast('Broadcast full stage — QR hidden');
     }
 
     function buildChristmasGiftsWall() {
@@ -1401,15 +1469,16 @@
       wall.innerHTML = GRAND_PRIZES.map((prize, idx) => {
         const w = winnersPhase2.find(x => x.rankIndex === idx);
         const photo = grandPrizePhotos[idx];
+        const title = w ? (grandPrizeNames[idx] || prize.name) : `🔒 Mystery Prize #${prize.rank}`;
         return `<div class="festive-card rounded-2xl p-3.5 border-2 flex flex-col gap-2" style="border-color:${prize.color}">
           <div class="flex items-center justify-between gap-2">
             <span class="px-2 py-0.5 rounded text-white font-black text-[11px] uppercase" style="background:${prize.color}">Rank #${prize.rank}</span>
             <button type="button" onclick="triggerPhase2PhotoUpload(${idx})" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
           </div>
           <div id="phase2PhotoBox${idx}" onclick="triggerPhase2PhotoUpload(${idx})" class="prize-card-photo">
-            ${photo ? `<img src="${photo}" alt="Grand ${idx + 1}" />` : `<i class="fa-solid fa-camera text-xl mb-1"></i><span class="text-[10px] font-bold">Prize Photo</span>`}
+            ${photo ? `<img src="${photo}" alt="Grand ${idx + 1}" />` : `<i class="fa-solid fa-gift text-xl mb-1"></i><span class="text-[10px] font-bold">${w ? 'Prize Photo' : 'Surprise'}</span>`}
           </div>
-          <input type="text" class="w-full text-sm font-black text-slate-800 bg-transparent border-b border-dashed border-slate-300 focus:outline-none focus:border-[#D97724] py-1" value="${escapeHTML(grandPrizeNames[idx])}" onchange="grandPrizeNames[${idx}]=this.value; updateBatchLabels();" />
+          <input type="text" class="w-full text-sm font-black text-slate-800 bg-transparent border-b border-dashed border-slate-300 focus:outline-none focus:border-[#D97724] py-1" value="${escapeHTML(title)}" onchange="grandPrizeNames[${idx}]=this.value; updateBatchLabels();" />
           <div class="winner-slot ${w ? 'filled' : ''}">${w ? escapeHTML(w.name) : 'Awaiting winner'}</div>
         </div>`;
       }).join('');
@@ -1604,7 +1673,10 @@
 
     // Phase BGM: continuous within a phase as slides flow
     const MUSIC_PHASES = [
-      { id: 'opening', label: 'Opening', slides: [0, 1, 2, 3], trackKey: 'opening' },
+      { id: 'opening', label: 'Opening', slides: [0], trackKey: 'opening' },
+      { id: 'mcs', label: 'MCs Intro', slides: [1], trackKey: 'maruko' },
+      { id: 'headmaster', label: 'Headmaster Intro', slides: [2], trackKey: 'dumbledore' },
+      { id: 'buffet', label: 'Buffet', slides: [3], trackKey: 'buffet' },
       { id: 'games', label: 'Games', slides: [4, 5, 6, 7, 8, 9, 10], trackKey: 'game2' },
       { id: 'recess', label: 'Recess', slides: [11], trackKey: 'recess' },
       { id: 'christmasGifts', label: 'Christmas Gifts', slides: [12, 13], trackKey: 'luckyDraw' },
@@ -1748,16 +1820,26 @@
 
     function goToSlide(index) {
       if (index < 0 || index >= slides.length) return;
+      const prevIdx = currentSlideIdx;
       slides[currentSlideIdx].classList.remove('active');
       currentSlideIdx = index; slides[currentSlideIdx].classList.add('active');
       slideSelector.value = currentSlideIdx;
       const phaseSel = document.getElementById('bgmPhaseSelect');
       if (phaseSel) phaseSel.value = getPhaseForSlide(currentSlideIdx).id;
       startSlideMusic(currentSlideIdx);
-      if (currentSlideIdx === 12) resizeCanvas();
+      // Keep Christmas / Grand flows separate so Grand Prizes stay a surprise
+      if (currentSlideIdx === 13) {
+        preferGrandOnSpinner = false;
+        setDrawPhase(1, { silent: true });
+      }
+      if (currentSlideIdx === 12) {
+        if (preferGrandOnSpinner || prevIdx >= 15) setDrawPhase(2, { silent: true });
+        else if (prevIdx < 12) setDrawPhase(1, { silent: true });
+        resizeCanvas();
+      }
       if (currentSlideIdx === 13) syncPrizeWinnersGrid1();
       if (currentSlideIdx === 16) syncPrizeWinnersGrid2();
-      if (currentSlideIdx === 10) startVdoNinjaRoom(false);
+      if (currentSlideIdx === 10 && !vdoRoomId) startVdoNinjaRoom(false);
     }
 
     function nextSlide() { if (currentSlideIdx < slides.length - 1) goToSlide(currentSlideIdx + 1); }
@@ -1809,10 +1891,13 @@
         const placeholderUI = document.getElementById('livestreamPlaceholderUI');
         const stopBtn = document.getElementById('stopCamBtn');
         const frameBox = document.getElementById('livestreamFrameBox');
+        const vdoFrame = document.getElementById('vdoNinjaFrame');
+        if (vdoFrame) { vdoFrame.classList.add('hidden'); vdoFrame.removeAttribute('src'); }
         videoEl.srcObject = activeMediaStream; videoEl.classList.remove('hidden');
         placeholderUI.classList.add('hidden'); stopBtn.classList.remove('hidden');
         frameBox.classList.remove('border-dashed', 'border-slate-400'); frameBox.classList.add('border-solid', 'border-[#1E6B3B]');
-        showToast('Camera connected');
+        setLivestreamExpanded(true);
+        showToast('Camera connected — full stage');
       } catch (err) { showToast('Camera unavailable', 'error'); }
     }
 
@@ -1829,6 +1914,9 @@
       placeholderUI.classList.remove('hidden');
       stopBtn.classList.add('hidden'); frameBox.classList.add('border-dashed', 'border-slate-400');
       frameBox.classList.remove('border-solid', 'border-[#1E6B3B]');
+      const goLiveBtn = document.getElementById('goFullStageBtn');
+      if (goLiveBtn) goLiveBtn.classList.add('hidden');
+      setLivestreamExpanded(false);
     }
 
     window.addEventListener('keydown', (e) => {
@@ -2009,8 +2097,14 @@
     }
 
     function removeItemByIndex(index) { if (index >= 0 && index < items.length) { items.splice(index, 1); syncInputFromItems(); drawWheel(); } }
-    function syncInputFromItems() { entriesInput.value = items.join('\n'); itemCountBadge.textContent = `${items.length} items`; }
-    function syncItemsFromInput() { items = entriesInput.value.split('\n').map(s => s.trim()).filter(s => s.length > 0); itemCountBadge.textContent = `${items.length} items`; drawWheel(); }
+    function syncInputFromItems() { entriesInput.value = items.join('\n'); itemCountBadge.textContent = `${items.length} items`; drawWheel(); }
+    function syncItemsFromInput() {
+      items = entriesInput.value.split('\n').map(s => s.trim()).filter(s => s.length > 0);
+      itemCountBadge.textContent = `${items.length} items`;
+      // While preparing Christmas Gifts, keep master roster in sync for the later Grand re-roll
+      if (drawPhase === 1) masterRoster = [...items];
+      drawWheel();
+    }
 
     function showToast(msg, type = 'success') {
       const toast = document.getElementById('toast'); const toastMsg = document.getElementById('toastMsg'); const toastIcon = document.getElementById('toastIcon');
@@ -2030,10 +2124,15 @@
     });
     document.getElementById('autoSortBtn').addEventListener('click', () => { items.sort((a, b) => a.localeCompare(b)); syncInputFromItems(); drawWheel(); showToast('Sorted A-Z'); });
     document.getElementById('sampleNamesBtn').addEventListener('click', () => {
-      items = ["Alexander Wright", "Beatrix Potter", "Charles Darwin", "Diana Prince", "Edward Norton", "Fiona Gallagher", "George Lucas", "Hannah Abbott", "Ian Malcolm", "Julia Roberts"];
-      syncInputFromItems(); drawWheel(); showToast('Sample names loaded');
+      items = [...DEFAULT_ROSTER];
+      if (drawPhase === 1) masterRoster = [...DEFAULT_ROSTER];
+      syncInputFromItems(); showToast('Sample names loaded');
     });
-    document.getElementById('clearListBtn').addEventListener('click', () => { items = []; syncInputFromItems(); drawWheel(); showToast('Cleared'); });
+    document.getElementById('clearListBtn').addEventListener('click', () => {
+      items = [];
+      if (drawPhase === 1) masterRoster = [];
+      syncInputFromItems(); showToast('Cleared');
+    });
     document.getElementById('resetWinnersBtn').addEventListener('click', () => {
       if (drawPhase === 2) { winnersPhase2 = []; grandPrizeIndex = 0; }
       else { winnersPhase1 = []; christmasBatchIndex = 0; }
@@ -2118,17 +2217,57 @@
       showToast('Saved APAC_Christmas_Party_Presentation-FINAL.html!');
     }
 
+    function buildFestiveScatter() {
+      const layer = document.getElementById('festiveScatter');
+      if (!layer) return;
+      const icons = [
+        '🎄','🎅','🎁','⭐','❄️','🔔','🦌','🍪','✏️','📚','🎒','🍎',
+        '🎓','📏','🖍️','🧸','🍬','🕯️','🧦','🏫','📝','🪅','🌟','🎀'
+      ];
+      layer.innerHTML = '';
+      const count = Math.min(28, Math.max(16, Math.floor(window.innerWidth / 70)));
+      for (let i = 0; i < count; i++) {
+        const el = document.createElement('span');
+        el.className = 'scatter-item';
+        el.textContent = icons[Math.floor(Math.random() * icons.length)];
+        const left = 2 + Math.random() * 96;
+        const top = 6 + Math.random() * 88;
+        // Keep center stage clearer for content
+        const avoidCenter = left > 28 && left < 72 && top > 22 && top < 78;
+        el.style.left = left + '%';
+        el.style.top = (avoidCenter ? (Math.random() > 0.5 ? 4 + Math.random() * 12 : 82 + Math.random() * 12) : top) + '%';
+        el.style.setProperty('--rot', `${Math.floor(Math.random() * 40 - 20)}deg`);
+        el.style.animationDelay = `${(-Math.random() * 6).toFixed(2)}s`;
+        el.style.animationDuration = `${5 + Math.random() * 5}s`;
+        el.style.opacity = String(0.28 + Math.random() * 0.35);
+        el.style.fontSize = `${0.95 + Math.random() * 1.1}rem`;
+        layer.appendChild(el);
+      }
+    }
+
     syncInputFromItems();
     winners = winnersPhase1;
     populateBgmPhaseSelect();
     resizeCanvas();
     updateMusicHudUI();
     updateBatchLabels();
-    setDrawPhase(1);
+    setDrawPhase(1, { silent: true });
     syncPrizeWinnersGrid1();
     syncPrizeWinnersGrid2();
     applyCompanyLogo();
-    startVdoNinjaRoom(false);
+    buildFestiveScatter();
+    window.addEventListener('resize', () => buildFestiveScatter());
+    // Prepare VDO room quietly; expand only after a camera connects
+    if (!vdoRoomId) {
+      vdoRoomId = makeRoomId();
+      vdoPushUrl = `https://vdo.ninja/?push=${encodeURIComponent(vdoRoomId)}&webcam&autostart&label=FloorCam`;
+      customVdoNinjaUrl = `https://vdo.ninja/?view=${encodeURIComponent(vdoRoomId)}&scene&cleanoutput&solidbg&bgcolor=000000`;
+      const roomLabel = document.getElementById('vdoRoomIdLabel');
+      const pushLink = document.getElementById('vdoPushLink');
+      if (roomLabel) roomLabel.textContent = vdoRoomId;
+      if (pushLink) { pushLink.href = vdoPushUrl; pushLink.textContent = vdoPushUrl; }
+      renderVdoQr(vdoPushUrl);
+    }
   </script>
 </body>
 </html>
