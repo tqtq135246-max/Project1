@@ -351,6 +351,33 @@
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 0.85rem;
     }
+    .prize-wall-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      max-height: min(70vh, 640px);
+      overflow-y: auto;
+      padding-right: 0.25rem;
+    }
+    .prize-wall-row {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 0.85rem;
+      align-items: center;
+      text-align: left;
+    }
+    @media (max-width: 640px) {
+      .prize-wall-row { grid-template-columns: 1fr; }
+    }
+    .prize-wall-row .prize-card-photo {
+      aspect-ratio: 1 / 1;
+      min-height: 96px;
+    }
+    .winner-list-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
     .prize-card-photo {
       width: 100%;
       aspect-ratio: 4 / 3;
@@ -810,7 +837,7 @@
   <!-- SLIDE 9: GAME 2: WORKFLOW & EXAM PROCESS                              -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center" data-title="9. Game 2: Workflow">
-    <div class="max-w-6xl w-full festive-card rounded-3xl p-6 sm:p-9">
+    <div class="max-w-5xl w-full festive-card rounded-3xl p-6 sm:p-9">
       <div class="text-center mb-5">
         <span class="px-4 py-1 rounded-full bg-blue-100 border border-blue-300 text-blue-800 text-xs font-extrabold uppercase tracking-widest">
           Order Flow • 流程指引
@@ -820,67 +847,78 @@
         </h1>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
-        <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
-          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
-            <div class="text-xs font-black text-[#C8372D] uppercase mb-1">Step 1</div>
-            <div class="text-sm font-extrabold text-slate-800" contenteditable="true">Floor orders + head-table form</div>
-            <ul class="text-xs font-bold text-slate-600 mt-2 list-disc pl-4 space-y-1" contenteditable="true">
-              <li>Order takers take orders from the floor</li>
-              <li>Head table orders with the order form (upload photo)</li>
-              <li>Rotation: Team A → B, B → C, C → A</li>
-            </ul>
-          </div>
-          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
-            <div class="text-xs font-black text-amber-600 uppercase mb-1">Step 2</div>
-            <div class="text-sm font-extrabold text-slate-800" contenteditable="true">Tell the Chef</div>
-            <ul class="text-xs font-bold text-slate-600 mt-2 list-disc pl-4 space-y-1" contenteditable="true">
-              <li>Order Taker speaks the order to Chef</li>
-              <li>No silent pointing — verbal only</li>
-            </ul>
-          </div>
-          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
-            <div class="text-xs font-black text-[#1E6B3B] uppercase mb-1">Step 3</div>
-            <div class="text-sm font-extrabold text-slate-800" contenteditable="true">Assemble from food pool</div>
-            <ul class="text-xs font-bold text-slate-600 mt-2 list-disc pl-4 space-y-1" contenteditable="true">
-              <li>Chef builds the meal to match the order</li>
-              <li>Pass the finished plate to Server</li>
-            </ul>
-          </div>
-          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
-            <div class="text-xs font-black text-[#23486A] uppercase mb-1">Step 4–5</div>
-            <div class="text-sm font-extrabold text-slate-800" contenteditable="true">Serve + head-table exam</div>
-            <ul class="text-xs font-bold text-slate-600 mt-2 list-disc pl-4 space-y-1" contenteditable="true">
-              <li>Server delivers meal + order form together</li>
-              <li>Head table checks if the order is correct</li>
-              <li>Fastest correct team wins</li>
-            </ul>
-          </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+          <div class="text-xs font-black text-[#C8372D] uppercase mb-1">Step 1</div>
+          <div class="text-sm font-extrabold text-slate-800" contenteditable="true">Floor orders + order forms</div>
+          <ul class="text-xs font-bold text-slate-600 mt-2 list-disc pl-4 space-y-1" contenteditable="true">
+            <li>Order takers take orders from the floor</li>
+            <li>Every table uses an order form (sample on next slide)</li>
+            <li>Rotation: Team A → B, B → C, C → A</li>
+          </ul>
         </div>
-
-        <div class="lg:col-span-4">
-          <div class="h-full rounded-2xl border-2 border-dashed border-[#23486A]/40 bg-sky-50/70 p-4 flex flex-col">
-            <div class="flex items-center justify-between gap-2 mb-2">
-              <div>
-                <div class="text-xs font-black uppercase tracking-wider text-[#23486A]">Head-table order form</div>
-                <div class="text-[11px] font-semibold text-slate-500">Upload the form photo</div>
-              </div>
-              <button type="button" onclick="document.getElementById('orderFormPhotoInput').click()" class="px-2.5 py-1.5 rounded-lg bg-[#23486A] hover:bg-[#1a3650] text-white text-[11px] font-black cursor-pointer"><i class="fa-solid fa-image"></i> Upload</button>
-            </div>
-            <div id="orderFormPhotoBox" onclick="document.getElementById('orderFormPhotoInput').click()" class="flex-1 min-h-[180px] rounded-xl border-2 border-dashed border-slate-300 bg-white overflow-hidden flex flex-col items-center justify-center text-slate-400 cursor-pointer hover:border-[#23486A] transition">
-              <i class="fa-solid fa-file-lines text-3xl mb-2"></i>
-              <span class="text-[11px] font-bold">Click to add order form photo</span>
-            </div>
-          </div>
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+          <div class="text-xs font-black text-amber-600 uppercase mb-1">Step 2</div>
+          <div class="text-sm font-extrabold text-slate-800" contenteditable="true">Tell the Chef</div>
+          <ul class="text-xs font-bold text-slate-600 mt-2 list-disc pl-4 space-y-1" contenteditable="true">
+            <li>Order Taker speaks the order to Chef</li>
+            <li>No silent pointing — verbal only</li>
+          </ul>
+        </div>
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+          <div class="text-xs font-black text-[#1E6B3B] uppercase mb-1">Step 3</div>
+          <div class="text-sm font-extrabold text-slate-800" contenteditable="true">Assemble from food pool</div>
+          <ul class="text-xs font-bold text-slate-600 mt-2 list-disc pl-4 space-y-1" contenteditable="true">
+            <li>Chef builds the meal to match the order</li>
+            <li>Pass the finished plate to Server</li>
+          </ul>
+        </div>
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+          <div class="text-xs font-black text-[#23486A] uppercase mb-1">Step 4–5</div>
+          <div class="text-sm font-extrabold text-slate-800" contenteditable="true">Serve + head-table exam</div>
+          <ul class="text-xs font-bold text-slate-600 mt-2 list-disc pl-4 space-y-1" contenteditable="true">
+            <li>Server delivers meal + order form together</li>
+            <li>Head table checks if the order is correct</li>
+            <li>Fastest correct team wins</li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 10: GAME 2: 6-SET MENU BOARD                                    -->
+  <!-- SLIDE 10: GAME 2: SAMPLE ORDER FORM                                   -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center" data-title="10. Game 2: Menu Board">
+  <section class="slide flex-col items-center justify-center" data-title="10. Game 2: Sample Order Form">
+    <div class="max-w-4xl w-full festive-card rounded-3xl p-6 sm:p-9">
+      <div class="text-center mb-4">
+        <span class="px-4 py-1 rounded-full bg-sky-100 border border-sky-300 text-sky-900 text-xs font-extrabold uppercase tracking-widest">
+          Sample Form • 訂單樣式
+        </span>
+        <h1 class="font-festive-display text-3xl sm:text-5xl font-bold text-[#23486A] tracking-tight mt-2">
+          ORDER FORM • 訂單表格
+        </h1>
+        <p class="text-sm text-slate-600 font-semibold mt-2" contenteditable="true">
+          Used by every table (including head table) — upload a photo of the printed form
+        </p>
+      </div>
+      <div class="rounded-2xl border-2 border-dashed border-[#23486A]/40 bg-sky-50/70 p-4 flex flex-col">
+        <div class="flex items-center justify-between gap-2 mb-2">
+          <div class="text-xs font-black uppercase tracking-wider text-[#23486A]">Sample order form photo</div>
+          <button type="button" onclick="document.getElementById('orderFormPhotoInput').click()" class="px-2.5 py-1.5 rounded-lg bg-[#23486A] hover:bg-[#1a3650] text-white text-[11px] font-black cursor-pointer"><i class="fa-solid fa-image"></i> Upload</button>
+        </div>
+        <div id="orderFormPhotoBox" onclick="document.getElementById('orderFormPhotoInput').click()" class="min-h-[320px] sm:min-h-[420px] rounded-xl border-2 border-dashed border-slate-300 bg-white overflow-hidden flex flex-col items-center justify-center text-slate-400 cursor-pointer hover:border-[#23486A] transition">
+          <i class="fa-solid fa-file-lines text-4xl mb-2"></i>
+          <span class="text-[11px] font-bold">Click to add sample order form photo</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SLIDE 11: GAME 2: 6-SET MENU BOARD                                    -->
+  <!-- ===================================================================== -->
+  <section class="slide flex-col items-center justify-center" data-title="11. Game 2: Menu Board">
     <div class="max-w-6xl w-full flex flex-col h-full justify-center">
       <div class="text-center mb-3">
         <span class="px-3.5 py-1 rounded-full bg-red-100 border border-red-300 text-red-700 text-xs font-extrabold uppercase tracking-widest">
@@ -978,7 +1016,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 11: GAME 2: TIMER & LIVESTREAM                                  -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center" style="padding-top: 1.25rem; padding-bottom: 4.5rem; padding-left: 1.5rem; padding-right: 1.5rem;" data-title="11. Game 2: Cook — Timer & Livestream">
+  <section class="slide flex-col items-center justify-center" style="padding-top: 1.25rem; padding-bottom: 4.5rem; padding-left: 1.5rem; padding-right: 1.5rem;" data-title="12. Game 2: Cook — Timer & Livestream">
     <div class="max-w-[1520px] w-full h-full flex flex-col gap-2.5 justify-center">
 
       <div class="festive-card rounded-2xl px-5 py-2 flex flex-wrap items-center justify-between gap-3 border-2 border-[#C8372D]/40">
@@ -1062,7 +1100,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 12: DESSERT & COFFEE BREAK (TUCK SHOP RECESS)                   -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center" data-title="12. Dessert & Coffee Break">
+  <section class="slide flex-col items-center justify-center text-center" data-title="13. Dessert & Coffee Break">
     <div class="festive-card max-w-4xl w-full rounded-3xl p-8 sm:p-12 border-2 border-[#1E6B3B]/50">
       <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-red-100 text-[#C8372D] border-2 border-red-300 flex items-center justify-center text-4xl shadow animate-float">
         <i class="fa-solid fa-cookie-bite"></i>
@@ -1082,7 +1120,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 13: LUCKY DRAW PHASE 1 (PRINCIPAL'S HONOR ROLL SPINNER)         -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col overflow-y-auto" data-title="13. Christmas Gifts Spinner">
+  <section class="slide flex-col overflow-y-auto" data-title="14. Christmas Gifts Spinner">
     <div class="flex-1 max-w-7xl w-full mx-auto flex flex-col justify-center">
       <div class="flex flex-wrap items-center justify-between gap-2 mb-2 px-1">
         <div class="flex items-center gap-3 flex-wrap">
@@ -1197,7 +1235,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 14: CHRISTMAS GIFTS WALL                                         -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center" data-title="14. Christmas Gifts Wall">
+  <section class="slide flex-col items-center justify-center" data-title="15. Christmas Gifts Wall">
     <div class="max-w-6xl w-full">
       <div class="text-center mb-4">
         <span class="px-4 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-900 text-xs font-extrabold uppercase tracking-widest">
@@ -1206,13 +1244,13 @@
         <h1 class="font-festive-display text-4xl sm:text-5xl font-bold text-[#1E6B3B] tracking-tight mt-2" contenteditable="true">
           CHRISTMAS GIFTS WALL
         </h1>
-        <p class="text-xs text-slate-500 font-semibold mt-1">5 gift sets · batches of 3, 3, 4, 3, then 1 · upload photos &amp; winners auto-fill from the spinner</p>
+        <p class="text-xs text-slate-500 font-semibold mt-1">Listed top → down · batches 3 → 3 → 4 → 3 → 1 · upload photos &amp; winners auto-fill</p>
       </div>
 
       <input type="file" id="phase1PrizePhotoInput" accept="image/*" class="hidden" />
 
-      <div id="christmasGiftsWall" class="prize-wall-grid">
-        <!-- filled by JS: 5 gift cards -->
+      <div id="christmasGiftsWall" class="prize-wall-list">
+        <!-- filled by JS: vertical winner list -->
       </div>
     </div>
   </section>
@@ -1220,24 +1258,37 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 15: BEST DRESS AWARD (YEARBOOK RUNWAY THEME)                    -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center" data-title="15. Best Dress Award">
+  <section class="slide flex-col items-center justify-center text-center" data-title="16. Best Dress Award">
     <div class="max-w-4xl w-full festive-card rounded-3xl p-8 sm:p-12 border-4 border-[#C8372D] animate-pulse-glow">
       <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-tr from-[#C8372D] via-amber-500 to-yellow-300 flex items-center justify-center text-white text-4xl shadow-xl">
-        <i class="fa-solid fa-award"></i>
+        <i class="fa-solid fa-people-group"></i>
       </div>
 
       <span class="px-4 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-amber-800 text-xs font-extrabold uppercase tracking-widest">
-        📸 Yearbook Best Dressed • 校園年鑑靚衫大獎
+        📸 Best Dressed Team • 最佳服裝隊伍大獎
       </span>
 
-      <h1 class="font-festive-display text-5xl sm:text-7xl font-bold tracking-tight mt-4 mb-6 text-[#C8372D]" contenteditable="true">
-        BEST DRESSED AWARD
+      <h1 class="font-festive-display text-5xl sm:text-7xl font-bold tracking-tight mt-4 mb-3 text-[#C8372D]" contenteditable="true">
+        BEST DRESSED TEAM
       </h1>
+      <p class="text-sm sm:text-base text-slate-600 font-semibold mb-6" contenteditable="true">
+        Awarded to a whole table team — not an individual
+      </p>
 
-      <div class="max-w-xl mx-auto bg-green-50 border-2 border-[#1E6B3B] rounded-2xl p-5">
-        <div class="text-xs font-extrabold uppercase tracking-widest text-[#1E6B3B] mb-1">Yearbook Icon • 年度風雲人物</div>
-        <div class="text-2xl sm:text-3xl font-black text-slate-800" contenteditable="true">
-          [Click to Reveal Winner Name]
+      <div class="max-w-xl mx-auto bg-green-50 border-2 border-[#1E6B3B] rounded-2xl p-5 text-left space-y-3">
+        <div>
+          <div class="text-xs font-extrabold uppercase tracking-widest text-[#1E6B3B] mb-1">Winning Team • 得獎隊伍</div>
+          <div id="bestDressedTeamName" class="text-2xl sm:text-3xl font-black text-slate-800" contenteditable="true">
+            [Team Name]
+          </div>
+        </div>
+        <div>
+          <div class="text-xs font-extrabold uppercase tracking-widest text-[#1E6B3B] mb-1">Team Members • 隊員</div>
+          <ul id="bestDressedTeamMembers" class="text-base sm:text-lg font-bold text-slate-700 list-disc pl-5 space-y-1" contenteditable="true">
+            <li>Member 1</li>
+            <li>Member 2</li>
+            <li>Member 3</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -1246,7 +1297,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 16: LUCKY DRAW PHASE 2 (INTRO & WHEEL)                           -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center" data-title="16. Grand Prizes Intro">
+  <section class="slide flex-col items-center justify-center text-center" data-title="17. Grand Prizes Intro">
     <div class="festive-card max-w-4xl w-full rounded-3xl p-10 sm:p-14 border-4 border-[#D97724]">
       <div class="w-20 h-20 mx-auto mb-5 rounded-3xl bg-gradient-to-tr from-[#C8372D] to-[#D97724] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
         <i class="fa-solid fa-gift"></i>
@@ -1269,7 +1320,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 17: GRAND PRIZES WALL                                           -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center" data-title="17. Grand Prizes Wall">
+  <section class="slide flex-col items-center justify-center" data-title="18. Grand Prizes Wall">
     <div class="max-w-6xl w-full">
       <div class="text-center mb-4">
         <span class="px-4 py-1.5 rounded-full bg-red-100 border border-red-300 text-red-700 text-xs font-extrabold uppercase tracking-widest">
@@ -1278,13 +1329,13 @@
         <h1 class="font-festive-display text-4xl sm:text-5xl font-bold text-[#1E6B3B] tracking-tight mt-2" contenteditable="true">
           GRAND PRIZES WALL
         </h1>
-        <p class="text-xs text-slate-500 font-semibold mt-1">Ranks #1–#6 · one winner each · upload prize photos below</p>
+        <p class="text-xs text-slate-500 font-semibold mt-1">Listed top → down · Rank #1 (best) first · upload prize photos</p>
       </div>
 
       <input type="file" id="phase2PrizePhotoInput" accept="image/*" class="hidden" />
 
-      <div id="grandPrizesWall" class="prize-wall-grid">
-        <!-- filled by JS: 6 grand prize cards -->
+      <div id="grandPrizesWall" class="prize-wall-list">
+        <!-- filled by JS: vertical winner list #1→#6 -->
       </div>
     </div>
   </section>
@@ -1292,7 +1343,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 18: GROUP PHOTO BACKDROP                                        -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-between text-center" data-title="18. Group Photo Backdrop">
+  <section class="slide flex-col items-center justify-between text-center" data-title="19. Group Photo Backdrop">
     <div class="w-full max-w-5xl mx-auto pt-2">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#C8372D] text-white text-xs font-black uppercase tracking-widest shadow mb-2">
         <i class="fa-solid fa-camera"></i> Group Photo • 畢業大合照
@@ -1332,8 +1383,9 @@
         <span class="text-[10px] font-bold">Prize photo</span>
       </div>
       <h3 id="modalWinnerName" class="text-2xl sm:text-3xl font-black text-slate-900 break-words py-3.5 px-4 bg-red-50 rounded-2xl border-2 border-red-200 my-2">Winner Name</h3>
+      <div id="modalWinnerList" class="hidden text-left max-h-40 overflow-y-auto my-2 px-1 space-y-1"></div>
       <p id="modalCongratsText" class="text-xs text-slate-500 font-semibold mb-4">🎄 Congratulations!</p>
-      <p id="modalHoldHint" class="text-[10px] font-bold text-slate-400 mb-4">Holding for applause…</p>
+      <p id="modalHoldHint" class="text-[10px] font-bold text-slate-400 mb-4">Tap Continue when ready</p>
       <div id="modalActionRow" class="flex flex-col sm:flex-row gap-2.5 opacity-40 pointer-events-none transition-opacity">
         <button type="button" id="modalSpinAgainBtn" class="flex-1 py-3 px-4 rounded-xl bg-[#23486A] hover:bg-[#1a3650] text-white font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 cursor-pointer"><i class="fa-solid fa-rotate-right"></i> Spin Again</button>
         <button type="button" id="modalContinueBtn" class="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-[#C8372D] to-[#DC2626] hover:from-[#b91c1c] hover:to-[#C8372D] text-white font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 shadow-lg cursor-pointer"><i class="fa-solid fa-check"></i> Continue</button>
@@ -1357,11 +1409,12 @@
 
         <div class="h-5 w-px bg-slate-700 mx-0.5"></div>
         <div class="flex items-center gap-1.5 flex-wrap justify-center">
-          <button type="button" onclick="goToSlide(12)" class="px-2.5 py-1.5 rounded-xl bg-[#C8372D] hover:bg-[#b91c1c] text-white font-black transition cursor-pointer" title="Honor Roll Spinner">Spinner</button>
-          <button type="button" onclick="goToSlide(13)" class="px-2.5 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white font-black transition cursor-pointer" title="Christmas Prizes winners">Christmas Winners</button>
-          <button type="button" onclick="goToSlide(14)" class="px-2.5 py-1.5 rounded-xl bg-fuchsia-700 hover:bg-fuchsia-600 text-white font-black transition cursor-pointer hidden sm:inline-flex" title="Best Dress">Best Dress</button>
-          <button type="button" onclick="goToSlide(16)" class="px-2.5 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-black transition cursor-pointer" title="Grand Prizes winners">Grand Winners</button>
-          <button type="button" onclick="goToSlide(17)" class="px-2.5 py-1.5 rounded-xl bg-sky-700 hover:bg-sky-600 text-white font-black transition cursor-pointer" title="Group Photo">Group Photo</button>
+          <button type="button" onclick="goToSlide(13)" class="px-2.5 py-1.5 rounded-xl bg-[#C8372D] hover:bg-[#b91c1c] text-white font-black transition cursor-pointer" title="Honor Roll Spinner">Spinner</button>
+          <button type="button" onclick="goToSlide(14)" class="px-2.5 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white font-black transition cursor-pointer" title="Christmas Prizes winners">Christmas Winners</button>
+          <button type="button" onclick="goToSlide(15)" class="px-2.5 py-1.5 rounded-xl bg-fuchsia-700 hover:bg-fuchsia-600 text-white font-black transition cursor-pointer hidden sm:inline-flex" title="Best Dress Team">Best Dress</button>
+          <button type="button" onclick="goToSlide(17)" class="px-2.5 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-black transition cursor-pointer" title="Grand Prizes winners">Grand Winners</button>
+          <button type="button" onclick="goToSlide(18)" class="px-2.5 py-1.5 rounded-xl bg-sky-700 hover:bg-sky-600 text-white font-black transition cursor-pointer" title="Group Photo">Group Photo</button>
+          <button type="button" onclick="exportWinners()" class="px-2.5 py-1.5 rounded-xl bg-slate-700 hover:bg-slate-600 text-amber-200 font-black transition cursor-pointer" title="Export winners list"><i class="fa-solid fa-file-export"></i> Export</button>
         </div>
 
         <div class="h-5 w-px bg-slate-700 mx-0.5"></div>
@@ -1578,7 +1631,7 @@
       preferGrandOnSpinner = true;
       syncInputFromItems();
       setDrawPhase(2, { silent: true });
-      goToSlide(12);
+      goToSlide(13);
       showToast(items.length
         ? `Grand Prizes · shared pool · ${items.length} left · drawing #6 → #1`
         : 'No names left in the shared pool');
@@ -1763,16 +1816,18 @@
           return `<div class="winner-slot ${w ? 'filled' : ''}">${w ? escapeHTML(w.name) : `Winner ${slotIdx + 1}`}</div>`;
         }).join('');
         const photo = christmasGiftPhotos[idx];
-        return `<div class="festive-card rounded-2xl p-3.5 border-2 flex flex-col gap-2" style="border-color:${gift.color}">
-          <div class="flex items-center justify-between gap-2">
-            <span class="px-2 py-0.5 rounded text-white font-black text-[11px] uppercase" style="background:${gift.color}">×${gift.qty} of a kind</span>
-            <button type="button" onclick="triggerPhase1PhotoUpload(${idx})" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
-          </div>
+        return `<div class="festive-card rounded-2xl p-3 border-2 prize-wall-row" style="border-color:${gift.color}">
           <div id="phase1PhotoBox${idx}" onclick="triggerPhase1PhotoUpload(${idx})" class="prize-card-photo">
             ${photo ? `<img src="${photo}" alt="Gift ${idx + 1}" />` : `<i class="fa-solid fa-camera text-xl mb-1"></i><span class="text-[10px] font-bold">Gift Photo</span>`}
           </div>
-          <input type="text" class="w-full text-sm font-black text-slate-800 bg-transparent border-b border-dashed border-slate-300 focus:outline-none focus:border-[#C8372D] py-1" value="${escapeHTML(christmasGiftNames[idx])}" onchange="christmasGiftNames[${idx}]=this.value; updateBatchLabels();" />
-          <div class="space-y-1.5">${slots}</div>
+          <div class="min-w-0 flex flex-col gap-1.5">
+            <div class="flex items-center justify-between gap-2 flex-wrap">
+              <span class="px-2 py-0.5 rounded text-white font-black text-[11px] uppercase" style="background:${gift.color}">Gift ${idx + 1} · ×${gift.qty}</span>
+              <button type="button" onclick="triggerPhase1PhotoUpload(${idx})" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
+            </div>
+            <input type="text" class="w-full text-sm font-black text-slate-800 bg-transparent border-b border-dashed border-slate-300 focus:outline-none focus:border-[#C8372D] py-1" value="${escapeHTML(christmasGiftNames[idx])}" onchange="christmasGiftNames[${idx}]=this.value; updateBatchLabels();" />
+            <div class="winner-list-stack">${slots}</div>
+          </div>
         </div>`;
       }).join('');
     }
@@ -1780,20 +1835,23 @@
     function buildGrandPrizesWall() {
       const wall = document.getElementById('grandPrizesWall');
       if (!wall) return;
+      // Top → down: best (#1) first
       wall.innerHTML = GRAND_PRIZES.map((prize, idx) => {
         const w = winnersPhase2.find(x => x.rankIndex === idx);
         const photo = grandPrizePhotos[idx];
         const title = w ? (grandPrizeNames[idx] || prize.name) : `🔒 Mystery Prize #${prize.rank}`;
-        return `<div class="festive-card rounded-2xl p-3.5 border-2 flex flex-col gap-2" style="border-color:${prize.color}">
-          <div class="flex items-center justify-between gap-2">
-            <span class="px-2 py-0.5 rounded text-white font-black text-[11px] uppercase" style="background:${prize.color}">Rank #${prize.rank}</span>
-            <button type="button" onclick="triggerPhase2PhotoUpload(${idx})" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
-          </div>
+        return `<div class="festive-card rounded-2xl p-3 border-2 prize-wall-row" style="border-color:${prize.color}">
           <div id="phase2PhotoBox${idx}" onclick="triggerPhase2PhotoUpload(${idx})" class="prize-card-photo">
             ${photo ? `<img src="${photo}" alt="Grand ${idx + 1}" />` : `<i class="fa-solid fa-gift text-xl mb-1"></i><span class="text-[10px] font-bold">${w ? 'Prize Photo' : 'Surprise'}</span>`}
           </div>
-          <input type="text" class="w-full text-sm font-black text-slate-800 bg-transparent border-b border-dashed border-slate-300 focus:outline-none focus:border-[#D97724] py-1" value="${escapeHTML(title)}" onchange="grandPrizeNames[${idx}]=this.value; updateBatchLabels();" />
-          <div class="winner-slot ${w ? 'filled' : ''}">${w ? escapeHTML(w.name) : 'Awaiting winner'}</div>
+          <div class="min-w-0 flex flex-col gap-1.5">
+            <div class="flex items-center justify-between gap-2 flex-wrap">
+              <span class="px-2 py-0.5 rounded text-white font-black text-[11px] uppercase" style="background:${prize.color}">Rank #${prize.rank}</span>
+              <button type="button" onclick="triggerPhase2PhotoUpload(${idx})" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
+            </div>
+            <input type="text" class="w-full text-sm font-black text-slate-800 bg-transparent border-b border-dashed border-slate-300 focus:outline-none focus:border-[#D97724] py-1" value="${escapeHTML(title)}" onchange="grandPrizeNames[${idx}]=this.value; updateBatchLabels();" />
+            <div class="winner-slot ${w ? 'filled' : ''}">${w ? escapeHTML(w.name) : 'Awaiting winner'}</div>
+          </div>
         </div>`;
       }).join('');
     }
@@ -1801,36 +1859,56 @@
     function showWinnerModal(name, opts = {}) {
       const modal = document.getElementById('winnerModal');
       const nameEl = document.getElementById('modalWinnerName');
+      const listEl = document.getElementById('modalWinnerList');
       const labelEl = document.getElementById('modalPrizeLabel');
       const congratsEl = document.getElementById('modalCongratsText');
       const trophyIcon = document.getElementById('modalTrophyIcon');
       const photoEl = document.getElementById('modalPrizePhoto');
       if (!modal || !nameEl) return Promise.resolve();
       const intensity = opts.intensity || 1;
-      const holdMs = opts.holdMs != null ? opts.holdMs : WINNER_HOLD_MS;
+      const names = Array.isArray(opts.names) && opts.names.length ? opts.names : [name];
+      const showPhoto = opts.showPhoto !== false;
+      const waitUntilContinue = opts.waitUntilContinue !== false;
       const last = opts.entry || (drawPhase === 2 ? winnersPhase2 : winnersPhase1).slice(-1)[0];
-      nameEl.textContent = name;
+      if (names.length > 1) {
+        nameEl.classList.add('hidden');
+        if (listEl) {
+          listEl.classList.remove('hidden');
+          listEl.innerHTML = names.map((n, i) =>
+            `<div class="py-2 px-3 rounded-xl bg-red-50 border border-red-200 text-slate-900 font-black text-sm">${i + 1}. ${escapeHTML(n)}</div>`
+          ).join('');
+        }
+      } else {
+        nameEl.classList.remove('hidden');
+        nameEl.textContent = names[0] || name;
+        if (listEl) { listEl.classList.add('hidden'); listEl.innerHTML = ''; }
+      }
       if (labelEl) {
-        labelEl.textContent = last?.prizeName || (drawPhase === 1 ? 'Christmas Gift' : 'Grand Prize');
+        labelEl.textContent = opts.label || last?.prizeName || (drawPhase === 1 ? 'Christmas Gift' : 'Grand Prize');
       }
       if (photoEl) {
-        const photo = opts.photo || getPrizePhotoForWinner(last);
-        if (photo) {
-          photoEl.innerHTML = `<img src="${photo}" alt="Prize" class="w-full h-full object-cover" />`;
-          photoEl.classList.remove('border-dashed');
-          photoEl.classList.add('border-solid', 'border-[#C8372D]');
-        } else {
-          photoEl.innerHTML = `<i class="fa-solid fa-gift text-3xl mb-1"></i><span class="text-[10px] font-bold">${escapeHTML(last?.prizeName || 'Prize')}</span>`;
-          photoEl.classList.add('border-dashed');
-          photoEl.classList.remove('border-solid', 'border-[#C8372D]');
+        photoEl.classList.toggle('hidden', !showPhoto);
+        if (showPhoto) {
+          const photo = opts.photo || getPrizePhotoForWinner(last);
+          if (photo) {
+            photoEl.innerHTML = `<img src="${photo}" alt="Prize" class="w-full h-full object-cover" />`;
+            photoEl.classList.remove('border-dashed');
+            photoEl.classList.add('border-solid', 'border-[#C8372D]');
+          } else {
+            photoEl.innerHTML = `<i class="fa-solid fa-gift text-3xl mb-1"></i><span class="text-[10px] font-bold">${escapeHTML(opts.label || last?.prizeName || 'Prize')}</span>`;
+            photoEl.classList.add('border-dashed');
+            photoEl.classList.remove('border-solid', 'border-[#C8372D]');
+          }
         }
       }
       if (congratsEl) {
         congratsEl.textContent = intensity >= 3
           ? '👑 MEGA APPLAUSE — Grand Prize #1!!!'
-          : intensity >= 2
-            ? '🎉 Big round of applause!'
-            : '🎄 Congratulations!';
+          : names.length > 1
+            ? `🎁 Batch complete — ${names.length} winners!`
+            : intensity >= 2
+              ? '🎉 Big round of applause!'
+              : '🎄 Congratulations!';
       }
       if (trophyIcon) {
         trophyIcon.className = intensity >= 3
@@ -1846,18 +1924,20 @@
         card.classList.remove('scale-90');
         card.style.borderColor = intensity >= 3 ? '#D97724' : '#C8372D';
       }
-      setModalControlsLocked(true);
+      // Batch/prize reveal stays until Continue — unlock controls immediately
+      setModalControlsLocked(false);
+      const hint = document.getElementById('modalHoldHint');
+      if (hint) hint.textContent = 'Tap Continue when ready';
       return new Promise((resolve) => {
         resolveWinnerModalWait();
         winnerModalResolver = resolve;
-        winnerModalHoldTimer = setTimeout(() => {
-          winnerModalHoldTimer = null;
-          setModalControlsLocked(false);
-          if (opts.autoContinue) {
+        if (!waitUntilContinue) {
+          winnerModalHoldTimer = setTimeout(() => {
+            winnerModalHoldTimer = null;
             hideWinnerModal();
             resolveWinnerModalWait();
-          }
-        }, holdMs);
+          }, opts.holdMs != null ? opts.holdMs : 900);
+        }
       });
     }
 
@@ -2041,12 +2121,12 @@
       { id: 'mcs', label: 'MCs Intro', slides: [1], trackKey: 'maruko' },
       { id: 'headmaster', label: 'Headmaster Intro', slides: [2], trackKey: 'dumbledore' },
       { id: 'buffet', label: 'Buffet', slides: [3], trackKey: 'buffet' },
-      { id: 'games', label: 'Games', slides: [4, 5, 6, 7, 8, 9, 10], trackKey: 'game2' },
-      { id: 'recess', label: 'Recess', slides: [11], trackKey: 'recess' },
-      { id: 'christmasGifts', label: 'Christmas Gifts', slides: [12, 13], trackKey: 'luckyDraw' },
-      { id: 'bestDressed', label: 'Best Dressed', slides: [14], trackKey: 'buffet' },
-      { id: 'grandPrizes', label: 'Grand Prizes', slides: [15, 16], trackKey: 'luckyDraw' },
-      { id: 'finale', label: 'Finale', slides: [17], trackKey: 'finale' }
+      { id: 'games', label: 'Games', slides: [4, 5, 6, 7, 8, 9, 10, 11], trackKey: 'game2' },
+      { id: 'recess', label: 'Recess', slides: [12], trackKey: 'recess' },
+      { id: 'christmasGifts', label: 'Christmas Gifts', slides: [13, 14], trackKey: 'luckyDraw' },
+      { id: 'bestDressed', label: 'Best Dressed', slides: [15], trackKey: 'buffet' },
+      { id: 'grandPrizes', label: 'Grand Prizes', slides: [16, 17], trackKey: 'luckyDraw' },
+      { id: 'finale', label: 'Finale', slides: [18], trackKey: 'finale' }
     ];
 
     function getPhaseForSlide(slideIdx) {
@@ -2192,18 +2272,18 @@
       if (phaseSel) phaseSel.value = getPhaseForSlide(currentSlideIdx).id;
       startSlideMusic(currentSlideIdx);
       // Keep Christmas / Grand flows separate so Grand Prizes stay a surprise
-      if (currentSlideIdx === 13) {
+      if (currentSlideIdx === 14) {
         preferGrandOnSpinner = false;
         setDrawPhase(1, { silent: true });
       }
-      if (currentSlideIdx === 12) {
-        if (preferGrandOnSpinner || prevIdx >= 15) setDrawPhase(2, { silent: true });
-        else if (prevIdx < 12) setDrawPhase(1, { silent: true });
+      if (currentSlideIdx === 13) {
+        if (preferGrandOnSpinner || prevIdx >= 16) setDrawPhase(2, { silent: true });
+        else if (prevIdx < 13) setDrawPhase(1, { silent: true });
         resizeCanvas();
       }
-      if (currentSlideIdx === 13) syncPrizeWinnersGrid1();
-      if (currentSlideIdx === 16) syncPrizeWinnersGrid2();
-      if (currentSlideIdx === 10 && !vdoRoomId) startVdoNinjaRoom(false);
+      if (currentSlideIdx === 14) syncPrizeWinnersGrid1();
+      if (currentSlideIdx === 17) syncPrizeWinnersGrid2();
+      if (currentSlideIdx === 11 && !vdoRoomId) startVdoNinjaRoom(false);
     }
 
     function nextSlide() { if (currentSlideIdx < slides.length - 1) goToSlide(currentSlideIdx + 1); }
@@ -2290,7 +2370,7 @@
 
       if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); nextSlide(); }
       else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prevSlide(); }
-      else if (e.code === 'Space' && currentSlideIdx === 12 && !isSpinning && !isBatchRunning) { e.preventDefault(); spinWheel(); }
+      else if (e.code === 'Space' && currentSlideIdx === 13 && !isSpinning && !isBatchRunning) { e.preventDefault(); spinWheel(); }
     });
 
     // Cooking Timer
@@ -2422,11 +2502,13 @@
         : null;
       const intensity = opts.intensity != null
         ? opts.intensity
-        : (drawPhase === 2 ? getGrandCelebrateIntensity(rankForCelebrate) : (opts.batchMode ? 2 : 1));
+        : (drawPhase === 2 ? getGrandCelebrateIntensity(rankForCelebrate) : (opts.batchMode ? 1 : 1));
       const meta = opts.meta || {};
       const ok = recordWinner(winnerName, meta);
       if (!ok) return null;
-      celebrateWin(intensity);
+      // Light tick celebration during batch; full applause for single / batch-end
+      if (opts.batchMode) AudioEngine.playTick();
+      else celebrateWin(intensity);
       // Shared pool: always eliminate drawn names so they cannot win again
       if (itemIndex >= 0 && itemIndex < items.length && items[itemIndex] === winnerName) {
         removeItemByIndex(itemIndex);
@@ -2435,14 +2517,15 @@
         if (idx >= 0) removeItemByIndex(idx);
       }
       const entry = (drawPhase === 2 ? winnersPhase2 : winnersPhase1).slice(-1)[0];
-      if (!opts.skipModal) {
+      // Batch: no per-winner photo popup — reveal once after the batch
+      if (!opts.skipModal && !opts.batchMode) {
         await showWinnerModal(winnerName, {
           intensity,
           entry,
           photo: getPrizePhotoForWinner(entry),
-          holdMs: opts.batchMode ? BATCH_HOLD_MS : WINNER_HOLD_MS,
-          autoContinue: !!opts.batchMode,
-          hideSpinAgain: !!opts.batchMode
+          showPhoto: true,
+          waitUntilContinue: true,
+          hideSpinAgain: drawPhase === 2
         });
       }
       return winnerName;
@@ -2517,14 +2600,15 @@
         if (items.length === 0) break;
         const name = await spinWheel({
           batchMode: true,
-          intensity: 2,
+          skipModal: true,
+          intensity: 1,
           batchIndex: i + 1,
           batchTotal: drawCount,
           meta: { giftIndex, advance: i === drawCount - 1 }
         });
         if (!name) break;
         drawn.push(name);
-        await sleep(350);
+        await sleep(280);
       }
       isBatchRunning = false;
       isSpinning = false;
@@ -2535,9 +2619,66 @@
         batchDrawBtn.classList.remove('opacity-70');
         batchDrawBtn.innerHTML = '<i class="fa-solid fa-play"></i> Draw Next Christmas Batch';
       }
-      celebrateWin(2);
+      if (drawn.length) {
+        celebrateWin(2);
+        const prizeName = christmasGiftNames[giftIndex] || CHRISTMAS_BATCHES[giftIndex].name;
+        await showWinnerModal(drawn[0], {
+          names: drawn,
+          label: prizeName,
+          photo: christmasGiftPhotos[giftIndex] || '',
+          showPhoto: true,
+          waitUntilContinue: true,
+          hideSpinAgain: true,
+          intensity: 2,
+          entry: { giftIndex, prizeName }
+        });
+      }
       showToast(`${drawn.length}× ${christmasGiftNames[giftIndex]} drawn!`, 'success');
       updateBatchLabels();
+    }
+
+    function exportWinners() {
+      const teamNameEl = document.getElementById('bestDressedTeamName');
+      const teamMembersEl = document.getElementById('bestDressedTeamMembers');
+      const teamName = (teamNameEl?.textContent || '').trim();
+      const teamMembers = teamMembersEl
+        ? [...teamMembersEl.querySelectorAll('li')].map(li => li.textContent.trim()).filter(Boolean)
+        : [];
+      const lines = [
+        'APAC Christmas Lunch — Winners Export',
+        `Exported: ${new Date().toLocaleString()}`,
+        '',
+        '=== Christmas Gifts ==='
+      ];
+      if (!winnersPhase1.length) lines.push('(none)');
+      else {
+        CHRISTMAS_BATCHES.forEach((gift, idx) => {
+          const group = winnersPhase1.filter(w => w.giftIndex === idx);
+          if (!group.length) return;
+          lines.push(`${christmasGiftNames[idx] || gift.name}:`);
+          group.forEach(w => lines.push(`  - ${w.name} (${w.time})`));
+        });
+      }
+      lines.push('', '=== Grand Prizes ===');
+      if (!winnersPhase2.length) lines.push('(none)');
+      else {
+        [...winnersPhase2].sort((a, b) => a.rankIndex - b.rankIndex).forEach(w => {
+          lines.push(`#${w.rank} ${w.prizeName}: ${w.name} (${w.time})`);
+        });
+      }
+      lines.push('', '=== Best Dressed Team ===');
+      lines.push(`Team: ${teamName || '(not set)'}`);
+      if (teamMembers.length) teamMembers.forEach(m => lines.push(`  - ${m}`));
+      else lines.push('  (no members listed)');
+      lines.push('');
+      const blob = new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'APAC_Christmas_Lunch_Winners.txt';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('Winners exported');
     }
 
     function removeItemByIndex(index) { if (index >= 0 && index < items.length) { items.splice(index, 1); syncInputFromItems(); drawWheel(); } }
