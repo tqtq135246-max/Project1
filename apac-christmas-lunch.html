@@ -656,9 +656,9 @@
         </h3>
       </div>
 
-      <div>
-        <button type="button" onclick="ringSchoolBell(this)" class="inline-flex items-center gap-2.5 px-6 py-3 rounded-2xl bg-gradient-to-r from-[#1E6B3B] to-[#23486A] hover:from-[#14532D] hover:to-[#1a3650] text-white font-black text-sm sm:text-base tracking-wide shadow-lg transition transform hover:scale-105 active:scale-95 cursor-pointer">
-          <i class="fa-solid fa-bell"></i> Ring School Bell • 鳴鐘集合
+      <div class="mt-1">
+        <button type="button" onclick="ringSchoolBell(this)" class="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl bg-gradient-to-r from-[#D97724] to-[#F59E0B] hover:from-[#b45309] hover:to-[#D97724] text-white font-black text-base sm:text-lg tracking-wide shadow-xl transition transform hover:scale-105 active:scale-95 cursor-pointer border-2 border-amber-200">
+          <i class="fa-solid fa-bell text-xl"></i> Ring School Bell
         </button>
       </div>
     </div>
@@ -741,7 +741,7 @@
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 8: GAME 2: TEAM ROLES (ORDER TAKER, CHEF, SERVER)                -->
+  <!-- SLIDE 8: GAME 2: TEAM ROLES (ORDER TAKER, CHEF, SERVER) — BILINGUAL   -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center" data-title="8. Game 2: Team Roles">
     <div class="max-w-5xl w-full festive-card rounded-3xl p-7 sm:p-10">
@@ -749,11 +749,17 @@
         <span class="px-4 py-1 rounded-full bg-sky-100 border border-sky-300 text-sky-900 text-xs font-extrabold uppercase tracking-widest">
           Final Year Project Team • 畢業專題小組
         </span>
-        <h1 class="font-festive-display text-3xl sm:text-5xl font-bold text-[#23486A] tracking-tight mt-2">
-          TEAM OF 3 • 三人專題小組
+        <h1 class="font-festive-display text-3xl sm:text-5xl font-bold text-[#23486A] tracking-tight mt-2" contenteditable="true">
+          TEAM OF 3
         </h1>
-        <p class="text-sm text-slate-600 font-semibold mt-2" contenteditable="true">
+        <h2 class="text-xl sm:text-2xl font-black text-[#1E6B3B] mt-1" contenteditable="true">
+          三人專題小組
+        </h2>
+        <p class="text-sm text-slate-700 font-bold mt-2" contenteditable="true">
           Final Year Project style — everyone has a role; success needs teamwork
+        </p>
+        <p class="text-xs sm:text-sm text-slate-600 font-semibold mt-1" contenteditable="true">
+          畢業專題模式——每人一個角色，合作才能過關
         </p>
       </div>
 
@@ -776,12 +782,12 @@
               </svg>
             </div>
           </div>
-          <h2 class="text-xl font-black text-amber-900 uppercase">1. Order Taker</h2>
-          <p class="text-xs font-bold text-amber-700 mb-2">落單員</p>
-          <ul class="text-slate-700 font-semibold text-xs leading-relaxed text-left list-disc pl-4 space-y-1" contenteditable="true">
-            <li>Take orders from the floor</li>
-            <li>Head table uses the order form</li>
-            <li>Tell the Chef the order verbally</li>
+          <h2 class="text-xl font-black text-amber-900 uppercase" contenteditable="true">1. Order Taker</h2>
+          <p class="text-sm font-black text-amber-800 mb-2" contenteditable="true">1. 落單員</p>
+          <ul class="text-slate-700 font-semibold text-xs leading-relaxed text-left list-disc pl-4 space-y-1.5" contenteditable="true">
+            <li>Take orders from the floor<br><span class="text-slate-500 font-medium">向場內賓客落單</span></li>
+            <li>Head table uses the order form<br><span class="text-slate-500 font-medium">主桌使用訂單表格</span></li>
+            <li>Tell the Chef the order verbally<br><span class="text-slate-500 font-medium">以口述方式告知大廚訂單</span></li>
           </ul>
         </div>
 
@@ -802,12 +808,12 @@
               </svg>
             </div>
           </div>
-          <h2 class="text-xl font-black text-[#C8372D] uppercase">2. Chef</h2>
-          <p class="text-xs font-bold text-red-700 mb-2">大廚</p>
-          <ul class="text-slate-700 font-semibold text-xs leading-relaxed text-left list-disc pl-4 space-y-1" contenteditable="true">
-            <li>Listen to the Order Taker</li>
-            <li>Assemble the meal from the food pool</li>
-            <li>Hand the finished order to the Server</li>
+          <h2 class="text-xl font-black text-[#C8372D] uppercase" contenteditable="true">2. Chef</h2>
+          <p class="text-sm font-black text-red-800 mb-2" contenteditable="true">2. 大廚</p>
+          <ul class="text-slate-700 font-semibold text-xs leading-relaxed text-left list-disc pl-4 space-y-1.5" contenteditable="true">
+            <li>Listen to the Order Taker<br><span class="text-slate-500 font-medium">聆聽落單員的口述訂單</span></li>
+            <li>Assemble the meal from the food pool<br><span class="text-slate-500 font-medium">從食材池組裝餐點</span></li>
+            <li>Hand the finished order to the Server<br><span class="text-slate-500 font-medium">將完成的餐點交給侍應</span></li>
           </ul>
         </div>
 
@@ -828,12 +834,12 @@
               </svg>
             </div>
           </div>
-          <h2 class="text-xl font-black text-[#1E6B3B] uppercase">3. Server</h2>
-          <p class="text-xs font-bold text-green-700 mb-2">樓面侍應</p>
-          <ul class="text-slate-700 font-semibold text-xs leading-relaxed text-left list-disc pl-4 space-y-1" contenteditable="true">
-            <li>Receive the assembled meal from the Chef</li>
-            <li>Serve head table with the order form</li>
-            <li>Wait for the correctness check</li>
+          <h2 class="text-xl font-black text-[#1E6B3B] uppercase" contenteditable="true">3. Server</h2>
+          <p class="text-sm font-black text-green-800 mb-2" contenteditable="true">3. 樓面侍應</p>
+          <ul class="text-slate-700 font-semibold text-xs leading-relaxed text-left list-disc pl-4 space-y-1.5" contenteditable="true">
+            <li>Receive the assembled meal from the Chef<br><span class="text-slate-500 font-medium">自大廚接收已組裝的餐點</span></li>
+            <li>Serve head table with the order form<br><span class="text-slate-500 font-medium">連同訂單表格一同上菜至主桌</span></li>
+            <li>Wait for the correctness check<br><span class="text-slate-500 font-medium">等候主桌核對是否正確</span></li>
           </ul>
         </div>
       </div>
@@ -841,7 +847,7 @@
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 9: GAME 2: WORKFLOW & EXAM PROCESS                              -->
+  <!-- SLIDE 9: GAME 2: WORKFLOW & EXAM PROCESS (BILINGUAL)                  -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center" data-title="9. Game 2: Workflow">
     <div class="max-w-5xl w-full festive-card rounded-3xl p-6 sm:p-9">
@@ -849,44 +855,51 @@
         <span class="px-4 py-1 rounded-full bg-blue-100 border border-blue-300 text-blue-800 text-xs font-extrabold uppercase tracking-widest">
           Order Flow • 流程指引
         </span>
-        <h1 class="font-festive-display text-3xl sm:text-5xl font-bold text-[#23486A] tracking-tight mt-2">
-          GAME WORKFLOW • 遊戲運作流程
+        <h1 class="font-festive-display text-3xl sm:text-5xl font-bold text-[#23486A] tracking-tight mt-2" contenteditable="true">
+          GAME WORKFLOW
         </h1>
+        <h2 class="text-xl sm:text-2xl font-black text-[#1E6B3B] mt-1" contenteditable="true">
+          遊戲運作流程
+        </h2>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
         <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
-          <div class="text-xs font-black text-[#C8372D] uppercase mb-1">Step 1</div>
+          <div class="text-xs font-black text-[#C8372D] uppercase mb-1">Step 1 • 步驟一</div>
           <div class="text-sm font-extrabold text-slate-800" contenteditable="true">Floor orders + order forms</div>
-          <ul class="text-xs font-bold text-slate-600 mt-2 list-disc pl-4 space-y-1" contenteditable="true">
-            <li>Order takers take orders from the floor</li>
-            <li>Every table uses an order form (sample on next slide)</li>
-            <li>Rotation: Team A → B, B → C, C → A</li>
+          <div class="text-xs font-bold text-slate-500 mt-0.5" contenteditable="true">場內落單＋訂單表格</div>
+          <ul class="text-xs font-bold text-slate-600 mt-2 list-disc pl-4 space-y-1.5" contenteditable="true">
+            <li>Order takers take orders from the floor<br><span class="text-slate-500 font-medium">落單員向場內賓客落單</span></li>
+            <li>Every table uses an order form (sample on next slide)<br><span class="text-slate-500 font-medium">每桌使用訂單表格（樣式見下一頁）</span></li>
+            <li>Rotation: Team A → B, B → C, C → A<br><span class="text-slate-500 font-medium">輪換：A 組 → B，B 組 → C，C 組 → A</span></li>
           </ul>
         </div>
         <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
-          <div class="text-xs font-black text-amber-600 uppercase mb-1">Step 2</div>
+          <div class="text-xs font-black text-amber-600 uppercase mb-1">Step 2 • 步驟二</div>
           <div class="text-sm font-extrabold text-slate-800" contenteditable="true">Tell the Chef</div>
-          <ul class="text-xs font-bold text-slate-600 mt-2 list-disc pl-4 space-y-1" contenteditable="true">
-            <li>Order Taker speaks the order to Chef</li>
-            <li>No silent pointing — verbal only</li>
+          <div class="text-xs font-bold text-slate-500 mt-0.5" contenteditable="true">告知大廚</div>
+          <ul class="text-xs font-bold text-slate-600 mt-2 list-disc pl-4 space-y-1.5" contenteditable="true">
+            <li>Order Taker speaks the order to Chef<br><span class="text-slate-500 font-medium">落單員以口述方式告訴大廚</span></li>
+            <li>No silent pointing — verbal only<br><span class="text-slate-500 font-medium">禁止靜默指點——只准口頭傳達</span></li>
           </ul>
         </div>
         <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
-          <div class="text-xs font-black text-[#1E6B3B] uppercase mb-1">Step 3</div>
+          <div class="text-xs font-black text-[#1E6B3B] uppercase mb-1">Step 3 • 步驟三</div>
           <div class="text-sm font-extrabold text-slate-800" contenteditable="true">Assemble from food pool</div>
-          <ul class="text-xs font-bold text-slate-600 mt-2 list-disc pl-4 space-y-1" contenteditable="true">
-            <li>Chef builds the meal to match the order</li>
-            <li>Pass the finished plate to Server</li>
+          <div class="text-xs font-bold text-slate-500 mt-0.5" contenteditable="true">從食材池組裝</div>
+          <ul class="text-xs font-bold text-slate-600 mt-2 list-disc pl-4 space-y-1.5" contenteditable="true">
+            <li>Chef builds the meal to match the order<br><span class="text-slate-500 font-medium">大廚按訂單組裝餐點</span></li>
+            <li>Pass the finished plate to Server<br><span class="text-slate-500 font-medium">將完成的餐盤交給侍應</span></li>
           </ul>
         </div>
         <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
-          <div class="text-xs font-black text-[#23486A] uppercase mb-1">Step 4–5</div>
+          <div class="text-xs font-black text-[#23486A] uppercase mb-1">Step 4–5 • 步驟四至五</div>
           <div class="text-sm font-extrabold text-slate-800" contenteditable="true">Serve + head-table exam</div>
-          <ul class="text-xs font-bold text-slate-600 mt-2 list-disc pl-4 space-y-1" contenteditable="true">
-            <li>Server delivers meal + order form together</li>
-            <li>Head table checks if the order is correct</li>
-            <li>Fastest correct team wins</li>
+          <div class="text-xs font-bold text-slate-500 mt-0.5" contenteditable="true">上菜＋主桌核對</div>
+          <ul class="text-xs font-bold text-slate-600 mt-2 list-disc pl-4 space-y-1.5" contenteditable="true">
+            <li>Server delivers meal + order form together<br><span class="text-slate-500 font-medium">侍應將餐點與訂單表格一同上呈</span></li>
+            <li>Head table checks if the order is correct<br><span class="text-slate-500 font-medium">主桌核對訂單是否正確</span></li>
+            <li>Fastest correct team wins<br><span class="text-slate-500 font-medium">最快且正確的隊伍勝出</span></li>
           </ul>
         </div>
       </div>
@@ -1130,9 +1143,9 @@
         </h3>
       </div>
 
-      <div>
-        <button type="button" onclick="ringSchoolBell(this)" class="inline-flex items-center gap-2.5 px-6 py-3 rounded-2xl bg-gradient-to-r from-[#1E6B3B] to-[#23486A] hover:from-[#14532D] hover:to-[#1a3650] text-white font-black text-sm sm:text-base tracking-wide shadow-lg transition transform hover:scale-105 active:scale-95 cursor-pointer">
-          <i class="fa-solid fa-bell"></i> Ring School Bell • 鳴鐘集合
+      <div class="mt-1">
+        <button type="button" onclick="ringSchoolBell(this)" class="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl bg-gradient-to-r from-[#D97724] to-[#F59E0B] hover:from-[#b45309] hover:to-[#D97724] text-white font-black text-base sm:text-lg tracking-wide shadow-xl transition transform hover:scale-105 active:scale-95 cursor-pointer border-2 border-amber-200">
+          <i class="fa-solid fa-bell text-xl"></i> Ring School Bell
         </button>
       </div>
     </div>
