@@ -497,7 +497,7 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
         <div class="mc-walk-left bg-red-50/90 border-2 border-[#C8372D] rounded-3xl p-6 flex flex-col items-center text-center shadow-sm">
-          <div class="role-avatar-wrap mb-3" onclick="triggerRoleAvatarUpload('maruko')" title="Click to upload Maruko avatar">
+          <div class="role-avatar-wrap mb-3 pointer-events-none">
             <span class="role-avatar-badge" aria-hidden="true">🎄</span>
             <div id="roleAvatarMaruko" class="role-avatar border-4 border-[#C8372D] animate-float">
               <svg viewBox="0 0 120 120" class="w-24 h-24">
@@ -516,7 +516,6 @@
                 <polygon points="76,94 60,104 70,106" fill="#FFFFFF"/>
               </svg>
             </div>
-            <span class="role-avatar-hint">📷 Add avatar</span>
           </div>
           <span class="px-3 py-0.5 rounded-full bg-[#C8372D] text-white font-black text-xs uppercase mb-1">MC 1</span>
           <h2 class="text-2xl sm:text-3xl font-black text-[#C8372D]" contenteditable="true">Chibi Maruko • 櫻桃小丸子</h2>
@@ -524,7 +523,7 @@
         </div>
 
         <div class="mc-walk-right bg-sky-50/90 border-2 border-[#23486A] rounded-3xl p-6 flex flex-col items-center text-center shadow-sm">
-          <div class="role-avatar-wrap mb-3" onclick="triggerRoleAvatarUpload('hanawa')" title="Click to upload Hanawa avatar">
+          <div class="role-avatar-wrap mb-3 pointer-events-none">
             <span class="role-avatar-badge" aria-hidden="true">🎁</span>
             <div id="roleAvatarHanawa" class="role-avatar border-4 border-[#23486A] animate-float" style="animation-delay: 0.6s;">
               <svg viewBox="0 0 120 120" class="w-24 h-24">
@@ -543,7 +542,6 @@
                 <circle cx="60" cy="102" r="2.5" fill="#F59E0B"/>
               </svg>
             </div>
-            <span class="role-avatar-hint">📷 Add avatar</span>
           </div>
           <span class="px-3 py-0.5 rounded-full bg-[#23486A] text-white font-black text-xs uppercase mb-1">MC 2</span>
           <h2 class="text-2xl sm:text-3xl font-black text-[#23486A]" contenteditable="true">Hanawa-kun • 花輪同學</h2>
@@ -567,7 +565,7 @@
       <div class="absolute top-0 inset-x-0 h-5 bg-gradient-to-b from-[#7f1d1d] to-[#991b1b] border-b-2 border-amber-400/80 z-30 pointer-events-none"></div>
 
       <div class="headmaster-reveal relative z-10">
-        <div class="role-avatar-wrap mx-auto mb-4" onclick="triggerRoleAvatarUpload('dumbledore')" title="Click to upload Headmaster avatar">
+        <div class="role-avatar-wrap mx-auto mb-4 pointer-events-none">
           <span class="role-avatar-badge" aria-hidden="true">🪄</span>
           <div id="roleAvatarDumbledore" class="role-avatar border-4 border-amber-300 bg-amber-50 animate-float" style="width:8.5rem;height:8.5rem;">
             <svg viewBox="0 0 120 120" class="w-28 h-28">
@@ -588,7 +586,6 @@
               <rect x="55" y="92" width="10" height="5" rx="2" fill="#F59E0B"/>
             </svg>
           </div>
-          <span class="role-avatar-hint text-amber-200 border-amber-400/40 bg-black/20">📷 Add avatar</span>
         </div>
 
         <span class="px-4 py-1.5 rounded-full bg-amber-400/20 border border-amber-300 text-amber-300 text-xs font-extrabold uppercase tracking-widest">
@@ -704,7 +701,10 @@
         遊戲二：聖誕小廚神挑戰賽
       </h2>
       <p class="text-base sm:text-xl text-slate-700 font-bold" contenteditable="true">
-        Team up &amp; assemble orders fast! • 3人一組，合作完成茶餐廳訂單！
+        Order · Cook · Serve · Verify — fastest correct team wins!
+      </p>
+      <p class="text-sm text-slate-600 font-semibold mt-2" contenteditable="true">
+        落單 → 煮餐 → 上菜 → 核對 · 最快且正確的隊伍勝出！
       </p>
     </div>
   </section>
@@ -726,38 +726,81 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-4">
         <!-- Role 1: Order Taker -->
         <div class="bg-amber-50/90 border-2 border-amber-400 rounded-3xl p-5 text-center flex flex-col items-center">
-          <div class="w-14 h-14 mb-3 rounded-2xl bg-amber-500 text-white flex items-center justify-center text-2xl shadow">
-            <i class="fa-solid fa-clipboard-user"></i>
+          <div class="role-avatar-wrap mb-3 pointer-events-none">
+            <span class="role-avatar-badge" aria-hidden="true">📋</span>
+            <div class="role-avatar border-4 border-amber-400" style="width:6.5rem;height:6.5rem;">
+              <svg viewBox="0 0 120 120" class="w-20 h-20">
+                <circle cx="60" cy="58" r="28" fill="#FDE2C4"/>
+                <path d="M28,58 C26,30 44,18 60,18 C76,18 94,30 92,58 Z" fill="#92400E"/>
+                <circle cx="48" cy="56" r="3.2" fill="#1E293B"/>
+                <circle cx="72" cy="56" r="3.2" fill="#1E293B"/>
+                <path d="M50,70 Q60,78 70,70" stroke="#B45309" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <rect x="34" y="88" width="52" height="24" rx="6" fill="#F59E0B"/>
+                <rect x="44" y="78" width="32" height="18" rx="3" fill="#FEF3C7" stroke="#D97724" stroke-width="2"/>
+                <line x1="50" y1="84" x2="70" y2="84" stroke="#D97724" stroke-width="2"/>
+                <line x1="50" y1="90" x2="66" y2="90" stroke="#D97724" stroke-width="2"/>
+              </svg>
+            </div>
           </div>
           <h2 class="text-xl font-black text-amber-900 uppercase">1. Order Taker</h2>
           <p class="text-xs font-bold text-amber-700 mb-2">落單員</p>
-          <p class="text-slate-700 font-semibold text-xs leading-relaxed" contenteditable="true">
-            Reads the order form and communicates the requirements clearly to the Chef.
-          </p>
+          <ul class="text-slate-700 font-semibold text-xs leading-relaxed text-left list-disc pl-4 space-y-1" contenteditable="true">
+            <li>Take orders from the floor</li>
+            <li>Head table uses the order form</li>
+            <li>Tell the Chef the order verbally</li>
+          </ul>
         </div>
 
         <!-- Role 2: Chef -->
         <div class="bg-red-50/90 border-2 border-[#C8372D] rounded-3xl p-5 text-center flex flex-col items-center">
-          <div class="w-14 h-14 mb-3 rounded-2xl bg-[#C8372D] text-white flex items-center justify-center text-2xl shadow">
-            <i class="fa-solid fa-hat-chef"></i>
+          <div class="role-avatar-wrap mb-3 pointer-events-none">
+            <span class="role-avatar-badge" aria-hidden="true">👨‍🍳</span>
+            <div class="role-avatar border-4 border-[#C8372D]" style="width:6.5rem;height:6.5rem;">
+              <svg viewBox="0 0 120 120" class="w-20 h-20">
+                <ellipse cx="60" cy="28" rx="28" ry="14" fill="#F8FAFC"/>
+                <rect x="40" y="28" width="40" height="12" fill="#E2E8F0"/>
+                <circle cx="60" cy="62" r="26" fill="#FDE2C4"/>
+                <circle cx="50" cy="60" r="3" fill="#1E293B"/>
+                <circle cx="70" cy="60" r="3" fill="#1E293B"/>
+                <path d="M50,72 Q60,80 70,72" stroke="#C8372D" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <path d="M34,90 L86,90 L92,114 L28,114 Z" fill="#C8372D"/>
+                <rect x="52" y="96" width="16" height="10" rx="2" fill="#FEF3C7"/>
+              </svg>
+            </div>
           </div>
           <h2 class="text-xl font-black text-[#C8372D] uppercase">2. Chef</h2>
           <p class="text-xs font-bold text-red-700 mb-2">大廚</p>
-          <p class="text-slate-700 font-semibold text-xs leading-relaxed" contenteditable="true">
-            Picks the exact food items from the food pool matching the order.
-          </p>
+          <ul class="text-slate-700 font-semibold text-xs leading-relaxed text-left list-disc pl-4 space-y-1" contenteditable="true">
+            <li>Listen to the Order Taker</li>
+            <li>Assemble the meal from the food pool</li>
+            <li>Hand the finished order to the Server</li>
+          </ul>
         </div>
 
         <!-- Role 3: Server -->
         <div class="bg-green-50/90 border-2 border-[#1E6B3B] rounded-3xl p-5 text-center flex flex-col items-center">
-          <div class="w-14 h-14 mb-3 rounded-2xl bg-[#1E6B3B] text-white flex items-center justify-center text-2xl shadow">
-            <i class="fa-solid fa-concierge-bell"></i>
+          <div class="role-avatar-wrap mb-3 pointer-events-none">
+            <span class="role-avatar-badge" aria-hidden="true">🍽️</span>
+            <div class="role-avatar border-4 border-[#1E6B3B]" style="width:6.5rem;height:6.5rem;">
+              <svg viewBox="0 0 120 120" class="w-20 h-20">
+                <circle cx="60" cy="56" r="28" fill="#FDE2C4"/>
+                <path d="M30,52 C28,28 46,16 60,16 C74,16 92,28 90,52 Z" fill="#14532D"/>
+                <circle cx="48" cy="54" r="3" fill="#1E293B"/>
+                <circle cx="72" cy="54" r="3" fill="#1E293B"/>
+                <path d="M50,68 Q60,76 70,68" stroke="#1E6B3B" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <ellipse cx="60" cy="96" rx="30" ry="10" fill="#FEF3C7" stroke="#D97724" stroke-width="2"/>
+                <circle cx="60" cy="92" r="8" fill="#FCA5A5"/>
+                <path d="M34,90 L86,90 L90,112 L30,112 Z" fill="#1E6B3B"/>
+              </svg>
+            </div>
           </div>
           <h2 class="text-xl font-black text-[#1E6B3B] uppercase">3. Server</h2>
           <p class="text-xs font-bold text-green-700 mb-2">樓面侍應</p>
-          <p class="text-slate-700 font-semibold text-xs leading-relaxed" contenteditable="true">
-            Receives assembled food from Chef and serves it to the Head Table for examination.
-          </p>
+          <ul class="text-slate-700 font-semibold text-xs leading-relaxed text-left list-disc pl-4 space-y-1" contenteditable="true">
+            <li>Receive the assembled meal from the Chef</li>
+            <li>Serve head table with the order form</li>
+            <li>Wait for the correctness check</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -767,8 +810,8 @@
   <!-- SLIDE 9: GAME 2: WORKFLOW & EXAM PROCESS                              -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center" data-title="9. Game 2: Workflow">
-    <div class="max-w-5xl w-full festive-card rounded-3xl p-7 sm:p-10">
-      <div class="text-center mb-6">
+    <div class="max-w-6xl w-full festive-card rounded-3xl p-6 sm:p-9">
+      <div class="text-center mb-5">
         <span class="px-4 py-1 rounded-full bg-blue-100 border border-blue-300 text-blue-800 text-xs font-extrabold uppercase tracking-widest">
           Order Flow • 流程指引
         </span>
@@ -777,26 +820,58 @@
         </h1>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 text-center">
-        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
-          <div class="text-xs font-black text-[#C8372D] uppercase mb-1">Step 1</div>
-          <div class="text-sm font-extrabold text-slate-800" contenteditable="true">Order Form</div>
-          <div class="text-xs font-bold text-slate-600 mt-1" contenteditable="true">Order Taker reads table order form</div>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
+        <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+            <div class="text-xs font-black text-[#C8372D] uppercase mb-1">Step 1</div>
+            <div class="text-sm font-extrabold text-slate-800" contenteditable="true">Floor orders + head-table form</div>
+            <ul class="text-xs font-bold text-slate-600 mt-2 list-disc pl-4 space-y-1" contenteditable="true">
+              <li>Order takers take orders from the floor</li>
+              <li>Head table orders with the order form (upload photo)</li>
+              <li>Rotation: Team A → B, B → C, C → A</li>
+            </ul>
+          </div>
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+            <div class="text-xs font-black text-amber-600 uppercase mb-1">Step 2</div>
+            <div class="text-sm font-extrabold text-slate-800" contenteditable="true">Tell the Chef</div>
+            <ul class="text-xs font-bold text-slate-600 mt-2 list-disc pl-4 space-y-1" contenteditable="true">
+              <li>Order Taker speaks the order to Chef</li>
+              <li>No silent pointing — verbal only</li>
+            </ul>
+          </div>
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+            <div class="text-xs font-black text-[#1E6B3B] uppercase mb-1">Step 3</div>
+            <div class="text-sm font-extrabold text-slate-800" contenteditable="true">Assemble from food pool</div>
+            <ul class="text-xs font-bold text-slate-600 mt-2 list-disc pl-4 space-y-1" contenteditable="true">
+              <li>Chef builds the meal to match the order</li>
+              <li>Pass the finished plate to Server</li>
+            </ul>
+          </div>
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+            <div class="text-xs font-black text-[#23486A] uppercase mb-1">Step 4–5</div>
+            <div class="text-sm font-extrabold text-slate-800" contenteditable="true">Serve + head-table exam</div>
+            <ul class="text-xs font-bold text-slate-600 mt-2 list-disc pl-4 space-y-1" contenteditable="true">
+              <li>Server delivers meal + order form together</li>
+              <li>Head table checks if the order is correct</li>
+              <li>Fastest correct team wins</li>
+            </ul>
+          </div>
         </div>
-        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
-          <div class="text-xs font-black text-amber-600 uppercase mb-1">Step 2</div>
-          <div class="text-sm font-extrabold text-slate-800" contenteditable="true">Talk to Chef</div>
-          <div class="text-xs font-bold text-slate-600 mt-1" contenteditable="true">Order Taker instructs Chef</div>
-        </div>
-        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
-          <div class="text-xs font-black text-[#1E6B3B] uppercase mb-1">Step 3</div>
-          <div class="text-sm font-extrabold text-slate-800" contenteditable="true">Food Pool Pick</div>
-          <div class="text-xs font-bold text-slate-600 mt-1" contenteditable="true">Chef picks items &amp; passes to Server</div>
-        </div>
-        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
-          <div class="text-xs font-black text-[#23486A] uppercase mb-1">Step 4</div>
-          <div class="text-sm font-extrabold text-slate-800" contenteditable="true">Head Table Exam</div>
-          <div class="text-xs font-bold text-slate-600 mt-1" contenteditable="true">Server serves to Head Table for check</div>
+
+        <div class="lg:col-span-4">
+          <div class="h-full rounded-2xl border-2 border-dashed border-[#23486A]/40 bg-sky-50/70 p-4 flex flex-col">
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <div>
+                <div class="text-xs font-black uppercase tracking-wider text-[#23486A]">Head-table order form</div>
+                <div class="text-[11px] font-semibold text-slate-500">Upload the form photo</div>
+              </div>
+              <button type="button" onclick="document.getElementById('orderFormPhotoInput').click()" class="px-2.5 py-1.5 rounded-lg bg-[#23486A] hover:bg-[#1a3650] text-white text-[11px] font-black cursor-pointer"><i class="fa-solid fa-image"></i> Upload</button>
+            </div>
+            <div id="orderFormPhotoBox" onclick="document.getElementById('orderFormPhotoInput').click()" class="flex-1 min-h-[180px] rounded-xl border-2 border-dashed border-slate-300 bg-white overflow-hidden flex flex-col items-center justify-center text-slate-400 cursor-pointer hover:border-[#23486A] transition">
+              <i class="fa-solid fa-file-lines text-3xl mb-2"></i>
+              <span class="text-[11px] font-bold">Click to add order form photo</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1243,31 +1318,27 @@
     </div>
   </section>
 
-  <input type="file" id="roleAvatarInput" accept="image/*" class="hidden" />
-
-  <!-- Batch draw flash -->
-  <div id="batchFlash" class="batch-flash" aria-hidden="true">
-    <div class="batch-flash-card">
-      <div class="text-xs font-black uppercase tracking-widest text-[#C8372D] mb-1" id="batchFlashLabel">Batch draw</div>
-      <div class="text-2xl sm:text-3xl font-black text-slate-900" id="batchFlashName">Winner</div>
-      <div class="text-xs text-slate-500 font-semibold mt-2" id="batchFlashMeta">🎄</div>
-    </div>
-  </div>
+  <input type="file" id="orderFormPhotoInput" accept="image/*" class="hidden" />
 
   <!-- Modals & Toast -->
   <div id="winnerModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/70 backdrop-blur-md p-4 opacity-0 pointer-events-none transition-all duration-300">
-    <div class="festive-card rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl text-center transform scale-90 transition-all duration-300 relative overflow-hidden border-4 border-[#C8372D]">
+    <div class="festive-card rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl text-center transform scale-90 transition-all duration-300 relative overflow-hidden border-4 border-[#C8372D]">
       <div id="modalTrophyWrap" class="inline-flex p-3.5 rounded-2xl bg-amber-100 text-amber-600 border border-amber-300 mb-3 shadow">
         <i id="modalTrophyIcon" class="fa-solid fa-trophy text-3xl animate-bounce"></i>
       </div>
-      <div id="modalPrizeLabel" class="text-xs uppercase tracking-widest text-[#1E6B3B] font-black mb-1">Winner #1</div>
-      <h3 id="modalWinnerName" class="text-2xl sm:text-3xl font-black text-slate-900 break-words py-3.5 px-4 bg-red-50 rounded-2xl border-2 border-red-200 my-2">Winner Name</h3>
-      <p id="modalCongratsText" class="text-xs text-slate-500 font-semibold mb-6">🎄 Congratulations!</p>
-      <div class="flex flex-col sm:flex-row gap-2.5">
-        <button type="button" id="modalSpinAgainBtn" class="flex-1 py-3 px-4 rounded-xl bg-[#23486A] hover:bg-[#1a3650] text-white font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 cursor-pointer"><i class="fa-solid fa-rotate-right"></i> Spin Again</button>
-        <button type="button" id="modalRemoveAndSpinBtn" class="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-[#C8372D] to-[#DC2626] hover:from-[#b91c1c] hover:to-[#C8372D] text-white font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 shadow-lg cursor-pointer"><i class="fa-solid fa-user-minus"></i> Remove &amp; Next</button>
+      <div id="modalPrizeLabel" class="text-xs uppercase tracking-widest text-[#1E6B3B] font-black mb-2">Winner #1</div>
+      <div id="modalPrizePhoto" class="mx-auto mb-3 w-40 h-40 sm:w-48 sm:h-48 rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 overflow-hidden flex flex-col items-center justify-center text-slate-400">
+        <i class="fa-solid fa-gift text-3xl mb-1"></i>
+        <span class="text-[10px] font-bold">Prize photo</span>
       </div>
-      <button type="button" id="closeModalBtn" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 p-2 rounded-lg cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
+      <h3 id="modalWinnerName" class="text-2xl sm:text-3xl font-black text-slate-900 break-words py-3.5 px-4 bg-red-50 rounded-2xl border-2 border-red-200 my-2">Winner Name</h3>
+      <p id="modalCongratsText" class="text-xs text-slate-500 font-semibold mb-4">🎄 Congratulations!</p>
+      <p id="modalHoldHint" class="text-[10px] font-bold text-slate-400 mb-4">Holding for applause…</p>
+      <div id="modalActionRow" class="flex flex-col sm:flex-row gap-2.5 opacity-40 pointer-events-none transition-opacity">
+        <button type="button" id="modalSpinAgainBtn" class="flex-1 py-3 px-4 rounded-xl bg-[#23486A] hover:bg-[#1a3650] text-white font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 cursor-pointer"><i class="fa-solid fa-rotate-right"></i> Spin Again</button>
+        <button type="button" id="modalContinueBtn" class="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-[#C8372D] to-[#DC2626] hover:from-[#b91c1c] hover:to-[#C8372D] text-white font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 shadow-lg cursor-pointer"><i class="fa-solid fa-check"></i> Continue</button>
+      </div>
+      <button type="button" id="closeModalBtn" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 p-2 rounded-lg cursor-pointer opacity-40 pointer-events-none"><i class="fa-solid fa-xmark text-lg"></i></button>
     </div>
   </div>
 
@@ -1281,8 +1352,17 @@
     <div id="hudWrapper">
       <div class="bg-slate-900/95 backdrop-blur-md text-white rounded-2xl px-3 py-2 shadow-2xl flex items-center gap-2 sm:gap-2.5 text-xs border border-white/25 flex-wrap justify-center">
         <button type="button" id="prevSlideBtn" onclick="prevSlide()" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white transition cursor-pointer" title="Previous Slide"><i class="fa-solid fa-chevron-left"></i></button>
-        <select id="slideSelector" onchange="goToSlide(parseInt(this.value))" class="bg-slate-800 text-white font-bold rounded-xl px-2.5 py-1.5 border border-slate-600 focus:outline-none max-w-[170px] sm:max-w-[220px] truncate cursor-pointer"></select>
+        <select id="slideSelector" onchange="goToSlide(parseInt(this.value))" class="bg-slate-800 text-white font-bold rounded-xl px-2.5 py-1.5 border border-slate-600 focus:outline-none max-w-[140px] sm:max-w-[180px] truncate cursor-pointer hidden md:block"></select>
         <button type="button" id="nextSlideBtn" onclick="nextSlide()" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white transition cursor-pointer" title="Next Slide"><i class="fa-solid fa-chevron-right"></i></button>
+
+        <div class="h-5 w-px bg-slate-700 mx-0.5"></div>
+        <div class="flex items-center gap-1.5 flex-wrap justify-center">
+          <button type="button" onclick="goToSlide(12)" class="px-2.5 py-1.5 rounded-xl bg-[#C8372D] hover:bg-[#b91c1c] text-white font-black transition cursor-pointer" title="Honor Roll Spinner">Spinner</button>
+          <button type="button" onclick="goToSlide(13)" class="px-2.5 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white font-black transition cursor-pointer" title="Christmas Prizes winners">Christmas Winners</button>
+          <button type="button" onclick="goToSlide(14)" class="px-2.5 py-1.5 rounded-xl bg-fuchsia-700 hover:bg-fuchsia-600 text-white font-black transition cursor-pointer hidden sm:inline-flex" title="Best Dress">Best Dress</button>
+          <button type="button" onclick="goToSlide(16)" class="px-2.5 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-black transition cursor-pointer" title="Grand Prizes winners">Grand Winners</button>
+          <button type="button" onclick="goToSlide(17)" class="px-2.5 py-1.5 rounded-xl bg-sky-700 hover:bg-sky-600 text-white font-black transition cursor-pointer" title="Group Photo">Group Photo</button>
+        </div>
 
         <div class="h-5 w-px bg-slate-700 mx-0.5"></div>
 
@@ -1332,9 +1412,11 @@
     let christmasBatchIndex = 0; // 0..4 into CHRISTMAS_BATCHES
     let grandPrizeIndex = 5; // draw order #6 → #1 (index into GRAND_PRIZES)
     let preferGrandOnSpinner = false; // armed by "Roll Wheel for Grand Prizes"
-    let activeRoleAvatarKey = 'maruko';
-    const roleAvatarDefaults = {};
-    const roleAvatarPhotos = { maruko: '', hanawa: '', dumbledore: '' };
+    let orderFormPhotoDataUrl = '';
+    let winnerModalHoldTimer = null;
+    let winnerModalResolver = null;
+    const WINNER_HOLD_MS = 2500;
+    const BATCH_HOLD_MS = 2200;
 
     const CHRISTMAS_BATCHES = [
       { id: 'giftA', qty: 3, name: 'Christmas Gift A', color: '#C8372D' },
@@ -1521,36 +1603,50 @@
       if (batchInput && nextBatch) batchInput.value = String(nextBatch.qty);
     }
 
-    function triggerRoleAvatarUpload(key) {
-      activeRoleAvatarKey = key;
-      const input = document.getElementById('roleAvatarInput');
-      if (input) input.click();
-    }
-
-    function applyRoleAvatar(key) {
-      const idMap = { maruko: 'roleAvatarMaruko', hanawa: 'roleAvatarHanawa', dumbledore: 'roleAvatarDumbledore' };
-      const el = document.getElementById(idMap[key]);
-      if (!el) return;
-      if (!roleAvatarDefaults[key]) roleAvatarDefaults[key] = el.innerHTML;
-      const photo = roleAvatarPhotos[key];
-      if (photo) {
-        el.innerHTML = `<img src="${photo}" alt="${key} avatar" />`;
-      } else if (roleAvatarDefaults[key]) {
-        el.innerHTML = roleAvatarDefaults[key];
+    function applyOrderFormPhoto() {
+      const box = document.getElementById('orderFormPhotoBox');
+      if (!box) return;
+      if (orderFormPhotoDataUrl) {
+        box.innerHTML = `<img src="${orderFormPhotoDataUrl}" alt="Order form" class="w-full h-full object-contain" />`;
+        box.classList.remove('border-dashed');
+        box.classList.add('border-solid', 'border-[#23486A]');
+      } else {
+        box.innerHTML = `<i class="fa-solid fa-file-lines text-3xl mb-2"></i><span class="text-[11px] font-bold">Click to add order form photo</span>`;
+        box.classList.add('border-dashed');
+        box.classList.remove('border-solid', 'border-[#23486A]');
       }
     }
 
-    function flashBatchWinner(name, metaText, label) {
-      const flash = document.getElementById('batchFlash');
-      const nameEl = document.getElementById('batchFlashName');
-      const metaEl = document.getElementById('batchFlashMeta');
-      const labelEl = document.getElementById('batchFlashLabel');
-      if (!flash || !nameEl) return;
-      if (labelEl) labelEl.textContent = label || 'Batch draw';
-      nameEl.textContent = name;
-      if (metaEl) metaEl.textContent = metaText || '🎄 Congratulations!';
-      flash.classList.add('show');
-      setTimeout(() => flash.classList.remove('show'), 900);
+    function getPrizePhotoForWinner(entry) {
+      if (!entry) return '';
+      if (entry.rankIndex != null) return grandPrizePhotos[entry.rankIndex] || '';
+      if (entry.giftIndex != null) return christmasGiftPhotos[entry.giftIndex] || '';
+      return '';
+    }
+
+    function setModalControlsLocked(locked) {
+      const row = document.getElementById('modalActionRow');
+      const closeBtn = document.getElementById('closeModalBtn');
+      const hint = document.getElementById('modalHoldHint');
+      if (row) {
+        row.classList.toggle('opacity-40', locked);
+        row.classList.toggle('pointer-events-none', locked);
+      }
+      if (closeBtn) {
+        closeBtn.classList.toggle('opacity-40', locked);
+        closeBtn.classList.toggle('pointer-events-none', locked);
+      }
+      if (hint) hint.textContent = locked ? 'Holding for applause…' : 'Tap Continue when ready';
+    }
+
+    function resolveWinnerModalWait() {
+      if (winnerModalHoldTimer) {
+        clearTimeout(winnerModalHoldTimer);
+        winnerModalHoldTimer = null;
+      }
+      const resolve = winnerModalResolver;
+      winnerModalResolver = null;
+      if (resolve) resolve();
     }
 
     function triggerProductPhotoUpload(idx) {
@@ -1708,12 +1804,26 @@
       const labelEl = document.getElementById('modalPrizeLabel');
       const congratsEl = document.getElementById('modalCongratsText');
       const trophyIcon = document.getElementById('modalTrophyIcon');
-      if (!modal || !nameEl) return;
+      const photoEl = document.getElementById('modalPrizePhoto');
+      if (!modal || !nameEl) return Promise.resolve();
       const intensity = opts.intensity || 1;
+      const holdMs = opts.holdMs != null ? opts.holdMs : WINNER_HOLD_MS;
+      const last = opts.entry || (drawPhase === 2 ? winnersPhase2 : winnersPhase1).slice(-1)[0];
       nameEl.textContent = name;
-      const last = (drawPhase === 2 ? winnersPhase2 : winnersPhase1).slice(-1)[0];
       if (labelEl) {
         labelEl.textContent = last?.prizeName || (drawPhase === 1 ? 'Christmas Gift' : 'Grand Prize');
+      }
+      if (photoEl) {
+        const photo = opts.photo || getPrizePhotoForWinner(last);
+        if (photo) {
+          photoEl.innerHTML = `<img src="${photo}" alt="Prize" class="w-full h-full object-cover" />`;
+          photoEl.classList.remove('border-dashed');
+          photoEl.classList.add('border-solid', 'border-[#C8372D]');
+        } else {
+          photoEl.innerHTML = `<i class="fa-solid fa-gift text-3xl mb-1"></i><span class="text-[10px] font-bold">${escapeHTML(last?.prizeName || 'Prize')}</span>`;
+          photoEl.classList.add('border-dashed');
+          photoEl.classList.remove('border-solid', 'border-[#C8372D]');
+        }
       }
       if (congratsEl) {
         congratsEl.textContent = intensity >= 3
@@ -1727,6 +1837,8 @@
           ? 'fa-solid fa-crown text-3xl animate-bounce text-amber-500'
           : 'fa-solid fa-trophy text-3xl animate-bounce';
       }
+      const spinAgainBtn = document.getElementById('modalSpinAgainBtn');
+      if (spinAgainBtn) spinAgainBtn.classList.toggle('hidden', !!opts.hideSpinAgain);
       modal.classList.toggle('winner-modal-mega', intensity >= 3);
       modal.classList.remove('opacity-0', 'pointer-events-none');
       const card = modal.querySelector('.festive-card');
@@ -1734,6 +1846,19 @@
         card.classList.remove('scale-90');
         card.style.borderColor = intensity >= 3 ? '#D97724' : '#C8372D';
       }
+      setModalControlsLocked(true);
+      return new Promise((resolve) => {
+        resolveWinnerModalWait();
+        winnerModalResolver = resolve;
+        winnerModalHoldTimer = setTimeout(() => {
+          winnerModalHoldTimer = null;
+          setModalControlsLocked(false);
+          if (opts.autoContinue) {
+            hideWinnerModal();
+            resolveWinnerModalWait();
+          }
+        }, holdMs);
+      });
     }
 
     function hideWinnerModal() {
@@ -1742,6 +1867,8 @@
       modal.classList.add('opacity-0', 'pointer-events-none');
       const card = modal.querySelector('.festive-card');
       if (card) card.classList.add('scale-90');
+      setModalControlsLocked(false);
+      resolveWinnerModalWait();
     }
 
     // Snow
@@ -2244,8 +2371,8 @@
           resolve(null);
           return;
         }
-        const finishWith = (winnerName, itemIndex) => {
-          const result = handleSingleWinningResult(winnerName, itemIndex, opts);
+        const finishWith = async (winnerName, itemIndex) => {
+          const result = await handleSingleWinningResult(winnerName, itemIndex, opts);
           resolve(result);
         };
         if (items.length === 1) {
@@ -2288,7 +2415,7 @@
       });
     }
 
-    function handleSingleWinningResult(winnerName, itemIndex, opts = {}) {
+    async function handleSingleWinningResult(winnerName, itemIndex, opts = {}) {
       currentWinningItem = winnerName;
       const rankForCelebrate = drawPhase === 2
         ? (opts.meta?.rankIndex != null ? opts.meta.rankIndex : grandPrizeIndex)
@@ -2298,27 +2425,27 @@
         : (drawPhase === 2 ? getGrandCelebrateIntensity(rankForCelebrate) : (opts.batchMode ? 2 : 1));
       const meta = opts.meta || {};
       const ok = recordWinner(winnerName, meta);
-      if (ok) {
-        celebrateWin(intensity);
-        // Shared pool: always eliminate drawn names so they cannot win again
-        if (itemIndex >= 0 && itemIndex < items.length && items[itemIndex] === winnerName) {
-          removeItemByIndex(itemIndex);
-        } else {
-          const idx = items.indexOf(winnerName);
-          if (idx >= 0) removeItemByIndex(idx);
-        }
-        if (opts.batchMode) {
-          const step = opts.batchIndex && opts.batchTotal ? ` · ${opts.batchIndex}/${opts.batchTotal}` : '';
-          flashBatchWinner(
-            winnerName,
-            `${meta.giftIndex != null ? (christmasGiftNames[meta.giftIndex] || 'Christmas Gift') : 'Winner'}${step}`,
-            '🎁 Batch winner'
-          );
-        } else if (!opts.skipModal) {
-          showWinnerModal(winnerName, { intensity });
-        }
+      if (!ok) return null;
+      celebrateWin(intensity);
+      // Shared pool: always eliminate drawn names so they cannot win again
+      if (itemIndex >= 0 && itemIndex < items.length && items[itemIndex] === winnerName) {
+        removeItemByIndex(itemIndex);
+      } else {
+        const idx = items.indexOf(winnerName);
+        if (idx >= 0) removeItemByIndex(idx);
       }
-      return ok ? winnerName : null;
+      const entry = (drawPhase === 2 ? winnersPhase2 : winnersPhase1).slice(-1)[0];
+      if (!opts.skipModal) {
+        await showWinnerModal(winnerName, {
+          intensity,
+          entry,
+          photo: getPrizePhotoForWinner(entry),
+          holdMs: opts.batchMode ? BATCH_HOLD_MS : WINNER_HOLD_MS,
+          autoContinue: !!opts.batchMode,
+          hideSpinAgain: !!opts.batchMode
+        });
+      }
+      return winnerName;
     }
 
     function recordWinner(name, meta = {}) {
@@ -2390,7 +2517,6 @@
         if (items.length === 0) break;
         const name = await spinWheel({
           batchMode: true,
-          skipModal: true,
           intensity: 2,
           batchIndex: i + 1,
           batchTotal: drawCount,
@@ -2398,7 +2524,7 @@
         });
         if (!name) break;
         drawn.push(name);
-        await sleep(700);
+        await sleep(350);
       }
       isBatchRunning = false;
       isSpinning = false;
@@ -2411,13 +2537,6 @@
       }
       celebrateWin(2);
       showToast(`${drawn.length}× ${christmasGiftNames[giftIndex]} drawn!`, 'success');
-      if (drawn.length) {
-        flashBatchWinner(
-          drawn.join(' · '),
-          `${christmasGiftNames[giftIndex]} batch complete`,
-          '🎁 Batch complete'
-        );
-      }
       updateBatchLabels();
     }
 
@@ -2467,14 +2586,14 @@
       showToast(drawPhase === 2 ? 'Grand Prize winners cleared' : 'Christmas Gift winners cleared');
     });
 
-    document.getElementById('roleAvatarInput').addEventListener('change', (e) => {
+    document.getElementById('orderFormPhotoInput').addEventListener('change', (e) => {
       const file = e.target.files && e.target.files[0];
       if (!file) return;
       const reader = new FileReader();
       reader.onload = (ev) => {
-        roleAvatarPhotos[activeRoleAvatarKey] = ev.target.result;
-        applyRoleAvatar(activeRoleAvatarKey);
-        showToast(`${activeRoleAvatarKey} avatar updated`);
+        orderFormPhotoDataUrl = ev.target.result;
+        applyOrderFormPhoto();
+        showToast('Order form photo uploaded');
       };
       reader.readAsDataURL(file);
       e.target.value = '';
@@ -2505,16 +2624,11 @@
 
     document.getElementById('closeModalBtn').addEventListener('click', hideWinnerModal);
     document.getElementById('modalSpinAgainBtn').addEventListener('click', () => { hideWinnerModal(); spinWheel(); });
-    document.getElementById('modalRemoveAndSpinBtn').addEventListener('click', () => {
-      hideWinnerModal();
-      if (currentWinningItem && items.includes(currentWinningItem) && !autoRemoveToggle.checked) {
-        const idx = items.indexOf(currentWinningItem);
-        if (idx >= 0) removeItemByIndex(idx);
-      }
-      spinWheel();
-    });
+    document.getElementById('modalContinueBtn').addEventListener('click', hideWinnerModal);
     document.getElementById('winnerModal').addEventListener('click', (e) => {
-      if (e.target.id === 'winnerModal') hideWinnerModal();
+      if (e.target.id === 'winnerModal' && !document.getElementById('modalActionRow')?.classList.contains('pointer-events-none')) {
+        hideWinnerModal();
+      }
     });
 
     function resizeCanvas() { canvas.width = 800; canvas.height = 800; drawWheel(); }
@@ -2548,7 +2662,7 @@
       serializedHTML = serializedHTML.replace(/let vdoRoomId = '[^']*';/, 'let vdoRoomId = ' + JSON.stringify(vdoRoomId) + ';');
       serializedHTML = serializedHTML.replace(/let christmasBatchIndex = \d+;/, 'let christmasBatchIndex = ' + christmasBatchIndex + ';');
       serializedHTML = serializedHTML.replace(/let grandPrizeIndex = -?\d+;/, 'let grandPrizeIndex = ' + grandPrizeIndex + ';');
-      serializedHTML = serializedHTML.replace(/const roleAvatarPhotos = \{[\s\S]*?\};/, 'const roleAvatarPhotos = ' + JSON.stringify(roleAvatarPhotos) + ';');
+      serializedHTML = serializedHTML.replace(/let orderFormPhotoDataUrl = '[^']*';/, 'let orderFormPhotoDataUrl = ' + JSON.stringify(orderFormPhotoDataUrl) + ';');
       const blob = new Blob([serializedHTML], { type: 'text/html;charset=utf-8;' });
       const url = URL.createObjectURL(blob); const a = document.createElement('a');
       a.href = url; a.download = 'APAC_Christmas_Party_Presentation-FINAL.html';
@@ -2594,12 +2708,7 @@
     syncPrizeWinnersGrid1();
     syncPrizeWinnersGrid2();
     applyCompanyLogo();
-    ['maruko', 'hanawa', 'dumbledore'].forEach((key) => {
-      const idMap = { maruko: 'roleAvatarMaruko', hanawa: 'roleAvatarHanawa', dumbledore: 'roleAvatarDumbledore' };
-      const el = document.getElementById(idMap[key]);
-      if (el && !roleAvatarDefaults[key]) roleAvatarDefaults[key] = el.innerHTML;
-      applyRoleAvatar(key);
-    });
+    applyOrderFormPhoto();
     buildFestiveScatter();
     window.addEventListener('resize', () => buildFestiveScatter());
     // Prepare VDO room quietly; expand only after a camera connects
