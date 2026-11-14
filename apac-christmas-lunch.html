@@ -1498,7 +1498,7 @@
           </h1>
         </div>
         <div class="flex items-center gap-2 flex-wrap">
-          <span id="drawModeHint" class="px-3 py-1.5 rounded-xl bg-white border-2 border-slate-200 text-slate-700 text-xs font-black">Christmas Gifts only</span>
+          <span id="drawModeHint" class="px-3 py-1.5 rounded-xl bg-white border-2 border-slate-200 text-slate-700 text-xs font-black">Christmas · shared pool</span>
           <button type="button" id="soundToggleBtn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white hover:bg-slate-100 text-slate-700 font-extrabold text-xs border-2 border-slate-200 transition shadow-sm cursor-pointer">
             <i id="soundIcon" class="fa-solid fa-volume-high text-[#C8372D]"></i>
             <span id="soundStatusText">SFX On</span>
@@ -1541,16 +1541,9 @@
                 <button type="button" id="batchDrawBtn" class="w-full py-2 px-4 rounded-xl bg-gradient-to-r from-[#C8372D] to-[#DC2626] hover:from-[#b91c1c] hover:to-[#C8372D] text-white font-black text-xs tracking-wide transition shadow-lg shadow-red-900/20 flex items-center justify-center gap-2 cursor-pointer">
                   <i class="fa-solid fa-play"></i> Draw Next Christmas Batch
                 </button>
-              </div>
-              <div id="grandSpinPanel" class="hidden space-y-2">
-                <div class="flex items-center justify-between gap-2">
-                  <label class="text-xs font-extrabold text-slate-700 flex items-center gap-1.5"><i class="fa-solid fa-crown text-amber-500"></i> Next rank</label>
-                  <span id="nextGrandLabel" class="text-[11px] font-black text-[#D97724]">Grand Prize #6</span>
+                <div id="sharedPoolHandoff" class="rounded-xl bg-amber-50 border border-amber-200 px-2.5 py-2 text-[10px] font-semibold text-amber-900 leading-relaxed">
+                  Shared pool · <span id="sharedPoolLeftLabel">28</span> names left after Christmas winners are removed · need 6 for Grand
                 </div>
-                <p class="text-[10px] text-slate-500 font-semibold">Drawn #6 → #1 · #1 is the best · shared pool</p>
-                <button type="button" onclick="spinWheel()" class="w-full py-2 px-4 rounded-xl bg-gradient-to-r from-[#D97724] to-[#F59E0B] hover:from-[#b45309] hover:to-[#D97724] text-white font-black text-xs tracking-wide transition shadow-lg flex items-center justify-center gap-2 cursor-pointer">
-                  <i class="fa-solid fa-dharmachakra"></i> Spin Next Grand Prize
-                </button>
               </div>
               <input type="hidden" id="batchCountInput" value="3" />
             </div>
@@ -1729,15 +1722,110 @@
         Time for the surprise finale — roll the wheel again for the premium prizes!
       </p>
       <button type="button" onclick="startPhase2Draw()" class="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#C8372D] to-[#D97724] hover:from-[#b91c1c] hover:to-[#b45309] text-white font-black text-lg sm:text-xl tracking-wide shadow-xl transition transform hover:scale-105 active:scale-95 cursor-pointer">
-        <i class="fa-solid fa-dharmachakra"></i> Roll Wheel for Grand Prizes
+        <i class="fa-solid fa-dharmachakra"></i> Open Grand Prize Spinner
       </button>
+      <p class="text-xs sm:text-sm text-slate-500 font-semibold mt-4" id="grandIntroPoolHint">
+        Shared pool — Christmas winners stay out · need 6 remaining names
+      </p>
     </div>
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 18: GRAND PRIZES WALL (SCHOOL LEADERBOARD)                       -->
+  <!-- SLIDE 19: GRAND PRIZES SPINNER (DEDICATED SHARED-POOL WHEEL)           -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center" style="padding-top: 3.25rem; padding-bottom: 4.25rem;" data-title="19. Grand Prizes Wall">
+  <section class="slide flex-col overflow-hidden" style="padding-top: 3.1rem; padding-bottom: 4rem;" data-title="19. Grand Prizes Spinner">
+    <div class="flex-1 max-w-[1600px] w-full mx-auto flex flex-col justify-center">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-1 px-1">
+        <div class="flex items-center gap-3 flex-wrap">
+          <span class="px-3 py-1 rounded-xl bg-[#D97724] text-white font-black text-xs uppercase tracking-wider shadow">
+            👑 Grand Prizes
+          </span>
+          <h1 class="font-festive-display text-2xl sm:text-3xl font-bold text-[#C8372D] tracking-tight">
+            PREMIUM HONOR ROLL
+          </h1>
+        </div>
+        <div class="flex items-center gap-2 flex-wrap">
+          <span id="grandPoolHint" class="px-3 py-1.5 rounded-xl bg-amber-50 border-2 border-amber-300 text-amber-900 text-xs font-black">Shared pool · no re-draws</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 items-center">
+        <div class="lg:col-span-3 flex flex-col gap-2.5 order-2 lg:order-1">
+          <div class="chalkboard-card rounded-2xl p-3.5 border-2 border-amber-500 text-white">
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-lg bg-amber-100 text-amber-900 flex items-center justify-center"><i class="fa-solid fa-users text-xs"></i></div>
+                <h2 class="font-extrabold text-sm text-amber-200">Remaining Pool</h2>
+              </div>
+              <span id="grandItemCountBadge" class="px-2.5 py-0.5 text-xs font-extrabold rounded-full bg-amber-400 text-slate-900">0 left</span>
+            </div>
+            <p class="text-[10px] text-amber-100/80 font-semibold mb-2 leading-relaxed">
+              Same class list as Christmas · winners already drawn for gifts are excluded automatically.
+            </p>
+            <textarea id="grandEntriesView" rows="8" readonly class="w-full bg-black/40 border-2 border-amber-400/50 rounded-xl p-2 text-xs text-white focus:outline-none font-mono resize-y opacity-95" placeholder="Remaining names appear here…"></textarea>
+          </div>
+
+          <div class="festive-card rounded-2xl p-3.5 border-2 border-[#D97724]/40">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between gap-2">
+                <label class="text-xs font-extrabold text-slate-700 flex items-center gap-1.5"><i class="fa-solid fa-crown text-amber-500"></i> Next rank</label>
+                <span id="nextGrandLabel" class="text-[11px] font-black text-[#D97724]">Grand Prize #6</span>
+              </div>
+              <p class="text-[10px] text-slate-500 font-semibold">Drawn #6 → #1 · #1 is the best · shared pool</p>
+              <button type="button" id="grandSideSpinBtn" onclick="spinWheel()" class="w-full py-2 px-4 rounded-xl bg-gradient-to-r from-[#D97724] to-[#F59E0B] hover:from-[#b45309] hover:to-[#D97724] text-white font-black text-xs tracking-wide transition shadow-lg flex items-center justify-center gap-2 cursor-pointer">
+                <i class="fa-solid fa-dharmachakra"></i> Spin Next Grand Prize
+              </button>
+              <button type="button" onclick="goToSlide(19)" class="w-full py-2 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-black text-xs tracking-wide transition flex items-center justify-center gap-2 cursor-pointer">
+                <i class="fa-solid fa-trophy"></i> View Leaderboard
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6 flex flex-col items-center justify-center order-1 lg:order-2">
+          <div class="relative w-full max-w-[min(68vh,680px)] aspect-square flex items-center justify-center p-0">
+            <div class="absolute -top-2 z-20 pointer-shadow flex flex-col items-center">
+              <svg width="56" height="64" viewBox="0 0 46 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M23 52L4 14C1 8 4.5 0 11.5 0H34.5C41.5 0 45 8 42 14L23 52Z" fill="#D97724"/>
+                <path d="M23 44L10 14H36L23 44Z" fill="#FEF3C7"/>
+                <circle cx="23" cy="14" r="5" fill="#C8372D"/>
+              </svg>
+            </div>
+            <div class="w-full h-full rounded-full p-2 relative flex items-center justify-center">
+              <canvas id="grandWheelCanvas" class="wheel-shadow w-full h-full cursor-pointer max-w-full max-h-full rounded-full transition-transform" width="900" height="900"></canvas>
+              <button type="button" id="grandSpinBtn" class="absolute z-10 w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-tr from-[#b45309] via-[#D97724] to-[#F59E0B] text-white font-black text-base sm:text-lg tracking-wider uppercase flex flex-col items-center justify-center shadow-2xl border-4 border-[#FEF3C7] hover:scale-105 active:scale-95 transition-all group cursor-pointer">
+                <span class="group-hover:text-amber-100 transition">SPIN</span>
+                <div class="w-4 h-1.5 bg-[#C8372D] rounded-full mt-1"></div>
+              </button>
+            </div>
+          </div>
+          <div class="mt-2 text-center text-sm text-slate-600 font-bold">Click <span class="text-[#D97724] font-black uppercase">Spin</span> or press <kbd class="px-2 py-0.5 rounded bg-slate-100 border border-slate-300 text-slate-800 font-mono">SPACE</kbd></div>
+        </div>
+
+        <div class="lg:col-span-3 flex flex-col gap-3 order-3">
+          <div class="chalkboard-card rounded-2xl p-3.5 border-2 border-amber-400 flex flex-col h-[min(520px,62vh)] text-white">
+            <div class="flex items-center justify-between pb-2 border-b border-amber-500/40">
+              <div class="flex items-center gap-2">
+                <div class="w-7 h-7 rounded-lg bg-amber-400 text-slate-900 flex items-center justify-center"><i class="fa-solid fa-crown text-sm"></i></div>
+                <div><h2 class="font-extrabold text-sm text-amber-200">Grand Winners</h2><p class="text-[10px] text-amber-300 font-semibold" id="grandWinnerCountText">0 drawn</p></div>
+              </div>
+            </div>
+            <div id="grandWinnersList" class="flex-1 overflow-y-auto py-2 space-y-1.5 pr-1">
+              <div class="h-full flex flex-col items-center justify-center text-center p-4 text-amber-300/70">
+                <i class="fa-solid fa-award text-4xl mb-2 opacity-50 text-amber-300"></i>
+                <p class="text-xs font-extrabold">No Grand winners yet</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SLIDE 20: GRAND PRIZES WALL (SCHOOL LEADERBOARD)                       -->
+  <!-- ===================================================================== -->
+  <section class="slide flex-col items-center justify-center" style="padding-top: 3.25rem; padding-bottom: 4.25rem;" data-title="20. Grand Prizes Wall">
     <div class="max-w-5xl w-full">
       <input type="file" id="phase2PrizePhotoInput" accept="image/*" class="hidden" />
       <div class="school-leaderboard">
@@ -1755,7 +1843,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 19: GROUP PHOTO BACKDROP                                        -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-between text-center" data-title="20. Group Photo Backdrop">
+  <section class="slide flex-col items-center justify-between text-center" data-title="21. Group Photo Backdrop">
     <div class="w-full max-w-5xl mx-auto pt-2">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#C8372D] text-white text-xs font-black uppercase tracking-widest shadow mb-2">
         <i class="fa-solid fa-camera"></i> Group Photo • 畢業大合照
@@ -1821,11 +1909,12 @@
 
         <div class="h-5 w-px bg-slate-700 mx-0.5"></div>
         <div class="flex items-center gap-1.5 flex-wrap justify-center">
-          <button type="button" onclick="goToSlide(13)" class="px-2.5 py-1.5 rounded-xl bg-[#C8372D] hover:bg-[#b91c1c] text-white font-black transition cursor-pointer" title="Honor Roll Spinner">Spinner</button>
+          <button type="button" onclick="goToSlide(13)" class="px-2.5 py-1.5 rounded-xl bg-[#C8372D] hover:bg-[#b91c1c] text-white font-black transition cursor-pointer" title="Christmas Gifts Spinner">Xmas Spin</button>
           <button type="button" onclick="goToSlide(14)" class="px-2.5 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white font-black transition cursor-pointer" title="Christmas Prizes winners">Christmas Winners</button>
           <button type="button" onclick="goToSlide(16)" class="px-2.5 py-1.5 rounded-xl bg-fuchsia-700 hover:bg-fuchsia-600 text-white font-black transition cursor-pointer hidden sm:inline-flex" title="Best Dress Reveal">Best Dress</button>
-          <button type="button" onclick="goToSlide(18)" class="px-2.5 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-black transition cursor-pointer" title="Grand Prizes winners">Grand Winners</button>
-          <button type="button" onclick="goToSlide(19)" class="px-2.5 py-1.5 rounded-xl bg-sky-700 hover:bg-sky-600 text-white font-black transition cursor-pointer" title="Group Photo">Group Photo</button>
+          <button type="button" onclick="goToSlide(18)" class="px-2.5 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-black transition cursor-pointer" title="Grand Prizes Spinner">Grand Spin</button>
+          <button type="button" onclick="goToSlide(19)" class="px-2.5 py-1.5 rounded-xl bg-amber-800 hover:bg-amber-700 text-white font-black transition cursor-pointer" title="Grand Prizes winners">Grand Winners</button>
+          <button type="button" onclick="goToSlide(20)" class="px-2.5 py-1.5 rounded-xl bg-sky-700 hover:bg-sky-600 text-white font-black transition cursor-pointer" title="Group Photo">Group Photo</button>
           <button type="button" onclick="exportWinners()" class="px-2.5 py-1.5 rounded-xl bg-slate-700 hover:bg-slate-600 text-amber-200 font-black transition cursor-pointer" title="Export winners list"><i class="fa-solid fa-file-export"></i> Export</button>
         </div>
 
@@ -1853,9 +1942,13 @@
   <script>
     let currentSlideIdx = 0;
     const DEFAULT_ROSTER = [
-      "Alexander Wright", "Beatrix Potter", "Charles Darwin",
-      "Diana Prince", "Edward Norton", "Fiona Gallagher",
-      "George Lucas", "Hannah Abbott", "Ian Malcolm", "Julia Roberts"
+      "Alexander Wright", "Beatrix Potter", "Charles Darwin", "Diana Prince",
+      "Edward Norton", "Fiona Gallagher", "George Lucas", "Hannah Abbott",
+      "Ian Malcolm", "Julia Roberts", "Kevin Morgan", "Laura Cox",
+      "Michael Scott", "Nancy Drew", "Oliver Twist", "Patricia Quinn",
+      "Quincy Adams", "Rachel Clark", "Samuel Wright", "Tina Robinson",
+      "Uma Sharma", "Victor Hugo", "Wendy Hall", "Xavier Young",
+      "Yvonne Strahovski", "Zachary Quinto", "Amy Pond", "Brian Cox"
     ];
     let items = [...DEFAULT_ROSTER];
     let masterRoster = [...DEFAULT_ROSTER]; // full class list for re-rolling Grand Prizes
@@ -1876,8 +1969,18 @@
     let vdoPushUrl = '';
     let christmasBatchIndex = 0; // 0..4 into CHRISTMAS_BATCHES
     let grandPrizeIndex = 5; // draw order #6 → #1 (index into GRAND_PRIZES)
-    let preferGrandOnSpinner = false; // armed by "Roll Wheel for Grand Prizes"
+    let preferGrandOnSpinner = false; // armed by Grand intro CTA
     let orderFormPhotoDataUrl = '';
+    // Stable slide indices (0-based) after dedicated Grand spinner insert
+    const SLIDE_XMAS_SPIN = 13;
+    const SLIDE_XMAS_WALL = 14;
+    const SLIDE_BEST_REVEAL = 16;
+    const SLIDE_GRAND_INTRO = 17;
+    const SLIDE_GRAND_SPIN = 18;
+    const SLIDE_GRAND_WALL = 19;
+    const SLIDE_GROUP = 20;
+    const CHRISTMAS_SLOTS = 14; // 3+3+4+3+1
+    const GRAND_SLOTS = 6;
     let winnerModalHoldTimer = null;
     let winnerModalResolver = null;
     const WINNER_HOLD_MS = 2500;
@@ -1909,8 +2012,13 @@
       return new Set(winnersPhase1.map(w => w.name));
     }
 
-    function sharedPoolRemaining(source) {
-      const blocked = christmasWinnerNames();
+    function allDrawnNames() {
+      return new Set([...winnersPhase1, ...winnersPhase2].map(w => w.name));
+    }
+
+    function sharedPoolRemaining(source, opts = {}) {
+      // Default: Christmas winners blocked (Grand eligibility). Optionally also block Grand winners.
+      const blocked = opts.excludeGrand ? allDrawnNames() : christmasWinnerNames();
       const list = (source && source.length ? source : masterRoster).filter(n => !blocked.has(n));
       return list;
     }
@@ -2053,8 +2161,6 @@
       winners = drawPhase === 1 ? winnersPhase1 : winnersPhase2;
       const badge = document.getElementById('drawPhaseBadge');
       const hint = document.getElementById('drawModeHint');
-      const batchPanel = document.getElementById('christmasBatchPanel');
-      const grandPanel = document.getElementById('grandSpinPanel');
       if (badge) {
         badge.textContent = drawPhase === 1 ? '🎁 Christmas Gifts' : '👑 Grand Prizes';
         badge.className = drawPhase === 1
@@ -2062,34 +2168,77 @@
           : 'px-3 py-1 rounded-xl bg-[#D97724] text-white font-black text-xs uppercase tracking-wider shadow';
       }
       if (hint) {
-        hint.textContent = drawPhase === 1 ? 'Christmas Gifts only' : 'Grand · shared pool (no re-draws)';
+        hint.textContent = drawPhase === 1 ? 'Christmas · shared pool' : 'Grand · shared pool (no re-draws)';
         hint.className = drawPhase === 1
           ? 'px-3 py-1.5 rounded-xl bg-white border-2 border-slate-200 text-slate-700 text-xs font-black'
           : 'px-3 py-1.5 rounded-xl bg-amber-50 border-2 border-amber-300 text-amber-900 text-xs font-black';
       }
-      if (batchPanel) batchPanel.classList.toggle('hidden', drawPhase !== 1);
-      if (grandPanel) grandPanel.classList.toggle('hidden', drawPhase !== 2);
       updateBatchLabels();
+      updateSharedPoolHud();
       updateWinnersListUI();
       if (!opts.silent) {
         showToast(drawPhase === 1 ? 'Christmas Gifts spinner active' : 'Grand Prizes spinner active');
       }
     }
 
-    function startPhase2Draw() {
-      // Same shared pool: Christmas winners stay out; continue with remaining names
-      const remaining = sharedPoolRemaining(items.length ? items : masterRoster);
-      const fromMaster = sharedPoolRemaining(masterRoster);
-      items = remaining.length ? [...remaining] : [...fromMaster];
-      winnersPhase2 = [];
-      grandPrizeIndex = GRAND_PRIZES.length - 1; // start at #6, finish at #1
-      preferGrandOnSpinner = true;
+    function updateSharedPoolHud() {
+      const left = sharedPoolRemaining(masterRoster).length;
+      const xmasDone = winnersPhase1.length;
+      const xmasLeft = Math.max(0, CHRISTMAS_SLOTS - xmasDone);
+      const poolLabel = document.getElementById('sharedPoolLeftLabel');
+      if (poolLabel) poolLabel.textContent = String(left);
+      const handoff = document.getElementById('sharedPoolHandoff');
+      if (handoff) {
+        if (xmasLeft === 0) {
+          handoff.innerHTML = left >= GRAND_SLOTS
+            ? `✅ Christmas complete · <strong>${left}</strong> names left for Grand (need ${GRAND_SLOTS}) · continue to Best Dress → Grand Spinner`
+            : `⚠️ Christmas complete · only <strong>${left}</strong> names left — need ${GRAND_SLOTS} for Grand. Add more names to the roster.`;
+          handoff.className = left >= GRAND_SLOTS
+            ? 'rounded-xl bg-emerald-50 border border-emerald-200 px-2.5 py-2 text-[10px] font-semibold text-emerald-900 leading-relaxed'
+            : 'rounded-xl bg-rose-50 border border-rose-200 px-2.5 py-2 text-[10px] font-semibold text-rose-900 leading-relaxed';
+        } else {
+          handoff.innerHTML = `Shared pool · <span id="sharedPoolLeftLabel">${left}</span> eligible after removing Christmas winners · still need ${xmasLeft} Christmas + ${GRAND_SLOTS} Grand`;
+          handoff.className = 'rounded-xl bg-amber-50 border border-amber-200 px-2.5 py-2 text-[10px] font-semibold text-amber-900 leading-relaxed';
+        }
+      }
+      const introHint = document.getElementById('grandIntroPoolHint');
+      if (introHint) {
+        introHint.textContent = left >= GRAND_SLOTS
+          ? `Shared pool ready — ${left} names left (Christmas winners excluded) · drawing ${GRAND_SLOTS} premium prizes`
+          : `Not enough names left (${left}). Need ${GRAND_SLOTS} for Grand — add people who did not win Christmas gifts.`;
+      }
+      const grandHint = document.getElementById('grandPoolHint');
+      if (grandHint) {
+        grandHint.textContent = drawPhase === 2
+          ? `${items.length} on wheel · Christmas winners excluded`
+          : `${left} eligible after Christmas · need ${GRAND_SLOTS} for Grand`;
+      }
+      const grandBadge = document.getElementById('grandItemCountBadge');
+      if (grandBadge) grandBadge.textContent = `${items.length} left`;
+      const grandView = document.getElementById('grandEntriesView');
+      if (grandView) grandView.value = items.join('\n');
+    }
+
+    function prepareSharedPoolForGrand() {
+      // Rebuild from master minus everyone already awarded (Christmas + Grand so far)
+      const fromMaster = sharedPoolRemaining(masterRoster, { excludeGrand: true });
+      items = [...fromMaster];
       syncInputFromItems();
+      updateSharedPoolHud();
+      return sharedPoolRemaining(masterRoster).length; // eligible for Grand overall (excludes Christmas only)
+    }
+
+    function startPhase2Draw() {
+      if (!winnersPhase2.length) grandPrizeIndex = GRAND_PRIZES.length - 1; // fresh run starts at #6
+      prepareSharedPoolForGrand();
+      preferGrandOnSpinner = true;
       setDrawPhase(2, { silent: true });
-      goToSlide(13);
-      showToast(items.length
-        ? `Grand Prizes · shared pool · ${items.length} left · drawing #6 → #1`
-        : 'No names left in the shared pool');
+      goToSlide(SLIDE_GRAND_SPIN);
+      const stillNeed = grandPrizeIndex + 1;
+      if (stillNeed <= 0) showToast('All Grand Prizes already drawn');
+      else if (items.length >= stillNeed) showToast(`Grand Prizes · ${items.length} on wheel · next #${grandPrizeIndex + 1}`);
+      else if (items.length > 0) showToast(`Only ${items.length} names left — need ${stillNeed} Grand ranks`, 'error');
+      else showToast('No names left in the shared pool — add non-Christmas winners', 'error');
     }
 
     function updateBatchLabels() {
@@ -2109,6 +2258,7 @@
       }
       const batchInput = document.getElementById('batchCountInput');
       if (batchInput && nextBatch) batchInput.value = String(nextBatch.qty);
+      updateSharedPoolHud();
     }
 
     function applyOrderFormPhoto() {
@@ -2583,8 +2733,8 @@
       { id: 'recess', label: 'Recess', slides: [12], trackKey: 'recess' },
       { id: 'christmasGifts', label: 'Christmas Gifts', slides: [13, 14], trackKey: 'luckyDraw' },
       { id: 'bestDressed', label: 'Best Dressed', slides: [15, 16], trackKey: 'buffet' },
-      { id: 'grandPrizes', label: 'Grand Prizes', slides: [17, 18], trackKey: 'luckyDraw' },
-      { id: 'finale', label: 'Finale', slides: [19], trackKey: 'finale' }
+      { id: 'grandPrizes', label: 'Grand Prizes', slides: [17, 18, 19], trackKey: 'luckyDraw' },
+      { id: 'finale', label: 'Finale', slides: [20], trackKey: 'finale' }
     ];
 
     function getPhaseForSlide(slideIdx) {
@@ -2729,19 +2879,26 @@
       const phaseSel = document.getElementById('bgmPhaseSelect');
       if (phaseSel) phaseSel.value = getPhaseForSlide(currentSlideIdx).id;
       startSlideMusic(currentSlideIdx);
-      // Keep Christmas / Grand flows separate so Grand Prizes stay a surprise
-      if (currentSlideIdx === 14) {
+      // Dedicated spinners: Christmas stays phase 1; Grand stays phase 2
+      if (currentSlideIdx === SLIDE_XMAS_SPIN || currentSlideIdx === SLIDE_XMAS_WALL) {
         preferGrandOnSpinner = false;
         setDrawPhase(1, { silent: true });
+        if (currentSlideIdx === SLIDE_XMAS_SPIN) resizeCanvas();
       }
-      if (currentSlideIdx === 13) {
-        if (preferGrandOnSpinner || prevIdx >= 17) setDrawPhase(2, { silent: true });
-        else if (prevIdx < 13) setDrawPhase(1, { silent: true });
-        resizeCanvas();
+      if (currentSlideIdx === SLIDE_GRAND_INTRO || currentSlideIdx === SLIDE_GRAND_SPIN || currentSlideIdx === SLIDE_GRAND_WALL) {
+        preferGrandOnSpinner = true;
+        if (currentSlideIdx === SLIDE_GRAND_SPIN) {
+          prepareSharedPoolForGrand();
+          setDrawPhase(2, { silent: true });
+          resizeCanvas();
+        } else {
+          setDrawPhase(2, { silent: true });
+          updateSharedPoolHud();
+        }
       }
-      if (currentSlideIdx === 14) syncPrizeWinnersGrid1();
-      if (currentSlideIdx === 18) syncPrizeWinnersGrid2();
-      if (currentSlideIdx === 16 && prevIdx !== 16) resetBestDressedReveal({ silent: true });
+      if (currentSlideIdx === SLIDE_XMAS_WALL) syncPrizeWinnersGrid1();
+      if (currentSlideIdx === SLIDE_GRAND_WALL) syncPrizeWinnersGrid2();
+      if (currentSlideIdx === SLIDE_BEST_REVEAL && prevIdx !== SLIDE_BEST_REVEAL) resetBestDressedReveal({ silent: true });
       if (currentSlideIdx === 11 && !vdoRoomId) startVdoNinjaRoom(false);
     }
 
@@ -2869,7 +3026,12 @@
 
       if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); nextSlide(); }
       else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prevSlide(); }
-      else if (e.code === 'Space' && currentSlideIdx === 13 && !isSpinning && !isBatchRunning) { e.preventDefault(); spinWheel(); }
+      else if (e.code === 'Space' && (currentSlideIdx === SLIDE_XMAS_SPIN || currentSlideIdx === SLIDE_GRAND_SPIN) && !isSpinning && !isBatchRunning) {
+        e.preventDefault();
+        if (currentSlideIdx === SLIDE_GRAND_SPIN && drawPhase !== 2) setDrawPhase(2, { silent: true });
+        if (currentSlideIdx === SLIDE_XMAS_SPIN && drawPhase !== 1) setDrawPhase(1, { silent: true });
+        spinWheel();
+      }
     });
 
     // Cooking Timer
@@ -2893,15 +3055,32 @@
     }
     function resetCookTimer() { clearInterval(cookInterval); cookInterval = null; cookSeconds = 180; updateCookTimerUI(); document.getElementById('cookTimerStartBtn').innerHTML = '<i class="fa-solid fa-play"></i> Start'; }
 
-    // Lucky Wheel
-    const canvas = document.getElementById('wheelCanvas'); const ctx = canvas.getContext('2d');
+    // Lucky Wheel (shared pool; Christmas + Grand each have a canvas)
+    const canvas = document.getElementById('wheelCanvas');
+    const grandCanvas = document.getElementById('grandWheelCanvas');
     const entriesInput = document.getElementById('entriesInput'); const spinBtn = document.getElementById('spinBtn');
+    const grandSpinBtn = document.getElementById('grandSpinBtn');
     const itemCountBadge = document.getElementById('itemCountBadge'); const winnersList = document.getElementById('winnersList');
     const winnerCountText = document.getElementById('winnerCountText'); const autoRemoveToggle = document.getElementById('autoRemoveToggle');
     const batchDrawBtn = document.getElementById('batchDrawBtn'); const batchCountInput = document.getElementById('batchCountInput');
 
-    function drawWheel() {
-      const width = canvas.width; const height = canvas.height;
+    function getWheelCanvases() {
+      return [canvas, grandCanvas].filter(Boolean);
+    }
+
+    function setSpinControlsDisabled(disabled) {
+      [spinBtn, grandSpinBtn, document.getElementById('grandSideSpinBtn')].forEach((btn) => {
+        if (!btn) return;
+        btn.disabled = disabled;
+        btn.classList.toggle('opacity-80', disabled);
+        btn.classList.toggle('scale-95', disabled);
+      });
+    }
+
+    function paintWheelOn(targetCanvas) {
+      if (!targetCanvas) return;
+      const ctx = targetCanvas.getContext('2d');
+      const width = targetCanvas.width; const height = targetCanvas.height;
       const center = width / 2; const radius = center - 24;
       ctx.clearRect(0, 0, width, height); const count = items.length;
       if (count === 0) {
@@ -2927,6 +3106,10 @@
       }
       ctx.beginPath(); ctx.arc(0, 0, radius, 0, Math.PI * 2); ctx.lineWidth = 10; ctx.strokeStyle = '#D97724'; ctx.stroke();
       ctx.restore();
+    }
+
+    function drawWheel() {
+      getWheelCanvases().forEach(paintWheelOn);
     }
 
     function getSelectedItem() {
@@ -2959,8 +3142,7 @@
           return;
         }
         isSpinning = true;
-        spinBtn.disabled = true;
-        spinBtn.classList.add('opacity-80', 'scale-95');
+        setSpinControlsDisabled(true);
         const spinTime = (opts.batchMode ? 2800 : 4200) + Math.random() * (opts.batchMode ? 900 : 1400);
         const startTime = performance.now();
         const totalRotations = Math.PI * 2 * (opts.batchMode ? (5 + Math.floor(Math.random() * 3)) : (8 + Math.floor(Math.random() * 5))) + Math.random() * Math.PI * 2;
@@ -2981,10 +3163,7 @@
             requestAnimationFrame(animateSpin);
           } else {
             isSpinning = false;
-            if (!opts.batchMode) {
-              spinBtn.disabled = false;
-              spinBtn.classList.remove('opacity-80', 'scale-95');
-            }
+            if (!opts.batchMode) setSpinControlsDisabled(false);
             const result = getSelectedItem();
             if (result) finishWith(result.item, result.index);
             else resolve(null);
@@ -3060,17 +3239,23 @@
       return true;
     }
 
-    function updateWinnersListUI() {
-      winners = drawPhase === 2 ? winnersPhase2 : winnersPhase1;
-      winnerCountText.textContent = `${winners.length} drawn`;
-      if (winners.length === 0) {
-        winnersList.innerHTML = `<div id="emptyWinnersNotice" class="h-full flex flex-col items-center justify-center text-center p-4 text-amber-300/70"><i class="fa-solid fa-award text-4xl mb-2 opacity-50 text-amber-300"></i><p class="text-xs font-extrabold">No winners yet</p></div>`;
+    function renderWinnerStack(listEl, countEl, list, emptyLabel) {
+      if (countEl) countEl.textContent = `${list.length} drawn`;
+      if (!listEl) return;
+      if (!list.length) {
+        listEl.innerHTML = `<div class="h-full flex flex-col items-center justify-center text-center p-4 text-amber-300/70"><i class="fa-solid fa-award text-4xl mb-2 opacity-50 text-amber-300"></i><p class="text-xs font-extrabold">${emptyLabel}</p></div>`;
         return;
       }
-      winnersList.innerHTML = [...winners].reverse().map((w) => {
+      listEl.innerHTML = [...list].reverse().map((w) => {
         const label = w.prizeName || (w.rankIndex != null ? `GP #${w.rank}` : `Gift`);
         return `<div class="flex items-center justify-between p-2 rounded-xl bg-black/30 border border-amber-500/40 text-amber-100 gap-2"><span class="text-xs font-extrabold truncate">${escapeHTML(label)}: ${escapeHTML(w.name)}</span><span class="text-[10px] text-amber-300/80 shrink-0">${w.time}</span></div>`;
       }).join('');
+    }
+
+    function updateWinnersListUI() {
+      winners = drawPhase === 2 ? winnersPhase2 : winnersPhase1;
+      renderWinnerStack(winnersList, winnerCountText, winnersPhase1, 'No Christmas winners yet');
+      renderWinnerStack(document.getElementById('grandWinnersList'), document.getElementById('grandWinnerCountText'), winnersPhase2, 'No Grand winners yet');
     }
 
     function syncPrizeWinnersGrid1() { buildChristmasGiftsWall(); }
@@ -3111,8 +3296,7 @@
       }
       isBatchRunning = false;
       isSpinning = false;
-      spinBtn.disabled = false;
-      spinBtn.classList.remove('opacity-80', 'scale-95');
+      setSpinControlsDisabled(false);
       if (batchDrawBtn) {
         batchDrawBtn.disabled = false;
         batchDrawBtn.classList.remove('opacity-70');
@@ -3134,6 +3318,12 @@
       }
       showToast(`${drawn.length}× ${christmasGiftNames[giftIndex]} drawn!`, 'success');
       updateBatchLabels();
+      if (christmasBatchIndex >= CHRISTMAS_BATCHES.length) {
+        const left = sharedPoolRemaining(masterRoster).length;
+        showToast(left >= GRAND_SLOTS
+          ? `Christmas done · ${left} left for Grand Prizes`
+          : `Christmas done · only ${left} left (need ${GRAND_SLOTS})`, left >= GRAND_SLOTS ? 'success' : 'error');
+      }
     }
 
     function exportWinners() {
@@ -3181,13 +3371,19 @@
     }
 
     function removeItemByIndex(index) { if (index >= 0 && index < items.length) { items.splice(index, 1); syncInputFromItems(); drawWheel(); } }
-    function syncInputFromItems() { entriesInput.value = items.join('\n'); itemCountBadge.textContent = `${items.length} items`; drawWheel(); }
+    function syncInputFromItems() {
+      entriesInput.value = items.join('\n');
+      itemCountBadge.textContent = `${items.length} items`;
+      drawWheel();
+      updateSharedPoolHud();
+    }
     function syncItemsFromInput() {
       items = entriesInput.value.split('\n').map(s => s.trim()).filter(s => s.length > 0);
       itemCountBadge.textContent = `${items.length} items`;
       // While preparing Christmas Gifts, keep master roster in sync for the later Grand re-roll
       if (drawPhase === 1) masterRoster = [...items];
       drawWheel();
+      updateSharedPoolHud();
     }
 
     function showToast(msg, type = 'success') {
@@ -3199,7 +3395,8 @@
     function escapeHTML(str) { return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)); }
 
     entriesInput.addEventListener('input', syncItemsFromInput);
-    spinBtn.addEventListener('click', spinWheel);
+    spinBtn.addEventListener('click', () => { if (drawPhase !== 1) setDrawPhase(1, { silent: true }); spinWheel(); });
+    if (grandSpinBtn) grandSpinBtn.addEventListener('click', () => { if (drawPhase !== 2) setDrawPhase(2, { silent: true }); spinWheel(); });
     batchDrawBtn.addEventListener('click', runBatchDraw);
 
     document.getElementById('shuffleBtn').addEventListener('click', () => {
@@ -3271,7 +3468,10 @@
       }
     });
 
-    function resizeCanvas() { canvas.width = 900; canvas.height = 900; drawWheel(); }
+    function resizeCanvas() {
+      getWheelCanvases().forEach((c) => { c.width = 900; c.height = 900; });
+      drawWheel();
+    }
     window.addEventListener('resize', () => { resizeCanvas(); initSnow(); });
 
     function saveCustomizedHTML() {
@@ -3345,6 +3545,7 @@
     updateMusicHudUI();
     updateBatchLabels();
     setDrawPhase(1, { silent: true });
+    updateSharedPoolHud();
     syncPrizeWinnersGrid1();
     syncPrizeWinnersGrid2();
     applyCompanyLogo();
