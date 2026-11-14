@@ -121,6 +121,104 @@
       box-shadow: 0 20px 45px -12px rgba(20, 83, 45, 0.35), inset 0 0 28px rgba(0,0,0,0.28);
     }
 
+    /* Role avatars */
+    .role-avatar-wrap {
+      position: relative;
+      cursor: pointer;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .role-avatar {
+      width: 7.5rem;
+      height: 7.5rem;
+      border-radius: 9999px;
+      background: #fff;
+      box-shadow: 0 12px 28px -10px rgba(15, 23, 42, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .role-avatar-wrap:hover .role-avatar {
+      transform: scale(1.06) rotate(-2deg);
+      box-shadow: 0 16px 36px -10px rgba(200, 55, 45, 0.35);
+    }
+    .role-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .role-avatar-hint {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #64748b;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid #cbd5e1;
+      border-radius: 9999px;
+      padding: 0.15rem 0.55rem;
+    }
+    .role-avatar-badge {
+      position: absolute;
+      top: -0.35rem;
+      right: -0.35rem;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      background: #FEF3C7;
+      border: 2px solid #D97724;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      z-index: 2;
+      animation: avatarBob 2.4s ease-in-out infinite;
+    }
+    @keyframes avatarBob {
+      0%, 100% { transform: translateY(0) rotate(-6deg); }
+      50% { transform: translateY(-5px) rotate(6deg); }
+    }
+    .batch-flash {
+      position: fixed;
+      inset: 0;
+      z-index: 45;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      background: radial-gradient(circle at center, rgba(254, 243, 199, 0.55), rgba(15, 23, 42, 0.35));
+    }
+    .batch-flash.show { opacity: 1; }
+    .batch-flash-card {
+      background: rgba(255,255,255,0.97);
+      border: 4px solid #C8372D;
+      border-radius: 1.5rem;
+      padding: 1.25rem 1.75rem;
+      text-align: center;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35);
+      transform: scale(0.86);
+      transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+      max-width: min(92vw, 28rem);
+    }
+    .batch-flash.show .batch-flash-card { transform: scale(1); }
+    .winner-modal-mega #modalWinnerName {
+      background: linear-gradient(90deg, #FEF3C7, #FEE2E2, #FEF3C7);
+      border-color: #D97724;
+      animation: megaPulse 0.9s ease-in-out infinite alternate;
+    }
+    @keyframes megaPulse {
+      from { transform: scale(1); }
+      to { transform: scale(1.03); }
+    }
+
     /* Slide 2: MC Walk-Out Animations */
     @keyframes mcWalkLeft {
       0% { opacity: 0; transform: translateX(-140%) translateY(0px) rotate(-6deg); }
@@ -399,47 +497,57 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
         <div class="mc-walk-left bg-red-50/90 border-2 border-[#C8372D] rounded-3xl p-6 flex flex-col items-center text-center shadow-sm">
-          <div class="w-28 h-28 mb-3 rounded-full bg-white border-4 border-[#C8372D] shadow-md flex items-center justify-center overflow-hidden animate-float">
-            <svg viewBox="0 0 120 120" class="w-24 h-24">
-              <path d="M22,72 C18,32 42,16 60,16 C78,16 102,32 98,72 L92,76 L28,76 Z" fill="#1E293B"/>
-              <circle cx="60" cy="64" r="30" fill="#FDE2C4"/>
-              <polygon points="30,52 38,34 45,50 53,33 60,50 67,33 75,50 82,34 90,52" fill="#1E293B"/>
-              <ellipse cx="60" cy="22" rx="26" ry="6" fill="#F59E0B"/>
-              <path d="M40,22 Q60,4 80,22 Z" fill="#FBBF24"/>
-              <circle cx="43" cy="68" r="5" fill="#F87171" opacity="0.65"/>
-              <circle cx="77" cy="68" r="5" fill="#F87171" opacity="0.65"/>
-              <circle cx="48" cy="59" r="3.5" fill="#1E293B"/>
-              <circle cx="72" cy="59" r="3.5" fill="#1E293B"/>
-              <path d="M51,71 Q60,82 69,71 Z" fill="#EF4444"/>
-              <path d="M36,96 L84,96 L90,114 L30,114 Z" fill="#C8372D"/>
-              <polygon points="44,94 60,104 50,106" fill="#FFFFFF"/>
-              <polygon points="76,94 60,104 70,106" fill="#FFFFFF"/>
-            </svg>
+          <div class="role-avatar-wrap mb-3" onclick="triggerRoleAvatarUpload('maruko')" title="Click to upload Maruko avatar">
+            <span class="role-avatar-badge" aria-hidden="true">🎄</span>
+            <div id="roleAvatarMaruko" class="role-avatar border-4 border-[#C8372D] animate-float">
+              <svg viewBox="0 0 120 120" class="w-24 h-24">
+                <path d="M22,72 C18,32 42,16 60,16 C78,16 102,32 98,72 L92,76 L28,76 Z" fill="#1E293B"/>
+                <circle cx="60" cy="64" r="30" fill="#FDE2C4"/>
+                <polygon points="30,52 38,34 45,50 53,33 60,50 67,33 75,50 82,34 90,52" fill="#1E293B"/>
+                <ellipse cx="60" cy="22" rx="26" ry="6" fill="#F59E0B"/>
+                <path d="M40,22 Q60,4 80,22 Z" fill="#FBBF24"/>
+                <circle cx="43" cy="68" r="5" fill="#F87171" opacity="0.65"/>
+                <circle cx="77" cy="68" r="5" fill="#F87171" opacity="0.65"/>
+                <circle cx="48" cy="59" r="3.5" fill="#1E293B"/>
+                <circle cx="72" cy="59" r="3.5" fill="#1E293B"/>
+                <path d="M51,71 Q60,82 69,71 Z" fill="#EF4444"/>
+                <path d="M36,96 L84,96 L90,114 L30,114 Z" fill="#C8372D"/>
+                <polygon points="44,94 60,104 50,106" fill="#FFFFFF"/>
+                <polygon points="76,94 60,104 70,106" fill="#FFFFFF"/>
+              </svg>
+            </div>
+            <span class="role-avatar-hint">📷 Add avatar</span>
           </div>
           <span class="px-3 py-0.5 rounded-full bg-[#C8372D] text-white font-black text-xs uppercase mb-1">MC 1</span>
           <h2 class="text-2xl sm:text-3xl font-black text-[#C8372D]" contenteditable="true">Chibi Maruko • 櫻桃小丸子</h2>
+          <p class="text-xs text-slate-500 font-semibold mt-1">Class monitor · keeps the party rolling</p>
         </div>
 
         <div class="mc-walk-right bg-sky-50/90 border-2 border-[#23486A] rounded-3xl p-6 flex flex-col items-center text-center shadow-sm">
-          <div class="w-28 h-28 mb-3 rounded-full bg-white border-4 border-[#23486A] shadow-md flex items-center justify-center overflow-hidden animate-float" style="animation-delay: 0.6s;">
-            <svg viewBox="0 0 120 120" class="w-24 h-24">
-              <circle cx="60" cy="65" r="29" fill="#FDE2C4"/>
-              <path d="M30,62 C26,34 46,18 68,20 C90,22 104,34 106,50 C96,42 82,42 64,46 C46,50 36,56 30,62 Z" fill="#1E293B"/>
-              <path d="M84,24 Q108,22 112,42 Q96,38 84,36 Z" fill="#1E293B"/>
-              <path d="M41,53 Q48,50 53,53" stroke="#1E293B" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-              <path d="M67,53 Q72,50 79,53" stroke="#1E293B" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-              <circle cx="48" cy="60" r="3" fill="#1E293B"/>
-              <circle cx="72" cy="60" r="3" fill="#1E293B"/>
-              <path d="M51,73 Q62,80 71,71" stroke="#1E293B" stroke-width="3" fill="none" stroke-linecap="round"/>
-              <path d="M34,96 L86,96 L92,114 L28,114 Z" fill="#23486A"/>
-              <polygon points="50,95 70,95 60,108" fill="#FFFFFF"/>
-              <polygon points="52,98 60,102 52,106" fill="#C8372D"/>
-              <polygon points="68,98 60,102 68,106" fill="#C8372D"/>
-              <circle cx="60" cy="102" r="2.5" fill="#F59E0B"/>
-            </svg>
+          <div class="role-avatar-wrap mb-3" onclick="triggerRoleAvatarUpload('hanawa')" title="Click to upload Hanawa avatar">
+            <span class="role-avatar-badge" aria-hidden="true">🎁</span>
+            <div id="roleAvatarHanawa" class="role-avatar border-4 border-[#23486A] animate-float" style="animation-delay: 0.6s;">
+              <svg viewBox="0 0 120 120" class="w-24 h-24">
+                <circle cx="60" cy="65" r="29" fill="#FDE2C4"/>
+                <path d="M30,62 C26,34 46,18 68,20 C90,22 104,34 106,50 C96,42 82,42 64,46 C46,50 36,56 30,62 Z" fill="#1E293B"/>
+                <path d="M84,24 Q108,22 112,42 Q96,38 84,36 Z" fill="#1E293B"/>
+                <path d="M41,53 Q48,50 53,53" stroke="#1E293B" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <path d="M67,53 Q72,50 79,53" stroke="#1E293B" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <circle cx="48" cy="60" r="3" fill="#1E293B"/>
+                <circle cx="72" cy="60" r="3" fill="#1E293B"/>
+                <path d="M51,73 Q62,80 71,71" stroke="#1E293B" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <path d="M34,96 L86,96 L92,114 L28,114 Z" fill="#23486A"/>
+                <polygon points="50,95 70,95 60,108" fill="#FFFFFF"/>
+                <polygon points="52,98 60,102 52,106" fill="#C8372D"/>
+                <polygon points="68,98 60,102 68,106" fill="#C8372D"/>
+                <circle cx="60" cy="102" r="2.5" fill="#F59E0B"/>
+              </svg>
+            </div>
+            <span class="role-avatar-hint">📷 Add avatar</span>
           </div>
           <span class="px-3 py-0.5 rounded-full bg-[#23486A] text-white font-black text-xs uppercase mb-1">MC 2</span>
           <h2 class="text-2xl sm:text-3xl font-black text-[#23486A]" contenteditable="true">Hanawa-kun • 花輪同學</h2>
+          <p class="text-xs text-slate-500 font-semibold mt-1">Co-host · applause &amp; chaos control</p>
         </div>
       </div>
     </div>
@@ -459,24 +567,28 @@
       <div class="absolute top-0 inset-x-0 h-5 bg-gradient-to-b from-[#7f1d1d] to-[#991b1b] border-b-2 border-amber-400/80 z-30 pointer-events-none"></div>
 
       <div class="headmaster-reveal relative z-10">
-        <div class="w-28 h-28 sm:w-32 sm:h-32 mx-auto mb-4 rounded-full bg-amber-50 border-4 border-amber-300 shadow-xl flex items-center justify-center overflow-hidden animate-float">
-          <svg viewBox="0 0 120 120" class="w-28 h-28">
-            <polygon points="60,6 28,44 92,44" fill="#4C1D95"/>
-            <ellipse cx="60" cy="44" rx="42" ry="8" fill="#5B21B6"/>
-            <rect x="34" y="38" width="52" height="5" fill="#F59E0B"/>
-            <circle cx="54" cy="24" r="2.5" fill="#FDE047"/>
-            <circle cx="67" cy="30" r="2" fill="#FDE047"/>
-            <circle cx="60" cy="62" r="22" fill="#FDE2C4"/>
-            <ellipse cx="50" cy="60" rx="7" ry="5" fill="#FFFFFF" stroke="#D97724" stroke-width="2"/>
-            <ellipse cx="70" cy="60" rx="7" ry="5" fill="#FFFFFF" stroke="#D97724" stroke-width="2"/>
-            <line x1="57" y1="60" x2="63" y2="60" stroke="#D97724" stroke-width="2"/>
-            <circle cx="50" cy="60" r="2.2" fill="#1E293B"/>
-            <circle cx="70" cy="60" r="2.2" fill="#1E293B"/>
-            <path d="M36,52 Q30,78 36,98 L44,92 Q40,72 42,56 Z" fill="#F1F5F9"/>
-            <path d="M84,52 Q90,78 84,98 L76,92 Q80,72 78,56 Z" fill="#F1F5F9"/>
-            <path d="M42,68 Q60,74 78,68 L72,112 Q60,118 48,112 Z" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
-            <rect x="55" y="92" width="10" height="5" rx="2" fill="#F59E0B"/>
-          </svg>
+        <div class="role-avatar-wrap mx-auto mb-4" onclick="triggerRoleAvatarUpload('dumbledore')" title="Click to upload Headmaster avatar">
+          <span class="role-avatar-badge" aria-hidden="true">🪄</span>
+          <div id="roleAvatarDumbledore" class="role-avatar border-4 border-amber-300 bg-amber-50 animate-float" style="width:8.5rem;height:8.5rem;">
+            <svg viewBox="0 0 120 120" class="w-28 h-28">
+              <polygon points="60,6 28,44 92,44" fill="#4C1D95"/>
+              <ellipse cx="60" cy="44" rx="42" ry="8" fill="#5B21B6"/>
+              <rect x="34" y="38" width="52" height="5" fill="#F59E0B"/>
+              <circle cx="54" cy="24" r="2.5" fill="#FDE047"/>
+              <circle cx="67" cy="30" r="2" fill="#FDE047"/>
+              <circle cx="60" cy="62" r="22" fill="#FDE2C4"/>
+              <ellipse cx="50" cy="60" rx="7" ry="5" fill="#FFFFFF" stroke="#D97724" stroke-width="2"/>
+              <ellipse cx="70" cy="60" rx="7" ry="5" fill="#FFFFFF" stroke="#D97724" stroke-width="2"/>
+              <line x1="57" y1="60" x2="63" y2="60" stroke="#D97724" stroke-width="2"/>
+              <circle cx="50" cy="60" r="2.2" fill="#1E293B"/>
+              <circle cx="70" cy="60" r="2.2" fill="#1E293B"/>
+              <path d="M36,52 Q30,78 36,98 L44,92 Q40,72 42,56 Z" fill="#F1F5F9"/>
+              <path d="M84,52 Q90,78 84,98 L76,92 Q80,72 78,56 Z" fill="#F1F5F9"/>
+              <path d="M42,68 Q60,74 78,68 L72,112 Q60,118 48,112 Z" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+              <rect x="55" y="92" width="10" height="5" rx="2" fill="#F59E0B"/>
+            </svg>
+          </div>
+          <span class="role-avatar-hint text-amber-200 border-amber-400/40 bg-black/20">📷 Add avatar</span>
         </div>
 
         <span class="px-4 py-1.5 rounded-full bg-amber-400/20 border border-amber-300 text-amber-300 text-xs font-extrabold uppercase tracking-widest">
@@ -954,9 +1066,9 @@
               <div id="grandSpinPanel" class="hidden space-y-2">
                 <div class="flex items-center justify-between gap-2">
                   <label class="text-xs font-extrabold text-slate-700 flex items-center gap-1.5"><i class="fa-solid fa-crown text-amber-500"></i> Next rank</label>
-                  <span id="nextGrandLabel" class="text-[11px] font-black text-[#D97724]">Grand Prize #1</span>
+                  <span id="nextGrandLabel" class="text-[11px] font-black text-[#D97724]">Grand Prize #6</span>
                 </div>
-                <p class="text-[10px] text-slate-500 font-semibold">Premium ranks #1–#6 · one winner each</p>
+                <p class="text-[10px] text-slate-500 font-semibold">Drawn #6 → #1 · #1 is the best · shared pool</p>
                 <button type="button" onclick="spinWheel()" class="w-full py-2 px-4 rounded-xl bg-gradient-to-r from-[#D97724] to-[#F59E0B] hover:from-[#b45309] hover:to-[#D97724] text-white font-black text-xs tracking-wide transition shadow-lg flex items-center justify-center gap-2 cursor-pointer">
                   <i class="fa-solid fa-dharmachakra"></i> Spin Next Grand Prize
                 </button>
@@ -1131,15 +1243,26 @@
     </div>
   </section>
 
+  <input type="file" id="roleAvatarInput" accept="image/*" class="hidden" />
+
+  <!-- Batch draw flash -->
+  <div id="batchFlash" class="batch-flash" aria-hidden="true">
+    <div class="batch-flash-card">
+      <div class="text-xs font-black uppercase tracking-widest text-[#C8372D] mb-1" id="batchFlashLabel">Batch draw</div>
+      <div class="text-2xl sm:text-3xl font-black text-slate-900" id="batchFlashName">Winner</div>
+      <div class="text-xs text-slate-500 font-semibold mt-2" id="batchFlashMeta">🎄</div>
+    </div>
+  </div>
+
   <!-- Modals & Toast -->
   <div id="winnerModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/70 backdrop-blur-md p-4 opacity-0 pointer-events-none transition-all duration-300">
     <div class="festive-card rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl text-center transform scale-90 transition-all duration-300 relative overflow-hidden border-4 border-[#C8372D]">
-      <div class="inline-flex p-3.5 rounded-2xl bg-amber-100 text-amber-600 border border-amber-300 mb-3 shadow">
-        <i class="fa-solid fa-trophy text-3xl animate-bounce"></i>
+      <div id="modalTrophyWrap" class="inline-flex p-3.5 rounded-2xl bg-amber-100 text-amber-600 border border-amber-300 mb-3 shadow">
+        <i id="modalTrophyIcon" class="fa-solid fa-trophy text-3xl animate-bounce"></i>
       </div>
       <div id="modalPrizeLabel" class="text-xs uppercase tracking-widest text-[#1E6B3B] font-black mb-1">Winner #1</div>
       <h3 id="modalWinnerName" class="text-2xl sm:text-3xl font-black text-slate-900 break-words py-3.5 px-4 bg-red-50 rounded-2xl border-2 border-red-200 my-2">Winner Name</h3>
-      <p class="text-xs text-slate-500 font-semibold mb-6">🎄 Congratulations!</p>
+      <p id="modalCongratsText" class="text-xs text-slate-500 font-semibold mb-6">🎄 Congratulations!</p>
       <div class="flex flex-col sm:flex-row gap-2.5">
         <button type="button" id="modalSpinAgainBtn" class="flex-1 py-3 px-4 rounded-xl bg-[#23486A] hover:bg-[#1a3650] text-white font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 cursor-pointer"><i class="fa-solid fa-rotate-right"></i> Spin Again</button>
         <button type="button" id="modalRemoveAndSpinBtn" class="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-[#C8372D] to-[#DC2626] hover:from-[#b91c1c] hover:to-[#C8372D] text-white font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 shadow-lg cursor-pointer"><i class="fa-solid fa-user-minus"></i> Remove &amp; Next</button>
@@ -1207,8 +1330,11 @@
     let vdoRoomId = '';
     let vdoPushUrl = '';
     let christmasBatchIndex = 0; // 0..4 into CHRISTMAS_BATCHES
-    let grandPrizeIndex = 0; // 0..5 into GRAND_PRIZES
+    let grandPrizeIndex = 5; // draw order #6 → #1 (index into GRAND_PRIZES)
     let preferGrandOnSpinner = false; // armed by "Roll Wheel for Grand Prizes"
+    let activeRoleAvatarKey = 'maruko';
+    const roleAvatarDefaults = {};
+    const roleAvatarPhotos = { maruko: '', hanawa: '', dumbledore: '' };
 
     const CHRISTMAS_BATCHES = [
       { id: 'giftA', qty: 3, name: 'Christmas Gift A', color: '#C8372D' },
@@ -1229,6 +1355,25 @@
     const grandPrizePhotos = {};
     const christmasGiftNames = CHRISTMAS_BATCHES.map(g => g.name);
     const grandPrizeNames = GRAND_PRIZES.map(g => g.name);
+
+    function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+
+    function christmasWinnerNames() {
+      return new Set(winnersPhase1.map(w => w.name));
+    }
+
+    function sharedPoolRemaining(source) {
+      const blocked = christmasWinnerNames();
+      const list = (source && source.length ? source : masterRoster).filter(n => !blocked.has(n));
+      return list;
+    }
+
+    function getGrandCelebrateIntensity(rankIndex) {
+      // #1 (index 0) is the best — biggest applause; #6 first in draw order
+      if (rankIndex === 0) return 3;
+      if (rankIndex <= 2) return 2;
+      return 1;
+    }
 
     const FESTIVE_WHEEL_COLORS = [
       '#C8372D', '#1E6B3B', '#23486A', '#D97724',
@@ -1252,24 +1397,65 @@
         osc.connect(gain); gain.connect(StudioSynth.ctx.destination);
         osc.start(t); osc.stop(t + 0.06);
       },
-      playFanfare() {
+      playFanfare(intensity = 1) {
         if (!soundEnabled) return;
         StudioSynth.init();
         if (!StudioSynth.ctx) return;
         const t = StudioSynth.ctx.currentTime;
-        const notes = [523.25, 659.25, 783.99, 1046.5];
+        const notes = intensity >= 3
+          ? [523.25, 659.25, 783.99, 1046.5, 1318.5, 1568, 2093]
+          : intensity >= 2
+            ? [523.25, 659.25, 783.99, 1046.5, 1318.5]
+            : [523.25, 659.25, 783.99, 1046.5];
+        const gap = intensity >= 3 ? 0.07 : 0.08;
+        const vol = intensity >= 3 ? 0.32 : intensity >= 2 ? 0.26 : 0.22;
         notes.forEach((freq, i) => {
-          StudioSynth.playRichVoice(freq, t + i * 0.08, 0.35, 0.22, 'triangle');
+          StudioSynth.playRichVoice(freq, t + i * gap, 0.35 + intensity * 0.05, vol, 'triangle');
         });
+        if (intensity >= 2) this.playApplause(intensity);
+      },
+      playApplause(intensity = 1) {
+        if (!soundEnabled) return;
+        StudioSynth.init();
+        if (!StudioSynth.ctx) return;
+        const ctx = StudioSynth.ctx;
+        const duration = intensity >= 3 ? 2.4 : intensity >= 2 ? 1.4 : 0.7;
+        const bufferSize = Math.floor(ctx.sampleRate * duration);
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          const env = Math.pow(1 - i / bufferSize, 0.45);
+          data[i] = (Math.random() * 2 - 1) * env * (intensity >= 3 ? 0.55 : 0.35);
+        }
+        const src = ctx.createBufferSource();
+        const filter = ctx.createBiquadFilter();
+        const gain = ctx.createGain();
+        src.buffer = buffer;
+        filter.type = 'bandpass';
+        filter.frequency.value = 1800;
+        filter.Q.value = 0.7;
+        gain.gain.value = 0.22 * Math.max(0.35, bgmVolume) * (intensity >= 3 ? 1.35 : 1);
+        src.connect(filter); filter.connect(gain); gain.connect(ctx.destination);
+        src.start();
       }
     };
 
-    function triggerFestiveConfetti() {
+    function triggerFestiveConfetti(intensity = 1) {
       if (typeof confetti !== 'function') return;
-      const colors = ['#C8372D', '#1E6B3B', '#D97724', '#23486A', '#FEF3C7'];
-      confetti({ particleCount: 110, spread: 70, origin: { y: 0.65 }, colors });
-      setTimeout(() => confetti({ particleCount: 70, angle: 60, spread: 55, origin: { x: 0, y: 0.7 }, colors }), 180);
-      setTimeout(() => confetti({ particleCount: 70, angle: 120, spread: 55, origin: { x: 1, y: 0.7 }, colors }), 280);
+      const colors = ['#C8372D', '#1E6B3B', '#D97724', '#23486A', '#FEF3C7', '#FDE68A'];
+      const base = intensity >= 3 ? 220 : intensity >= 2 ? 150 : 110;
+      confetti({ particleCount: base, spread: 70 + intensity * 12, origin: { y: 0.65 }, colors });
+      setTimeout(() => confetti({ particleCount: 60 + intensity * 30, angle: 60, spread: 55 + intensity * 8, origin: { x: 0, y: 0.7 }, colors }), 160);
+      setTimeout(() => confetti({ particleCount: 60 + intensity * 30, angle: 120, spread: 55 + intensity * 8, origin: { x: 1, y: 0.7 }, colors }), 260);
+      if (intensity >= 3) {
+        setTimeout(() => confetti({ particleCount: 180, spread: 100, startVelocity: 55, origin: { y: 0.55 }, colors }), 420);
+        setTimeout(() => confetti({ particleCount: 90, spread: 360, ticks: 220, origin: { y: 0.5 }, colors }), 700);
+      }
+    }
+
+    function celebrateWin(intensity = 1) {
+      AudioEngine.playFanfare(intensity);
+      triggerFestiveConfetti(intensity);
     }
 
     function setDrawPhase(phase, opts = {}) {
@@ -1286,7 +1472,7 @@
           : 'px-3 py-1 rounded-xl bg-[#D97724] text-white font-black text-xs uppercase tracking-wider shadow';
       }
       if (hint) {
-        hint.textContent = drawPhase === 1 ? 'Christmas Gifts only' : 'Grand Prizes · fresh roll';
+        hint.textContent = drawPhase === 1 ? 'Christmas Gifts only' : 'Grand · shared pool (no re-draws)';
         hint.className = drawPhase === 1
           ? 'px-3 py-1.5 rounded-xl bg-white border-2 border-slate-200 text-slate-700 text-xs font-black'
           : 'px-3 py-1.5 rounded-xl bg-amber-50 border-2 border-amber-300 text-amber-900 text-xs font-black';
@@ -1301,24 +1487,24 @@
     }
 
     function startPhase2Draw() {
-      // Surprise finale: re-roll with a fresh wheel (exclude Christmas winners by default)
-      const christmasNames = new Set(winnersPhase1.map(w => w.name));
-      const remaining = masterRoster.filter(n => !christmasNames.has(n));
-      items = remaining.length ? [...remaining] : [...masterRoster];
+      // Same shared pool: Christmas winners stay out; continue with remaining names
+      const remaining = sharedPoolRemaining(items.length ? items : masterRoster);
+      const fromMaster = sharedPoolRemaining(masterRoster);
+      items = remaining.length ? [...remaining] : [...fromMaster];
       winnersPhase2 = [];
-      grandPrizeIndex = 0;
+      grandPrizeIndex = GRAND_PRIZES.length - 1; // start at #6, finish at #1
       preferGrandOnSpinner = true;
       syncInputFromItems();
       setDrawPhase(2, { silent: true });
       goToSlide(12);
-      showToast(remaining.length
-        ? `Grand Prizes ready — rolling again with ${items.length} names`
-        : 'Grand Prizes ready — full roster restored for a fresh roll');
+      showToast(items.length
+        ? `Grand Prizes · shared pool · ${items.length} left · drawing #6 → #1`
+        : 'No names left in the shared pool');
     }
 
     function updateBatchLabels() {
       const nextBatch = CHRISTMAS_BATCHES[christmasBatchIndex];
-      const nextGrand = GRAND_PRIZES[grandPrizeIndex];
+      const nextGrand = grandPrizeIndex >= 0 ? GRAND_PRIZES[grandPrizeIndex] : null;
       const batchLabel = document.getElementById('nextBatchLabel');
       const grandLabel = document.getElementById('nextGrandLabel');
       if (batchLabel) {
@@ -1333,6 +1519,38 @@
       }
       const batchInput = document.getElementById('batchCountInput');
       if (batchInput && nextBatch) batchInput.value = String(nextBatch.qty);
+    }
+
+    function triggerRoleAvatarUpload(key) {
+      activeRoleAvatarKey = key;
+      const input = document.getElementById('roleAvatarInput');
+      if (input) input.click();
+    }
+
+    function applyRoleAvatar(key) {
+      const idMap = { maruko: 'roleAvatarMaruko', hanawa: 'roleAvatarHanawa', dumbledore: 'roleAvatarDumbledore' };
+      const el = document.getElementById(idMap[key]);
+      if (!el) return;
+      if (!roleAvatarDefaults[key]) roleAvatarDefaults[key] = el.innerHTML;
+      const photo = roleAvatarPhotos[key];
+      if (photo) {
+        el.innerHTML = `<img src="${photo}" alt="${key} avatar" />`;
+      } else if (roleAvatarDefaults[key]) {
+        el.innerHTML = roleAvatarDefaults[key];
+      }
+    }
+
+    function flashBatchWinner(name, metaText, label) {
+      const flash = document.getElementById('batchFlash');
+      const nameEl = document.getElementById('batchFlashName');
+      const metaEl = document.getElementById('batchFlashMeta');
+      const labelEl = document.getElementById('batchFlashLabel');
+      if (!flash || !nameEl) return;
+      if (labelEl) labelEl.textContent = label || 'Batch draw';
+      nameEl.textContent = name;
+      if (metaEl) metaEl.textContent = metaText || '🎄 Congratulations!';
+      flash.classList.add('show');
+      setTimeout(() => flash.classList.remove('show'), 900);
     }
 
     function triggerProductPhotoUpload(idx) {
@@ -1484,19 +1702,38 @@
       }).join('');
     }
 
-    function showWinnerModal(name) {
+    function showWinnerModal(name, opts = {}) {
       const modal = document.getElementById('winnerModal');
       const nameEl = document.getElementById('modalWinnerName');
       const labelEl = document.getElementById('modalPrizeLabel');
+      const congratsEl = document.getElementById('modalCongratsText');
+      const trophyIcon = document.getElementById('modalTrophyIcon');
       if (!modal || !nameEl) return;
+      const intensity = opts.intensity || 1;
       nameEl.textContent = name;
+      const last = (drawPhase === 2 ? winnersPhase2 : winnersPhase1).slice(-1)[0];
       if (labelEl) {
-        const last = (drawPhase === 2 ? winnersPhase2 : winnersPhase1).slice(-1)[0];
         labelEl.textContent = last?.prizeName || (drawPhase === 1 ? 'Christmas Gift' : 'Grand Prize');
       }
+      if (congratsEl) {
+        congratsEl.textContent = intensity >= 3
+          ? '👑 MEGA APPLAUSE — Grand Prize #1!!!'
+          : intensity >= 2
+            ? '🎉 Big round of applause!'
+            : '🎄 Congratulations!';
+      }
+      if (trophyIcon) {
+        trophyIcon.className = intensity >= 3
+          ? 'fa-solid fa-crown text-3xl animate-bounce text-amber-500'
+          : 'fa-solid fa-trophy text-3xl animate-bounce';
+      }
+      modal.classList.toggle('winner-modal-mega', intensity >= 3);
       modal.classList.remove('opacity-0', 'pointer-events-none');
       const card = modal.querySelector('.festive-card');
-      if (card) card.classList.remove('scale-90');
+      if (card) {
+        card.classList.remove('scale-90');
+        card.style.borderColor = intensity >= 3 ? '#D97724' : '#C8372D';
+      }
     }
 
     function hideWinnerModal() {
@@ -1996,44 +2233,103 @@
       return { item: items[index], index };
     }
 
-    function spinWheel() {
-      if (isSpinning || isBatchRunning || items.length === 0) return;
-      if (items.length === 1) { recordWinner(items[0]); return; }
-      isSpinning = true; spinBtn.disabled = true; spinBtn.classList.add('opacity-80', 'scale-95');
-      const spinTime = 4200 + Math.random() * 1400; const startTime = performance.now();
-      const totalRotations = Math.PI * 2 * (8 + Math.floor(Math.random() * 5)) + Math.random() * Math.PI * 2;
-      const startAngle = currentAngle; let lastTickSegment = -1;
-      function animateSpin(now) {
-        const elapsed = now - startTime; const progress = Math.min(elapsed / spinTime, 1);
-        const easeOut = 1 - Math.pow(1 - progress, 3.6); currentAngle = startAngle + totalRotations * easeOut;
-        const currentSlice = getSelectedItem();
-        if (currentSlice && currentSlice.index !== lastTickSegment) { lastTickSegment = currentSlice.index; AudioEngine.playTick(); }
-        drawWheel();
-        if (progress < 1) { requestAnimationFrame(animateSpin); }
-        else {
-          isSpinning = false; spinBtn.disabled = false; spinBtn.classList.remove('opacity-80', 'scale-95');
-          const result = getSelectedItem(); if (result) handleSingleWinningResult(result.item, result.index);
+    function spinWheel(opts = {}) {
+      return new Promise((resolve) => {
+        if (isSpinning || (!opts.batchMode && isBatchRunning) || items.length === 0) {
+          resolve(null);
+          return;
         }
-      }
-      requestAnimationFrame(animateSpin);
+        if (drawPhase === 2 && grandPrizeIndex < 0) {
+          showToast('All Grand Prizes already drawn', 'error');
+          resolve(null);
+          return;
+        }
+        const finishWith = (winnerName, itemIndex) => {
+          const result = handleSingleWinningResult(winnerName, itemIndex, opts);
+          resolve(result);
+        };
+        if (items.length === 1) {
+          finishWith(items[0], 0);
+          return;
+        }
+        isSpinning = true;
+        spinBtn.disabled = true;
+        spinBtn.classList.add('opacity-80', 'scale-95');
+        const spinTime = (opts.batchMode ? 2800 : 4200) + Math.random() * (opts.batchMode ? 900 : 1400);
+        const startTime = performance.now();
+        const totalRotations = Math.PI * 2 * (opts.batchMode ? (5 + Math.floor(Math.random() * 3)) : (8 + Math.floor(Math.random() * 5))) + Math.random() * Math.PI * 2;
+        const startAngle = currentAngle;
+        let lastTickSegment = -1;
+        function animateSpin(now) {
+          const elapsed = now - startTime;
+          const progress = Math.min(elapsed / spinTime, 1);
+          const easeOut = 1 - Math.pow(1 - progress, 3.6);
+          currentAngle = startAngle + totalRotations * easeOut;
+          const currentSlice = getSelectedItem();
+          if (currentSlice && currentSlice.index !== lastTickSegment) {
+            lastTickSegment = currentSlice.index;
+            AudioEngine.playTick();
+          }
+          drawWheel();
+          if (progress < 1) {
+            requestAnimationFrame(animateSpin);
+          } else {
+            isSpinning = false;
+            if (!opts.batchMode) {
+              spinBtn.disabled = false;
+              spinBtn.classList.remove('opacity-80', 'scale-95');
+            }
+            const result = getSelectedItem();
+            if (result) finishWith(result.item, result.index);
+            else resolve(null);
+          }
+        }
+        requestAnimationFrame(animateSpin);
+      });
     }
 
-    function handleSingleWinningResult(winnerName, itemIndex) {
-      currentWinningItem = winnerName; AudioEngine.playFanfare(); triggerFestiveConfetti();
-      const ok = recordWinner(winnerName);
-      if (ok && autoRemoveToggle.checked) removeItemByIndex(itemIndex);
-      if (ok) showWinnerModal(winnerName);
+    function handleSingleWinningResult(winnerName, itemIndex, opts = {}) {
+      currentWinningItem = winnerName;
+      const rankForCelebrate = drawPhase === 2
+        ? (opts.meta?.rankIndex != null ? opts.meta.rankIndex : grandPrizeIndex)
+        : null;
+      const intensity = opts.intensity != null
+        ? opts.intensity
+        : (drawPhase === 2 ? getGrandCelebrateIntensity(rankForCelebrate) : (opts.batchMode ? 2 : 1));
+      const meta = opts.meta || {};
+      const ok = recordWinner(winnerName, meta);
+      if (ok) {
+        celebrateWin(intensity);
+        // Shared pool: always eliminate drawn names so they cannot win again
+        if (itemIndex >= 0 && itemIndex < items.length && items[itemIndex] === winnerName) {
+          removeItemByIndex(itemIndex);
+        } else {
+          const idx = items.indexOf(winnerName);
+          if (idx >= 0) removeItemByIndex(idx);
+        }
+        if (opts.batchMode) {
+          const step = opts.batchIndex && opts.batchTotal ? ` · ${opts.batchIndex}/${opts.batchTotal}` : '';
+          flashBatchWinner(
+            winnerName,
+            `${meta.giftIndex != null ? (christmasGiftNames[meta.giftIndex] || 'Christmas Gift') : 'Winner'}${step}`,
+            '🎁 Batch winner'
+          );
+        } else if (!opts.skipModal) {
+          showWinnerModal(winnerName, { intensity });
+        }
+      }
+      return ok ? winnerName : null;
     }
 
     function recordWinner(name, meta = {}) {
       const now = new Date();
       const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
       if (drawPhase === 2) {
-        if (grandPrizeIndex >= GRAND_PRIZES.length) { showToast('All Grand Prizes already drawn', 'error'); return null; }
+        if (grandPrizeIndex < 0) { showToast('All Grand Prizes already drawn', 'error'); return null; }
         const rankIndex = meta.rankIndex != null ? meta.rankIndex : grandPrizeIndex;
         const entry = { rank: rankIndex + 1, rankIndex, name, time: timeStr, prizeName: grandPrizeNames[rankIndex] };
         winnersPhase2.push(entry);
-        if (meta.advance !== false) grandPrizeIndex = Math.min(GRAND_PRIZES.length, rankIndex + 1);
+        if (meta.advance !== false) grandPrizeIndex = rankIndex - 1; // next lower rank (#6→#1)
         winners = winnersPhase2;
       } else {
         if (christmasBatchIndex >= CHRISTMAS_BATCHES.length) { showToast('All Christmas gift batches done', 'error'); return null; }
@@ -2082,17 +2378,46 @@
       const drawCount = Math.min(need, items.length);
       if (drawCount <= 0) { showToast('Batch already filled'); return; }
       isBatchRunning = true;
-      let pool = [...items];
-      const giftIndex = christmasBatchIndex;
-      for (let i = 0; i < drawCount; i++) {
-        const randIdx = Math.floor(Math.random() * pool.length);
-        const name = pool.splice(randIdx, 1)[0];
-        recordWinner(name, { giftIndex, advance: i === drawCount - 1 });
+      spinBtn.disabled = true;
+      if (batchDrawBtn) {
+        batchDrawBtn.disabled = true;
+        batchDrawBtn.classList.add('opacity-70');
+        batchDrawBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Drawing batch…';
       }
-      if (autoRemoveToggle.checked) { items = pool; syncInputFromItems(); }
+      const giftIndex = christmasBatchIndex;
+      const drawn = [];
+      for (let i = 0; i < drawCount; i++) {
+        if (items.length === 0) break;
+        const name = await spinWheel({
+          batchMode: true,
+          skipModal: true,
+          intensity: 2,
+          batchIndex: i + 1,
+          batchTotal: drawCount,
+          meta: { giftIndex, advance: i === drawCount - 1 }
+        });
+        if (!name) break;
+        drawn.push(name);
+        await sleep(700);
+      }
       isBatchRunning = false;
-      triggerFestiveConfetti(); AudioEngine.playFanfare();
-      showToast(`${drawCount}× ${christmasGiftNames[giftIndex]} drawn!`, 'success');
+      isSpinning = false;
+      spinBtn.disabled = false;
+      spinBtn.classList.remove('opacity-80', 'scale-95');
+      if (batchDrawBtn) {
+        batchDrawBtn.disabled = false;
+        batchDrawBtn.classList.remove('opacity-70');
+        batchDrawBtn.innerHTML = '<i class="fa-solid fa-play"></i> Draw Next Christmas Batch';
+      }
+      celebrateWin(2);
+      showToast(`${drawn.length}× ${christmasGiftNames[giftIndex]} drawn!`, 'success');
+      if (drawn.length) {
+        flashBatchWinner(
+          drawn.join(' · '),
+          `${christmasGiftNames[giftIndex]} batch complete`,
+          '🎁 Batch complete'
+        );
+      }
       updateBatchLabels();
     }
 
@@ -2134,12 +2459,25 @@
       syncInputFromItems(); showToast('Cleared');
     });
     document.getElementById('resetWinnersBtn').addEventListener('click', () => {
-      if (drawPhase === 2) { winnersPhase2 = []; grandPrizeIndex = 0; }
+      if (drawPhase === 2) { winnersPhase2 = []; grandPrizeIndex = GRAND_PRIZES.length - 1; }
       else { winnersPhase1 = []; christmasBatchIndex = 0; }
       winners = drawPhase === 2 ? winnersPhase2 : winnersPhase1;
       updateBatchLabels();
       updateWinnersListUI(); syncPrizeWinnersGrid1(); syncPrizeWinnersGrid2();
       showToast(drawPhase === 2 ? 'Grand Prize winners cleared' : 'Christmas Gift winners cleared');
+    });
+
+    document.getElementById('roleAvatarInput').addEventListener('change', (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        roleAvatarPhotos[activeRoleAvatarKey] = ev.target.result;
+        applyRoleAvatar(activeRoleAvatarKey);
+        showToast(`${activeRoleAvatarKey} avatar updated`);
+      };
+      reader.readAsDataURL(file);
+      e.target.value = '';
     });
 
     document.getElementById('soundToggleBtn').addEventListener('click', () => {
@@ -2209,7 +2547,8 @@
       serializedHTML = serializedHTML.replace(/let companyLogoDataUrl = '[^']*';/, 'let companyLogoDataUrl = ' + JSON.stringify(companyLogoDataUrl) + ';');
       serializedHTML = serializedHTML.replace(/let vdoRoomId = '[^']*';/, 'let vdoRoomId = ' + JSON.stringify(vdoRoomId) + ';');
       serializedHTML = serializedHTML.replace(/let christmasBatchIndex = \d+;/, 'let christmasBatchIndex = ' + christmasBatchIndex + ';');
-      serializedHTML = serializedHTML.replace(/let grandPrizeIndex = \d+;/, 'let grandPrizeIndex = ' + grandPrizeIndex + ';');
+      serializedHTML = serializedHTML.replace(/let grandPrizeIndex = -?\d+;/, 'let grandPrizeIndex = ' + grandPrizeIndex + ';');
+      serializedHTML = serializedHTML.replace(/const roleAvatarPhotos = \{[\s\S]*?\};/, 'const roleAvatarPhotos = ' + JSON.stringify(roleAvatarPhotos) + ';');
       const blob = new Blob([serializedHTML], { type: 'text/html;charset=utf-8;' });
       const url = URL.createObjectURL(blob); const a = document.createElement('a');
       a.href = url; a.download = 'APAC_Christmas_Party_Presentation-FINAL.html';
@@ -2255,6 +2594,12 @@
     syncPrizeWinnersGrid1();
     syncPrizeWinnersGrid2();
     applyCompanyLogo();
+    ['maruko', 'hanawa', 'dumbledore'].forEach((key) => {
+      const idMap = { maruko: 'roleAvatarMaruko', hanawa: 'roleAvatarHanawa', dumbledore: 'roleAvatarDumbledore' };
+      const el = document.getElementById(idMap[key]);
+      if (el && !roleAvatarDefaults[key]) roleAvatarDefaults[key] = el.innerHTML;
+      applyRoleAvatar(key);
+    });
     buildFestiveScatter();
     window.addEventListener('resize', () => buildFestiveScatter());
     // Prepare VDO room quietly; expand only after a camera connects
