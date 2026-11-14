@@ -1,0 +1,1931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>APAC Christmas Lunch — Back to School Edition</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            festive: {
+              red: '#C8372D',
+              darkRed: '#991B1B',
+              pine: '#1E6B3B',
+              darkPine: '#14532D',
+              slateBlue: '#23486A',
+              iceBlue: '#D5E2EA',
+              gold: '#D97724',
+            }
+          },
+          animation: {
+            'pulse-glow': 'pulseGlow 2.5s infinite',
+            'float': 'floatAnim 4s ease-in-out infinite',
+            'stamp': 'stampEffect 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+            'wiggle': 'wiggleAnim 0.45s ease-in-out',
+          },
+          keyframes: {
+            pulseGlow: {
+              '0%, 100%': { boxShadow: '0 0 24px rgba(200, 55, 45, 0.22)' },
+              '50%': { boxShadow: '0 0 42px rgba(30, 107, 59, 0.4)' },
+            },
+            floatAnim: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-8px)' },
+            },
+            stampEffect: {
+              '0%': { opacity: '0', transform: 'scale(1.8) translateY(-20px)' },
+              '100%': { opacity: '1', transform: 'scale(1) translateY(0)' },
+            },
+            wiggleAnim: {
+              '0%, 100%': { transform: 'rotate(0deg)' },
+              '20%': { transform: 'rotate(-16deg)' },
+              '40%': { transform: 'rotate(16deg)' },
+              '60%': { transform: 'rotate(-12deg)' },
+              '80%': { transform: 'rotate(12deg)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Fredoka:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap');
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #ffffff;
+      color: #1e293b;
+    }
+
+    .font-festive-script { font-family: 'Caveat', cursive; }
+    .font-festive-display { font-family: 'Fredoka', sans-serif; }
+
+    .slide {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      display: none;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      overflow: hidden;
+      background: transparent;
+      z-index: 20;
+      padding-top: 4.5rem;
+      padding-bottom: 5.5rem;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+
+    @media (min-width: 1024px) {
+      .slide {
+        padding-left: 7rem;
+        padding-right: 7rem;
+      }
+    }
+
+    .slide.active {
+      display: flex;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .festive-card {
+      background: rgba(255, 255, 255, 0.97);
+      background-image: linear-gradient(to bottom, transparent 96%, rgba(148, 163, 184, 0.14) 97%);
+      background-size: 100% 28px;
+      backdrop-filter: blur(12px);
+      border: 2px solid #cbd5e1;
+      box-shadow: 0 20px 45px -12px rgba(35, 72, 106, 0.18);
+    }
+
+    .chalkboard-card {
+      background: linear-gradient(145deg, #164e33 0%, #1E6B3B 55%, #14532D 100%);
+      border: 6px solid #b4692e;
+      box-shadow: 0 20px 45px -12px rgba(20, 83, 45, 0.35), inset 0 0 28px rgba(0,0,0,0.28);
+    }
+
+    /* Slide 2: MC Walk-Out Animations */
+    @keyframes mcWalkLeft {
+      0% { opacity: 0; transform: translateX(-140%) translateY(0px) rotate(-6deg); }
+      20% { opacity: 1; transform: translateX(-105%) translateY(-14px) rotate(4deg); }
+      40% { transform: translateX(-72%) translateY(0px) rotate(-4deg); }
+      60% { transform: translateX(-42%) translateY(-12px) rotate(3deg); }
+      80% { transform: translateX(-15%) translateY(0px) rotate(-2deg); }
+      100% { opacity: 1; transform: translateX(0) translateY(0) rotate(0deg); }
+    }
+
+    @keyframes mcWalkRight {
+      0% { opacity: 0; transform: translateX(140%) translateY(0px) rotate(6deg); }
+      20% { opacity: 1; transform: translateX(105%) translateY(-14px) rotate(-4deg); }
+      40% { transform: translateX(72%) translateY(0px) rotate(4deg); }
+      60% { transform: translateX(42%) translateY(-12px) rotate(-3deg); }
+      80% { transform: translateX(15%) translateY(0px) rotate(2deg); }
+      100% { opacity: 1; transform: translateX(0) translateY(0) rotate(0deg); }
+    }
+
+    .slide.active .mc-walk-left { animation: mcWalkLeft 1.35s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    .slide.active .mc-walk-right { animation: mcWalkRight 1.35s cubic-bezier(0.22, 1, 0.36, 1) 0.18s backwards; }
+
+    /* Slide 3: Velvet Curtain Unravel Reveal */
+    @keyframes curtainPartLeft {
+      0% { transform: translateX(0%) scaleX(1); }
+      25% { transform: translateX(0%) scaleX(1); }
+      100% { transform: translateX(-92%) scaleX(0.32); }
+    }
+
+    @keyframes curtainPartRight {
+      0% { transform: translateX(0%) scaleX(1); }
+      25% { transform: translateX(0%) scaleX(1); }
+      100% { transform: translateX(92%) scaleX(0.32); }
+    }
+
+    @keyframes headmasterGrandReveal {
+      0% { opacity: 0; transform: scale(0.86) translateY(14px); }
+      35% { opacity: 0.25; transform: scale(0.92) translateY(8px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .curtain-panel-left {
+      transform-origin: left center;
+      background: repeating-linear-gradient(90deg, #7f1d1d 0px, #991b1b 16px, #b91c1c 30px, #7f1d1d 44px);
+      box-shadow: inset -12px 0 24px rgba(0, 0, 0, 0.45);
+    }
+
+    .curtain-panel-right {
+      transform-origin: right center;
+      background: repeating-linear-gradient(90deg, #7f1d1d 0px, #b91c1c 14px, #991b1b 28px, #7f1d1d 44px);
+      box-shadow: inset 12px 0 24px rgba(0, 0, 0, 0.45);
+    }
+
+    .slide.active .curtain-panel-left { animation: curtainPartLeft 1.75s cubic-bezier(0.25, 1, 0.35, 1) forwards; }
+    .slide.active .curtain-panel-right { animation: curtainPartRight 1.75s cubic-bezier(0.25, 1, 0.35, 1) forwards; }
+    .slide.active .headmaster-reveal { animation: headmasterGrandReveal 1.65s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: rgba(148, 163, 184, 0.2); border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb { background: rgba(200, 55, 45, 0.45); border-radius: 9999px; }
+
+    .wheel-shadow { filter: drop-shadow(0 16px 30px rgba(35, 72, 106, 0.28)); }
+    .pointer-shadow { filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.28)); }
+    .slot-blur { filter: blur(0.6px); }
+
+    [contenteditable="true"]:focus {
+      outline: 2px dashed #C8372D;
+      outline-offset: 4px;
+      border-radius: 8px;
+      user-select: text;
+    }
+
+    #hudWrapper {
+      opacity: 0;
+      transform: translate(-50%, 72%);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 60;
+      padding-top: 24px;
+    }
+    #hudWrapper:hover, #hudWrapper.hud-visible {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    #snowCanvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none !important;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body class="bg-white">
+
+  <canvas id="snowCanvas"></canvas>
+
+  <audio id="bgmAudio" loop preload="auto"></audio>
+  <input type="file" id="bgmFileInput" accept="audio/*" class="hidden" />
+  <audio id="schoolBellAudio" preload="auto"></audio>
+  <input type="file" id="schoolBellFileInput" accept="audio/*" class="hidden" />
+
+  <!-- Decorative Layer -->
+  <div id="festiveDecorLayer" class="fixed inset-0 pointer-events-none z-[5] overflow-hidden">
+    <div class="absolute inset-0 opacity-30" style="background-image: linear-gradient(to right, #cbd5e1 1px, transparent 1px), linear-gradient(to bottom, #cbd5e1 1px, transparent 1px); background-size: 36px 36px;"></div>
+
+    <svg class="absolute top-0 left-0 w-full h-20 sm:h-28 pointer-events-none" viewBox="0 0 1440 160" preserveAspectRatio="none">
+      <path d="M0,0 L1440,0 L1440,65 C1280,105 1120,35 960,70 C800,105 640,30 480,68 C320,106 160,40 0,72 Z" fill="#D5E2EA" opacity="0.85"/>
+      <path d="M0,0 L1440,0 L1440,42 C1260,78 1080,22 900,52 C720,82 540,18 360,50 C180,82 90,30 0,48 Z" fill="#E6EEF3" opacity="0.9"/>
+      <path d="M180,12 Q720,62 1260,12" stroke="#23486A" stroke-width="3" fill="none"/>
+      <polygon points="240,18 265,54 290,22" fill="#C8372D"/>
+      <polygon points="330,25 355,62 380,29" fill="#1E6B3B"/>
+      <polygon points="420,31 445,68 470,34" fill="#D97724"/>
+      <polygon points="510,36 535,73 560,38" fill="#23486A"/>
+      <polygon points="600,39 625,76 650,40" fill="#C8372D"/>
+      <polygon points="695,40 720,78 745,40" fill="#1E6B3B"/>
+      <polygon points="790,40 815,76 840,39" fill="#D97724"/>
+      <polygon points="880,38 905,73 930,36" fill="#23486A"/>
+      <polygon points="970,34 995,68 1020,31" fill="#C8372D"/>
+      <polygon points="1060,29 1085,62 1110,25" fill="#1E6B3B"/>
+      <polygon points="1150,22 1175,54 1200,18" fill="#D97724"/>
+    </svg>
+
+    <svg class="absolute bottom-0 left-0 w-full h-16 sm:h-24 pointer-events-none" viewBox="0 0 1440 140" preserveAspectRatio="none">
+      <path d="M0,85 C240,40 480,115 720,75 C960,35 1200,105 1440,65 L1440,140 L0,140 Z" fill="#D5E2EA" opacity="0.9"/>
+      <path d="M0,105 C300,70 600,125 900,90 C1150,62 1320,108 1440,95 L1440,140 L0,140 Z" fill="#E8F0F5"/>
+    </svg>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- SLIDE 1: OPENING BACKDROP                                             -->
+  <!-- ===================================================================== -->
+  <section class="slide active flex-col items-center justify-center text-center" data-title="1. Opening Backdrop">
+    <div class="max-w-5xl mx-auto">
+      <div class="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-red-50 border-2 border-red-200 text-red-700 text-xs sm:text-sm font-extrabold uppercase tracking-widest shadow-sm mb-4">
+        <i class="fa-solid fa-graduation-cap text-green-700"></i> Class of 2026 • APAC Office, Regional Hub
+      </div>
+
+      <div class="leading-none my-2">
+        <div class="font-festive-script text-8xl sm:text-9xl font-bold text-[#C8372D] drop-shadow-sm -mb-4 sm:-mb-6" contenteditable="true">Merry</div>
+        <div class="font-festive-script text-8xl sm:text-9xl font-bold text-[#1E6B3B] drop-shadow-sm" contenteditable="true">Christmas</div>
+      </div>
+
+      <div class="mt-6">
+        <span class="inline-block px-8 py-3 rounded-2xl bg-gradient-to-r from-[#C8372D] via-[#DC2626] to-[#1E6B3B] text-white font-festive-display text-2xl sm:text-4xl font-bold tracking-wide shadow-xl" contenteditable="true">
+          BACK TO SCHOOL CHRISTMAS LUNCH
+        </span>
+      </div>
+
+      <div class="mt-7">
+        <button type="button" onclick="ringSchoolBell(this)" class="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl bg-gradient-to-r from-[#D97724] to-[#F59E0B] hover:from-[#b45309] hover:to-[#D97724] text-white font-black text-base sm:text-lg tracking-wide shadow-xl transition transform hover:scale-105 active:scale-95 cursor-pointer border-2 border-amber-200">
+          <i class="fa-solid fa-bell text-xl"></i> Ring School Bell
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SLIDE 2: MEET YOUR MCs (WITH TRADITIONAL CHINESE)                     -->
+  <!-- ===================================================================== -->
+  <section class="slide flex-col items-center justify-center text-center" data-title="2. Meet the MCs: Maruko & Hanawa">
+    <div class="festive-card max-w-4xl w-full rounded-3xl p-7 sm:p-10 border-4 border-[#C8372D] overflow-hidden">
+      <div class="mb-6">
+        <span class="px-4 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-amber-900 text-xs font-extrabold uppercase tracking-widest">
+          🎙️ Class Monitors • 班長 / 主持人
+        </span>
+        <h1 class="font-festive-display text-4xl sm:text-6xl font-bold text-[#C8372D] tracking-tight mt-2" contenteditable="true">
+          MEET YOUR MCs • 認識今日司儀
+        </h1>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+        <div class="mc-walk-left bg-red-50/90 border-2 border-[#C8372D] rounded-3xl p-6 flex flex-col items-center text-center shadow-sm">
+          <div class="w-28 h-28 mb-3 rounded-full bg-white border-4 border-[#C8372D] shadow-md flex items-center justify-center overflow-hidden animate-float">
+            <svg viewBox="0 0 120 120" class="w-24 h-24">
+              <path d="M22,72 C18,32 42,16 60,16 C78,16 102,32 98,72 L92,76 L28,76 Z" fill="#1E293B"/>
+              <circle cx="60" cy="64" r="30" fill="#FDE2C4"/>
+              <polygon points="30,52 38,34 45,50 53,33 60,50 67,33 75,50 82,34 90,52" fill="#1E293B"/>
+              <ellipse cx="60" cy="22" rx="26" ry="6" fill="#F59E0B"/>
+              <path d="M40,22 Q60,4 80,22 Z" fill="#FBBF24"/>
+              <circle cx="43" cy="68" r="5" fill="#F87171" opacity="0.65"/>
+              <circle cx="77" cy="68" r="5" fill="#F87171" opacity="0.65"/>
+              <circle cx="48" cy="59" r="3.5" fill="#1E293B"/>
+              <circle cx="72" cy="59" r="3.5" fill="#1E293B"/>
+              <path d="M51,71 Q60,82 69,71 Z" fill="#EF4444"/>
+              <path d="M36,96 L84,96 L90,114 L30,114 Z" fill="#C8372D"/>
+              <polygon points="44,94 60,104 50,106" fill="#FFFFFF"/>
+              <polygon points="76,94 60,104 70,106" fill="#FFFFFF"/>
+            </svg>
+          </div>
+          <span class="px-3 py-0.5 rounded-full bg-[#C8372D] text-white font-black text-xs uppercase mb-1">MC 1</span>
+          <h2 class="text-2xl sm:text-3xl font-black text-[#C8372D]" contenteditable="true">Chibi Maruko • 櫻桃小丸子</h2>
+        </div>
+
+        <div class="mc-walk-right bg-sky-50/90 border-2 border-[#23486A] rounded-3xl p-6 flex flex-col items-center text-center shadow-sm">
+          <div class="w-28 h-28 mb-3 rounded-full bg-white border-4 border-[#23486A] shadow-md flex items-center justify-center overflow-hidden animate-float" style="animation-delay: 0.6s;">
+            <svg viewBox="0 0 120 120" class="w-24 h-24">
+              <circle cx="60" cy="65" r="29" fill="#FDE2C4"/>
+              <path d="M30,62 C26,34 46,18 68,20 C90,22 104,34 106,50 C96,42 82,42 64,46 C46,50 36,56 30,62 Z" fill="#1E293B"/>
+              <path d="M84,24 Q108,22 112,42 Q96,38 84,36 Z" fill="#1E293B"/>
+              <path d="M41,53 Q48,50 53,53" stroke="#1E293B" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <path d="M67,53 Q72,50 79,53" stroke="#1E293B" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <circle cx="48" cy="60" r="3" fill="#1E293B"/>
+              <circle cx="72" cy="60" r="3" fill="#1E293B"/>
+              <path d="M51,73 Q62,80 71,71" stroke="#1E293B" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <path d="M34,96 L86,96 L92,114 L28,114 Z" fill="#23486A"/>
+              <polygon points="50,95 70,95 60,108" fill="#FFFFFF"/>
+              <polygon points="52,98 60,102 52,106" fill="#C8372D"/>
+              <polygon points="68,98 60,102 68,106" fill="#C8372D"/>
+              <circle cx="60" cy="102" r="2.5" fill="#F59E0B"/>
+            </svg>
+          </div>
+          <span class="px-3 py-0.5 rounded-full bg-[#23486A] text-white font-black text-xs uppercase mb-1">MC 2</span>
+          <h2 class="text-2xl sm:text-3xl font-black text-[#23486A]" contenteditable="true">Hanawa-kun • 花輪同學</h2>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SLIDE 3: OPENING SPEECH — HEADMASTER DUMBLEDORE (WITH TRAD CHINESE)   -->
+  <!-- ===================================================================== -->
+  <section class="slide flex-col items-center justify-center text-center" data-title="3. Opening Speech: Headmaster Dumbledore">
+    <div class="chalkboard-card max-w-4xl w-full rounded-3xl p-8 sm:p-14 text-white relative overflow-hidden">
+      <div class="curtain-panel-left absolute inset-y-0 left-0 w-1/2 z-20 pointer-events-none border-r-4 border-amber-400/80 flex items-center justify-end pr-3">
+        <div class="w-4 h-16 rounded-full bg-amber-400 shadow-lg"></div>
+      </div>
+      <div class="curtain-panel-right absolute inset-y-0 right-0 w-1/2 z-20 pointer-events-none border-l-4 border-amber-400/80 flex items-center justify-start pl-3">
+        <div class="w-4 h-16 rounded-full bg-amber-400 shadow-lg"></div>
+      </div>
+      <div class="absolute top-0 inset-x-0 h-5 bg-gradient-to-b from-[#7f1d1d] to-[#991b1b] border-b-2 border-amber-400/80 z-30 pointer-events-none"></div>
+
+      <div class="headmaster-reveal relative z-10">
+        <div class="w-28 h-28 sm:w-32 sm:h-32 mx-auto mb-4 rounded-full bg-amber-50 border-4 border-amber-300 shadow-xl flex items-center justify-center overflow-hidden animate-float">
+          <svg viewBox="0 0 120 120" class="w-28 h-28">
+            <polygon points="60,6 28,44 92,44" fill="#4C1D95"/>
+            <ellipse cx="60" cy="44" rx="42" ry="8" fill="#5B21B6"/>
+            <rect x="34" y="38" width="52" height="5" fill="#F59E0B"/>
+            <circle cx="54" cy="24" r="2.5" fill="#FDE047"/>
+            <circle cx="67" cy="30" r="2" fill="#FDE047"/>
+            <circle cx="60" cy="62" r="22" fill="#FDE2C4"/>
+            <ellipse cx="50" cy="60" rx="7" ry="5" fill="#FFFFFF" stroke="#D97724" stroke-width="2"/>
+            <ellipse cx="70" cy="60" rx="7" ry="5" fill="#FFFFFF" stroke="#D97724" stroke-width="2"/>
+            <line x1="57" y1="60" x2="63" y2="60" stroke="#D97724" stroke-width="2"/>
+            <circle cx="50" cy="60" r="2.2" fill="#1E293B"/>
+            <circle cx="70" cy="60" r="2.2" fill="#1E293B"/>
+            <path d="M36,52 Q30,78 36,98 L44,92 Q40,72 42,56 Z" fill="#F1F5F9"/>
+            <path d="M84,52 Q90,78 84,98 L76,92 Q80,72 78,56 Z" fill="#F1F5F9"/>
+            <path d="M42,68 Q60,74 78,68 L72,112 Q60,118 48,112 Z" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+            <rect x="55" y="92" width="10" height="5" rx="2" fill="#F59E0B"/>
+          </svg>
+        </div>
+
+        <span class="px-4 py-1.5 rounded-full bg-amber-400/20 border border-amber-300 text-amber-300 text-xs font-extrabold uppercase tracking-widest">
+          🪄 School Assembly • 校長致詞
+        </span>
+
+        <h1 class="font-festive-display text-4xl sm:text-6xl font-bold text-amber-300 tracking-tight mt-4 mb-2" contenteditable="true">
+          OPENING SPEECH • 校長致詞
+        </h1>
+
+        <h2 class="text-xl sm:text-3xl font-black text-white" contenteditable="true">
+          Headmaster Dumbledore • 鄧不利多校長 ✨
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SLIDE 4: BUFFET SCREEN (PREVIEW ONLY)                                 -->
+  <!-- ===================================================================== -->
+  <section class="slide flex-col items-center justify-center text-center" data-title="4. Lunch Buffet & Game Preview">
+    <div class="festive-card max-w-4xl w-full rounded-3xl p-8 sm:p-12 border-4 border-[#1E6B3B]">
+      <div class="w-20 h-20 mx-auto mb-4 rounded-3xl bg-gradient-to-tr from-[#C8372D] to-[#F36C21] flex items-center justify-center text-white text-4xl shadow-lg animate-float">
+        <i class="fa-solid fa-utensils"></i>
+      </div>
+
+      <span class="px-4 py-1 rounded-full bg-green-100 border border-green-300 text-green-800 text-xs font-extrabold uppercase tracking-widest">
+        🎄 School Canteen Open • 學校食堂開放
+      </span>
+
+      <h1 class="font-festive-display text-4xl sm:text-6xl font-bold text-[#C8372D] tracking-tight mt-3 mb-6" contenteditable="true">
+        CHRISTMAS LUNCH BUFFET • 聖誕自助午餐
+      </h1>
+
+      <div class="max-w-xl mx-auto bg-amber-50 border-2 border-[#D97724] rounded-2xl p-5 mb-6 text-center shadow-sm">
+        <div class="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-[#D97724] text-white text-xs font-black uppercase tracking-wider mb-1.5">
+          <i class="fa-solid fa-gamepad"></i> Up Next • 緊接活動
+        </div>
+        <h3 class="text-xl sm:text-2xl font-black text-slate-800" contenteditable="true">
+          Audience Games Start Right After Buffet! • 午餐後即開始全場互動遊戲！
+        </h3>
+      </div>
+
+      <div>
+        <button type="button" onclick="ringSchoolBell(this)" class="inline-flex items-center gap-2.5 px-6 py-3 rounded-2xl bg-gradient-to-r from-[#D97724] to-[#F59E0B] hover:from-[#b45309] hover:to-[#D97724] text-white font-black text-sm sm:text-base tracking-wide shadow-lg transition transform hover:scale-105 active:scale-95 cursor-pointer">
+          <i class="fa-solid fa-bell"></i> Ring School Bell • 鳴鐘集合
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SLIDE 5: GAME 1 SESSION INTRO (BILINGUAL)                             -->
+  <!-- ===================================================================== -->
+  <section class="slide flex-col items-center justify-center text-center" data-title="5. Game 1: Quick Guess — Intro">
+    <div class="festive-card max-w-4xl w-full rounded-3xl p-10 sm:p-14 border-4 border-[#1E6B3B]">
+      <div class="w-20 h-20 mx-auto mb-5 rounded-3xl bg-[#1E6B3B] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
+        <i class="fa-solid fa-bolt"></i>
+      </div>
+      <span class="px-4 py-1.5 rounded-full bg-red-100 border border-red-300 text-red-700 text-xs font-extrabold uppercase tracking-widest">
+        Period 1 • 第一堂
+      </span>
+      <h1 class="font-festive-display text-5xl sm:text-7xl font-bold text-[#1E6B3B] tracking-tight mt-4 mb-2" contenteditable="true">
+        GAME 1: QUICK GUESS
+      </h1>
+      <h2 class="text-2xl sm:text-3xl font-black text-[#C8372D] mb-4" contenteditable="true">
+        遊戲一：極速搶答賽
+      </h2>
+      <p class="text-base sm:text-xl text-slate-700 font-bold" contenteditable="true">
+        Phones out! Fastest fingers win. • 拎起手機，最快答中得分最高！
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SLIDE 6: GAME 1 — OPEN AHASLIDES ONLY                                 -->
+  <!-- ===================================================================== -->
+  <section class="slide flex-col items-center justify-center text-center" data-title="6. Game 1: Open AhaSlides">
+    <div class="festive-card max-w-3xl w-full rounded-3xl p-10 sm:p-14 border-4 border-[#1E6B3B] flex flex-col items-center justify-center">
+      <div class="w-20 h-20 mx-auto mb-5 rounded-3xl bg-[#1E6B3B] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
+        <i class="fa-solid fa-bolt"></i>
+      </div>
+      <span class="px-4 py-1.5 rounded-full bg-red-100 border border-red-300 text-red-700 text-xs font-extrabold uppercase tracking-widest">
+        Period 1 • Live Quiz
+      </span>
+      <h2 class="font-festive-display text-4xl sm:text-6xl font-bold text-[#1E6B3B] tracking-tight mt-4 mb-8" contenteditable="true">
+        QUICK GUESS CHALLENGE
+      </h2>
+
+      <a id="ahaPresenterLaunchBtn" href="https://presenter.ahaslides.com/share/1793154443570-hpjbw2yzme/present" target="_blank" rel="noopener noreferrer"
+         onclick="pauseBgmForPresenterTab()"
+         class="w-full max-w-lg py-5 px-8 rounded-2xl bg-gradient-to-r from-[#C8372D] to-[#DC2626] hover:from-[#b91c1c] hover:to-[#C8372D] text-white font-black text-xl sm:text-2xl tracking-wide shadow-xl shadow-red-900/20 flex items-center justify-center gap-3 cursor-pointer transition transform hover:scale-105 active:scale-95">
+        <i class="fa-solid fa-rocket text-amber-300"></i> OPEN AHASLIDES
+      </a>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SLIDE 7: GAME 2 SESSION INTRO (BILINGUAL)                             -->
+  <!-- ===================================================================== -->
+  <section class="slide flex-col items-center justify-center text-center" data-title="7. Game 2: Cook — Intro">
+    <div class="festive-card max-w-4xl w-full rounded-3xl p-10 sm:p-14 border-4 border-[#C8372D]">
+      <div class="w-20 h-20 mx-auto mb-5 rounded-3xl bg-[#C8372D] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
+        <i class="fa-solid fa-fire-burner"></i>
+      </div>
+      <span class="px-4 py-1.5 rounded-full bg-green-100 border border-green-300 text-green-800 text-xs font-extrabold uppercase tracking-widest">
+        Period 2 • 第二堂
+      </span>
+      <h1 class="font-festive-display text-5xl sm:text-7xl font-bold text-[#C8372D] tracking-tight mt-4 mb-2" contenteditable="true">
+        GAME 2: COOKING CHALLENGE
+      </h1>
+      <h2 class="text-2xl sm:text-3xl font-black text-[#1E6B3B] mb-4" contenteditable="true">
+        遊戲二：聖誕小廚神挑戰賽
+      </h2>
+      <p class="text-base sm:text-xl text-slate-700 font-bold" contenteditable="true">
+        Team up &amp; assemble orders fast! • 3人一組，合作完成茶餐廳訂單！
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SLIDE 8: GAME 2: TEAM ROLES (ORDER TAKER, CHEF, SERVER)                -->
+  <!-- ===================================================================== -->
+  <section class="slide flex-col items-center justify-center" data-title="8. Game 2: Team Roles">
+    <div class="max-w-5xl w-full festive-card rounded-3xl p-7 sm:p-10">
+      <div class="text-center mb-6">
+        <span class="px-4 py-1 rounded-full bg-red-100 border border-red-300 text-red-700 text-xs font-extrabold uppercase tracking-widest">
+          Team Structure • 隊伍分工
+        </span>
+        <h1 class="font-festive-display text-3xl sm:text-5xl font-bold text-[#C8372D] tracking-tight mt-2">
+          TABLE TEAM OF 3 • 每桌3人小組
+        </h1>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-4">
+        <!-- Role 1: Order Taker -->
+        <div class="bg-amber-50/90 border-2 border-amber-400 rounded-3xl p-5 text-center flex flex-col items-center">
+          <div class="w-14 h-14 mb-3 rounded-2xl bg-amber-500 text-white flex items-center justify-center text-2xl shadow">
+            <i class="fa-solid fa-clipboard-user"></i>
+          </div>
+          <h2 class="text-xl font-black text-amber-900 uppercase">1. Order Taker</h2>
+          <p class="text-xs font-bold text-amber-700 mb-2">落單員</p>
+          <p class="text-slate-700 font-semibold text-xs leading-relaxed" contenteditable="true">
+            Reads the order form and communicates the requirements clearly to the Chef.
+          </p>
+        </div>
+
+        <!-- Role 2: Chef -->
+        <div class="bg-red-50/90 border-2 border-[#C8372D] rounded-3xl p-5 text-center flex flex-col items-center">
+          <div class="w-14 h-14 mb-3 rounded-2xl bg-[#C8372D] text-white flex items-center justify-center text-2xl shadow">
+            <i class="fa-solid fa-hat-chef"></i>
+          </div>
+          <h2 class="text-xl font-black text-[#C8372D] uppercase">2. Chef</h2>
+          <p class="text-xs font-bold text-red-700 mb-2">大廚</p>
+          <p class="text-slate-700 font-semibold text-xs leading-relaxed" contenteditable="true">
+            Picks the exact food items from the food pool matching the order.
+          </p>
+        </div>
+
+        <!-- Role 3: Server -->
+        <div class="bg-green-50/90 border-2 border-[#1E6B3B] rounded-3xl p-5 text-center flex flex-col items-center">
+          <div class="w-14 h-14 mb-3 rounded-2xl bg-[#1E6B3B] text-white flex items-center justify-center text-2xl shadow">
+            <i class="fa-solid fa-concierge-bell"></i>
+          </div>
+          <h2 class="text-xl font-black text-[#1E6B3B] uppercase">3. Server</h2>
+          <p class="text-xs font-bold text-green-700 mb-2">樓面侍應</p>
+          <p class="text-slate-700 font-semibold text-xs leading-relaxed" contenteditable="true">
+            Receives assembled food from Chef and serves it to the Head Table for examination.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SLIDE 9: GAME 2: WORKFLOW & EXAM PROCESS                              -->
+  <!-- ===================================================================== -->
+  <section class="slide flex-col items-center justify-center" data-title="9. Game 2: Workflow">
+    <div class="max-w-5xl w-full festive-card rounded-3xl p-7 sm:p-10">
+      <div class="text-center mb-6">
+        <span class="px-4 py-1 rounded-full bg-blue-100 border border-blue-300 text-blue-800 text-xs font-extrabold uppercase tracking-widest">
+          Order Flow • 流程指引
+        </span>
+        <h1 class="font-festive-display text-3xl sm:text-5xl font-bold text-[#23486A] tracking-tight mt-2">
+          GAME WORKFLOW • 遊戲運作流程
+        </h1>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 text-center">
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+          <div class="text-xs font-black text-[#C8372D] uppercase mb-1">Step 1</div>
+          <div class="text-sm font-extrabold text-slate-800" contenteditable="true">Order Form</div>
+          <div class="text-xs font-bold text-slate-600 mt-1" contenteditable="true">Order Taker reads table order form</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+          <div class="text-xs font-black text-amber-600 uppercase mb-1">Step 2</div>
+          <div class="text-sm font-extrabold text-slate-800" contenteditable="true">Talk to Chef</div>
+          <div class="text-xs font-bold text-slate-600 mt-1" contenteditable="true">Order Taker instructs Chef</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+          <div class="text-xs font-black text-[#1E6B3B] uppercase mb-1">Step 3</div>
+          <div class="text-sm font-extrabold text-slate-800" contenteditable="true">Food Pool Pick</div>
+          <div class="text-xs font-bold text-slate-600 mt-1" contenteditable="true">Chef picks items &amp; passes to Server</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+          <div class="text-xs font-black text-[#23486A] uppercase mb-1">Step 4</div>
+          <div class="text-sm font-extrabold text-slate-800" contenteditable="true">Head Table Exam</div>
+          <div class="text-xs font-bold text-slate-600 mt-1" contenteditable="true">Server serves to Head Table for check</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SLIDE 10: GAME 2: 6-SET MENU BOARD                                    -->
+  <!-- ===================================================================== -->
+  <section class="slide flex-col items-center justify-center" data-title="10. Game 2: Menu Board">
+    <div class="max-w-6xl w-full flex flex-col h-full justify-center">
+      <div class="text-center mb-3">
+        <span class="px-3.5 py-1 rounded-full bg-red-100 border border-red-300 text-red-700 text-xs font-extrabold uppercase tracking-widest">
+          🍱 Cafeteria Menu (6 Sets)
+        </span>
+        <h1 class="font-festive-display text-3xl sm:text-5xl font-bold text-[#1E6B3B] tracking-tight mt-1" contenteditable="true">
+          GAME 2: MENU BOARD
+        </h1>
+      </div>
+
+      <input type="file" id="productPhotoInput" accept="image/*" class="hidden" />
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3.5 sm:gap-4">
+        <!-- Set 1 -->
+        <div class="festive-card rounded-2xl p-3.5 border-2 border-[#C8372D]/40 flex flex-col">
+          <div class="flex items-center justify-between mb-2">
+            <span class="px-2.5 py-0.5 rounded-md bg-[#C8372D] text-white font-black text-xs uppercase">Set 1</span>
+            <button type="button" onclick="triggerProductPhotoUpload(1)" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
+          </div>
+          <div id="setPhotoBox1" onclick="triggerProductPhotoUpload(1)" class="w-full h-24 sm:h-28 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 hover:border-[#C8372D] flex flex-col items-center justify-center text-slate-400 cursor-pointer overflow-hidden mb-2 transition">
+            <i class="fa-solid fa-camera text-2xl mb-1"></i><span class="text-[11px] font-bold">Set 1 Photo</span>
+          </div>
+          <h3 class="text-base sm:text-lg font-black text-slate-800 leading-tight" contenteditable="true">Set 1 Title</h3>
+          <p class="text-xs text-slate-600 font-semibold mt-0.5" contenteditable="true">Items / Ingredients</p>
+        </div>
+
+        <!-- Set 2 -->
+        <div class="festive-card rounded-2xl p-3.5 border-2 border-[#1E6B3B]/40 flex flex-col">
+          <div class="flex items-center justify-between mb-2">
+            <span class="px-2.5 py-0.5 rounded-md bg-[#1E6B3B] text-white font-black text-xs uppercase">Set 2</span>
+            <button type="button" onclick="triggerProductPhotoUpload(2)" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
+          </div>
+          <div id="setPhotoBox2" onclick="triggerProductPhotoUpload(2)" class="w-full h-24 sm:h-28 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 hover:border-[#1E6B3B] flex flex-col items-center justify-center text-slate-400 cursor-pointer overflow-hidden mb-2 transition">
+            <i class="fa-solid fa-camera text-2xl mb-1"></i><span class="text-[11px] font-bold">Set 2 Photo</span>
+          </div>
+          <h3 class="text-base sm:text-lg font-black text-slate-800 leading-tight" contenteditable="true">Set 2 Title</h3>
+          <p class="text-xs text-slate-600 font-semibold mt-0.5" contenteditable="true">Items / Ingredients</p>
+        </div>
+
+        <!-- Set 3 -->
+        <div class="festive-card rounded-2xl p-3.5 border-2 border-[#23486A]/40 flex flex-col">
+          <div class="flex items-center justify-between mb-2">
+            <span class="px-2.5 py-0.5 rounded-md bg-[#23486A] text-white font-black text-xs uppercase">Set 3</span>
+            <button type="button" onclick="triggerProductPhotoUpload(3)" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
+          </div>
+          <div id="setPhotoBox3" onclick="triggerProductPhotoUpload(3)" class="w-full h-24 sm:h-28 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 hover:border-[#23486A] flex flex-col items-center justify-center text-slate-400 cursor-pointer overflow-hidden mb-2 transition">
+            <i class="fa-solid fa-camera text-2xl mb-1"></i><span class="text-[11px] font-bold">Set 3 Photo</span>
+          </div>
+          <h3 class="text-base sm:text-lg font-black text-slate-800 leading-tight" contenteditable="true">Set 3 Title</h3>
+          <p class="text-xs text-slate-600 font-semibold mt-0.5" contenteditable="true">Items / Ingredients</p>
+        </div>
+
+        <!-- Set 4 -->
+        <div class="festive-card rounded-2xl p-3.5 border-2 border-[#D97724]/40 flex flex-col">
+          <div class="flex items-center justify-between mb-2">
+            <span class="px-2.5 py-0.5 rounded-md bg-[#D97724] text-white font-black text-xs uppercase">Set 4</span>
+            <button type="button" onclick="triggerProductPhotoUpload(4)" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
+          </div>
+          <div id="setPhotoBox4" onclick="triggerProductPhotoUpload(4)" class="w-full h-24 sm:h-28 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 hover:border-[#D97724] flex flex-col items-center justify-center text-slate-400 cursor-pointer overflow-hidden mb-2 transition">
+            <i class="fa-solid fa-camera text-2xl mb-1"></i><span class="text-[11px] font-bold">Set 4 Photo</span>
+          </div>
+          <h3 class="text-base sm:text-lg font-black text-slate-800 leading-tight" contenteditable="true">Set 4 Title</h3>
+          <p class="text-xs text-slate-600 font-semibold mt-0.5" contenteditable="true">Items / Ingredients</p>
+        </div>
+
+        <!-- Set 5 -->
+        <div class="festive-card rounded-2xl p-3.5 border-2 border-[#C8372D]/40 flex flex-col">
+          <div class="flex items-center justify-between mb-2">
+            <span class="px-2.5 py-0.5 rounded-md bg-[#C8372D] text-white font-black text-xs uppercase">Set 5</span>
+            <button type="button" onclick="triggerProductPhotoUpload(5)" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
+          </div>
+          <div id="setPhotoBox5" onclick="triggerProductPhotoUpload(5)" class="w-full h-24 sm:h-28 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 hover:border-[#C8372D] flex flex-col items-center justify-center text-slate-400 cursor-pointer overflow-hidden mb-2 transition">
+            <i class="fa-solid fa-camera text-2xl mb-1"></i><span class="text-[11px] font-bold">Set 5 Photo</span>
+          </div>
+          <h3 class="text-base sm:text-lg font-black text-slate-800 leading-tight" contenteditable="true">Set 5 Title</h3>
+          <p class="text-xs text-slate-600 font-semibold mt-0.5" contenteditable="true">Items / Ingredients</p>
+        </div>
+
+        <!-- Set 6 -->
+        <div class="festive-card rounded-2xl p-3.5 border-2 border-[#1E6B3B]/40 flex flex-col">
+          <div class="flex items-center justify-between mb-2">
+            <span class="px-2.5 py-0.5 rounded-md bg-[#1E6B3B] text-white font-black text-xs uppercase">Set 6</span>
+            <button type="button" onclick="triggerProductPhotoUpload(6)" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
+          </div>
+          <div id="setPhotoBox6" onclick="triggerProductPhotoUpload(6)" class="w-full h-24 sm:h-28 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 hover:border-[#1E6B3B] flex flex-col items-center justify-center text-slate-400 cursor-pointer overflow-hidden mb-2 transition">
+            <i class="fa-solid fa-camera text-2xl mb-1"></i><span class="text-[11px] font-bold">Set 6 Photo</span>
+          </div>
+          <h3 class="text-base sm:text-lg font-black text-slate-800 leading-tight" contenteditable="true">Set 6 Title</h3>
+          <p class="text-xs text-slate-600 font-semibold mt-0.5" contenteditable="true">Items / Ingredients</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SLIDE 11: GAME 2: TIMER & LIVESTREAM                                  -->
+  <!-- ===================================================================== -->
+  <section class="slide flex-col items-center justify-center" style="padding-top: 1.25rem; padding-bottom: 4.5rem; padding-left: 1.5rem; padding-right: 1.5rem;" data-title="11. Game 2: Cook — Timer & Livestream">
+    <div class="max-w-[1520px] w-full h-full flex flex-col gap-2.5 justify-center">
+
+      <div class="festive-card rounded-2xl px-5 py-2 flex flex-wrap items-center justify-between gap-3 border-2 border-[#C8372D]/40">
+        <div class="flex items-center gap-3">
+          <span class="px-3 py-1 rounded-lg bg-[#C8372D] text-white font-black text-xs uppercase animate-pulse">
+            <i class="fa-solid fa-circle text-[9px] mr-1"></i> Live Round
+          </span>
+          <h2 class="font-festive-display text-lg sm:text-2xl font-bold text-slate-800">
+            COOKING CHALLENGE
+          </h2>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+          <button type="button" onclick="ringSchoolBell(this)" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-[#D97724] to-[#F59E0B] hover:from-[#b45309] hover:to-[#D97724] text-white text-xs font-black transition cursor-pointer shadow flex items-center gap-1.5" title="Ring School Bell">
+            <i class="fa-solid fa-bell"></i> School Bell
+          </button>
+          <div class="h-5 w-px bg-slate-300 mx-0.5"></div>
+          <button type="button" onclick="adjustCookTimer(-30)" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-extrabold border border-slate-300 cursor-pointer">-30s</button>
+          <div class="px-4 py-1 rounded-xl bg-slate-900 font-mono text-2xl sm:text-4xl font-black text-amber-300 tracking-wider shadow-inner" id="cookTimerDisplay">
+            03:00
+          </div>
+          <button type="button" onclick="adjustCookTimer(30)" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-extrabold border border-slate-300 cursor-pointer">+30s</button>
+          <button type="button" onclick="toggleCookTimer()" id="cookTimerStartBtn" class="px-4 py-2 rounded-xl bg-[#1E6B3B] hover:bg-[#14532D] text-white text-xs font-black transition cursor-pointer shadow">
+            <i class="fa-solid fa-play"></i> Start
+          </button>
+          <button type="button" onclick="resetCookTimer()" class="px-3 py-2 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs font-bold transition cursor-pointer">
+            Reset
+          </button>
+        </div>
+      </div>
+
+      <div id="livestreamFrameBox" class="flex-1 w-full rounded-3xl bg-slate-950 border-4 border-dashed border-slate-400 shadow-2xl relative overflow-hidden flex flex-col items-center justify-center text-center">
+        <video id="liveCameraVideo" autoplay playsinline muted class="hidden absolute inset-0 w-full h-full object-contain bg-black"></video>
+        <iframe id="vdoNinjaFrame" class="hidden absolute inset-0 w-full h-full border-0 bg-black" allow="autoplay;camera;microphone;fullscreen;display-capture;encrypted-media" allowfullscreen></iframe>
+
+        <button type="button" onclick="stopLiveWebcam()" id="stopCamBtn" class="hidden absolute top-3 right-3 z-20 px-3 py-1.5 rounded-xl bg-slate-900/75 hover:bg-red-600 text-white/90 hover:text-white text-xs font-bold backdrop-blur-md border border-white/20 transition cursor-pointer shadow-lg">
+          <i class="fa-solid fa-video-slash mr-1"></i> Disconnect
+        </button>
+
+        <div id="livestreamPlaceholderUI" class="relative z-10 max-w-xl mx-auto text-white space-y-3 p-6">
+          <div class="w-20 h-20 mx-auto rounded-full bg-red-600/20 border-2 border-red-500 text-red-400 flex items-center justify-center text-4xl animate-pulse">
+            <i class="fa-solid fa-video"></i>
+          </div>
+          <h3 class="font-festive-display text-3xl sm:text-4xl font-bold text-white tracking-wide" contenteditable="true">
+            FLOOR LIVESTREAM
+          </h3>
+          <p class="text-xs text-slate-300 font-semibold">Local webcam or VDO.ninja floor cam</p>
+          <div class="pt-2 flex flex-wrap items-center justify-center gap-3">
+            <button type="button" onclick="startLiveWebcam()" id="startCamBtn" class="px-5 py-3 rounded-xl bg-[#C8372D] hover:bg-[#b91c1c] text-white text-sm font-black shadow-lg transition cursor-pointer flex items-center gap-2">
+              <i class="fa-solid fa-camera"></i> Connect Camera
+            </button>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center pt-1">
+            <input type="url" id="vdoNinjaUrl" placeholder="https://vdo.ninja/?view=ROOMID" class="flex-1 px-3 py-2.5 rounded-xl bg-slate-800 border border-slate-600 text-white text-xs font-semibold focus:outline-none focus:border-amber-400" />
+            <button type="button" onclick="loadVdoNinjaStream()" class="px-4 py-2.5 rounded-xl bg-[#23486A] hover:bg-[#1a3650] text-white text-xs font-black transition cursor-pointer whitespace-nowrap">
+              <i class="fa-solid fa-broadcast-tower mr-1"></i> Load VDO.ninja
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SLIDE 12: DESSERT & COFFEE BREAK (TUCK SHOP RECESS)                   -->
+  <!-- ===================================================================== -->
+  <section class="slide flex-col items-center justify-center text-center" data-title="12. Dessert & Coffee Break">
+    <div class="festive-card max-w-4xl w-full rounded-3xl p-8 sm:p-12 border-2 border-[#1E6B3B]/50">
+      <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-red-100 text-[#C8372D] border-2 border-red-300 flex items-center justify-center text-4xl shadow animate-float">
+        <i class="fa-solid fa-cookie-bite"></i>
+      </div>
+      <span class="px-4 py-1 rounded-full bg-green-100 border border-green-300 text-green-800 text-xs font-extrabold uppercase tracking-widest">
+        🍰 Tuck Shop Recess • 小食部小休
+      </span>
+      <h1 class="font-festive-display text-4xl sm:text-6xl font-bold text-[#1E6B3B] tracking-tight mt-4 mb-6" contenteditable="true">
+        DESSERT &amp; COFFEE BREAK • 甜品咖啡小休
+      </h1>
+      <div class="inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-red-50 border border-red-300 text-[#C8372D] font-extrabold text-sm sm:text-base">
+        <i class="fa-solid fa-gift"></i> <span contenteditable="true">Up Next: Principal's Honor Roll Lucky Draw (Phase 1)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SLIDE 13: LUCKY DRAW PHASE 1 (PRINCIPAL'S HONOR ROLL SPINNER)         -->
+  <!-- ===================================================================== -->
+  <section class="slide flex-col overflow-y-auto" data-title="13. Lucky Draw Phase 1: Wheel">
+    <div class="flex-1 max-w-7xl w-full mx-auto flex flex-col justify-center">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-2 px-1">
+        <div class="flex items-center gap-3 flex-wrap">
+          <span id="drawPhaseBadge" class="px-3 py-1 rounded-xl bg-[#C8372D] text-white font-black text-xs uppercase tracking-wider shadow">
+            🎓 Principal's Honor Roll • Phase 1
+          </span>
+          <h1 class="font-festive-display text-2xl sm:text-3xl font-bold text-[#1E6B3B] tracking-tight">
+            HONOR ROLL SPINNER
+          </h1>
+        </div>
+        <div class="flex items-center gap-2 flex-wrap">
+          <div class="inline-flex rounded-xl border-2 border-slate-200 overflow-hidden bg-white shadow-sm">
+            <button type="button" id="phase1ModeBtn" onclick="setDrawPhase(1)" class="px-3 py-1.5 text-xs font-black bg-[#C8372D] text-white cursor-pointer">Phase 1</button>
+            <button type="button" id="phase2ModeBtn" onclick="setDrawPhase(2)" class="px-3 py-1.5 text-xs font-black text-slate-700 hover:bg-slate-50 cursor-pointer">Phase 2</button>
+          </div>
+          <button type="button" id="soundToggleBtn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white hover:bg-slate-100 text-slate-700 font-extrabold text-xs border-2 border-slate-200 transition shadow-sm cursor-pointer">
+            <i id="soundIcon" class="fa-solid fa-volume-high text-[#C8372D]"></i>
+            <span id="soundStatusText">SFX On</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+        <div class="lg:col-span-4 flex flex-col gap-2.5 order-2 lg:order-1">
+          <div class="chalkboard-card rounded-2xl p-3.5 border-2 border-amber-500 text-white">
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-lg bg-amber-100 text-amber-900 flex items-center justify-center"><i class="fa-solid fa-graduation-cap text-xs"></i></div>
+                <h2 class="font-extrabold text-sm text-amber-200">Class Roster / Pool</h2>
+              </div>
+              <span id="itemCountBadge" class="px-2.5 py-0.5 text-xs font-extrabold rounded-full bg-amber-400 text-slate-900">0 items</span>
+            </div>
+            <div class="flex flex-wrap gap-1.5 mb-2 text-xs">
+              <button type="button" id="shuffleBtn" class="px-2 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-white font-bold border border-white/30 transition flex items-center gap-1 cursor-pointer"><i class="fa-solid fa-shuffle text-amber-300"></i> Shuffle</button>
+              <button type="button" id="sampleNamesBtn" class="px-2 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-white font-bold border border-white/30 transition flex items-center gap-1 cursor-pointer"><i class="fa-solid fa-wand-magic-sparkles text-amber-300"></i> Sample</button>
+              <button type="button" id="autoSortBtn" class="px-2 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-white font-bold border border-white/30 transition cursor-pointer">A-Z</button>
+              <button type="button" id="clearListBtn" class="px-2 py-1 rounded-lg bg-red-900/60 hover:bg-red-900 text-white font-bold border border-red-400 transition flex items-center gap-1 ml-auto cursor-pointer"><i class="fa-regular fa-trash-can"></i> Clear</button>
+            </div>
+            <textarea id="entriesInput" rows="4" class="w-full bg-black/40 border-2 border-amber-400/50 rounded-xl p-2 text-xs text-white focus:outline-none focus:border-amber-300 font-mono resize-y" placeholder="Paste names (1 per line)..."></textarea>
+          </div>
+
+          <div class="festive-card rounded-2xl p-3.5 border-2 border-[#1E6B3B]/30">
+            <h3 class="font-extrabold text-xs text-slate-800 mb-2 flex items-center gap-2 uppercase tracking-wider"><i class="fa-solid fa-sliders text-[#C8372D]"></i> Settings</h3>
+            <label class="flex items-center gap-2.5 p-2 rounded-xl bg-slate-50 border border-slate-200 cursor-pointer hover:bg-slate-100 transition mb-2">
+              <input type="checkbox" id="autoRemoveToggle" checked class="w-4 h-4 rounded accent-[#C8372D]">
+              <span class="text-xs font-extrabold text-slate-800">Auto-Eliminate Winners</span>
+            </label>
+            <div class="pt-2 border-t border-slate-200 space-y-2">
+              <div class="flex items-center justify-between">
+                <label class="text-xs font-extrabold text-slate-700 flex items-center gap-1.5"><i class="fa-solid fa-layer-group text-[#1E6B3B]"></i> Batch Draw:</label>
+                <div class="flex items-center bg-slate-100 rounded-lg border border-slate-300 px-2 py-0.5">
+                  <input type="number" id="batchCountInput" min="1" max="50" value="3" class="w-9 bg-transparent text-center text-xs font-black text-slate-900 focus:outline-none">
+                  <span class="text-xs text-slate-600 font-bold ml-1">winners</span>
+                </div>
+              </div>
+              <button type="button" id="batchDrawBtn" class="w-full py-2 px-4 rounded-xl bg-gradient-to-r from-[#C8372D] to-[#DC2626] hover:from-[#b91c1c] hover:to-[#C8372D] text-white font-black text-xs tracking-wide transition shadow-lg shadow-red-900/20 flex items-center justify-center gap-2 cursor-pointer">
+                <i class="fa-solid fa-play"></i> Run Phase 1 Batch Draw
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 flex flex-col items-center justify-center order-1 lg:order-2">
+          <div class="relative w-full max-w-[390px] aspect-square flex items-center justify-center p-1">
+            <div class="absolute -top-1 z-20 pointer-shadow flex flex-col items-center">
+              <svg width="42" height="48" viewBox="0 0 46 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M23 52L4 14C1 8 4.5 0 11.5 0H34.5C41.5 0 45 8 42 14L23 52Z" fill="#D97724"/>
+                <path d="M23 44L10 14H36L23 44Z" fill="#FEF3C7"/>
+                <circle cx="23" cy="14" r="5" fill="#C8372D"/>
+              </svg>
+            </div>
+            <div class="w-full h-full rounded-full p-2 relative flex items-center justify-center">
+              <canvas id="wheelCanvas" class="wheel-shadow w-full h-full cursor-pointer max-w-full max-h-full rounded-full transition-transform" width="800" height="800"></canvas>
+              <button type="button" id="spinBtn" class="absolute z-10 w-20 h-20 rounded-full bg-gradient-to-tr from-[#991B1B] via-[#C8372D] to-[#DC2626] text-white font-black text-sm tracking-wider uppercase flex flex-col items-center justify-center shadow-2xl border-4 border-[#FEF3C7] hover:scale-105 active:scale-95 transition-all group cursor-pointer">
+                <span class="group-hover:text-amber-200 transition">SPIN</span>
+                <div class="w-3 h-1 bg-[#F59E0B] rounded-full mt-0.5"></div>
+              </button>
+            </div>
+          </div>
+          <div class="mt-1 text-center text-xs text-slate-600 font-bold">Click <span class="text-[#C8372D] font-black uppercase">Spin</span> or press <kbd class="px-2 py-0.5 rounded bg-slate-100 border border-slate-300 text-slate-800 font-mono">SPACE</kbd></div>
+        </div>
+
+        <div class="lg:col-span-3 flex flex-col gap-3 order-3">
+          <div class="chalkboard-card rounded-2xl p-3.5 border-2 border-amber-400 flex flex-col h-[420px] text-white">
+            <div class="flex items-center justify-between pb-2 border-b border-amber-500/40">
+              <div class="flex items-center gap-2">
+                <div class="w-7 h-7 rounded-lg bg-amber-400 text-slate-900 flex items-center justify-center"><i class="fa-solid fa-scroll text-sm"></i></div>
+                <div><h2 class="font-extrabold text-sm text-amber-200">Honor Roll</h2><p class="text-[10px] text-amber-300 font-semibold" id="winnerCountText">0 drawn</p></div>
+              </div>
+              <button type="button" id="resetWinnersBtn" class="p-1.5 text-amber-200 hover:text-white rounded-lg hover:bg-white/10 transition cursor-pointer" title="Clear"><i class="fa-regular fa-trash-can text-sm"></i></button>
+            </div>
+            <div id="winnersList" class="flex-1 overflow-y-auto py-2 space-y-1.5 pr-1">
+              <div id="emptyWinnersNotice" class="h-full flex flex-col items-center justify-center text-center p-4 text-amber-300/70">
+                <i class="fa-solid fa-award text-4xl mb-2 opacity-50 text-amber-300"></i>
+                <p class="text-xs font-extrabold">No honor roll names yet</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SLIDE 14: LUCKY DRAW PHASE 1 — HONOR ROLL REPORT CARD WALL            -->
+  <!-- ===================================================================== -->
+  <section class="slide flex-col items-center justify-center" data-title="14. Lucky Draw Phase 1: Wall of Winners">
+    <div class="max-w-6xl w-full">
+      <div class="text-center mb-4">
+        <span class="px-4 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-900 text-xs font-extrabold uppercase tracking-widest">
+          📜 Principal's Report Card • Phase 1 Honor Roll
+        </span>
+        <h1 class="font-festive-display text-4xl sm:text-5xl font-bold text-[#1E6B3B] tracking-tight mt-2" contenteditable="true">
+          PHASE 1 REPORT CARD &amp; AWARDS
+        </h1>
+        <p class="text-xs text-slate-500 font-semibold mt-1">Click any prize photo box below to upload prize images</p>
+      </div>
+
+      <input type="file" id="phase1PrizePhotoInput" accept="image/*" class="hidden" />
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+        <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <!-- Prize Box 1 -->
+          <div class="festive-card rounded-2xl p-3 border-2 border-[#C8372D] flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="px-2 py-0.5 rounded bg-[#C8372D] text-white font-black text-[11px] uppercase">Phase 1 • Subject A</span>
+              <button type="button" onclick="triggerPhase1PhotoUpload(1)" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
+            </div>
+            <div id="phase1PhotoBox1" onclick="triggerPhase1PhotoUpload(1)" class="w-full h-20 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 hover:border-[#C8372D] flex flex-col items-center justify-center text-slate-400 cursor-pointer overflow-hidden mb-2 transition">
+              <i class="fa-solid fa-camera text-xl mb-0.5"></i><span class="text-[10px] font-bold">Prize Photo 1</span>
+            </div>
+            <h3 class="text-sm font-black text-slate-800" contenteditable="true">Phase 1 Prize 1</h3>
+            <p class="text-[11px] text-slate-600 font-semibold" contenteditable="true">Click to type description</p>
+          </div>
+
+          <!-- Prize Box 2 -->
+          <div class="festive-card rounded-2xl p-3 border-2 border-[#1E6B3B] flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="px-2 py-0.5 rounded bg-[#1E6B3B] text-white font-black text-[11px] uppercase">Phase 1 • Subject B</span>
+              <button type="button" onclick="triggerPhase1PhotoUpload(2)" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
+            </div>
+            <div id="phase1PhotoBox2" onclick="triggerPhase1PhotoUpload(2)" class="w-full h-20 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 hover:border-[#1E6B3B] flex flex-col items-center justify-center text-slate-400 cursor-pointer overflow-hidden mb-2 transition">
+              <i class="fa-solid fa-camera text-xl mb-0.5"></i><span class="text-[10px] font-bold">Prize Photo 2</span>
+            </div>
+            <h3 class="text-sm font-black text-slate-800" contenteditable="true">Phase 1 Prize 2</h3>
+            <p class="text-[11px] text-slate-600 font-semibold" contenteditable="true">Click to type description</p>
+          </div>
+
+          <!-- Prize Box 3 -->
+          <div class="festive-card rounded-2xl p-3 border-2 border-[#23486A] flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="px-2 py-0.5 rounded bg-[#23486A] text-white font-black text-[11px] uppercase">Phase 1 • Subject C</span>
+              <button type="button" onclick="triggerPhase1PhotoUpload(3)" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
+            </div>
+            <div id="phase1PhotoBox3" onclick="triggerPhase1PhotoUpload(3)" class="w-full h-20 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 hover:border-[#23486A] flex flex-col items-center justify-center text-slate-400 cursor-pointer overflow-hidden mb-2 transition">
+              <i class="fa-solid fa-camera text-xl mb-0.5"></i><span class="text-[10px] font-bold">Prize Photo 3</span>
+            </div>
+            <h3 class="text-sm font-black text-slate-800" contenteditable="true">Phase 1 Prize 3</h3>
+            <p class="text-[11px] text-slate-600 font-semibold" contenteditable="true">Click to type description</p>
+          </div>
+
+          <!-- Prize Box 4 -->
+          <div class="festive-card rounded-2xl p-3 border-2 border-amber-500 flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="px-2 py-0.5 rounded bg-amber-500 text-white font-black text-[11px] uppercase">Phase 1 • Subject D</span>
+              <button type="button" onclick="triggerPhase1PhotoUpload(4)" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
+            </div>
+            <div id="phase1PhotoBox4" onclick="triggerPhase1PhotoUpload(4)" class="w-full h-20 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 hover:border-amber-500 flex flex-col items-center justify-center text-slate-400 cursor-pointer overflow-hidden mb-2 transition">
+              <i class="fa-solid fa-camera text-xl mb-0.5"></i><span class="text-[10px] font-bold">Prize Photo 4</span>
+            </div>
+            <h3 class="text-sm font-black text-slate-800" contenteditable="true">Phase 1 Prize 4</h3>
+            <p class="text-[11px] text-slate-600 font-semibold" contenteditable="true">Click to type description</p>
+          </div>
+        </div>
+
+        <!-- Phase 1 Honor Roll Report Card -->
+        <div class="chalkboard-card rounded-3xl p-5 border-2 border-amber-400 flex flex-col text-white">
+          <div class="flex items-center justify-between pb-3 border-b border-amber-500/40 mb-3">
+            <h3 class="text-lg font-black text-amber-200 flex items-center gap-2">
+              <i class="fa-solid fa-scroll text-amber-400"></i> Phase 1 Honor Roll
+            </h3>
+            <button type="button" onclick="triggerFestiveConfetti(); AudioEngine.playFanfare();" class="px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-900 text-xs font-black transition cursor-pointer">
+              <i class="fa-solid fa-champagne-glasses mr-1"></i> Confetti
+            </button>
+          </div>
+          <div id="prizeSlideWinnersGrid1" class="flex-1 overflow-y-auto grid grid-cols-1 sm:grid-cols-2 gap-2.5 content-start max-h-[320px] pr-1">
+            <div class="col-span-full text-center py-12 text-amber-300/70 font-semibold text-sm">Spin the wheel on Slide 13 for Phase 1 honor roll names.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SLIDE 15: BEST DRESS AWARD (YEARBOOK RUNWAY THEME)                    -->
+  <!-- ===================================================================== -->
+  <section class="slide flex-col items-center justify-center text-center" data-title="15. Best Dress Award">
+    <div class="max-w-4xl w-full festive-card rounded-3xl p-8 sm:p-12 border-4 border-[#C8372D] animate-pulse-glow">
+      <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-tr from-[#C8372D] via-amber-500 to-yellow-300 flex items-center justify-center text-white text-4xl shadow-xl">
+        <i class="fa-solid fa-award"></i>
+      </div>
+
+      <span class="px-4 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-amber-800 text-xs font-extrabold uppercase tracking-widest">
+        📸 Yearbook Best Dressed • 校園年鑑靚衫大獎
+      </span>
+
+      <h1 class="font-festive-display text-5xl sm:text-7xl font-bold tracking-tight mt-4 mb-6 text-[#C8372D]" contenteditable="true">
+        BEST DRESSED AWARD
+      </h1>
+
+      <div class="max-w-xl mx-auto bg-green-50 border-2 border-[#1E6B3B] rounded-2xl p-5">
+        <div class="text-xs font-extrabold uppercase tracking-widest text-[#1E6B3B] mb-1">Yearbook Icon • 年度風雲人物</div>
+        <div class="text-2xl sm:text-3xl font-black text-slate-800" contenteditable="true">
+          [Click to Reveal Winner Name]
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SLIDE 16: LUCKY DRAW PHASE 2 (INTRO & WHEEL)                           -->
+  <!-- ===================================================================== -->
+  <section class="slide flex-col items-center justify-center text-center" data-title="16. Lucky Draw Phase 2: Intro">
+    <div class="festive-card max-w-4xl w-full rounded-3xl p-10 sm:p-14 border-4 border-[#D97724]">
+      <div class="w-20 h-20 mx-auto mb-5 rounded-3xl bg-gradient-to-tr from-[#C8372D] to-[#D97724] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
+        <i class="fa-solid fa-graduation-cap"></i>
+      </div>
+      <span class="px-4 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-amber-900 text-xs font-extrabold uppercase tracking-widest">
+        🎓 Principal's Graduation Honors (Phase 2) • 校長畢業大獎
+      </span>
+      <h1 class="font-festive-display text-5xl sm:text-7xl font-bold text-[#C8372D] tracking-tight mt-4 mb-3" contenteditable="true">
+        GRAND FINALE LUCKY DRAW
+      </h1>
+      <p class="text-lg sm:text-2xl text-slate-600 font-bold max-w-2xl mx-auto mb-8" contenteditable="true">
+        The ultimate honor roll draw! Spin for our top-tier graduation prizes!
+      </p>
+      <button type="button" onclick="startPhase2Draw()" class="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#C8372D] to-[#D97724] hover:from-[#b91c1c] hover:to-[#b45309] text-white font-black text-lg sm:text-xl tracking-wide shadow-xl transition transform hover:scale-105 active:scale-95 cursor-pointer">
+        <i class="fa-solid fa-dharmachakra"></i> Open Phase 2 Honor Roll Spinner
+      </button>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SLIDE 17: LUCKY DRAW PHASE 2 — WALL OF WINNERS (WITH PRIZE PHOTO UPLOADS) -->
+  <!-- ===================================================================== -->
+  <section class="slide flex-col items-center justify-center" data-title="17. Lucky Draw Phase 2: Wall of Winners">
+    <div class="max-w-6xl w-full">
+      <div class="text-center mb-4">
+        <span class="px-4 py-1.5 rounded-full bg-red-100 border border-red-300 text-red-700 text-xs font-extrabold uppercase tracking-widest">
+          🎓 Grand Finale Honors • Phase 2 Honor Roll
+        </span>
+        <h1 class="font-festive-display text-4xl sm:text-5xl font-bold text-[#1E6B3B] tracking-tight mt-2" contenteditable="true">
+          PHASE 2 GRAND FINALE HONOR ROLL
+        </h1>
+        <p class="text-xs text-slate-500 font-semibold mt-1">Click any prize photo box below to upload Phase 2 prize images</p>
+      </div>
+
+      <input type="file" id="phase2PrizePhotoInput" accept="image/*" class="hidden" />
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+        <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <!-- Phase 2 Prize Box 1 -->
+          <div class="festive-card rounded-2xl p-3 border-2 border-[#C8372D] flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="px-2 py-0.5 rounded bg-[#C8372D] text-white font-black text-[11px] uppercase">Phase 2 • Grand Prize 1</span>
+              <button type="button" onclick="triggerPhase2PhotoUpload(1)" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
+            </div>
+            <div id="phase2PhotoBox1" onclick="triggerPhase2PhotoUpload(1)" class="w-full h-20 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 hover:border-[#C8372D] flex flex-col items-center justify-center text-slate-400 cursor-pointer overflow-hidden mb-2 transition">
+              <i class="fa-solid fa-camera text-xl mb-0.5"></i><span class="text-[10px] font-bold">Phase 2 Prize 1</span>
+            </div>
+            <h3 class="text-sm font-black text-slate-800" contenteditable="true">Grand Prize 1</h3>
+            <p class="text-[11px] text-slate-600 font-semibold" contenteditable="true">Click to type description</p>
+          </div>
+
+          <!-- Phase 2 Prize Box 2 -->
+          <div class="festive-card rounded-2xl p-3 border-2 border-[#1E6B3B] flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="px-2 py-0.5 rounded bg-[#1E6B3B] text-white font-black text-[11px] uppercase">Phase 2 • Grand Prize 2</span>
+              <button type="button" onclick="triggerPhase2PhotoUpload(2)" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
+            </div>
+            <div id="phase2PhotoBox2" onclick="triggerPhase2PhotoUpload(2)" class="w-full h-20 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 hover:border-[#1E6B3B] flex flex-col items-center justify-center text-slate-400 cursor-pointer overflow-hidden mb-2 transition">
+              <i class="fa-solid fa-camera text-xl mb-0.5"></i><span class="text-[10px] font-bold">Phase 2 Prize 2</span>
+            </div>
+            <h3 class="text-sm font-black text-slate-800" contenteditable="true">Grand Prize 2</h3>
+            <p class="text-[11px] text-slate-600 font-semibold" contenteditable="true">Click to type description</p>
+          </div>
+
+          <!-- Phase 2 Prize Box 3 -->
+          <div class="festive-card rounded-2xl p-3 border-2 border-[#23486A] flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="px-2 py-0.5 rounded bg-[#23486A] text-white font-black text-[11px] uppercase">Phase 2 • Grand Prize 3</span>
+              <button type="button" onclick="triggerPhase2PhotoUpload(3)" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
+            </div>
+            <div id="phase2PhotoBox3" onclick="triggerPhase2PhotoUpload(3)" class="w-full h-20 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 hover:border-[#23486A] flex flex-col items-center justify-center text-slate-400 cursor-pointer overflow-hidden mb-2 transition">
+              <i class="fa-solid fa-camera text-xl mb-0.5"></i><span class="text-[10px] font-bold">Phase 2 Prize 3</span>
+            </div>
+            <h3 class="text-sm font-black text-slate-800" contenteditable="true">Grand Prize 3</h3>
+            <p class="text-[11px] text-slate-600 font-semibold" contenteditable="true">Click to type description</p>
+          </div>
+
+          <!-- Phase 2 Prize Box 4 -->
+          <div class="festive-card rounded-2xl p-3 border-2 border-amber-500 flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="px-2 py-0.5 rounded bg-amber-500 text-white font-black text-[11px] uppercase">Phase 2 • Grand Prize 4</span>
+              <button type="button" onclick="triggerPhase2PhotoUpload(4)" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
+            </div>
+            <div id="phase2PhotoBox4" onclick="triggerPhase2PhotoUpload(4)" class="w-full h-20 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 hover:border-amber-500 flex flex-col items-center justify-center text-slate-400 cursor-pointer overflow-hidden mb-2 transition">
+              <i class="fa-solid fa-camera text-xl mb-0.5"></i><span class="text-[10px] font-bold">Phase 2 Prize 4</span>
+            </div>
+            <h3 class="text-sm font-black text-slate-800" contenteditable="true">Grand Prize 4</h3>
+            <p class="text-[11px] text-slate-600 font-semibold" contenteditable="true">Click to type description</p>
+          </div>
+        </div>
+
+        <!-- Phase 2 Winners Wall -->
+        <div class="chalkboard-card rounded-3xl p-5 border-2 border-amber-400 flex flex-col text-white">
+          <div class="flex items-center justify-between pb-3 border-b border-amber-500/40 mb-3">
+            <h3 class="text-lg font-black text-amber-200 flex items-center gap-2">
+              <i class="fa-solid fa-scroll text-amber-400"></i> Phase 2 Honor Roll
+            </h3>
+            <button type="button" onclick="triggerFestiveConfetti(); AudioEngine.playFanfare();" class="px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-900 text-xs font-black transition cursor-pointer">
+              <i class="fa-solid fa-champagne-glasses mr-1"></i> Confetti
+            </button>
+          </div>
+          <div id="prizeSlideWinnersGrid2" class="flex-1 overflow-y-auto grid grid-cols-1 sm:grid-cols-2 gap-2.5 content-start max-h-[320px] pr-1">
+            <div class="col-span-full text-center py-12 text-amber-300/70 font-semibold text-sm">Spin the wheel on Slide 16 for Phase 2 honor roll names.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SLIDE 18: GROUP PHOTO BACKDROP                                        -->
+  <!-- ===================================================================== -->
+  <section class="slide flex-col items-center justify-between text-center" data-title="18. Group Photo Backdrop">
+    <div class="w-full max-w-5xl mx-auto pt-2">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#C8372D] text-white text-xs font-black uppercase tracking-widest shadow mb-2">
+        <i class="fa-solid fa-camera"></i> Group Photo • 畢業大合照
+      </div>
+      <h1 class="font-festive-script text-6xl sm:text-8xl font-bold leading-none">
+        <span class="text-[#C8372D]" contenteditable="true">Merry Christmas</span>
+        <span class="text-[#1E6B3B]" contenteditable="true"> &amp; Happy 2027!</span>
+      </h1>
+      <p class="text-lg sm:text-2xl font-extrabold text-[#23486A] mt-2" contenteditable="true">
+        APAC Christmas Lunch • APAC Region
+      </p>
+    </div>
+
+    <div class="my-auto pointer-events-none opacity-15">
+      <i class="fa-solid fa-camera-retro text-8xl text-slate-400"></i>
+    </div>
+
+    <div class="w-full max-w-3xl mx-auto festive-card rounded-2xl px-6 py-3 flex flex-wrap items-center justify-between gap-4">
+      <span class="font-extrabold text-sm text-slate-800" contenteditable="true">SSP Group • APAC Team</span>
+      <span class="text-xs font-extrabold text-[#1E6B3B]" contenteditable="true">
+        Class of 2026 🎄
+      </span>
+    </div>
+  </section>
+
+  <!-- Modals & Toast -->
+  <div id="winnerModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/70 backdrop-blur-md p-4 opacity-0 pointer-events-none transition-all duration-300">
+    <div class="festive-card rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl text-center transform scale-90 transition-all duration-300 relative overflow-hidden border-4 border-[#C8372D]">
+      <div class="inline-flex p-3.5 rounded-2xl bg-amber-100 text-amber-600 border border-amber-300 mb-3 shadow">
+        <i class="fa-solid fa-trophy text-3xl animate-bounce"></i>
+      </div>
+      <div id="modalPrizeLabel" class="text-xs uppercase tracking-widest text-[#1E6B3B] font-black mb-1">Winner #1</div>
+      <h3 id="modalWinnerName" class="text-2xl sm:text-3xl font-black text-slate-900 break-words py-3.5 px-4 bg-red-50 rounded-2xl border-2 border-red-200 my-2">Winner Name</h3>
+      <p class="text-xs text-slate-500 font-semibold mb-6">🎄 Congratulations!</p>
+      <div class="flex flex-col sm:flex-row gap-2.5">
+        <button type="button" id="modalSpinAgainBtn" class="flex-1 py-3 px-4 rounded-xl bg-[#23486A] hover:bg-[#1a3650] text-white font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 cursor-pointer"><i class="fa-solid fa-rotate-right"></i> Spin Again</button>
+        <button type="button" id="modalRemoveAndSpinBtn" class="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-[#C8372D] to-[#DC2626] hover:from-[#b91c1c] hover:to-[#C8372D] text-white font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 shadow-lg cursor-pointer"><i class="fa-solid fa-user-minus"></i> Remove &amp; Next</button>
+      </div>
+      <button type="button" id="closeModalBtn" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 p-2 rounded-lg cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
+    </div>
+  </div>
+
+  <div id="toast" class="fixed bottom-16 right-5 z-50 bg-slate-900 text-white border border-slate-700 px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2 text-xs translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <i class="fa-solid fa-circle-check text-emerald-400" id="toastIcon"></i>
+    <span id="toastMsg">Done</span>
+  </div>
+
+  <!-- Stage Controller HUD -->
+  <div id="hudWrapper" class="fixed bottom-3 left-1/2 -translate-x-1/2 max-w-[98vw]">
+    <div class="bg-slate-900/95 backdrop-blur-md text-white rounded-2xl px-3 py-2 shadow-2xl flex items-center gap-2 sm:gap-2.5 text-xs border border-white/25">
+      <button type="button" id="prevSlideBtn" onclick="prevSlide()" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white transition cursor-pointer" title="Previous Slide"><i class="fa-solid fa-chevron-left"></i></button>
+      <select id="slideSelector" onchange="goToSlide(parseInt(this.value))" class="bg-slate-800 text-white font-bold rounded-xl px-2.5 py-1.5 border border-slate-600 focus:outline-none max-w-[170px] sm:max-w-[240px] truncate cursor-pointer"></select>
+      <button type="button" id="nextSlideBtn" onclick="nextSlide()" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white transition cursor-pointer" title="Next Slide"><i class="fa-solid fa-chevron-right"></i></button>
+
+      <div class="h-5 w-px bg-slate-700 mx-0.5"></div>
+
+      <button type="button" onclick="toggleBGM()" id="bgmPlayBtn" class="px-3 py-1.5 rounded-xl bg-[#1E6B3B] hover:bg-[#14532D] text-white font-bold flex items-center gap-1.5 transition cursor-pointer" title="Play / Pause Music">
+        <i id="bgmIcon" class="fa-solid fa-play"></i>
+        <span id="bgmLabel" class="max-w-[125px] sm:max-w-[175px] truncate">All I Want For Christmas</span>
+      </button>
+
+      <button type="button" onclick="document.getElementById('bgmFileInput').click()" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold flex items-center gap-1 transition cursor-pointer" title="Upload Slide MP3"><i class="fa-solid fa-folder-open"></i><span class="hidden md:inline">Slide MP3</span></button>
+      <button type="button" onclick="document.getElementById('schoolBellFileInput').click()" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold flex items-center gap-1 transition cursor-pointer" title="Upload Bell Sound"><i class="fa-solid fa-bell"></i><span id="bellMp3Label" class="hidden md:inline max-w-[100px] truncate">Bell MP3</span></button>
+
+      <input type="range" id="bgmVolumeSlider" min="0" max="1" step="0.05" value="0.5" oninput="setBGMVolume(this.value)" class="w-12 sm:w-16 accent-[#C8372D] cursor-pointer hidden lg:block" title="Volume" />
+
+      <div class="h-5 w-px bg-slate-700 mx-0.5"></div>
+      <button type="button" onclick="saveCustomizedHTML()" class="px-2.5 py-1.5 rounded-xl bg-[#23486A] hover:bg-[#1a3650] text-white font-bold flex items-center gap-1.5 transition cursor-pointer border border-sky-400/30" title="Save HTML"><i class="fa-solid fa-floppy-disk text-amber-300"></i><span class="hidden sm:inline">Save HTML</span></button>
+      <button type="button" onclick="togglePresentationFullscreen()" class="p-2 rounded-xl bg-[#C8372D] hover:bg-[#b91c1c] text-white transition shadow cursor-pointer" title="Fullscreen"><i class="fa-solid fa-expand"></i></button>
+    </div>
+  </div>
+
+  <script>
+    let currentSlideIdx = 0;
+    let items = [
+      "Alexander Wright", "Beatrix Potter", "Charles Darwin",
+      "Diana Prince", "Edward Norton", "Fiona Gallagher",
+      "George Lucas", "Hannah Abbott", "Ian Malcolm", "Julia Roberts"
+    ];
+    let winners = [];
+    let winnersPhase1 = [];
+    let winnersPhase2 = [];
+    let drawPhase = 1;
+    let isSpinning = false;
+    let isBatchRunning = false;
+    let currentAngle = 0;
+    let soundEnabled = true;
+    let currentWinningItem = null;
+    let activeProductSetIdx = 1;
+    let customVdoNinjaUrl = '';
+
+    const FESTIVE_WHEEL_COLORS = [
+      '#C8372D', '#1E6B3B', '#23486A', '#D97724',
+      '#991B1B', '#14532D', '#1a3650', '#b45309',
+      '#DC2626', '#15803d', '#0369a1', '#ca8a04'
+    ];
+
+    const AudioEngine = {
+      playTick() {
+        if (!soundEnabled) return;
+        StudioSynth.init();
+        if (!StudioSynth.ctx) return;
+        const t = StudioSynth.ctx.currentTime;
+        const osc = StudioSynth.ctx.createOscillator();
+        const gain = StudioSynth.ctx.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(880 + Math.random() * 120, t);
+        gain.gain.setValueAtTime(0.0001, t);
+        gain.gain.linearRampToValueAtTime(0.05 * Math.max(0.3, bgmVolume), t + 0.005);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.05);
+        osc.connect(gain); gain.connect(StudioSynth.ctx.destination);
+        osc.start(t); osc.stop(t + 0.06);
+      },
+      playFanfare() {
+        if (!soundEnabled) return;
+        StudioSynth.init();
+        if (!StudioSynth.ctx) return;
+        const t = StudioSynth.ctx.currentTime;
+        const notes = [523.25, 659.25, 783.99, 1046.5];
+        notes.forEach((freq, i) => {
+          StudioSynth.playRichVoice(freq, t + i * 0.08, 0.35, 0.22, 'triangle');
+        });
+      }
+    };
+
+    function triggerFestiveConfetti() {
+      if (typeof confetti !== 'function') return;
+      const colors = ['#C8372D', '#1E6B3B', '#D97724', '#23486A', '#FEF3C7'];
+      confetti({ particleCount: 110, spread: 70, origin: { y: 0.65 }, colors });
+      setTimeout(() => confetti({ particleCount: 70, angle: 60, spread: 55, origin: { x: 0, y: 0.7 }, colors }), 180);
+      setTimeout(() => confetti({ particleCount: 70, angle: 120, spread: 55, origin: { x: 1, y: 0.7 }, colors }), 280);
+    }
+
+    function setDrawPhase(phase) {
+      drawPhase = phase === 2 ? 2 : 1;
+      winners = drawPhase === 1 ? winnersPhase1 : winnersPhase2;
+      const badge = document.getElementById('drawPhaseBadge');
+      const p1 = document.getElementById('phase1ModeBtn');
+      const p2 = document.getElementById('phase2ModeBtn');
+      if (badge) {
+        badge.textContent = drawPhase === 1
+          ? "🎓 Principal's Honor Roll • Phase 1"
+          : "🎓 Grand Finale Honor Roll • Phase 2";
+        badge.className = drawPhase === 1
+          ? 'px-3 py-1 rounded-xl bg-[#C8372D] text-white font-black text-xs uppercase tracking-wider shadow'
+          : 'px-3 py-1 rounded-xl bg-[#D97724] text-white font-black text-xs uppercase tracking-wider shadow';
+      }
+      if (p1 && p2) {
+        p1.className = drawPhase === 1
+          ? 'px-3 py-1.5 text-xs font-black bg-[#C8372D] text-white cursor-pointer'
+          : 'px-3 py-1.5 text-xs font-black text-slate-700 hover:bg-slate-50 cursor-pointer';
+        p2.className = drawPhase === 2
+          ? 'px-3 py-1.5 text-xs font-black bg-[#D97724] text-white cursor-pointer'
+          : 'px-3 py-1.5 text-xs font-black text-slate-700 hover:bg-slate-50 cursor-pointer';
+      }
+      updateWinnersListUI();
+      showToast(drawPhase === 1 ? 'Phase 1 spinner active' : 'Phase 2 spinner active');
+    }
+
+    function startPhase2Draw() {
+      setDrawPhase(2);
+      goToSlide(12);
+      showToast('Phase 2 Honor Roll Spinner ready');
+    }
+
+    function triggerProductPhotoUpload(idx) {
+      activeProductSetIdx = idx;
+      document.getElementById('productPhotoInput').click();
+    }
+
+    function loadVdoNinjaStream() {
+      const input = document.getElementById('vdoNinjaUrl');
+      const url = (input && input.value.trim()) || customVdoNinjaUrl;
+      if (!url) { showToast('Paste a VDO.ninja view URL first', 'error'); return; }
+      customVdoNinjaUrl = url;
+      stopLiveWebcam();
+      const frame = document.getElementById('vdoNinjaFrame');
+      const placeholderUI = document.getElementById('livestreamPlaceholderUI');
+      const stopBtn = document.getElementById('stopCamBtn');
+      const frameBox = document.getElementById('livestreamFrameBox');
+      frame.src = url;
+      frame.classList.remove('hidden');
+      placeholderUI.classList.add('hidden');
+      stopBtn.classList.remove('hidden');
+      frameBox.classList.remove('border-dashed', 'border-slate-400');
+      frameBox.classList.add('border-solid', 'border-[#1E6B3B]');
+      showToast('VDO.ninja stream loaded');
+    }
+
+    function showWinnerModal(name) {
+      const modal = document.getElementById('winnerModal');
+      const nameEl = document.getElementById('modalWinnerName');
+      const labelEl = document.getElementById('modalPrizeLabel');
+      if (!modal || !nameEl) return;
+      nameEl.textContent = name;
+      if (labelEl) labelEl.textContent = `Phase ${drawPhase} · Winner #${winners.length}`;
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      const card = modal.querySelector('.festive-card');
+      if (card) card.classList.remove('scale-90');
+    }
+
+    function hideWinnerModal() {
+      const modal = document.getElementById('winnerModal');
+      if (!modal) return;
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      const card = modal.querySelector('.festive-card');
+      if (card) card.classList.add('scale-90');
+    }
+
+    // Snow
+    const snowCanvas = document.getElementById('snowCanvas');
+    const snowCtx = snowCanvas.getContext('2d');
+    let snowflakes = [];
+    function initSnow() {
+      snowCanvas.width = window.innerWidth;
+      snowCanvas.height = window.innerHeight;
+      snowflakes = Array.from({ length: 40 }, () => ({
+        x: Math.random() * snowCanvas.width,
+        y: Math.random() * snowCanvas.height,
+        r: 2 + Math.random() * 4,
+        speedY: 0.4 + Math.random() * 0.9,
+        speedX: -0.3 + Math.random() * 0.6,
+        opacity: 0.35 + Math.random() * 0.5
+      }));
+    }
+    function animateSnow() {
+      snowCtx.clearRect(0, 0, snowCanvas.width, snowCanvas.height);
+      snowflakes.forEach(f => {
+        snowCtx.beginPath();
+        snowCtx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+        snowCtx.fillStyle = `rgba(176, 204, 222, ${f.opacity})`;
+        snowCtx.fill();
+        f.y += f.speedY; f.x += f.speedX;
+        if (f.y > snowCanvas.height) { f.y = -5; f.x = Math.random() * snowCanvas.width; }
+        if (f.x > snowCanvas.width) f.x = 0;
+        if (f.x < 0) f.x = snowCanvas.width;
+      });
+      requestAnimationFrame(animateSnow);
+    }
+    initSnow(); animateSnow();
+
+    // Audio / Synth
+    const bgmAudio = document.getElementById('bgmAudio');
+    const bgmIcon = document.getElementById('bgmIcon');
+    const bgmLabel = document.getElementById('bgmLabel');
+    const bgmFileInput = document.getElementById('bgmFileInput');
+    const schoolBellAudio = document.getElementById('schoolBellAudio');
+    const schoolBellFileInput = document.getElementById('schoolBellFileInput');
+
+    let isMusicActive = false;
+    let musicLoopTimer = null;
+    let barIndex = 0;
+    let bgmVolume = 0.5;
+    let customSlideMp3s = {};
+    let customBellDataUrl = '';
+    let customBellFileName = '';
+    let currentPlayingTrackKey = null;
+
+    const F = {
+      C3: 130.81, D3: 146.83, E3: 164.81, F3: 174.61, G3: 196.00, A3: 220.00, B3: 246.94,
+      C4: 261.63, D4: 293.66, E4: 329.63, F4: 349.23, Fs4: 369.99, G4: 392.00, A4: 440.00, As4: 466.16, B4: 493.88,
+      C5: 523.25, D5: 587.33, E5: 659.25, F5: 698.46, Fs5: 739.99, G5: 783.99, A5: 880.00, B5: 987.77,
+      C6: 1046.50
+    };
+
+    const StudioSynth = {
+      ctx: null, reverbNode: null, noiseBuffer: null,
+      init() {
+        if (!this.ctx) {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (!AudioCtx) return;
+          this.ctx = new AudioCtx();
+          const rate = this.ctx.sampleRate; const length = rate * 2.0;
+          const impulse = this.ctx.createBuffer(2, length, rate);
+          for (let ch = 0; ch < 2; ch++) {
+            const data = impulse.getChannelData(ch);
+            for (let i = 0; i < length; i++) data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, 2.2);
+          }
+          this.reverbNode = this.ctx.createConvolver(); this.reverbNode.buffer = impulse;
+          const wetGain = this.ctx.createGain(); wetGain.gain.value = 0.35;
+          this.reverbNode.connect(wetGain); wetGain.connect(this.ctx.destination);
+          const nLen = rate * 0.15; this.noiseBuffer = this.ctx.createBuffer(1, nLen, rate);
+          const nData = this.noiseBuffer.getChannelData(0); for (let i = 0; i < nLen; i++) nData[i] = Math.random() * 2 - 1;
+        }
+        if (this.ctx.state === 'suspended') this.ctx.resume();
+      },
+      playRichVoice(freq, startTime, durationSec, velocity = 0.18, type = 'sine') {
+        if (!freq || !this.ctx) return;
+        const osc1 = this.ctx.createOscillator(); const osc2 = this.ctx.createOscillator();
+        const filter = this.ctx.createBiquadFilter(); const gain = this.ctx.createGain();
+        osc1.type = type; osc1.frequency.setValueAtTime(freq, startTime);
+        osc2.type = 'triangle'; osc2.frequency.setValueAtTime(freq * 1.002, startTime);
+        filter.type = 'lowpass'; filter.frequency.setValueAtTime(3200, startTime);
+        filter.frequency.exponentialRampToValueAtTime(800, startTime + durationSec);
+        const vol = Math.max(0.003, velocity * bgmVolume);
+        gain.gain.setValueAtTime(0.0001, startTime); gain.gain.linearRampToValueAtTime(vol, startTime + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0004, startTime + durationSec + 0.35);
+        osc1.connect(filter); osc2.connect(filter); filter.connect(gain); gain.connect(this.ctx.destination);
+        if (this.reverbNode) gain.connect(this.reverbNode);
+        osc1.start(startTime); osc2.start(startTime); osc1.stop(startTime + durationSec + 0.4); osc2.stop(startTime + durationSec + 0.4);
+      },
+      playLushChord(freqs, startTime, durationSec, velocity = 0.08) {
+        if (!freqs || !this.ctx) return;
+        freqs.forEach(freq => {
+          const osc = this.ctx.createOscillator(); const filter = this.ctx.createBiquadFilter(); const gain = this.ctx.createGain();
+          osc.type = 'triangle'; osc.frequency.setValueAtTime(freq, startTime);
+          filter.type = 'lowpass'; filter.frequency.setValueAtTime(1400, startTime);
+          const vol = Math.max(0.002, velocity * bgmVolume);
+          gain.gain.setValueAtTime(0.0001, startTime); gain.gain.linearRampToValueAtTime(vol, startTime + 0.1);
+          gain.gain.setValueAtTime(vol * 0.9, startTime + durationSec * 0.8);
+          gain.gain.exponentialRampToValueAtTime(0.0003, startTime + durationSec + 0.3);
+          osc.connect(filter); filter.connect(gain); gain.connect(this.ctx.destination);
+          if (this.reverbNode) gain.connect(this.reverbNode);
+          osc.start(startTime); osc.stop(startTime + durationSec + 0.35);
+        });
+      },
+      playSleighBell(startTime, velocity = 0.06) {
+        if (!this.ctx || !this.noiseBuffer) return;
+        const src = this.ctx.createBufferSource(); src.buffer = this.noiseBuffer;
+        const bandpass = this.ctx.createBiquadFilter(); bandpass.type = 'bandpass'; bandpass.frequency.setValueAtTime(7200, startTime); bandpass.Q.setValueAtTime(4.0, startTime);
+        const gain = this.ctx.createGain(); const vol = Math.max(0.001, velocity * bgmVolume);
+        gain.gain.setValueAtTime(vol, startTime); gain.gain.exponentialRampToValueAtTime(0.0002, startTime + 0.14);
+        src.connect(bandpass); bandpass.connect(gain); gain.connect(this.ctx.destination); src.start(startTime);
+      },
+      playSchoolBellSynth() {
+        this.init(); if (!this.ctx) return; const now = this.ctx.currentTime;
+        const chimeNotes = [[F.E5, 0.00, 0.5], [F.C5, 0.4, 0.5], [F.D5, 0.8, 0.5], [F.G4, 1.2, 1.0]];
+        chimeNotes.forEach(([freq, offset, dur]) => { this.playRichVoice(freq, now + offset, dur, 0.35, 'sine'); });
+        for (let i = 0; i < 20; i++) {
+          const t = now + 2.2 + i * 0.05; const osc = this.ctx.createOscillator(); const gain = this.ctx.createGain();
+          osc.type = 'triangle'; osc.frequency.setValueAtTime(i % 2 === 0 ? 1568 : 1975, t);
+          gain.gain.setValueAtTime(0.15 * Math.max(0.4, bgmVolume), t); gain.gain.exponentialRampToValueAtTime(0.001, t + 0.045);
+          osc.connect(gain); gain.connect(this.ctx.destination); osc.start(t); osc.stop(t + 0.045);
+        }
+      }
+    };
+
+    function ringSchoolBell(btnEl) {
+      if (btnEl) {
+        const icon = btnEl.querySelector('i');
+        if (icon) { icon.classList.remove('animate-wiggle'); void icon.offsetWidth; icon.classList.add('animate-wiggle'); }
+      }
+      if (customBellDataUrl) {
+        schoolBellAudio.src = customBellDataUrl; schoolBellAudio.volume = Math.min(1, Math.max(0.2, bgmVolume));
+        schoolBellAudio.currentTime = 0; schoolBellAudio.play().catch(() => StudioSynth.playSchoolBellSynth());
+        showToast(`🔔 Ringing "${customBellFileName || 'School Bell'}"`);
+      } else {
+        StudioSynth.playSchoolBellSynth(); showToast('🔔 School Bell!');
+      }
+    }
+
+    schoolBellFileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0]; if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function (ev) {
+        customBellDataUrl = ev.target.result; customBellFileName = file.name;
+        const lbl = document.getElementById('bellMp3Label'); if (lbl) lbl.textContent = file.name;
+        showToast(`Loaded Bell: "${file.name}"`); ringSchoolBell();
+      };
+      reader.readAsDataURL(file); schoolBellFileInput.value = '';
+    });
+
+    const TRACKS = {
+      opening: { key: 'opening', title: "All I Want For Christmas Is You", beatSec: 0.34, sleighPattern: [0, 1, 2, 3], bars: [{ chord: [F.G3, F.B3, F.D4, F.G4], melody: [[F.G4, 0, 1], [F.B4, 1, 1], [F.D5, 2, 1], [F.Fs5, 3, 1]] }, { chord: [F.G3, F.C4, F.E4, F.G4], melody: [[F.G5, 0, 1.2], [F.Fs5, 1.2, 0.8], [F.E5, 2, 1], [F.D5, 3, 1]] }] },
+      maruko: { key: 'maruko', title: "Chibi Maruko Theme (OP)", beatSec: 0.25, sleighPattern: [0, 1, 2, 3], bars: [{ chord: [F.C4, F.E4, F.G4], melody: [[F.G5, 0, 0.5], [F.E5, 0.5, 0.5], [F.G5, 1, 0.5], [F.E5, 1.5, 0.5], [F.G5, 2, 0.5], [F.A5, 2.5, 0.5], [F.G5, 3, 1]] }] },
+      dumbledore: { key: 'dumbledore', title: "Dumbledore Magical Theme", beatSec: 0.34, sleighPattern: [0, 2], bars: [{ chord: [F.E3, F.G3, F.B3], melody: [[F.B4, 0, 1], [F.E5, 1, 1.5], [F.G5, 2.5, 0.5]] }] },
+      buffet: { key: 'buffet', title: "Deck the Halls", beatSec: 0.38, sleighPattern: [0, 2], bars: [{ chord: [F.C4, F.E4, F.G4], melody: [[F.G5, 0, 1.5], [F.F5, 1.5, 0.5], [F.E5, 2, 1], [F.D5, 3, 1]] }] },
+      game1: { key: 'game1', title: "Carol of the Bells", beatSec: 0.30, sleighPattern: [0, 1, 2], bars: [{ chord: [F.G3, F.As4, F.D4], melody: [[F.As4, 0, 1], [F.A4, 1, 0.5], [F.As4, 1.5, 0.5], [F.G4, 2, 1]] }] },
+      game2: { key: 'game2', title: "Santa Claus Is Comin' to Town", beatSec: 0.35, sleighPattern: [0, 1, 2, 3], bars: [{ chord: [F.C4, F.E4, F.G4], melody: [[F.G4, 0, 0.5], [F.E4, 0.5, 0.5], [F.F4, 1, 0.5], [F.G4, 1.5, 1.2], [F.G4, 2.8, 1.2]] }] },
+      recess: { key: 'recess', title: "Let It Snow", beatSec: 0.42, sleighPattern: [0, 2], bars: [{ chord: [F.C4, F.E4, F.G4], melody: [[F.G4, 0, 0.5], [F.G4, 0.5, 0.5], [F.G5, 1, 1], [F.G5, 2, 0.5], [F.F5, 2.5, 0.5], [F.E5, 3, 1]] }] },
+      luckyDraw: { key: 'luckyDraw', title: "Festive Celesta", beatSec: 0.28, sleighPattern: [0, 2], bars: [{ chord: [F.C4, F.E4, F.G4], melody: [[F.C5, 0, 0.6], [F.E5, 0.5, 0.6], [F.G5, 1, 0.6], [F.B5, 1.5, 0.6], [F.C6, 2, 0.8], [F.G5, 3, 0.8]] }] },
+      finale: { key: 'finale', title: "Last Christmas & Joy", beatSec: 0.40, sleighPattern: [0, 2], bars: [{ chord: [F.G3, F.B3, F.D4], melody: [[F.Fs5, 0, 1.4], [F.Fs5, 1.5, 0.8], [F.E5, 2.3, 1.5]] }] }
+    };
+
+    // 18 slides total mapped to tracks
+    const SLIDE_ARRANGEMENTS = [
+      TRACKS.opening,     // 1. Opening
+      TRACKS.maruko,      // 2. MCs
+      TRACKS.dumbledore,  // 3. Dumbledore
+      TRACKS.buffet,      // 4. Buffet
+      TRACKS.game1,       // 5. Game 1 Intro
+      TRACKS.game1,       // 6. Game 1 AhaSlides
+      TRACKS.game2,       // 7. Game 2 Intro
+      TRACKS.game2,       // 8. Game 2 Team Roles
+      TRACKS.game2,       // 9. Game 2 Workflow
+      TRACKS.game2,       // 10. Game 2 Menu
+      TRACKS.game2,       // 11. Game 2 Timer
+      TRACKS.recess,      // 12. Recess
+      TRACKS.luckyDraw,   // 13. Lucky Draw Phase 1 Wheel
+      TRACKS.luckyDraw,   // 14. Lucky Draw Phase 1 Winners & Prizes
+      TRACKS.buffet,      // 15. Best Dressed Award
+      TRACKS.luckyDraw,   // 16. Lucky Draw Phase 2 Intro
+      TRACKS.luckyDraw,   // 17. Lucky Draw Phase 2 Winners & Prizes
+      TRACKS.finale       // 18. Group Photo
+    ];
+
+    function updateMusicHudUI() {
+      const customTrack = customSlideMp3s[currentSlideIdx];
+      const trackName = customTrack ? customTrack.name : SLIDE_ARRANGEMENTS[currentSlideIdx].title;
+      bgmLabel.textContent = trackName;
+      bgmIcon.className = isMusicActive ? 'fa-solid fa-pause' : 'fa-solid fa-play';
+    }
+
+    function stopCurrentAudio() { clearTimeout(musicLoopTimer); bgmAudio.pause(); }
+
+    function scheduleNextBar() {
+      if (!isMusicActive || customSlideMp3s[currentSlideIdx]) return;
+      StudioSynth.init(); if (!StudioSynth.ctx) return;
+      const arr = SLIDE_ARRANGEMENTS[currentSlideIdx];
+      const bar = arr.bars[barIndex % arr.bars.length];
+      const isThreeFour = (arr.title.includes("Dumbledore") || arr.title.includes("Carol"));
+      const beatsInBar = isThreeFour ? 3 : 4; const barDurationSec = beatsInBar * arr.beatSec;
+      const now = StudioSynth.ctx.currentTime + 0.03;
+      StudioSynth.playLushChord(bar.chord, now, barDurationSec, 0.09);
+      bar.melody.forEach(([freq, beatOffset, beatLen]) => { StudioSynth.playRichVoice(freq, now + beatOffset * arr.beatSec, beatLen * arr.beatSec, 0.22, 'sine'); });
+      arr.sleighPattern.forEach(beatOffset => { if (beatOffset < beatsInBar) StudioSynth.playSleighBell(now + beatOffset * arr.beatSec, 0.06); });
+      barIndex++; musicLoopTimer = setTimeout(scheduleNextBar, barDurationSec * 1000);
+    }
+
+    function startSlideMusic(slideIdx) {
+      const newTrack = SLIDE_ARRANGEMENTS[slideIdx]; const customTrack = customSlideMp3s[slideIdx];
+      if (isMusicActive && !customTrack && currentPlayingTrackKey === newTrack.key && !bgmAudio.src) { updateMusicHudUI(); return; }
+      stopCurrentAudio(); currentPlayingTrackKey = customTrack ? 'custom' : newTrack.key; updateMusicHudUI();
+      if (!isMusicActive) return;
+      if (customTrack) { bgmAudio.src = customTrack.dataUrl || customTrack.url; bgmAudio.volume = bgmVolume; bgmAudio.play().catch(() => {}); }
+      else { barIndex = 0; scheduleNextBar(); }
+    }
+
+    function toggleBGM() {
+      isMusicActive = !isMusicActive;
+      if (isMusicActive) { startSlideMusic(currentSlideIdx); showToast(`Playing music`); }
+      else { stopCurrentAudio(); updateMusicHudUI(); }
+    }
+
+    function setBGMVolume(val) { bgmVolume = parseFloat(val); bgmAudio.volume = bgmVolume; }
+
+    bgmFileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0]; if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function (ev) {
+        customSlideMp3s[currentSlideIdx] = { name: file.name, dataUrl: ev.target.result };
+        isMusicActive = true; startSlideMusic(currentSlideIdx); showToast(`Loaded "${file.name}"`);
+      };
+      reader.readAsDataURL(file); bgmFileInput.value = '';
+    });
+
+    // Navigation & UI setup
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const slideSelector = document.getElementById('slideSelector');
+    slides.forEach((s, idx) => {
+      const opt = document.createElement('option'); opt.value = idx;
+      opt.textContent = s.getAttribute('data-title') || `Slide ${idx + 1}`;
+      slideSelector.appendChild(opt);
+    });
+
+    function goToSlide(index) {
+      if (index < 0 || index >= slides.length) return;
+      slides[currentSlideIdx].classList.remove('active');
+      currentSlideIdx = index; slides[currentSlideIdx].classList.add('active');
+      slideSelector.value = currentSlideIdx; startSlideMusic(currentSlideIdx);
+      if (currentSlideIdx === 12) resizeCanvas();
+      if (currentSlideIdx === 13) syncPrizeWinnersGrid1();
+      if (currentSlideIdx === 16) syncPrizeWinnersGrid2();
+      revealHudTemporarily(1600);
+    }
+
+    function nextSlide() { if (currentSlideIdx < slides.length - 1) goToSlide(currentSlideIdx + 1); }
+    function prevSlide() { if (currentSlideIdx > 0) goToSlide(currentSlideIdx - 1); }
+
+    function togglePresentationFullscreen() {
+      if (!document.fullscreenElement) { document.documentElement.requestFullscreen().catch(() => showToast('Press F11 for fullscreen', 'error')); }
+      else { document.exitFullscreen(); }
+    }
+
+    function pauseBgmForPresenterTab() {
+      if (isMusicActive) { isMusicActive = false; stopCurrentAudio(); updateMusicHudUI(); }
+    }
+
+    // Phase 1 & Phase 2 Prize Photo Uploader
+    let activePhaseNum = 1; let activePrizeIdx = 1;
+    const phase1PrizePhotoInput = document.getElementById('phase1PrizePhotoInput');
+    const phase2PrizePhotoInput = document.getElementById('phase2PrizePhotoInput');
+
+    function triggerPhase1PhotoUpload(idx) { activePrizeIdx = idx; phase1PrizePhotoInput.click(); }
+    function triggerPhase2PhotoUpload(idx) { activePrizeIdx = idx; phase2PrizePhotoInput.click(); }
+
+    phase1PrizePhotoInput.addEventListener('change', (e) => {
+      const file = e.target.files[0]; if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function (ev) {
+        const box = document.getElementById(`phase1PhotoBox${activePrizeIdx}`);
+        if (box) {
+          box.innerHTML = `<img src="${ev.target.result}" alt="Phase 1 Prize ${activePrizeIdx}" class="w-full h-full object-cover" />`;
+          box.classList.remove('border-dashed', 'border-slate-300'); box.classList.add('border-solid', 'border-[#C8372D]');
+          showToast(`Phase 1 Prize ${activePrizeIdx} photo uploaded`);
+        }
+      };
+      reader.readAsDataURL(file); phase1PrizePhotoInput.value = '';
+    });
+
+    phase2PrizePhotoInput.addEventListener('change', (e) => {
+      const file = e.target.files[0]; if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function (ev) {
+        const box = document.getElementById(`phase2PhotoBox${activePrizeIdx}`);
+        if (box) {
+          box.innerHTML = `<img src="${ev.target.result}" alt="Phase 2 Prize ${activePrizeIdx}" class="w-full h-full object-cover" />`;
+          box.classList.remove('border-dashed', 'border-slate-300'); box.classList.add('border-solid', 'border-[#C8372D]');
+          showToast(`Phase 2 Prize ${activePrizeIdx} photo uploaded`);
+        }
+      };
+      reader.readAsDataURL(file); phase2PrizePhotoInput.value = '';
+    });
+
+    let activeMediaStream = null;
+    async function startLiveWebcam() {
+      try {
+        activeMediaStream = await navigator.mediaDevices.getUserMedia({ video: { width: { ideal: 1920 }, height: { ideal: 1080 } }, audio: false });
+        const videoEl = document.getElementById('liveCameraVideo');
+        const placeholderUI = document.getElementById('livestreamPlaceholderUI');
+        const stopBtn = document.getElementById('stopCamBtn');
+        const frameBox = document.getElementById('livestreamFrameBox');
+        videoEl.srcObject = activeMediaStream; videoEl.classList.remove('hidden');
+        placeholderUI.classList.add('hidden'); stopBtn.classList.remove('hidden');
+        frameBox.classList.remove('border-dashed', 'border-slate-400'); frameBox.classList.add('border-solid', 'border-[#1E6B3B]');
+        showToast('Camera connected');
+      } catch (err) { showToast('Camera unavailable', 'error'); }
+    }
+
+    function stopLiveWebcam() {
+      if (activeMediaStream) { activeMediaStream.getTracks().forEach(t => t.stop()); activeMediaStream = null; }
+      const videoEl = document.getElementById('liveCameraVideo');
+      const vdoFrame = document.getElementById('vdoNinjaFrame');
+      const placeholderUI = document.getElementById('livestreamPlaceholderUI');
+      const stopBtn = document.getElementById('stopCamBtn');
+      const frameBox = document.getElementById('livestreamFrameBox');
+      videoEl.classList.add('hidden');
+      videoEl.srcObject = null;
+      if (vdoFrame) { vdoFrame.classList.add('hidden'); vdoFrame.removeAttribute('src'); }
+      placeholderUI.classList.remove('hidden');
+      stopBtn.classList.add('hidden'); frameBox.classList.add('border-dashed', 'border-slate-400');
+      frameBox.classList.remove('border-solid', 'border-[#1E6B3B]');
+    }
+
+    window.addEventListener('keydown', (e) => {
+      const activeTag = document.activeElement.tagName.toLowerCase();
+      const isEditing = activeTag === 'textarea' || activeTag === 'input' || document.activeElement.isContentEditable;
+      if (isEditing) return;
+
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); nextSlide(); }
+      else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prevSlide(); }
+      else if (e.code === 'Space' && currentSlideIdx === 12 && !isSpinning && !isBatchRunning) { e.preventDefault(); spinWheel(); }
+    });
+
+    // Cooking Timer
+    let cookSeconds = 180; let cookInterval = null;
+    function updateCookTimerUI() {
+      const mins = String(Math.floor(cookSeconds / 60)).padStart(2, '0');
+      const secs = String(cookSeconds % 60).padStart(2, '0');
+      document.getElementById('cookTimerDisplay').textContent = `${mins}:${secs}`;
+    }
+    function adjustCookTimer(delta) { cookSeconds = Math.max(10, cookSeconds + delta); updateCookTimerUI(); }
+    function toggleCookTimer() {
+      const btn = document.getElementById('cookTimerStartBtn');
+      if (cookInterval) { clearInterval(cookInterval); cookInterval = null; btn.innerHTML = '<i class="fa-solid fa-play"></i> Resume'; }
+      else {
+        btn.innerHTML = '<i class="fa-solid fa-pause"></i> Pause';
+        cookInterval = setInterval(() => {
+          if (cookSeconds > 0) { cookSeconds--; updateCookTimerUI(); }
+          else { clearInterval(cookInterval); cookInterval = null; btn.innerHTML = '<i class="fa-solid fa-play"></i> Start'; AudioEngine.playFanfare(); showToast("Time's up!"); ringSchoolBell(); }
+        }, 1000);
+      }
+    }
+    function resetCookTimer() { clearInterval(cookInterval); cookInterval = null; cookSeconds = 180; updateCookTimerUI(); document.getElementById('cookTimerStartBtn').innerHTML = '<i class="fa-solid fa-play"></i> Start'; }
+
+    // Lucky Wheel
+    const canvas = document.getElementById('wheelCanvas'); const ctx = canvas.getContext('2d');
+    const entriesInput = document.getElementById('entriesInput'); const spinBtn = document.getElementById('spinBtn');
+    const itemCountBadge = document.getElementById('itemCountBadge'); const winnersList = document.getElementById('winnersList');
+    const winnerCountText = document.getElementById('winnerCountText'); const autoRemoveToggle = document.getElementById('autoRemoveToggle');
+    const batchDrawBtn = document.getElementById('batchDrawBtn'); const batchCountInput = document.getElementById('batchCountInput');
+
+    function drawWheel() {
+      const width = canvas.width; const height = canvas.height;
+      const center = width / 2; const radius = center - 24;
+      ctx.clearRect(0, 0, width, height); const count = items.length;
+      if (count === 0) {
+        ctx.save(); ctx.translate(center, center); ctx.beginPath(); ctx.arc(0, 0, radius, 0, Math.PI * 2);
+        ctx.fillStyle = '#164e33'; ctx.fill(); ctx.lineWidth = 8; ctx.strokeStyle = '#D97724'; ctx.stroke();
+        ctx.fillStyle = '#FEF3C7'; ctx.font = 'bold 26px "Plus Jakarta Sans", sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText('Add names to spin', 0, 0); ctx.restore(); return;
+      }
+      const arcSize = (Math.PI * 2) / count;
+      ctx.save(); ctx.translate(center, center); ctx.rotate(currentAngle);
+      for (let i = 0; i < count; i++) {
+        const startAngle = i * arcSize; const endAngle = startAngle + arcSize;
+        ctx.beginPath(); ctx.moveTo(0, 0); ctx.arc(0, 0, radius, startAngle, endAngle); ctx.closePath();
+        ctx.fillStyle = FESTIVE_WHEEL_COLORS[i % FESTIVE_WHEEL_COLORS.length]; ctx.fill();
+        ctx.lineWidth = 3; ctx.strokeStyle = '#FFFFFF'; ctx.stroke();
+        ctx.save(); ctx.rotate(startAngle + arcSize / 2);
+        ctx.textAlign = 'right'; ctx.textBaseline = 'middle'; ctx.fillStyle = '#FFFFFF';
+        let fontSize = count > 24 ? 14 : count > 14 ? 17 : 21;
+        ctx.font = `bold ${fontSize}px "Plus Jakarta Sans", sans-serif`;
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.35)'; ctx.shadowBlur = 4;
+        let label = items[i]; if (label.length > 20) label = label.substring(0, 18) + '...';
+        ctx.fillText(label, radius - 30, 0); ctx.restore();
+      }
+      ctx.beginPath(); ctx.arc(0, 0, radius, 0, Math.PI * 2); ctx.lineWidth = 10; ctx.strokeStyle = '#D97724'; ctx.stroke();
+      ctx.restore();
+    }
+
+    function getSelectedItem() {
+      if (items.length === 0) return null;
+      const count = items.length; const arcSize = (Math.PI * 2) / count;
+      const normalizedAngle = (currentAngle % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2);
+      const pointerAngle = (3 * Math.PI) / 2;
+      let relativeAngle = (pointerAngle - normalizedAngle + Math.PI * 2) % (Math.PI * 2);
+      const index = Math.floor(relativeAngle / arcSize);
+      return { item: items[index], index };
+    }
+
+    function spinWheel() {
+      if (isSpinning || isBatchRunning || items.length === 0) return;
+      if (items.length === 1) { recordWinner(items[0]); return; }
+      isSpinning = true; spinBtn.disabled = true; spinBtn.classList.add('opacity-80', 'scale-95');
+      const spinTime = 4200 + Math.random() * 1400; const startTime = performance.now();
+      const totalRotations = Math.PI * 2 * (8 + Math.floor(Math.random() * 5)) + Math.random() * Math.PI * 2;
+      const startAngle = currentAngle; let lastTickSegment = -1;
+      function animateSpin(now) {
+        const elapsed = now - startTime; const progress = Math.min(elapsed / spinTime, 1);
+        const easeOut = 1 - Math.pow(1 - progress, 3.6); currentAngle = startAngle + totalRotations * easeOut;
+        const currentSlice = getSelectedItem();
+        if (currentSlice && currentSlice.index !== lastTickSegment) { lastTickSegment = currentSlice.index; AudioEngine.playTick(); }
+        drawWheel();
+        if (progress < 1) { requestAnimationFrame(animateSpin); }
+        else {
+          isSpinning = false; spinBtn.disabled = false; spinBtn.classList.remove('opacity-80', 'scale-95');
+          const result = getSelectedItem(); if (result) handleSingleWinningResult(result.item, result.index);
+        }
+      }
+      requestAnimationFrame(animateSpin);
+    }
+
+    function handleSingleWinningResult(winnerName, itemIndex) {
+      currentWinningItem = winnerName; AudioEngine.playFanfare(); triggerFestiveConfetti();
+      if (autoRemoveToggle.checked) { recordWinner(winnerName); removeItemByIndex(itemIndex); }
+      else { recordWinner(winnerName); }
+      showWinnerModal(winnerName);
+    }
+
+    function recordWinner(name) {
+      const bucket = drawPhase === 2 ? winnersPhase2 : winnersPhase1;
+      const rank = bucket.length + 1; const now = new Date();
+      const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      bucket.unshift({ rank, name, time: timeStr });
+      winners = bucket;
+      updateWinnersListUI(); syncPrizeWinnersGrid1(); syncPrizeWinnersGrid2();
+    }
+
+    function updateWinnersListUI() {
+      winners = drawPhase === 2 ? winnersPhase2 : winnersPhase1;
+      winnerCountText.textContent = `${winners.length} drawn`;
+      if (winners.length === 0) {
+        winnersList.innerHTML = `<div id="emptyWinnersNotice" class="h-full flex flex-col items-center justify-center text-center p-4 text-amber-300/70"><i class="fa-solid fa-award text-4xl mb-2 opacity-50 text-amber-300"></i><p class="text-xs font-extrabold">No honor roll names yet</p></div>`;
+        return;
+      }
+      winnersList.innerHTML = winners.map((w) => `<div class="flex items-center justify-between p-2 rounded-xl bg-black/30 border border-amber-500/40 text-amber-100"><span class="text-xs font-extrabold">#${w.rank}: ${escapeHTML(w.name)}</span><span class="text-[10px] text-amber-300/80">${w.time}</span></div>`).join('');
+    }
+
+    function syncPrizeWinnersGrid1() {
+      const grid = document.getElementById('prizeSlideWinnersGrid1'); if (!grid) return;
+      if (winnersPhase1.length === 0) { grid.innerHTML = `<div class="col-span-full text-center py-12 text-amber-300/70 font-semibold text-sm">Spin the wheel on Slide 13 for Phase 1 honor roll names.</div>`; return; }
+      grid.innerHTML = [...winnersPhase1].reverse().map((w) => `<div class="p-3 rounded-2xl bg-black/40 border border-amber-400 text-amber-100 flex items-center gap-2.5"><span class="px-2.5 py-1 rounded-lg bg-amber-500 text-slate-900 font-black text-xs">#${w.rank}</span><span class="text-sm font-extrabold truncate" contenteditable="true">${escapeHTML(w.name)}</span></div>`).join('');
+    }
+
+    function syncPrizeWinnersGrid2() {
+      const grid = document.getElementById('prizeSlideWinnersGrid2'); if (!grid) return;
+      if (winnersPhase2.length === 0) { grid.innerHTML = `<div class="col-span-full text-center py-12 text-amber-300/70 font-semibold text-sm">Open Phase 2 spinner from Slide 16, then spin for grand finale winners.</div>`; return; }
+      grid.innerHTML = [...winnersPhase2].reverse().map((w) => `<div class="p-3 rounded-2xl bg-black/40 border border-amber-400 text-amber-100 flex items-center gap-2.5"><span class="px-2.5 py-1 rounded-lg bg-amber-500 text-slate-900 font-black text-xs">#${w.rank}</span><span class="text-sm font-extrabold truncate" contenteditable="true">${escapeHTML(w.name)}</span></div>`).join('');
+    }
+
+    async function runBatchDraw() {
+      if (isSpinning || isBatchRunning) return;
+      if (items.length === 0) { showToast('No names in wheel', 'error'); return; }
+      const count = parseInt(batchCountInput.value) || 1; const drawCount = Math.min(count, items.length);
+      let pool = [...items];
+      for (let i = 0; i < drawCount; i++) { const randIdx = Math.floor(Math.random() * pool.length); recordWinner(pool.splice(randIdx, 1)[0]); }
+      if (autoRemoveToggle.checked) { items = pool; syncInputFromItems(); }
+      triggerFestiveConfetti(); AudioEngine.playFanfare(); showToast(`${drawCount} winners drawn!`, 'success');
+    }
+
+    function removeItemByIndex(index) { if (index >= 0 && index < items.length) { items.splice(index, 1); syncInputFromItems(); drawWheel(); } }
+    function syncInputFromItems() { entriesInput.value = items.join('\n'); itemCountBadge.textContent = `${items.length} items`; }
+    function syncItemsFromInput() { items = entriesInput.value.split('\n').map(s => s.trim()).filter(s => s.length > 0); itemCountBadge.textContent = `${items.length} items`; drawWheel(); }
+
+    function showToast(msg, type = 'success') {
+      const toast = document.getElementById('toast'); const toastMsg = document.getElementById('toastMsg'); const toastIcon = document.getElementById('toastIcon');
+      toastMsg.textContent = msg; toastIcon.className = type === 'error' ? 'fa-solid fa-circle-exclamation text-rose-400' : 'fa-solid fa-circle-check text-emerald-400';
+      toast.classList.remove('translate-y-20', 'opacity-0'); setTimeout(() => { toast.classList.add('translate-y-20', 'opacity-0'); }, 3200);
+    }
+
+    function escapeHTML(str) { return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)); }
+
+    entriesInput.addEventListener('input', syncItemsFromInput);
+    spinBtn.addEventListener('click', spinWheel);
+    batchDrawBtn.addEventListener('click', runBatchDraw);
+
+    document.getElementById('shuffleBtn').addEventListener('click', () => {
+      for (let i = items.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [items[i], items[j]] = [items[j], items[i]]; }
+      syncInputFromItems(); drawWheel(); showToast('Shuffled');
+    });
+    document.getElementById('autoSortBtn').addEventListener('click', () => { items.sort((a, b) => a.localeCompare(b)); syncInputFromItems(); drawWheel(); showToast('Sorted A-Z'); });
+    document.getElementById('sampleNamesBtn').addEventListener('click', () => {
+      items = ["Alexander Wright", "Beatrix Potter", "Charles Darwin", "Diana Prince", "Edward Norton", "Fiona Gallagher", "George Lucas", "Hannah Abbott", "Ian Malcolm", "Julia Roberts"];
+      syncInputFromItems(); drawWheel(); showToast('Sample names loaded');
+    });
+    document.getElementById('clearListBtn').addEventListener('click', () => { items = []; syncInputFromItems(); drawWheel(); showToast('Cleared'); });
+    document.getElementById('resetWinnersBtn').addEventListener('click', () => {
+      if (drawPhase === 2) winnersPhase2 = []; else winnersPhase1 = [];
+      winners = drawPhase === 2 ? winnersPhase2 : winnersPhase1;
+      updateWinnersListUI(); syncPrizeWinnersGrid1(); syncPrizeWinnersGrid2();
+      showToast(`Phase ${drawPhase} winners cleared`);
+    });
+
+    document.getElementById('soundToggleBtn').addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      document.getElementById('soundIcon').className = soundEnabled ? 'fa-solid fa-volume-high text-[#C8372D]' : 'fa-solid fa-volume-xmark text-slate-400';
+      document.getElementById('soundStatusText').textContent = soundEnabled ? 'SFX On' : 'SFX Off';
+      showToast(soundEnabled ? 'Sound effects on' : 'Sound effects muted');
+    });
+
+    document.getElementById('productPhotoInput').addEventListener('change', (e) => {
+      const file = e.target.files[0]; if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function (ev) {
+        const box = document.getElementById(`setPhotoBox${activeProductSetIdx}`);
+        if (box) {
+          box.innerHTML = `<img src="${ev.target.result}" alt="Set ${activeProductSetIdx}" class="w-full h-full object-cover" />`;
+          box.classList.remove('border-dashed', 'border-slate-300');
+          box.classList.add('border-solid', 'border-[#C8372D]');
+          showToast(`Set ${activeProductSetIdx} photo uploaded`);
+        }
+      };
+      reader.readAsDataURL(file);
+      e.target.value = '';
+    });
+
+    document.getElementById('closeModalBtn').addEventListener('click', hideWinnerModal);
+    document.getElementById('modalSpinAgainBtn').addEventListener('click', () => { hideWinnerModal(); spinWheel(); });
+    document.getElementById('modalRemoveAndSpinBtn').addEventListener('click', () => {
+      hideWinnerModal();
+      if (currentWinningItem && items.includes(currentWinningItem) && !autoRemoveToggle.checked) {
+        const idx = items.indexOf(currentWinningItem);
+        if (idx >= 0) removeItemByIndex(idx);
+      }
+      spinWheel();
+    });
+    document.getElementById('winnerModal').addEventListener('click', (e) => {
+      if (e.target.id === 'winnerModal') hideWinnerModal();
+    });
+
+    function resizeCanvas() { canvas.width = 800; canvas.height = 800; drawWheel(); }
+    window.addEventListener('resize', () => { resizeCanvas(); initSnow(); });
+
+    const hudWrapper = document.getElementById('hudWrapper'); let hudHideTimeout = null;
+    function revealHudTemporarily(ms = 2400) {
+      hudWrapper.classList.add('hud-visible'); clearTimeout(hudHideTimeout);
+      hudHideTimeout = setTimeout(() => { if (!hudWrapper.matches(':hover')) { hudWrapper.classList.remove('hud-visible'); } }, ms);
+    }
+    window.addEventListener('mousemove', (e) => { if (window.innerHeight - e.clientY <= 95) revealHudTemporarily(1800); });
+
+    function saveCustomizedHTML() {
+      syncItemsFromInput();
+      const vdoInput = document.getElementById('vdoNinjaUrl');
+      if (vdoInput) customVdoNinjaUrl = vdoInput.value.trim() || customVdoNinjaUrl;
+      const cloneDoc = document.documentElement.cloneNode(true);
+      const cloneToast = cloneDoc.querySelector('#toast'); if (cloneToast) cloneToast.classList.add('translate-y-20', 'opacity-0');
+      const cloneVideo = cloneDoc.querySelector('#liveCameraVideo'); if (cloneVideo) { cloneVideo.classList.add('hidden'); cloneVideo.removeAttribute('src'); }
+      const cloneVdo = cloneDoc.querySelector('#vdoNinjaFrame'); if (cloneVdo) { cloneVdo.classList.add('hidden'); cloneVdo.removeAttribute('src'); }
+      const clonePlaceholder = cloneDoc.querySelector('#livestreamPlaceholderUI'); if (clonePlaceholder) clonePlaceholder.classList.remove('hidden');
+      const cloneStopBtn = cloneDoc.querySelector('#stopCamBtn'); if (cloneStopBtn) cloneStopBtn.classList.add('hidden');
+      const cloneFrameBox = cloneDoc.querySelector('#livestreamFrameBox');
+      if (cloneFrameBox) { cloneFrameBox.classList.add('border-dashed', 'border-slate-400'); cloneFrameBox.classList.remove('border-solid', 'border-[#1E6B3B]'); }
+      const cloneModal = cloneDoc.querySelector('#winnerModal');
+      if (cloneModal) { cloneModal.classList.add('opacity-0', 'pointer-events-none'); }
+      const cloneSlides = cloneDoc.querySelectorAll('.slide');
+      cloneSlides.forEach((s, idx) => { if (idx === 0) s.classList.add('active'); else s.classList.remove('active'); });
+      const cloneSelector = cloneDoc.querySelector('#slideSelector'); if (cloneSelector) cloneSelector.innerHTML = '';
+      let serializedHTML = '<!DOCTYPE html>\n' + cloneDoc.outerHTML;
+      serializedHTML = serializedHTML.replace(/let items = \[([\s\S]*?)\];/, 'let items = ' + JSON.stringify(items, null, 6) + ';');
+      serializedHTML = serializedHTML.replace(/let winnersPhase1 = \[([\s\S]*?)\];/, 'let winnersPhase1 = ' + JSON.stringify(winnersPhase1) + ';');
+      serializedHTML = serializedHTML.replace(/let winnersPhase2 = \[([\s\S]*?)\];/, 'let winnersPhase2 = ' + JSON.stringify(winnersPhase2) + ';');
+      serializedHTML = serializedHTML.replace(/let customSlideMp3s = \{[\s\S]*?\};/, 'let customSlideMp3s = ' + JSON.stringify(customSlideMp3s) + ';');
+      serializedHTML = serializedHTML.replace(/let customBellDataUrl = '[^']*';/, 'let customBellDataUrl = ' + JSON.stringify(customBellDataUrl) + ';');
+      serializedHTML = serializedHTML.replace(/let customBellFileName = '[^']*';/, 'let customBellFileName = ' + JSON.stringify(customBellFileName) + ';');
+      serializedHTML = serializedHTML.replace(/let customVdoNinjaUrl = '[^']*';/, 'let customVdoNinjaUrl = ' + JSON.stringify(customVdoNinjaUrl) + ';');
+      const blob = new Blob([serializedHTML], { type: 'text/html;charset=utf-8;' });
+      const url = URL.createObjectURL(blob); const a = document.createElement('a');
+      a.href = url; a.download = 'APAC_Christmas_Party_Presentation-FINAL.html';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+      showToast('Saved APAC_Christmas_Party_Presentation-FINAL.html!');
+    }
+
+    // Restore baked VDO URL into input if present
+    if (customVdoNinjaUrl) {
+      const vdoInput = document.getElementById('vdoNinjaUrl');
+      if (vdoInput) vdoInput.value = customVdoNinjaUrl;
+    }
+
+    syncInputFromItems();
+    winners = winnersPhase1;
+    resizeCanvas();
+    updateMusicHudUI();
+    syncPrizeWinnersGrid1();
+    syncPrizeWinnersGrid2();
+    revealHudTemporarily(3000);
+  </script>
+</body>
+</html>
