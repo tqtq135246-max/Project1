@@ -35,10 +35,13 @@ Then visit `http://127.0.0.1:8080/apac-christmas-lunch.html`.
 
 ## Interactive tools
 
-- **StudioSynth** Web Audio BGM with continuous tracks across related slides  
-- Custom slide MP3 + school bell uploads  
-- Honor Roll spinner (Phase 1 / Phase 2), shuffle, A–Z, auto-eliminate, batch draw, confetti  
-- **Save HTML** bakes roster, photos, audio, and customizations into a standalone file  
+- **Phase BGM**: upload an MP3 per phase (Opening / Games / Recess / Christmas Gifts / Best Dressed / Grand Prizes / Finale). Play once — music continues as slides flow within that phase  
+- Company **logo** upload in the toolbar (shows top-left)  
+- School bell MP3 upload  
+- **Christmas Gifts** spinner: batch sequence 3 → 3 → 4 → 3 → 1  
+- **Grand Prizes** spinner: ranks #1–#6, one winner each  
+- Floor livestream: VDO.ninja room + **phone QR** to broadcast  
+- **Save HTML** bakes roster, photos, audio, logo, and customizations  
 
 ## Controls
 
@@ -46,5 +49,7 @@ Then visit `http://127.0.0.1:8080/apac-christmas-lunch.html`.
 |---|---|
 | ← → | Previous / next slide |
 | Space (on spinner) | Spin |
-| Hover bottom edge | Reveal stage HUD |
+| Hover bottom edge | Reveal stage HUD (hidden otherwise) |
+| Logo | Upload company logo |
+| Phase MP3 | Upload BGM for the selected phase |
 | Save HTML | Export baked presentation |

@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <!-- Canvas Confetti CDN -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- QR Code CDN (for VDO.ninja phone broadcast) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -191,16 +193,50 @@
       user-select: text;
     }
 
-    #hudWrapper {
-      opacity: 0;
-      transform: translate(-50%, 72%);
-      transition: opacity 0.3s ease, transform 0.3s ease;
+    #hudHitZone {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 56px;
       z-index: 60;
-      padding-top: 24px;
     }
-    #hudWrapper:hover, #hudWrapper.hud-visible {
+    #hudWrapper {
+      position: absolute;
+      left: 50%;
+      bottom: 12px;
+      opacity: 0;
+      transform: translate(-50%, 28px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      pointer-events: none;
+      max-width: 98vw;
+    }
+    #hudHitZone:hover #hudWrapper,
+    #hudWrapper:hover {
       opacity: 1;
       transform: translate(-50%, 0);
+      pointer-events: auto;
+    }
+
+    #companyLogoBadge {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 55;
+      max-width: 160px;
+      max-height: 64px;
+      display: none;
+      background: rgba(255,255,255,0.92);
+      border: 2px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 0.35rem 0.55rem;
+      box-shadow: 0 10px 24px rgba(35,72,106,0.18);
+    }
+    #companyLogoBadge img {
+      max-width: 140px;
+      max-height: 52px;
+      object-fit: contain;
+      display: block;
     }
 
     #snowCanvas {
@@ -211,14 +247,57 @@
       pointer-events: none !important;
       z-index: 10;
     }
+
+    .prize-wall-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.85rem;
+    }
+    .prize-card-photo {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      border-radius: 0.9rem;
+      background: #f1f5f9;
+      border: 2px dashed #cbd5e1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      cursor: pointer;
+      color: #94a3b8;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .prize-card-photo:hover { border-color: #C8372D; background: #fff7ed; }
+    .prize-card-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .winner-slot {
+      min-height: 1.75rem;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.25);
+      border: 1px dashed rgba(251,191,36,0.45);
+      color: #fde68a;
+      font-size: 0.7rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.2rem 0.55rem;
+    }
+    .winner-slot.filled {
+      background: rgba(251,191,36,0.2);
+      border-style: solid;
+      color: #fffbeb;
+    }
   </style>
 </head>
 <body class="bg-white">
 
   <canvas id="snowCanvas"></canvas>
+  <div id="companyLogoBadge"><img id="companyLogoImg" alt="Company logo" /></div>
 
   <audio id="bgmAudio" loop preload="auto"></audio>
   <input type="file" id="bgmFileInput" accept="audio/*" class="hidden" />
+  <input type="file" id="logoFileInput" accept="image/*" class="hidden" />
   <audio id="schoolBellAudio" preload="auto"></audio>
   <input type="file" id="schoolBellFileInput" accept="audio/*" class="hidden" />
 
@@ -717,31 +796,45 @@
         </div>
       </div>
 
-      <div id="livestreamFrameBox" class="flex-1 w-full rounded-3xl bg-slate-950 border-4 border-dashed border-slate-400 shadow-2xl relative overflow-hidden flex flex-col items-center justify-center text-center">
-        <video id="liveCameraVideo" autoplay playsinline muted class="hidden absolute inset-0 w-full h-full object-contain bg-black"></video>
-        <iframe id="vdoNinjaFrame" class="hidden absolute inset-0 w-full h-full border-0 bg-black" allow="autoplay;camera;microphone;fullscreen;display-capture;encrypted-media" allowfullscreen></iframe>
+      <div class="grid grid-cols-1 xl:grid-cols-12 gap-3 flex-1 min-h-0">
+        <div id="livestreamFrameBox" class="xl:col-span-8 rounded-3xl bg-slate-950 border-4 border-dashed border-slate-400 shadow-2xl relative overflow-hidden flex flex-col items-center justify-center text-center min-h-[280px]">
+          <video id="liveCameraVideo" autoplay playsinline muted class="hidden absolute inset-0 w-full h-full object-contain bg-black"></video>
+          <iframe id="vdoNinjaFrame" class="hidden absolute inset-0 w-full h-full border-0 bg-black" allow="autoplay;camera;microphone;fullscreen;display-capture;encrypted-media" allowfullscreen></iframe>
 
-        <button type="button" onclick="stopLiveWebcam()" id="stopCamBtn" class="hidden absolute top-3 right-3 z-20 px-3 py-1.5 rounded-xl bg-slate-900/75 hover:bg-red-600 text-white/90 hover:text-white text-xs font-bold backdrop-blur-md border border-white/20 transition cursor-pointer shadow-lg">
-          <i class="fa-solid fa-video-slash mr-1"></i> Disconnect
-        </button>
+          <button type="button" onclick="stopLiveWebcam()" id="stopCamBtn" class="hidden absolute top-3 right-3 z-20 px-3 py-1.5 rounded-xl bg-slate-900/75 hover:bg-red-600 text-white/90 hover:text-white text-xs font-bold backdrop-blur-md border border-white/20 transition cursor-pointer shadow-lg">
+            <i class="fa-solid fa-video-slash mr-1"></i> Disconnect
+          </button>
 
-        <div id="livestreamPlaceholderUI" class="relative z-10 max-w-xl mx-auto text-white space-y-3 p-6">
-          <div class="w-20 h-20 mx-auto rounded-full bg-red-600/20 border-2 border-red-500 text-red-400 flex items-center justify-center text-4xl animate-pulse">
-            <i class="fa-solid fa-video"></i>
-          </div>
-          <h3 class="font-festive-display text-3xl sm:text-4xl font-bold text-white tracking-wide" contenteditable="true">
-            FLOOR LIVESTREAM
-          </h3>
-          <p class="text-xs text-slate-300 font-semibold">Local webcam or VDO.ninja floor cam</p>
-          <div class="pt-2 flex flex-wrap items-center justify-center gap-3">
-            <button type="button" onclick="startLiveWebcam()" id="startCamBtn" class="px-5 py-3 rounded-xl bg-[#C8372D] hover:bg-[#b91c1c] text-white text-sm font-black shadow-lg transition cursor-pointer flex items-center gap-2">
-              <i class="fa-solid fa-camera"></i> Connect Camera
+          <div id="livestreamPlaceholderUI" class="relative z-10 max-w-lg mx-auto text-white space-y-3 p-6">
+            <div class="w-16 h-16 mx-auto rounded-full bg-red-600/20 border-2 border-red-500 text-red-400 flex items-center justify-center text-3xl animate-pulse">
+              <i class="fa-solid fa-video"></i>
+            </div>
+            <h3 class="font-festive-display text-2xl sm:text-3xl font-bold text-white tracking-wide">
+              FLOOR LIVESTREAM
+            </h3>
+            <p class="text-xs text-slate-300 font-semibold">Waiting for phone camera via VDO.ninja…</p>
+            <button type="button" onclick="startLiveWebcam()" id="startCamBtn" class="px-5 py-2.5 rounded-xl bg-slate-700 hover:bg-slate-600 text-white text-xs font-black shadow transition cursor-pointer inline-flex items-center gap-2">
+              <i class="fa-solid fa-desktop"></i> Use This Computer Camera
             </button>
           </div>
-          <div class="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center pt-1">
-            <input type="url" id="vdoNinjaUrl" placeholder="https://vdo.ninja/?view=ROOMID" class="flex-1 px-3 py-2.5 rounded-xl bg-slate-800 border border-slate-600 text-white text-xs font-semibold focus:outline-none focus:border-amber-400" />
-            <button type="button" onclick="loadVdoNinjaStream()" class="px-4 py-2.5 rounded-xl bg-[#23486A] hover:bg-[#1a3650] text-white text-xs font-black transition cursor-pointer whitespace-nowrap">
-              <i class="fa-solid fa-broadcast-tower mr-1"></i> Load VDO.ninja
+        </div>
+
+        <div class="xl:col-span-4 festive-card rounded-3xl p-4 border-2 border-[#C8372D]/40 flex flex-col items-center text-center gap-3">
+          <span class="px-3 py-1 rounded-lg bg-[#C8372D] text-white font-black text-[11px] uppercase tracking-wider">Scan to Broadcast</span>
+          <h3 class="font-festive-display text-xl font-bold text-slate-800">Phone Floor Cam</h3>
+          <p class="text-[11px] text-slate-600 font-semibold leading-relaxed">Scan with your phone → allow camera → stream appears on stage.</p>
+          <div id="vdoQrBox" class="rounded-xl border-2 border-slate-200 bg-white p-2 shadow w-[196px] h-[196px] flex items-center justify-center overflow-hidden"></div>
+          <div class="w-full text-left space-y-1.5">
+            <div class="text-[10px] font-black uppercase tracking-wider text-slate-500">Room</div>
+            <div id="vdoRoomIdLabel" class="font-mono text-xs font-bold text-[#23486A] break-all bg-slate-50 border border-slate-200 rounded-lg px-2 py-1.5">—</div>
+            <a id="vdoPushLink" href="#" target="_blank" rel="noopener" class="block text-[11px] font-bold text-[#C8372D] hover:underline break-all">Open push link</a>
+          </div>
+          <div class="flex flex-wrap gap-2 justify-center w-full">
+            <button type="button" onclick="startVdoNinjaRoom(true)" class="px-3 py-2 rounded-xl bg-[#1E6B3B] hover:bg-[#14532D] text-white text-xs font-black cursor-pointer">
+              <i class="fa-solid fa-qrcode mr-1"></i> New Room + QR
+            </button>
+            <button type="button" onclick="copyVdoPushLink()" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-black cursor-pointer">
+              <i class="fa-solid fa-copy mr-1"></i> Copy Link
             </button>
           </div>
         </div>
@@ -765,7 +858,7 @@
         DESSERT &amp; COFFEE BREAK • 甜品咖啡小休
       </h1>
       <div class="inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-red-50 border border-red-300 text-[#C8372D] font-extrabold text-sm sm:text-base">
-        <i class="fa-solid fa-gift"></i> <span contenteditable="true">Up Next: Principal's Honor Roll Lucky Draw (Phase 1)</span>
+        <i class="fa-solid fa-gift"></i> <span contenteditable="true">Up Next: Christmas Gifts Lucky Draw</span>
       </div>
     </div>
   </section>
@@ -773,12 +866,12 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 13: LUCKY DRAW PHASE 1 (PRINCIPAL'S HONOR ROLL SPINNER)         -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col overflow-y-auto" data-title="13. Lucky Draw Phase 1: Wheel">
+  <section class="slide flex-col overflow-y-auto" data-title="13. Christmas Gifts Spinner">
     <div class="flex-1 max-w-7xl w-full mx-auto flex flex-col justify-center">
       <div class="flex flex-wrap items-center justify-between gap-2 mb-2 px-1">
         <div class="flex items-center gap-3 flex-wrap">
           <span id="drawPhaseBadge" class="px-3 py-1 rounded-xl bg-[#C8372D] text-white font-black text-xs uppercase tracking-wider shadow">
-            🎓 Principal's Honor Roll • Phase 1
+            🎁 Christmas Gifts
           </span>
           <h1 class="font-festive-display text-2xl sm:text-3xl font-bold text-[#1E6B3B] tracking-tight">
             HONOR ROLL SPINNER
@@ -786,8 +879,8 @@
         </div>
         <div class="flex items-center gap-2 flex-wrap">
           <div class="inline-flex rounded-xl border-2 border-slate-200 overflow-hidden bg-white shadow-sm">
-            <button type="button" id="phase1ModeBtn" onclick="setDrawPhase(1)" class="px-3 py-1.5 text-xs font-black bg-[#C8372D] text-white cursor-pointer">Phase 1</button>
-            <button type="button" id="phase2ModeBtn" onclick="setDrawPhase(2)" class="px-3 py-1.5 text-xs font-black text-slate-700 hover:bg-slate-50 cursor-pointer">Phase 2</button>
+            <button type="button" id="phase1ModeBtn" onclick="setDrawPhase(1)" class="px-3 py-1.5 text-xs font-black bg-[#C8372D] text-white cursor-pointer">Christmas Gifts</button>
+            <button type="button" id="phase2ModeBtn" onclick="setDrawPhase(2)" class="px-3 py-1.5 text-xs font-black text-slate-700 hover:bg-slate-50 cursor-pointer">Grand Prizes</button>
           </div>
           <button type="button" id="soundToggleBtn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white hover:bg-slate-100 text-slate-700 font-extrabold text-xs border-2 border-slate-200 transition shadow-sm cursor-pointer">
             <i id="soundIcon" class="fa-solid fa-volume-high text-[#C8372D]"></i>
@@ -822,16 +915,27 @@
               <span class="text-xs font-extrabold text-slate-800">Auto-Eliminate Winners</span>
             </label>
             <div class="pt-2 border-t border-slate-200 space-y-2">
-              <div class="flex items-center justify-between">
-                <label class="text-xs font-extrabold text-slate-700 flex items-center gap-1.5"><i class="fa-solid fa-layer-group text-[#1E6B3B]"></i> Batch Draw:</label>
-                <div class="flex items-center bg-slate-100 rounded-lg border border-slate-300 px-2 py-0.5">
-                  <input type="number" id="batchCountInput" min="1" max="50" value="3" class="w-9 bg-transparent text-center text-xs font-black text-slate-900 focus:outline-none">
-                  <span class="text-xs text-slate-600 font-bold ml-1">winners</span>
+              <div id="christmasBatchPanel" class="space-y-2">
+                <div class="flex items-center justify-between gap-2">
+                  <label class="text-xs font-extrabold text-slate-700 flex items-center gap-1.5"><i class="fa-solid fa-layer-group text-[#1E6B3B]"></i> Next batch</label>
+                  <span id="nextBatchLabel" class="text-[11px] font-black text-[#C8372D]">3× Gift A</span>
                 </div>
+                <p class="text-[10px] text-slate-500 font-semibold">Sequence: 3 → 3 → 4 → 3 → 1 of a kind</p>
+                <button type="button" id="batchDrawBtn" class="w-full py-2 px-4 rounded-xl bg-gradient-to-r from-[#C8372D] to-[#DC2626] hover:from-[#b91c1c] hover:to-[#C8372D] text-white font-black text-xs tracking-wide transition shadow-lg shadow-red-900/20 flex items-center justify-center gap-2 cursor-pointer">
+                  <i class="fa-solid fa-play"></i> Draw Next Christmas Batch
+                </button>
               </div>
-              <button type="button" id="batchDrawBtn" class="w-full py-2 px-4 rounded-xl bg-gradient-to-r from-[#C8372D] to-[#DC2626] hover:from-[#b91c1c] hover:to-[#C8372D] text-white font-black text-xs tracking-wide transition shadow-lg shadow-red-900/20 flex items-center justify-center gap-2 cursor-pointer">
-                <i class="fa-solid fa-play"></i> Run Phase 1 Batch Draw
-              </button>
+              <div id="grandSpinPanel" class="hidden space-y-2">
+                <div class="flex items-center justify-between gap-2">
+                  <label class="text-xs font-extrabold text-slate-700 flex items-center gap-1.5"><i class="fa-solid fa-crown text-amber-500"></i> Next rank</label>
+                  <span id="nextGrandLabel" class="text-[11px] font-black text-[#D97724]">Grand Prize #1</span>
+                </div>
+                <p class="text-[10px] text-slate-500 font-semibold">Premium ranks #1–#6 · one winner each</p>
+                <button type="button" onclick="spinWheel()" class="w-full py-2 px-4 rounded-xl bg-gradient-to-r from-[#D97724] to-[#F59E0B] hover:from-[#b45309] hover:to-[#D97724] text-white font-black text-xs tracking-wide transition shadow-lg flex items-center justify-center gap-2 cursor-pointer">
+                  <i class="fa-solid fa-dharmachakra"></i> Spin Next Grand Prize
+                </button>
+              </div>
+              <input type="hidden" id="batchCountInput" value="3" />
             </div>
           </div>
         </div>
@@ -878,91 +982,24 @@
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 14: LUCKY DRAW PHASE 1 — HONOR ROLL REPORT CARD WALL            -->
+  <!-- SLIDE 14: CHRISTMAS GIFTS WALL                                         -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center" data-title="14. Lucky Draw Phase 1: Wall of Winners">
+  <section class="slide flex-col items-center justify-center" data-title="14. Christmas Gifts Wall">
     <div class="max-w-6xl w-full">
       <div class="text-center mb-4">
         <span class="px-4 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-900 text-xs font-extrabold uppercase tracking-widest">
-          📜 Principal's Report Card • Phase 1 Honor Roll
+          🎁 Christmas Gifts • Batch Prizes
         </span>
         <h1 class="font-festive-display text-4xl sm:text-5xl font-bold text-[#1E6B3B] tracking-tight mt-2" contenteditable="true">
-          PHASE 1 REPORT CARD &amp; AWARDS
+          CHRISTMAS GIFTS WALL
         </h1>
-        <p class="text-xs text-slate-500 font-semibold mt-1">Click any prize photo box below to upload prize images</p>
+        <p class="text-xs text-slate-500 font-semibold mt-1">5 gift sets · batches of 3, 3, 4, 3, then 1 · upload photos &amp; winners auto-fill from the spinner</p>
       </div>
 
       <input type="file" id="phase1PrizePhotoInput" accept="image/*" class="hidden" />
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
-        <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-          <!-- Prize Box 1 -->
-          <div class="festive-card rounded-2xl p-3 border-2 border-[#C8372D] flex flex-col justify-between">
-            <div class="flex items-center justify-between mb-1.5">
-              <span class="px-2 py-0.5 rounded bg-[#C8372D] text-white font-black text-[11px] uppercase">Phase 1 • Subject A</span>
-              <button type="button" onclick="triggerPhase1PhotoUpload(1)" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
-            </div>
-            <div id="phase1PhotoBox1" onclick="triggerPhase1PhotoUpload(1)" class="w-full h-20 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 hover:border-[#C8372D] flex flex-col items-center justify-center text-slate-400 cursor-pointer overflow-hidden mb-2 transition">
-              <i class="fa-solid fa-camera text-xl mb-0.5"></i><span class="text-[10px] font-bold">Prize Photo 1</span>
-            </div>
-            <h3 class="text-sm font-black text-slate-800" contenteditable="true">Phase 1 Prize 1</h3>
-            <p class="text-[11px] text-slate-600 font-semibold" contenteditable="true">Click to type description</p>
-          </div>
-
-          <!-- Prize Box 2 -->
-          <div class="festive-card rounded-2xl p-3 border-2 border-[#1E6B3B] flex flex-col justify-between">
-            <div class="flex items-center justify-between mb-1.5">
-              <span class="px-2 py-0.5 rounded bg-[#1E6B3B] text-white font-black text-[11px] uppercase">Phase 1 • Subject B</span>
-              <button type="button" onclick="triggerPhase1PhotoUpload(2)" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
-            </div>
-            <div id="phase1PhotoBox2" onclick="triggerPhase1PhotoUpload(2)" class="w-full h-20 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 hover:border-[#1E6B3B] flex flex-col items-center justify-center text-slate-400 cursor-pointer overflow-hidden mb-2 transition">
-              <i class="fa-solid fa-camera text-xl mb-0.5"></i><span class="text-[10px] font-bold">Prize Photo 2</span>
-            </div>
-            <h3 class="text-sm font-black text-slate-800" contenteditable="true">Phase 1 Prize 2</h3>
-            <p class="text-[11px] text-slate-600 font-semibold" contenteditable="true">Click to type description</p>
-          </div>
-
-          <!-- Prize Box 3 -->
-          <div class="festive-card rounded-2xl p-3 border-2 border-[#23486A] flex flex-col justify-between">
-            <div class="flex items-center justify-between mb-1.5">
-              <span class="px-2 py-0.5 rounded bg-[#23486A] text-white font-black text-[11px] uppercase">Phase 1 • Subject C</span>
-              <button type="button" onclick="triggerPhase1PhotoUpload(3)" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
-            </div>
-            <div id="phase1PhotoBox3" onclick="triggerPhase1PhotoUpload(3)" class="w-full h-20 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 hover:border-[#23486A] flex flex-col items-center justify-center text-slate-400 cursor-pointer overflow-hidden mb-2 transition">
-              <i class="fa-solid fa-camera text-xl mb-0.5"></i><span class="text-[10px] font-bold">Prize Photo 3</span>
-            </div>
-            <h3 class="text-sm font-black text-slate-800" contenteditable="true">Phase 1 Prize 3</h3>
-            <p class="text-[11px] text-slate-600 font-semibold" contenteditable="true">Click to type description</p>
-          </div>
-
-          <!-- Prize Box 4 -->
-          <div class="festive-card rounded-2xl p-3 border-2 border-amber-500 flex flex-col justify-between">
-            <div class="flex items-center justify-between mb-1.5">
-              <span class="px-2 py-0.5 rounded bg-amber-500 text-white font-black text-[11px] uppercase">Phase 1 • Subject D</span>
-              <button type="button" onclick="triggerPhase1PhotoUpload(4)" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
-            </div>
-            <div id="phase1PhotoBox4" onclick="triggerPhase1PhotoUpload(4)" class="w-full h-20 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 hover:border-amber-500 flex flex-col items-center justify-center text-slate-400 cursor-pointer overflow-hidden mb-2 transition">
-              <i class="fa-solid fa-camera text-xl mb-0.5"></i><span class="text-[10px] font-bold">Prize Photo 4</span>
-            </div>
-            <h3 class="text-sm font-black text-slate-800" contenteditable="true">Phase 1 Prize 4</h3>
-            <p class="text-[11px] text-slate-600 font-semibold" contenteditable="true">Click to type description</p>
-          </div>
-        </div>
-
-        <!-- Phase 1 Honor Roll Report Card -->
-        <div class="chalkboard-card rounded-3xl p-5 border-2 border-amber-400 flex flex-col text-white">
-          <div class="flex items-center justify-between pb-3 border-b border-amber-500/40 mb-3">
-            <h3 class="text-lg font-black text-amber-200 flex items-center gap-2">
-              <i class="fa-solid fa-scroll text-amber-400"></i> Phase 1 Honor Roll
-            </h3>
-            <button type="button" onclick="triggerFestiveConfetti(); AudioEngine.playFanfare();" class="px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-900 text-xs font-black transition cursor-pointer">
-              <i class="fa-solid fa-champagne-glasses mr-1"></i> Confetti
-            </button>
-          </div>
-          <div id="prizeSlideWinnersGrid1" class="flex-1 overflow-y-auto grid grid-cols-1 sm:grid-cols-2 gap-2.5 content-start max-h-[320px] pr-1">
-            <div class="col-span-full text-center py-12 text-amber-300/70 font-semibold text-sm">Spin the wheel on Slide 13 for Phase 1 honor roll names.</div>
-          </div>
-        </div>
+      <div id="christmasGiftsWall" class="prize-wall-grid">
+        <!-- filled by JS: 5 gift cards -->
       </div>
     </div>
   </section>
@@ -996,112 +1033,45 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 16: LUCKY DRAW PHASE 2 (INTRO & WHEEL)                           -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center" data-title="16. Lucky Draw Phase 2: Intro">
+  <section class="slide flex-col items-center justify-center text-center" data-title="16. Grand Prizes Intro">
     <div class="festive-card max-w-4xl w-full rounded-3xl p-10 sm:p-14 border-4 border-[#D97724]">
       <div class="w-20 h-20 mx-auto mb-5 rounded-3xl bg-gradient-to-tr from-[#C8372D] to-[#D97724] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
-        <i class="fa-solid fa-graduation-cap"></i>
+        <i class="fa-solid fa-crown"></i>
       </div>
       <span class="px-4 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-amber-900 text-xs font-extrabold uppercase tracking-widest">
-        🎓 Principal's Graduation Honors (Phase 2) • 校長畢業大獎
+        👑 Grand Prizes • Premium Ranks #1–#6
       </span>
       <h1 class="font-festive-display text-5xl sm:text-7xl font-bold text-[#C8372D] tracking-tight mt-4 mb-3" contenteditable="true">
-        GRAND FINALE LUCKY DRAW
+        GRAND PRIZES
       </h1>
       <p class="text-lg sm:text-2xl text-slate-600 font-bold max-w-2xl mx-auto mb-8" contenteditable="true">
-        The ultimate honor roll draw! Spin for our top-tier graduation prizes!
+        Six premium prizes — one winner for each rank from #1 to #6!
       </p>
       <button type="button" onclick="startPhase2Draw()" class="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#C8372D] to-[#D97724] hover:from-[#b91c1c] hover:to-[#b45309] text-white font-black text-lg sm:text-xl tracking-wide shadow-xl transition transform hover:scale-105 active:scale-95 cursor-pointer">
-        <i class="fa-solid fa-dharmachakra"></i> Open Phase 2 Honor Roll Spinner
+        <i class="fa-solid fa-dharmachakra"></i> Open Grand Prizes Spinner
       </button>
     </div>
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 17: LUCKY DRAW PHASE 2 — WALL OF WINNERS (WITH PRIZE PHOTO UPLOADS) -->
+  <!-- SLIDE 17: GRAND PRIZES WALL                                           -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center" data-title="17. Lucky Draw Phase 2: Wall of Winners">
+  <section class="slide flex-col items-center justify-center" data-title="17. Grand Prizes Wall">
     <div class="max-w-6xl w-full">
       <div class="text-center mb-4">
         <span class="px-4 py-1.5 rounded-full bg-red-100 border border-red-300 text-red-700 text-xs font-extrabold uppercase tracking-widest">
-          🎓 Grand Finale Honors • Phase 2 Honor Roll
+          👑 Grand Prizes • Premium Honor Roll
         </span>
         <h1 class="font-festive-display text-4xl sm:text-5xl font-bold text-[#1E6B3B] tracking-tight mt-2" contenteditable="true">
-          PHASE 2 GRAND FINALE HONOR ROLL
+          GRAND PRIZES WALL
         </h1>
-        <p class="text-xs text-slate-500 font-semibold mt-1">Click any prize photo box below to upload Phase 2 prize images</p>
+        <p class="text-xs text-slate-500 font-semibold mt-1">Ranks #1–#6 · one winner each · upload prize photos below</p>
       </div>
 
       <input type="file" id="phase2PrizePhotoInput" accept="image/*" class="hidden" />
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
-        <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-          <!-- Phase 2 Prize Box 1 -->
-          <div class="festive-card rounded-2xl p-3 border-2 border-[#C8372D] flex flex-col justify-between">
-            <div class="flex items-center justify-between mb-1.5">
-              <span class="px-2 py-0.5 rounded bg-[#C8372D] text-white font-black text-[11px] uppercase">Phase 2 • Grand Prize 1</span>
-              <button type="button" onclick="triggerPhase2PhotoUpload(1)" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
-            </div>
-            <div id="phase2PhotoBox1" onclick="triggerPhase2PhotoUpload(1)" class="w-full h-20 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 hover:border-[#C8372D] flex flex-col items-center justify-center text-slate-400 cursor-pointer overflow-hidden mb-2 transition">
-              <i class="fa-solid fa-camera text-xl mb-0.5"></i><span class="text-[10px] font-bold">Phase 2 Prize 1</span>
-            </div>
-            <h3 class="text-sm font-black text-slate-800" contenteditable="true">Grand Prize 1</h3>
-            <p class="text-[11px] text-slate-600 font-semibold" contenteditable="true">Click to type description</p>
-          </div>
-
-          <!-- Phase 2 Prize Box 2 -->
-          <div class="festive-card rounded-2xl p-3 border-2 border-[#1E6B3B] flex flex-col justify-between">
-            <div class="flex items-center justify-between mb-1.5">
-              <span class="px-2 py-0.5 rounded bg-[#1E6B3B] text-white font-black text-[11px] uppercase">Phase 2 • Grand Prize 2</span>
-              <button type="button" onclick="triggerPhase2PhotoUpload(2)" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
-            </div>
-            <div id="phase2PhotoBox2" onclick="triggerPhase2PhotoUpload(2)" class="w-full h-20 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 hover:border-[#1E6B3B] flex flex-col items-center justify-center text-slate-400 cursor-pointer overflow-hidden mb-2 transition">
-              <i class="fa-solid fa-camera text-xl mb-0.5"></i><span class="text-[10px] font-bold">Phase 2 Prize 2</span>
-            </div>
-            <h3 class="text-sm font-black text-slate-800" contenteditable="true">Grand Prize 2</h3>
-            <p class="text-[11px] text-slate-600 font-semibold" contenteditable="true">Click to type description</p>
-          </div>
-
-          <!-- Phase 2 Prize Box 3 -->
-          <div class="festive-card rounded-2xl p-3 border-2 border-[#23486A] flex flex-col justify-between">
-            <div class="flex items-center justify-between mb-1.5">
-              <span class="px-2 py-0.5 rounded bg-[#23486A] text-white font-black text-[11px] uppercase">Phase 2 • Grand Prize 3</span>
-              <button type="button" onclick="triggerPhase2PhotoUpload(3)" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
-            </div>
-            <div id="phase2PhotoBox3" onclick="triggerPhase2PhotoUpload(3)" class="w-full h-20 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 hover:border-[#23486A] flex flex-col items-center justify-center text-slate-400 cursor-pointer overflow-hidden mb-2 transition">
-              <i class="fa-solid fa-camera text-xl mb-0.5"></i><span class="text-[10px] font-bold">Phase 2 Prize 3</span>
-            </div>
-            <h3 class="text-sm font-black text-slate-800" contenteditable="true">Grand Prize 3</h3>
-            <p class="text-[11px] text-slate-600 font-semibold" contenteditable="true">Click to type description</p>
-          </div>
-
-          <!-- Phase 2 Prize Box 4 -->
-          <div class="festive-card rounded-2xl p-3 border-2 border-amber-500 flex flex-col justify-between">
-            <div class="flex items-center justify-between mb-1.5">
-              <span class="px-2 py-0.5 rounded bg-amber-500 text-white font-black text-[11px] uppercase">Phase 2 • Grand Prize 4</span>
-              <button type="button" onclick="triggerPhase2PhotoUpload(4)" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
-            </div>
-            <div id="phase2PhotoBox4" onclick="triggerPhase2PhotoUpload(4)" class="w-full h-20 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 hover:border-amber-500 flex flex-col items-center justify-center text-slate-400 cursor-pointer overflow-hidden mb-2 transition">
-              <i class="fa-solid fa-camera text-xl mb-0.5"></i><span class="text-[10px] font-bold">Phase 2 Prize 4</span>
-            </div>
-            <h3 class="text-sm font-black text-slate-800" contenteditable="true">Grand Prize 4</h3>
-            <p class="text-[11px] text-slate-600 font-semibold" contenteditable="true">Click to type description</p>
-          </div>
-        </div>
-
-        <!-- Phase 2 Winners Wall -->
-        <div class="chalkboard-card rounded-3xl p-5 border-2 border-amber-400 flex flex-col text-white">
-          <div class="flex items-center justify-between pb-3 border-b border-amber-500/40 mb-3">
-            <h3 class="text-lg font-black text-amber-200 flex items-center gap-2">
-              <i class="fa-solid fa-scroll text-amber-400"></i> Phase 2 Honor Roll
-            </h3>
-            <button type="button" onclick="triggerFestiveConfetti(); AudioEngine.playFanfare();" class="px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-900 text-xs font-black transition cursor-pointer">
-              <i class="fa-solid fa-champagne-glasses mr-1"></i> Confetti
-            </button>
-          </div>
-          <div id="prizeSlideWinnersGrid2" class="flex-1 overflow-y-auto grid grid-cols-1 sm:grid-cols-2 gap-2.5 content-start max-h-[320px] pr-1">
-            <div class="col-span-full text-center py-12 text-amber-300/70 font-semibold text-sm">Spin the wheel on Slide 16 for Phase 2 honor roll names.</div>
-          </div>
-        </div>
+      <div id="grandPrizesWall" class="prize-wall-grid">
+        <!-- filled by JS: 6 grand prize cards -->
       </div>
     </div>
   </section>
@@ -1157,28 +1127,32 @@
     <span id="toastMsg">Done</span>
   </div>
 
-  <!-- Stage Controller HUD -->
-  <div id="hudWrapper" class="fixed bottom-3 left-1/2 -translate-x-1/2 max-w-[98vw]">
-    <div class="bg-slate-900/95 backdrop-blur-md text-white rounded-2xl px-3 py-2 shadow-2xl flex items-center gap-2 sm:gap-2.5 text-xs border border-white/25">
-      <button type="button" id="prevSlideBtn" onclick="prevSlide()" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white transition cursor-pointer" title="Previous Slide"><i class="fa-solid fa-chevron-left"></i></button>
-      <select id="slideSelector" onchange="goToSlide(parseInt(this.value))" class="bg-slate-800 text-white font-bold rounded-xl px-2.5 py-1.5 border border-slate-600 focus:outline-none max-w-[170px] sm:max-w-[240px] truncate cursor-pointer"></select>
-      <button type="button" id="nextSlideBtn" onclick="nextSlide()" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white transition cursor-pointer" title="Next Slide"><i class="fa-solid fa-chevron-right"></i></button>
+  <!-- Stage Controller HUD (hidden until mouse near bottom) -->
+  <div id="hudHitZone">
+    <div id="hudWrapper">
+      <div class="bg-slate-900/95 backdrop-blur-md text-white rounded-2xl px-3 py-2 shadow-2xl flex items-center gap-2 sm:gap-2.5 text-xs border border-white/25 flex-wrap justify-center">
+        <button type="button" id="prevSlideBtn" onclick="prevSlide()" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white transition cursor-pointer" title="Previous Slide"><i class="fa-solid fa-chevron-left"></i></button>
+        <select id="slideSelector" onchange="goToSlide(parseInt(this.value))" class="bg-slate-800 text-white font-bold rounded-xl px-2.5 py-1.5 border border-slate-600 focus:outline-none max-w-[170px] sm:max-w-[220px] truncate cursor-pointer"></select>
+        <button type="button" id="nextSlideBtn" onclick="nextSlide()" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white transition cursor-pointer" title="Next Slide"><i class="fa-solid fa-chevron-right"></i></button>
 
-      <div class="h-5 w-px bg-slate-700 mx-0.5"></div>
+        <div class="h-5 w-px bg-slate-700 mx-0.5"></div>
 
-      <button type="button" onclick="toggleBGM()" id="bgmPlayBtn" class="px-3 py-1.5 rounded-xl bg-[#1E6B3B] hover:bg-[#14532D] text-white font-bold flex items-center gap-1.5 transition cursor-pointer" title="Play / Pause Music">
-        <i id="bgmIcon" class="fa-solid fa-play"></i>
-        <span id="bgmLabel" class="max-w-[125px] sm:max-w-[175px] truncate">All I Want For Christmas</span>
-      </button>
+        <button type="button" onclick="toggleBGM()" id="bgmPlayBtn" class="px-3 py-1.5 rounded-xl bg-[#1E6B3B] hover:bg-[#14532D] text-white font-bold flex items-center gap-1.5 transition cursor-pointer" title="Play / Pause phase BGM">
+          <i id="bgmIcon" class="fa-solid fa-play"></i>
+          <span id="bgmLabel" class="max-w-[110px] sm:max-w-[150px] truncate">Opening</span>
+        </button>
 
-      <button type="button" onclick="document.getElementById('bgmFileInput').click()" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold flex items-center gap-1 transition cursor-pointer" title="Upload Slide MP3"><i class="fa-solid fa-folder-open"></i><span class="hidden md:inline">Slide MP3</span></button>
-      <button type="button" onclick="document.getElementById('schoolBellFileInput').click()" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold flex items-center gap-1 transition cursor-pointer" title="Upload Bell Sound"><i class="fa-solid fa-bell"></i><span id="bellMp3Label" class="hidden md:inline max-w-[100px] truncate">Bell MP3</span></button>
+        <select id="bgmPhaseSelect" class="bg-slate-800 text-white font-bold rounded-xl px-2 py-1.5 border border-slate-600 focus:outline-none max-w-[130px] cursor-pointer" title="BGM phase for upload"></select>
+        <button type="button" onclick="document.getElementById('bgmFileInput').click()" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold flex items-center gap-1 transition cursor-pointer" title="Upload BGM for selected phase"><i class="fa-solid fa-folder-open"></i><span class="hidden lg:inline">Phase MP3</span></button>
+        <button type="button" onclick="document.getElementById('schoolBellFileInput').click()" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold flex items-center gap-1 transition cursor-pointer" title="Upload Bell Sound"><i class="fa-solid fa-bell"></i><span id="bellMp3Label" class="hidden xl:inline max-w-[80px] truncate">Bell</span></button>
+        <button type="button" onclick="document.getElementById('logoFileInput').click()" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-sky-300 font-bold flex items-center gap-1 transition cursor-pointer" title="Upload company logo"><i class="fa-solid fa-image"></i><span class="hidden md:inline">Logo</span></button>
 
-      <input type="range" id="bgmVolumeSlider" min="0" max="1" step="0.05" value="0.5" oninput="setBGMVolume(this.value)" class="w-12 sm:w-16 accent-[#C8372D] cursor-pointer hidden lg:block" title="Volume" />
+        <input type="range" id="bgmVolumeSlider" min="0" max="1" step="0.05" value="0.5" oninput="setBGMVolume(this.value)" class="w-12 sm:w-16 accent-[#C8372D] cursor-pointer hidden lg:block" title="Volume" />
 
-      <div class="h-5 w-px bg-slate-700 mx-0.5"></div>
-      <button type="button" onclick="saveCustomizedHTML()" class="px-2.5 py-1.5 rounded-xl bg-[#23486A] hover:bg-[#1a3650] text-white font-bold flex items-center gap-1.5 transition cursor-pointer border border-sky-400/30" title="Save HTML"><i class="fa-solid fa-floppy-disk text-amber-300"></i><span class="hidden sm:inline">Save HTML</span></button>
-      <button type="button" onclick="togglePresentationFullscreen()" class="p-2 rounded-xl bg-[#C8372D] hover:bg-[#b91c1c] text-white transition shadow cursor-pointer" title="Fullscreen"><i class="fa-solid fa-expand"></i></button>
+        <div class="h-5 w-px bg-slate-700 mx-0.5"></div>
+        <button type="button" onclick="saveCustomizedHTML()" class="px-2.5 py-1.5 rounded-xl bg-[#23486A] hover:bg-[#1a3650] text-white font-bold flex items-center gap-1.5 transition cursor-pointer border border-sky-400/30" title="Save HTML"><i class="fa-solid fa-floppy-disk text-amber-300"></i><span class="hidden sm:inline">Save HTML</span></button>
+        <button type="button" onclick="togglePresentationFullscreen()" class="p-2 rounded-xl bg-[#C8372D] hover:bg-[#b91c1c] text-white transition shadow cursor-pointer" title="Fullscreen"><i class="fa-solid fa-expand"></i></button>
+      </div>
     </div>
   </div>
 
@@ -1190,9 +1164,9 @@
       "George Lucas", "Hannah Abbott", "Ian Malcolm", "Julia Roberts"
     ];
     let winners = [];
-    let winnersPhase1 = [];
-    let winnersPhase2 = [];
-    let drawPhase = 1;
+    let winnersPhase1 = []; // Christmas Gifts winners (flat, chronological)
+    let winnersPhase2 = []; // Grand Prizes winners (flat, chronological)
+    let drawPhase = 1; // 1 = Christmas Gifts, 2 = Grand Prizes
     let isSpinning = false;
     let isBatchRunning = false;
     let currentAngle = 0;
@@ -1200,6 +1174,32 @@
     let currentWinningItem = null;
     let activeProductSetIdx = 1;
     let customVdoNinjaUrl = '';
+    let companyLogoDataUrl = '';
+    let customPhaseMp3s = {}; // phaseId -> { name, dataUrl }
+    let vdoRoomId = '';
+    let vdoPushUrl = '';
+    let christmasBatchIndex = 0; // 0..4 into CHRISTMAS_BATCHES
+    let grandPrizeIndex = 0; // 0..5 into GRAND_PRIZES
+
+    const CHRISTMAS_BATCHES = [
+      { id: 'giftA', qty: 3, name: 'Christmas Gift A', color: '#C8372D' },
+      { id: 'giftB', qty: 3, name: 'Christmas Gift B', color: '#1E6B3B' },
+      { id: 'giftC', qty: 4, name: 'Christmas Gift C', color: '#23486A' },
+      { id: 'giftD', qty: 3, name: 'Christmas Gift D', color: '#D97724' },
+      { id: 'giftE', qty: 1, name: 'Christmas Gift E', color: '#991B1B' }
+    ];
+    const GRAND_PRIZES = [
+      { id: 'gp1', rank: 1, name: 'Grand Prize #1', color: '#C8372D' },
+      { id: 'gp2', rank: 2, name: 'Grand Prize #2', color: '#D97724' },
+      { id: 'gp3', rank: 3, name: 'Grand Prize #3', color: '#1E6B3B' },
+      { id: 'gp4', rank: 4, name: 'Grand Prize #4', color: '#23486A' },
+      { id: 'gp5', rank: 5, name: 'Grand Prize #5', color: '#991B1B' },
+      { id: 'gp6', rank: 6, name: 'Grand Prize #6', color: '#14532D' }
+    ];
+    const christmasGiftPhotos = {};
+    const grandPrizePhotos = {};
+    const christmasGiftNames = CHRISTMAS_BATCHES.map(g => g.name);
+    const grandPrizeNames = GRAND_PRIZES.map(g => g.name);
 
     const FESTIVE_WHEEL_COLORS = [
       '#C8372D', '#1E6B3B', '#23486A', '#D97724',
@@ -1249,10 +1249,10 @@
       const badge = document.getElementById('drawPhaseBadge');
       const p1 = document.getElementById('phase1ModeBtn');
       const p2 = document.getElementById('phase2ModeBtn');
+      const batchPanel = document.getElementById('christmasBatchPanel');
+      const grandPanel = document.getElementById('grandSpinPanel');
       if (badge) {
-        badge.textContent = drawPhase === 1
-          ? "🎓 Principal's Honor Roll • Phase 1"
-          : "🎓 Grand Finale Honor Roll • Phase 2";
+        badge.textContent = drawPhase === 1 ? '🎁 Christmas Gifts' : '👑 Grand Prizes';
         badge.className = drawPhase === 1
           ? 'px-3 py-1 rounded-xl bg-[#C8372D] text-white font-black text-xs uppercase tracking-wider shadow'
           : 'px-3 py-1 rounded-xl bg-[#D97724] text-white font-black text-xs uppercase tracking-wider shadow';
@@ -1265,14 +1265,36 @@
           ? 'px-3 py-1.5 text-xs font-black bg-[#D97724] text-white cursor-pointer'
           : 'px-3 py-1.5 text-xs font-black text-slate-700 hover:bg-slate-50 cursor-pointer';
       }
+      if (batchPanel) batchPanel.classList.toggle('hidden', drawPhase !== 1);
+      if (grandPanel) grandPanel.classList.toggle('hidden', drawPhase !== 2);
+      updateBatchLabels();
       updateWinnersListUI();
-      showToast(drawPhase === 1 ? 'Phase 1 spinner active' : 'Phase 2 spinner active');
+      showToast(drawPhase === 1 ? 'Christmas Gifts spinner active' : 'Grand Prizes spinner active');
     }
 
     function startPhase2Draw() {
       setDrawPhase(2);
       goToSlide(12);
-      showToast('Phase 2 Honor Roll Spinner ready');
+      showToast('Grand Prizes spinner ready');
+    }
+
+    function updateBatchLabels() {
+      const nextBatch = CHRISTMAS_BATCHES[christmasBatchIndex];
+      const nextGrand = GRAND_PRIZES[grandPrizeIndex];
+      const batchLabel = document.getElementById('nextBatchLabel');
+      const grandLabel = document.getElementById('nextGrandLabel');
+      if (batchLabel) {
+        batchLabel.textContent = nextBatch
+          ? `${nextBatch.qty}× ${christmasGiftNames[christmasBatchIndex] || nextBatch.name}`
+          : 'All Christmas batches done';
+      }
+      if (grandLabel) {
+        grandLabel.textContent = nextGrand
+          ? (grandPrizeNames[grandPrizeIndex] || nextGrand.name)
+          : 'All Grand Prizes drawn';
+      }
+      const batchInput = document.getElementById('batchCountInput');
+      if (batchInput && nextBatch) batchInput.value = String(nextBatch.qty);
     }
 
     function triggerProductPhotoUpload(idx) {
@@ -1280,23 +1302,117 @@
       document.getElementById('productPhotoInput').click();
     }
 
-    function loadVdoNinjaStream() {
-      const input = document.getElementById('vdoNinjaUrl');
-      const url = (input && input.value.trim()) || customVdoNinjaUrl;
-      if (!url) { showToast('Paste a VDO.ninja view URL first', 'error'); return; }
-      customVdoNinjaUrl = url;
-      stopLiveWebcam();
+    function makeRoomId() {
+      return 'apac' + Math.random().toString(36).slice(2, 10);
+    }
+
+    function startVdoNinjaRoom(forceNew = false) {
+      if (forceNew || !vdoRoomId) vdoRoomId = makeRoomId();
+      vdoPushUrl = `https://vdo.ninja/?push=${encodeURIComponent(vdoRoomId)}&webcam&autostart&label=FloorCam`;
+      customVdoNinjaUrl = `https://vdo.ninja/?view=${encodeURIComponent(vdoRoomId)}&scene&cleanoutput&solidbg&bgcolor=000000`;
+      const roomLabel = document.getElementById('vdoRoomIdLabel');
+      const pushLink = document.getElementById('vdoPushLink');
+      if (roomLabel) roomLabel.textContent = vdoRoomId;
+      if (pushLink) { pushLink.href = vdoPushUrl; pushLink.textContent = vdoPushUrl; }
+      renderVdoQr(vdoPushUrl);
+      loadVdoNinjaStream(customVdoNinjaUrl);
+      showToast('Scan QR with phone to broadcast');
+    }
+
+    function renderVdoQr(url) {
+      const box = document.getElementById('vdoQrBox');
+      if (!box) return;
+      box.innerHTML = '';
+      if (typeof QRCode !== 'undefined') {
+        try {
+          // qrcodejs API
+          new QRCode(box, {
+            text: url,
+            width: 176,
+            height: 176,
+            colorDark: '#0f172a',
+            colorLight: '#ffffff',
+            correctLevel: QRCode.CorrectLevel.M
+          });
+          return;
+        } catch (err) {
+          console.warn('QRCode render failed', err);
+        }
+      }
+      // Fallback: remote QR image
+      const img = document.createElement('img');
+      img.alt = 'VDO.ninja QR';
+      img.width = 176; img.height = 176;
+      img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=176x176&data=' + encodeURIComponent(url);
+      box.appendChild(img);
+    }
+
+    function copyVdoPushLink() {
+      if (!vdoPushUrl) startVdoNinjaRoom(false);
+      navigator.clipboard.writeText(vdoPushUrl).then(() => showToast('Push link copied')).catch(() => showToast(vdoPushUrl));
+    }
+
+    function loadVdoNinjaStream(url) {
+      const viewUrl = url || customVdoNinjaUrl;
+      if (!viewUrl) { showToast('Start a VDO room first', 'error'); return; }
+      customVdoNinjaUrl = viewUrl;
+      if (activeMediaStream) { activeMediaStream.getTracks().forEach(t => t.stop()); activeMediaStream = null; }
+      const videoEl = document.getElementById('liveCameraVideo');
+      if (videoEl) { videoEl.classList.add('hidden'); videoEl.srcObject = null; }
       const frame = document.getElementById('vdoNinjaFrame');
       const placeholderUI = document.getElementById('livestreamPlaceholderUI');
       const stopBtn = document.getElementById('stopCamBtn');
       const frameBox = document.getElementById('livestreamFrameBox');
-      frame.src = url;
+      frame.src = viewUrl;
       frame.classList.remove('hidden');
       placeholderUI.classList.add('hidden');
       stopBtn.classList.remove('hidden');
       frameBox.classList.remove('border-dashed', 'border-slate-400');
       frameBox.classList.add('border-solid', 'border-[#1E6B3B]');
-      showToast('VDO.ninja stream loaded');
+    }
+
+    function buildChristmasGiftsWall() {
+      const wall = document.getElementById('christmasGiftsWall');
+      if (!wall) return;
+      wall.innerHTML = CHRISTMAS_BATCHES.map((gift, idx) => {
+        const winnersForGift = winnersPhase1.filter(w => w.giftIndex === idx);
+        const slots = Array.from({ length: gift.qty }, (_, slotIdx) => {
+          const w = winnersForGift[slotIdx];
+          return `<div class="winner-slot ${w ? 'filled' : ''}">${w ? escapeHTML(w.name) : `Winner ${slotIdx + 1}`}</div>`;
+        }).join('');
+        const photo = christmasGiftPhotos[idx];
+        return `<div class="festive-card rounded-2xl p-3.5 border-2 flex flex-col gap-2" style="border-color:${gift.color}">
+          <div class="flex items-center justify-between gap-2">
+            <span class="px-2 py-0.5 rounded text-white font-black text-[11px] uppercase" style="background:${gift.color}">×${gift.qty} of a kind</span>
+            <button type="button" onclick="triggerPhase1PhotoUpload(${idx})" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
+          </div>
+          <div id="phase1PhotoBox${idx}" onclick="triggerPhase1PhotoUpload(${idx})" class="prize-card-photo">
+            ${photo ? `<img src="${photo}" alt="Gift ${idx + 1}" />` : `<i class="fa-solid fa-camera text-xl mb-1"></i><span class="text-[10px] font-bold">Gift Photo</span>`}
+          </div>
+          <input type="text" class="w-full text-sm font-black text-slate-800 bg-transparent border-b border-dashed border-slate-300 focus:outline-none focus:border-[#C8372D] py-1" value="${escapeHTML(christmasGiftNames[idx])}" onchange="christmasGiftNames[${idx}]=this.value; updateBatchLabels();" />
+          <div class="space-y-1.5">${slots}</div>
+        </div>`;
+      }).join('');
+    }
+
+    function buildGrandPrizesWall() {
+      const wall = document.getElementById('grandPrizesWall');
+      if (!wall) return;
+      wall.innerHTML = GRAND_PRIZES.map((prize, idx) => {
+        const w = winnersPhase2.find(x => x.rankIndex === idx);
+        const photo = grandPrizePhotos[idx];
+        return `<div class="festive-card rounded-2xl p-3.5 border-2 flex flex-col gap-2" style="border-color:${prize.color}">
+          <div class="flex items-center justify-between gap-2">
+            <span class="px-2 py-0.5 rounded text-white font-black text-[11px] uppercase" style="background:${prize.color}">Rank #${prize.rank}</span>
+            <button type="button" onclick="triggerPhase2PhotoUpload(${idx})" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
+          </div>
+          <div id="phase2PhotoBox${idx}" onclick="triggerPhase2PhotoUpload(${idx})" class="prize-card-photo">
+            ${photo ? `<img src="${photo}" alt="Grand ${idx + 1}" />` : `<i class="fa-solid fa-camera text-xl mb-1"></i><span class="text-[10px] font-bold">Prize Photo</span>`}
+          </div>
+          <input type="text" class="w-full text-sm font-black text-slate-800 bg-transparent border-b border-dashed border-slate-300 focus:outline-none focus:border-[#D97724] py-1" value="${escapeHTML(grandPrizeNames[idx])}" onchange="grandPrizeNames[${idx}]=this.value; updateBatchLabels();" />
+          <div class="winner-slot ${w ? 'filled' : ''}">${w ? escapeHTML(w.name) : 'Awaiting winner'}</div>
+        </div>`;
+      }).join('');
     }
 
     function showWinnerModal(name) {
@@ -1305,7 +1421,10 @@
       const labelEl = document.getElementById('modalPrizeLabel');
       if (!modal || !nameEl) return;
       nameEl.textContent = name;
-      if (labelEl) labelEl.textContent = `Phase ${drawPhase} · Winner #${winners.length}`;
+      if (labelEl) {
+        const last = (drawPhase === 2 ? winnersPhase2 : winnersPhase1).slice(-1)[0];
+        labelEl.textContent = last?.prizeName || (drawPhase === 1 ? 'Christmas Gift' : 'Grand Prize');
+      }
       modal.classList.remove('opacity-0', 'pointer-events-none');
       const card = modal.querySelector('.festive-card');
       if (card) card.classList.remove('scale-90');
@@ -1363,7 +1482,6 @@
     let musicLoopTimer = null;
     let barIndex = 0;
     let bgmVolume = 0.5;
-    let customSlideMp3s = {};
     let customBellDataUrl = '';
     let customBellFileName = '';
     let currentPlayingTrackKey = null;
@@ -1484,41 +1602,57 @@
       finale: { key: 'finale', title: "Last Christmas & Joy", beatSec: 0.40, sleighPattern: [0, 2], bars: [{ chord: [F.G3, F.B3, F.D4], melody: [[F.Fs5, 0, 1.4], [F.Fs5, 1.5, 0.8], [F.E5, 2.3, 1.5]] }] }
     };
 
-    // 18 slides total mapped to tracks
-    const SLIDE_ARRANGEMENTS = [
-      TRACKS.opening,     // 1. Opening
-      TRACKS.maruko,      // 2. MCs
-      TRACKS.dumbledore,  // 3. Dumbledore
-      TRACKS.buffet,      // 4. Buffet
-      TRACKS.game1,       // 5. Game 1 Intro
-      TRACKS.game1,       // 6. Game 1 AhaSlides
-      TRACKS.game2,       // 7. Game 2 Intro
-      TRACKS.game2,       // 8. Game 2 Team Roles
-      TRACKS.game2,       // 9. Game 2 Workflow
-      TRACKS.game2,       // 10. Game 2 Menu
-      TRACKS.game2,       // 11. Game 2 Timer
-      TRACKS.recess,      // 12. Recess
-      TRACKS.luckyDraw,   // 13. Lucky Draw Phase 1 Wheel
-      TRACKS.luckyDraw,   // 14. Lucky Draw Phase 1 Winners & Prizes
-      TRACKS.buffet,      // 15. Best Dressed Award
-      TRACKS.luckyDraw,   // 16. Lucky Draw Phase 2 Intro
-      TRACKS.luckyDraw,   // 17. Lucky Draw Phase 2 Winners & Prizes
-      TRACKS.finale       // 18. Group Photo
+    // Phase BGM: continuous within a phase as slides flow
+    const MUSIC_PHASES = [
+      { id: 'opening', label: 'Opening', slides: [0, 1, 2, 3], trackKey: 'opening' },
+      { id: 'games', label: 'Games', slides: [4, 5, 6, 7, 8, 9, 10], trackKey: 'game2' },
+      { id: 'recess', label: 'Recess', slides: [11], trackKey: 'recess' },
+      { id: 'christmasGifts', label: 'Christmas Gifts', slides: [12, 13], trackKey: 'luckyDraw' },
+      { id: 'bestDressed', label: 'Best Dressed', slides: [14], trackKey: 'buffet' },
+      { id: 'grandPrizes', label: 'Grand Prizes', slides: [15, 16], trackKey: 'luckyDraw' },
+      { id: 'finale', label: 'Finale', slides: [17], trackKey: 'finale' }
     ];
 
-    function updateMusicHudUI() {
-      const customTrack = customSlideMp3s[currentSlideIdx];
-      const trackName = customTrack ? customTrack.name : SLIDE_ARRANGEMENTS[currentSlideIdx].title;
-      bgmLabel.textContent = trackName;
-      bgmIcon.className = isMusicActive ? 'fa-solid fa-pause' : 'fa-solid fa-play';
+    function getPhaseForSlide(slideIdx) {
+      return MUSIC_PHASES.find(p => p.slides.includes(slideIdx)) || MUSIC_PHASES[0];
     }
 
-    function stopCurrentAudio() { clearTimeout(musicLoopTimer); bgmAudio.pause(); }
+    function populateBgmPhaseSelect() {
+      const sel = document.getElementById('bgmPhaseSelect');
+      if (!sel) return;
+      sel.innerHTML = '';
+      MUSIC_PHASES.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p.id;
+        opt.textContent = p.label;
+        sel.appendChild(opt);
+      });
+      sel.value = getPhaseForSlide(currentSlideIdx).id;
+      sel.addEventListener('change', () => updateMusicHudUI());
+    }
+
+    function updateMusicHudUI() {
+      const phase = getPhaseForSlide(currentSlideIdx);
+      const uploadPhaseId = document.getElementById('bgmPhaseSelect')?.value || phase.id;
+      const custom = customPhaseMp3s[phase.id];
+      const track = TRACKS[phase.trackKey];
+      bgmLabel.textContent = custom ? `${phase.label}: ${custom.name}` : phase.label;
+      bgmIcon.className = isMusicActive ? 'fa-solid fa-pause' : 'fa-solid fa-play';
+      const sel = document.getElementById('bgmPhaseSelect');
+      if (sel && document.activeElement !== sel) sel.value = uploadPhaseId;
+    }
+
+    function stopCurrentAudio() {
+      clearTimeout(musicLoopTimer);
+      bgmAudio.pause();
+      try { bgmAudio.removeAttribute('src'); bgmAudio.load(); } catch (_) {}
+    }
 
     function scheduleNextBar() {
-      if (!isMusicActive || customSlideMp3s[currentSlideIdx]) return;
+      const phase = getPhaseForSlide(currentSlideIdx);
+      if (!isMusicActive || customPhaseMp3s[phase.id]) return;
       StudioSynth.init(); if (!StudioSynth.ctx) return;
-      const arr = SLIDE_ARRANGEMENTS[currentSlideIdx];
+      const arr = TRACKS[phase.trackKey];
       const bar = arr.bars[barIndex % arr.bars.length];
       const isThreeFour = (arr.title.includes("Dumbledore") || arr.title.includes("Carol"));
       const beatsInBar = isThreeFour ? 3 : 4; const barDurationSec = beatsInBar * arr.beatSec;
@@ -1530,31 +1664,78 @@
     }
 
     function startSlideMusic(slideIdx) {
-      const newTrack = SLIDE_ARRANGEMENTS[slideIdx]; const customTrack = customSlideMp3s[slideIdx];
-      if (isMusicActive && !customTrack && currentPlayingTrackKey === newTrack.key && !bgmAudio.src) { updateMusicHudUI(); return; }
-      stopCurrentAudio(); currentPlayingTrackKey = customTrack ? 'custom' : newTrack.key; updateMusicHudUI();
+      const phase = getPhaseForSlide(slideIdx);
+      const customTrack = customPhaseMp3s[phase.id];
+      const desiredKey = customTrack ? `custom:${phase.id}` : phase.id;
+      // Keep playing continuously when staying in the same phase
+      if (isMusicActive && currentPlayingTrackKey === desiredKey) {
+        updateMusicHudUI();
+        return;
+      }
+      stopCurrentAudio();
+      currentPlayingTrackKey = desiredKey;
+      updateMusicHudUI();
       if (!isMusicActive) return;
-      if (customTrack) { bgmAudio.src = customTrack.dataUrl || customTrack.url; bgmAudio.volume = bgmVolume; bgmAudio.play().catch(() => {}); }
-      else { barIndex = 0; scheduleNextBar(); }
+      if (customTrack) {
+        bgmAudio.src = customTrack.dataUrl;
+        bgmAudio.volume = bgmVolume;
+        bgmAudio.loop = true;
+        bgmAudio.play().catch(() => {});
+      } else {
+        barIndex = 0;
+        scheduleNextBar();
+      }
     }
 
     function toggleBGM() {
       isMusicActive = !isMusicActive;
-      if (isMusicActive) { startSlideMusic(currentSlideIdx); showToast(`Playing music`); }
-      else { stopCurrentAudio(); updateMusicHudUI(); }
+      if (isMusicActive) { startSlideMusic(currentSlideIdx); showToast(`Playing ${getPhaseForSlide(currentSlideIdx).label} BGM`); }
+      else { stopCurrentAudio(); currentPlayingTrackKey = null; updateMusicHudUI(); }
     }
 
     function setBGMVolume(val) { bgmVolume = parseFloat(val); bgmAudio.volume = bgmVolume; }
 
     bgmFileInput.addEventListener('change', (e) => {
       const file = e.target.files[0]; if (!file) return;
+      const phaseId = document.getElementById('bgmPhaseSelect')?.value || getPhaseForSlide(currentSlideIdx).id;
       const reader = new FileReader();
       reader.onload = function (ev) {
-        customSlideMp3s[currentSlideIdx] = { name: file.name, dataUrl: ev.target.result };
-        isMusicActive = true; startSlideMusic(currentSlideIdx); showToast(`Loaded "${file.name}"`);
+        customPhaseMp3s[phaseId] = { name: file.name, dataUrl: ev.target.result };
+        const phase = MUSIC_PHASES.find(p => p.id === phaseId);
+        showToast(`BGM for ${phase?.label || phaseId}: "${file.name}"`);
+        if (getPhaseForSlide(currentSlideIdx).id === phaseId) {
+          currentPlayingTrackKey = null;
+          if (!isMusicActive) isMusicActive = true;
+          startSlideMusic(currentSlideIdx);
+        } else {
+          updateMusicHudUI();
+        }
       };
       reader.readAsDataURL(file); bgmFileInput.value = '';
     });
+
+    document.getElementById('logoFileInput').addEventListener('change', (e) => {
+      const file = e.target.files[0]; if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function (ev) {
+        companyLogoDataUrl = ev.target.result;
+        applyCompanyLogo();
+        showToast('Company logo uploaded');
+      };
+      reader.readAsDataURL(file); e.target.value = '';
+    });
+
+    function applyCompanyLogo() {
+      const badge = document.getElementById('companyLogoBadge');
+      const img = document.getElementById('companyLogoImg');
+      if (!badge || !img) return;
+      if (companyLogoDataUrl) {
+        img.src = companyLogoDataUrl;
+        badge.style.display = 'block';
+      } else {
+        badge.style.display = 'none';
+      }
+    }
 
     // Navigation & UI setup
     const slides = Array.from(document.querySelectorAll('.slide'));
@@ -1569,11 +1750,14 @@
       if (index < 0 || index >= slides.length) return;
       slides[currentSlideIdx].classList.remove('active');
       currentSlideIdx = index; slides[currentSlideIdx].classList.add('active');
-      slideSelector.value = currentSlideIdx; startSlideMusic(currentSlideIdx);
+      slideSelector.value = currentSlideIdx;
+      const phaseSel = document.getElementById('bgmPhaseSelect');
+      if (phaseSel) phaseSel.value = getPhaseForSlide(currentSlideIdx).id;
+      startSlideMusic(currentSlideIdx);
       if (currentSlideIdx === 12) resizeCanvas();
       if (currentSlideIdx === 13) syncPrizeWinnersGrid1();
       if (currentSlideIdx === 16) syncPrizeWinnersGrid2();
-      revealHudTemporarily(1600);
+      if (currentSlideIdx === 10) startVdoNinjaRoom(false);
     }
 
     function nextSlide() { if (currentSlideIdx < slides.length - 1) goToSlide(currentSlideIdx + 1); }
@@ -1588,8 +1772,7 @@
       if (isMusicActive) { isMusicActive = false; stopCurrentAudio(); updateMusicHudUI(); }
     }
 
-    // Phase 1 & Phase 2 Prize Photo Uploader
-    let activePhaseNum = 1; let activePrizeIdx = 1;
+    let activePrizeIdx = 0;
     const phase1PrizePhotoInput = document.getElementById('phase1PrizePhotoInput');
     const phase2PrizePhotoInput = document.getElementById('phase2PrizePhotoInput');
 
@@ -1600,12 +1783,9 @@
       const file = e.target.files[0]; if (!file) return;
       const reader = new FileReader();
       reader.onload = function (ev) {
-        const box = document.getElementById(`phase1PhotoBox${activePrizeIdx}`);
-        if (box) {
-          box.innerHTML = `<img src="${ev.target.result}" alt="Phase 1 Prize ${activePrizeIdx}" class="w-full h-full object-cover" />`;
-          box.classList.remove('border-dashed', 'border-slate-300'); box.classList.add('border-solid', 'border-[#C8372D]');
-          showToast(`Phase 1 Prize ${activePrizeIdx} photo uploaded`);
-        }
+        christmasGiftPhotos[activePrizeIdx] = ev.target.result;
+        buildChristmasGiftsWall();
+        showToast(`Christmas gift photo uploaded`);
       };
       reader.readAsDataURL(file); phase1PrizePhotoInput.value = '';
     });
@@ -1614,12 +1794,9 @@
       const file = e.target.files[0]; if (!file) return;
       const reader = new FileReader();
       reader.onload = function (ev) {
-        const box = document.getElementById(`phase2PhotoBox${activePrizeIdx}`);
-        if (box) {
-          box.innerHTML = `<img src="${ev.target.result}" alt="Phase 2 Prize ${activePrizeIdx}" class="w-full h-full object-cover" />`;
-          box.classList.remove('border-dashed', 'border-slate-300'); box.classList.add('border-solid', 'border-[#C8372D]');
-          showToast(`Phase 2 Prize ${activePrizeIdx} photo uploaded`);
-        }
+        grandPrizePhotos[activePrizeIdx] = ev.target.result;
+        buildGrandPrizesWall();
+        showToast(`Grand prize photo uploaded`);
       };
       reader.readAsDataURL(file); phase2PrizePhotoInput.value = '';
     });
@@ -1755,50 +1932,80 @@
 
     function handleSingleWinningResult(winnerName, itemIndex) {
       currentWinningItem = winnerName; AudioEngine.playFanfare(); triggerFestiveConfetti();
-      if (autoRemoveToggle.checked) { recordWinner(winnerName); removeItemByIndex(itemIndex); }
-      else { recordWinner(winnerName); }
-      showWinnerModal(winnerName);
+      const ok = recordWinner(winnerName);
+      if (ok && autoRemoveToggle.checked) removeItemByIndex(itemIndex);
+      if (ok) showWinnerModal(winnerName);
     }
 
-    function recordWinner(name) {
-      const bucket = drawPhase === 2 ? winnersPhase2 : winnersPhase1;
-      const rank = bucket.length + 1; const now = new Date();
+    function recordWinner(name, meta = {}) {
+      const now = new Date();
       const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-      bucket.unshift({ rank, name, time: timeStr });
-      winners = bucket;
-      updateWinnersListUI(); syncPrizeWinnersGrid1(); syncPrizeWinnersGrid2();
+      if (drawPhase === 2) {
+        if (grandPrizeIndex >= GRAND_PRIZES.length) { showToast('All Grand Prizes already drawn', 'error'); return null; }
+        const rankIndex = meta.rankIndex != null ? meta.rankIndex : grandPrizeIndex;
+        const entry = { rank: rankIndex + 1, rankIndex, name, time: timeStr, prizeName: grandPrizeNames[rankIndex] };
+        winnersPhase2.push(entry);
+        if (meta.advance !== false) grandPrizeIndex = Math.min(GRAND_PRIZES.length, rankIndex + 1);
+        winners = winnersPhase2;
+      } else {
+        if (christmasBatchIndex >= CHRISTMAS_BATCHES.length) { showToast('All Christmas gift batches done', 'error'); return null; }
+        const giftIndex = meta.giftIndex != null ? meta.giftIndex : christmasBatchIndex;
+        const gift = CHRISTMAS_BATCHES[giftIndex];
+        const already = winnersPhase1.filter(w => w.giftIndex === giftIndex).length;
+        if (already >= gift.qty) { showToast('This gift batch is full', 'error'); return null; }
+        const entry = { rank: winnersPhase1.length + 1, giftIndex, slot: already + 1, name, time: timeStr, prizeName: christmasGiftNames[giftIndex] };
+        winnersPhase1.push(entry);
+        if (meta.advance !== false && already + 1 >= gift.qty) {
+          christmasBatchIndex = Math.min(CHRISTMAS_BATCHES.length, giftIndex + 1);
+        }
+        winners = winnersPhase1;
+      }
+      updateBatchLabels();
+      updateWinnersListUI();
+      syncPrizeWinnersGrid1();
+      syncPrizeWinnersGrid2();
+      return true;
     }
 
     function updateWinnersListUI() {
       winners = drawPhase === 2 ? winnersPhase2 : winnersPhase1;
       winnerCountText.textContent = `${winners.length} drawn`;
       if (winners.length === 0) {
-        winnersList.innerHTML = `<div id="emptyWinnersNotice" class="h-full flex flex-col items-center justify-center text-center p-4 text-amber-300/70"><i class="fa-solid fa-award text-4xl mb-2 opacity-50 text-amber-300"></i><p class="text-xs font-extrabold">No honor roll names yet</p></div>`;
+        winnersList.innerHTML = `<div id="emptyWinnersNotice" class="h-full flex flex-col items-center justify-center text-center p-4 text-amber-300/70"><i class="fa-solid fa-award text-4xl mb-2 opacity-50 text-amber-300"></i><p class="text-xs font-extrabold">No winners yet</p></div>`;
         return;
       }
-      winnersList.innerHTML = winners.map((w) => `<div class="flex items-center justify-between p-2 rounded-xl bg-black/30 border border-amber-500/40 text-amber-100"><span class="text-xs font-extrabold">#${w.rank}: ${escapeHTML(w.name)}</span><span class="text-[10px] text-amber-300/80">${w.time}</span></div>`).join('');
+      winnersList.innerHTML = [...winners].reverse().map((w) => {
+        const label = w.prizeName || (w.rankIndex != null ? `GP #${w.rank}` : `Gift`);
+        return `<div class="flex items-center justify-between p-2 rounded-xl bg-black/30 border border-amber-500/40 text-amber-100 gap-2"><span class="text-xs font-extrabold truncate">${escapeHTML(label)}: ${escapeHTML(w.name)}</span><span class="text-[10px] text-amber-300/80 shrink-0">${w.time}</span></div>`;
+      }).join('');
     }
 
-    function syncPrizeWinnersGrid1() {
-      const grid = document.getElementById('prizeSlideWinnersGrid1'); if (!grid) return;
-      if (winnersPhase1.length === 0) { grid.innerHTML = `<div class="col-span-full text-center py-12 text-amber-300/70 font-semibold text-sm">Spin the wheel on Slide 13 for Phase 1 honor roll names.</div>`; return; }
-      grid.innerHTML = [...winnersPhase1].reverse().map((w) => `<div class="p-3 rounded-2xl bg-black/40 border border-amber-400 text-amber-100 flex items-center gap-2.5"><span class="px-2.5 py-1 rounded-lg bg-amber-500 text-slate-900 font-black text-xs">#${w.rank}</span><span class="text-sm font-extrabold truncate" contenteditable="true">${escapeHTML(w.name)}</span></div>`).join('');
-    }
-
-    function syncPrizeWinnersGrid2() {
-      const grid = document.getElementById('prizeSlideWinnersGrid2'); if (!grid) return;
-      if (winnersPhase2.length === 0) { grid.innerHTML = `<div class="col-span-full text-center py-12 text-amber-300/70 font-semibold text-sm">Open Phase 2 spinner from Slide 16, then spin for grand finale winners.</div>`; return; }
-      grid.innerHTML = [...winnersPhase2].reverse().map((w) => `<div class="p-3 rounded-2xl bg-black/40 border border-amber-400 text-amber-100 flex items-center gap-2.5"><span class="px-2.5 py-1 rounded-lg bg-amber-500 text-slate-900 font-black text-xs">#${w.rank}</span><span class="text-sm font-extrabold truncate" contenteditable="true">${escapeHTML(w.name)}</span></div>`).join('');
-    }
+    function syncPrizeWinnersGrid1() { buildChristmasGiftsWall(); }
+    function syncPrizeWinnersGrid2() { buildGrandPrizesWall(); }
 
     async function runBatchDraw() {
       if (isSpinning || isBatchRunning) return;
+      if (drawPhase !== 1) { showToast('Switch to Christmas Gifts for batch draws'); return; }
+      if (christmasBatchIndex >= CHRISTMAS_BATCHES.length) { showToast('All Christmas batches complete', 'error'); return; }
       if (items.length === 0) { showToast('No names in wheel', 'error'); return; }
-      const count = parseInt(batchCountInput.value) || 1; const drawCount = Math.min(count, items.length);
+      const gift = CHRISTMAS_BATCHES[christmasBatchIndex];
+      const already = winnersPhase1.filter(w => w.giftIndex === christmasBatchIndex).length;
+      const need = gift.qty - already;
+      const drawCount = Math.min(need, items.length);
+      if (drawCount <= 0) { showToast('Batch already filled'); return; }
+      isBatchRunning = true;
       let pool = [...items];
-      for (let i = 0; i < drawCount; i++) { const randIdx = Math.floor(Math.random() * pool.length); recordWinner(pool.splice(randIdx, 1)[0]); }
+      const giftIndex = christmasBatchIndex;
+      for (let i = 0; i < drawCount; i++) {
+        const randIdx = Math.floor(Math.random() * pool.length);
+        const name = pool.splice(randIdx, 1)[0];
+        recordWinner(name, { giftIndex, advance: i === drawCount - 1 });
+      }
       if (autoRemoveToggle.checked) { items = pool; syncInputFromItems(); }
-      triggerFestiveConfetti(); AudioEngine.playFanfare(); showToast(`${drawCount} winners drawn!`, 'success');
+      isBatchRunning = false;
+      triggerFestiveConfetti(); AudioEngine.playFanfare();
+      showToast(`${drawCount}× ${christmasGiftNames[giftIndex]} drawn!`, 'success');
+      updateBatchLabels();
     }
 
     function removeItemByIndex(index) { if (index >= 0 && index < items.length) { items.splice(index, 1); syncInputFromItems(); drawWheel(); } }
@@ -1828,10 +2035,12 @@
     });
     document.getElementById('clearListBtn').addEventListener('click', () => { items = []; syncInputFromItems(); drawWheel(); showToast('Cleared'); });
     document.getElementById('resetWinnersBtn').addEventListener('click', () => {
-      if (drawPhase === 2) winnersPhase2 = []; else winnersPhase1 = [];
+      if (drawPhase === 2) { winnersPhase2 = []; grandPrizeIndex = 0; }
+      else { winnersPhase1 = []; christmasBatchIndex = 0; }
       winners = drawPhase === 2 ? winnersPhase2 : winnersPhase1;
+      updateBatchLabels();
       updateWinnersListUI(); syncPrizeWinnersGrid1(); syncPrizeWinnersGrid2();
-      showToast(`Phase ${drawPhase} winners cleared`);
+      showToast(drawPhase === 2 ? 'Grand Prize winners cleared' : 'Christmas Gift winners cleared');
     });
 
     document.getElementById('soundToggleBtn').addEventListener('click', () => {
@@ -1874,17 +2083,8 @@
     function resizeCanvas() { canvas.width = 800; canvas.height = 800; drawWheel(); }
     window.addEventListener('resize', () => { resizeCanvas(); initSnow(); });
 
-    const hudWrapper = document.getElementById('hudWrapper'); let hudHideTimeout = null;
-    function revealHudTemporarily(ms = 2400) {
-      hudWrapper.classList.add('hud-visible'); clearTimeout(hudHideTimeout);
-      hudHideTimeout = setTimeout(() => { if (!hudWrapper.matches(':hover')) { hudWrapper.classList.remove('hud-visible'); } }, ms);
-    }
-    window.addEventListener('mousemove', (e) => { if (window.innerHeight - e.clientY <= 95) revealHudTemporarily(1800); });
-
     function saveCustomizedHTML() {
       syncItemsFromInput();
-      const vdoInput = document.getElementById('vdoNinjaUrl');
-      if (vdoInput) customVdoNinjaUrl = vdoInput.value.trim() || customVdoNinjaUrl;
       const cloneDoc = document.documentElement.cloneNode(true);
       const cloneToast = cloneDoc.querySelector('#toast'); if (cloneToast) cloneToast.classList.add('translate-y-20', 'opacity-0');
       const cloneVideo = cloneDoc.querySelector('#liveCameraVideo'); if (cloneVideo) { cloneVideo.classList.add('hidden'); cloneVideo.removeAttribute('src'); }
@@ -1898,14 +2098,19 @@
       const cloneSlides = cloneDoc.querySelectorAll('.slide');
       cloneSlides.forEach((s, idx) => { if (idx === 0) s.classList.add('active'); else s.classList.remove('active'); });
       const cloneSelector = cloneDoc.querySelector('#slideSelector'); if (cloneSelector) cloneSelector.innerHTML = '';
+      const clonePhaseSel = cloneDoc.querySelector('#bgmPhaseSelect'); if (clonePhaseSel) clonePhaseSel.innerHTML = '';
       let serializedHTML = '<!DOCTYPE html>\n' + cloneDoc.outerHTML;
       serializedHTML = serializedHTML.replace(/let items = \[([\s\S]*?)\];/, 'let items = ' + JSON.stringify(items, null, 6) + ';');
       serializedHTML = serializedHTML.replace(/let winnersPhase1 = \[([\s\S]*?)\];/, 'let winnersPhase1 = ' + JSON.stringify(winnersPhase1) + ';');
       serializedHTML = serializedHTML.replace(/let winnersPhase2 = \[([\s\S]*?)\];/, 'let winnersPhase2 = ' + JSON.stringify(winnersPhase2) + ';');
-      serializedHTML = serializedHTML.replace(/let customSlideMp3s = \{[\s\S]*?\};/, 'let customSlideMp3s = ' + JSON.stringify(customSlideMp3s) + ';');
+      serializedHTML = serializedHTML.replace(/let customPhaseMp3s = \{[\s\S]*?\};/, 'let customPhaseMp3s = ' + JSON.stringify(customPhaseMp3s) + ';');
       serializedHTML = serializedHTML.replace(/let customBellDataUrl = '[^']*';/, 'let customBellDataUrl = ' + JSON.stringify(customBellDataUrl) + ';');
       serializedHTML = serializedHTML.replace(/let customBellFileName = '[^']*';/, 'let customBellFileName = ' + JSON.stringify(customBellFileName) + ';');
       serializedHTML = serializedHTML.replace(/let customVdoNinjaUrl = '[^']*';/, 'let customVdoNinjaUrl = ' + JSON.stringify(customVdoNinjaUrl) + ';');
+      serializedHTML = serializedHTML.replace(/let companyLogoDataUrl = '[^']*';/, 'let companyLogoDataUrl = ' + JSON.stringify(companyLogoDataUrl) + ';');
+      serializedHTML = serializedHTML.replace(/let vdoRoomId = '[^']*';/, 'let vdoRoomId = ' + JSON.stringify(vdoRoomId) + ';');
+      serializedHTML = serializedHTML.replace(/let christmasBatchIndex = \d+;/, 'let christmasBatchIndex = ' + christmasBatchIndex + ';');
+      serializedHTML = serializedHTML.replace(/let grandPrizeIndex = \d+;/, 'let grandPrizeIndex = ' + grandPrizeIndex + ';');
       const blob = new Blob([serializedHTML], { type: 'text/html;charset=utf-8;' });
       const url = URL.createObjectURL(blob); const a = document.createElement('a');
       a.href = url; a.download = 'APAC_Christmas_Party_Presentation-FINAL.html';
@@ -1913,19 +2118,17 @@
       showToast('Saved APAC_Christmas_Party_Presentation-FINAL.html!');
     }
 
-    // Restore baked VDO URL into input if present
-    if (customVdoNinjaUrl) {
-      const vdoInput = document.getElementById('vdoNinjaUrl');
-      if (vdoInput) vdoInput.value = customVdoNinjaUrl;
-    }
-
     syncInputFromItems();
     winners = winnersPhase1;
+    populateBgmPhaseSelect();
     resizeCanvas();
     updateMusicHudUI();
+    updateBatchLabels();
+    setDrawPhase(1);
     syncPrizeWinnersGrid1();
     syncPrizeWinnersGrid2();
-    revealHudTemporarily(3000);
+    applyCompanyLogo();
+    startVdoNinjaRoom(false);
   </script>
 </body>
 </html>
