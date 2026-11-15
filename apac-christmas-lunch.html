@@ -485,47 +485,91 @@
       pointer-events: auto;
     }
 
-    /* Always-on BGM source control (every slide, top-left) */
-    #bgmSourceSwitch {
+    /* Hover-only BGM light-bulb switch (top-left hit zone) */
+    #bgmSourceHitZone {
       position: fixed;
-      top: 0.65rem;
-      left: 0.65rem;
+      top: 0;
+      left: 0;
+      width: 88px;
+      height: 88px;
       z-index: 58;
-      display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
-      padding: 0.4rem 0.55rem;
-      background: rgba(15, 23, 42, 0.92);
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      border-radius: 12px;
-      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.28);
-      color: #f8fafc;
+      pointer-events: auto;
+    }
+    #bgmSourceSwitch {
+      position: absolute;
+      top: 0.55rem;
+      left: 0.55rem;
+      width: 44px;
+      height: 44px;
+      border: 0;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      opacity: 0;
+      transform: scale(0.92);
+      transition: opacity 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+      background: rgba(30, 41, 59, 0.55);
+      color: #94a3b8;
+      box-shadow: none;
+      pointer-events: none;
+    }
+    #bgmSourceHitZone:hover #bgmSourceSwitch,
+    #bgmSourceSwitch:focus-visible,
+    #bgmSourceSwitch.is-peek {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+    #bgmSourceSwitch i {
+      font-size: 1.15rem;
+      line-height: 1;
+      transition: color 0.18s ease, text-shadow 0.18s ease;
+    }
+    /* YouTube = bulb on; Local MP3 = bulb off */
+    #bgmSourceSwitch[data-mode="youtube"] {
+      background: rgba(15, 23, 42, 0.88);
+      color: #fbbf24;
+      box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.35), 0 8px 20px rgba(15, 23, 42, 0.28);
+    }
+    #bgmSourceSwitch[data-mode="youtube"] i {
+      color: #fbbf24;
+      text-shadow: 0 0 10px rgba(251, 191, 36, 0.75);
+    }
+    #bgmSourceSwitch[data-mode="local"] {
+      background: rgba(15, 23, 42, 0.88);
+      color: #94a3b8;
+      box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.35), 0 8px 20px rgba(15, 23, 42, 0.28);
+    }
+    #bgmSourceSwitch[data-mode="local"] i {
+      color: #94a3b8;
+      text-shadow: none;
+    }
+    #bgmSourceSwitch .bgm-source-tip {
+      position: absolute;
+      left: calc(100% + 0.4rem);
+      top: 50%;
+      transform: translateY(-50%);
+      white-space: nowrap;
       font-size: 10px;
       font-weight: 800;
       letter-spacing: 0.02em;
-      pointer-events: auto;
-      min-width: 118px;
+      padding: 0.28rem 0.45rem;
+      border-radius: 8px;
+      background: rgba(15, 23, 42, 0.92);
+      color: #f8fafc;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s ease;
     }
-    #bgmSourceSwitch .bgm-source-title {
-      color: #fde68a;
-      margin-bottom: 0.05rem;
-    }
-    #bgmSourceSwitch label {
-      display: flex;
-      align-items: center;
-      gap: 0.35rem;
-      cursor: pointer;
-      color: #e2e8f0;
-      font-weight: 700;
-    }
-    #bgmSourceSwitch input {
-      accent-color: #C8372D;
-      cursor: pointer;
+    #bgmSourceHitZone:hover #bgmSourceSwitch .bgm-source-tip,
+    #bgmSourceSwitch:focus-visible .bgm-source-tip {
+      opacity: 1;
     }
 
     #companyLogoBadge {
       position: fixed;
-      top: 5.1rem;
+      top: 1rem;
       left: 1rem;
       z-index: 55;
       max-width: 160px;
@@ -1211,10 +1255,11 @@
 
   <canvas id="snowCanvas"></canvas>
   <div id="festiveScatter" aria-hidden="true"></div>
-  <div id="bgmSourceSwitch" role="radiogroup" aria-label="Background music source">
-    <div class="bgm-source-title">BGM source</div>
-    <label><input type="radio" name="bgmSource" value="youtube" checked onchange="setBgmSourceMode('youtube')" /> YouTube</label>
-    <label><input type="radio" name="bgmSource" value="local" onchange="setBgmSourceMode('local')" /> Local MP3</label>
+  <div id="bgmSourceHitZone" title="Hover for BGM source">
+    <button type="button" id="bgmSourceSwitch" data-mode="youtube" onclick="toggleBgmSourceMode()" aria-label="Toggle BGM source between YouTube and Local MP3">
+      <i class="fa-solid fa-lightbulb" aria-hidden="true"></i>
+      <span class="bgm-source-tip" id="bgmSourceTip">YouTube</span>
+    </button>
   </div>
   <div id="companyLogoBadge"><img id="companyLogoImg" alt="Company logo" /></div>
 
@@ -3108,32 +3153,37 @@
     }
     let currentPlayingTrackKey = null;
 
-    // --- YouTube BGM: in-page embed with local MP3 fallback when offline / embed fails ---
+    // --- YouTube BGM: in-page embed; presenter picks Local via hover light-bulb (no network auto-detect) ---
     let ytCurrentVideoId = null;
     let ytWantPlaying = false;
     let ytEmbedGen = 0;
     let ytLoopHooked = false;
-    let ytGotPlayingSignal = false;
-    let ytWatchdogTimer = null;
-    const ytUnavailableIds = new Set(); // video ids that failed this session
-    let forceLocalBgm = false; // top-left radio: Local MP3 when YouTube fails / presenter prefers files
+    let forceLocalBgm = false; // top-left bulb: off = Local MP3, on = YouTube
 
     function syncBgmSourceSwitchUI() {
       const mode = forceLocalBgm ? 'local' : 'youtube';
-      document.querySelectorAll('input[name="bgmSource"]').forEach((el) => {
-        el.checked = el.value === mode;
-      });
+      const btn = document.getElementById('bgmSourceSwitch');
+      const tip = document.getElementById('bgmSourceTip');
+      if (btn) {
+        btn.dataset.mode = mode;
+        btn.setAttribute('aria-pressed', forceLocalBgm ? 'true' : 'false');
+        btn.title = forceLocalBgm ? 'Local MP3 (click for YouTube)' : 'YouTube (click for Local MP3)';
+      }
+      if (tip) tip.textContent = forceLocalBgm ? 'Local MP3' : 'YouTube';
     }
 
     function setBgmSourceMode(mode) {
       const wantLocal = mode === 'local';
       forceLocalBgm = wantLocal;
       syncBgmSourceSwitchUI();
-      if (!wantLocal) ytUnavailableIds.clear(); // allow YouTube retry
       currentPlayingTrackKey = null;
       if (!isMusicActive) isMusicActive = true;
       startSlideMusic(currentSlideIdx);
       showToast(wantLocal ? 'Using local MP3 for BGM' : 'Using YouTube for BGM');
+    }
+
+    function toggleBgmSourceMode() {
+      setBgmSourceMode(forceLocalBgm ? 'youtube' : 'local');
     }
 
     function getYtFrame() {
@@ -3161,36 +3211,14 @@
       postYtCommand('playVideo');
     }
 
-    function clearYtWatchdog() {
-      if (ytWatchdogTimer) {
-        clearTimeout(ytWatchdogTimer);
-        ytWatchdogTimer = null;
-      }
-    }
-
-    async function probeYoutubeReachable() {
-      if (typeof navigator !== 'undefined' && navigator.onLine === false) return false;
-      try {
-        const ctrl = new AbortController();
-        const t = setTimeout(() => ctrl.abort(), 2000);
-        // no-cors: opaque OK means the network reached YouTube; failure => offline/blocked
-        await fetch('https://www.youtube.com/favicon.ico', {
-          mode: 'no-cors',
-          cache: 'no-store',
-          signal: ctrl.signal
-        });
-        clearTimeout(t);
-        return true;
-      } catch (_) {
-        return false;
-      }
-    }
-
     function ensureYtSingleRepeatHook() {
       if (ytLoopHooked) return;
       ytLoopHooked = true;
       window.addEventListener('message', (event) => {
         if (!ytWantPlaying || !ytCurrentVideoId) return;
+        // Only trust YouTube embed origins
+        const origin = String(event.origin || '');
+        if (origin && !/https:\/\/www\.youtube(-nocookie)?\.com$/.test(origin)) return;
         let data = event.data;
         try {
           if (typeof data === 'string') data = JSON.parse(data);
@@ -3198,28 +3226,11 @@
           return;
         }
         if (!data || typeof data !== 'object') return;
-        if (data.event === 'onError') {
-          const failedId = ytCurrentVideoId;
-          if (failedId) ytUnavailableIds.add(failedId);
-          fallbackPhaseMp3('YouTube error — using local MP3');
-          return;
-        }
         if (data.event === 'onStateChange') {
           const st = data.info;
-          // 1=PLAYING, 3=BUFFERING — embed is alive
-          if (st === 1 || st === 3 || st === '1' || st === '3') {
-            ytGotPlayingSignal = true;
-            clearYtWatchdog();
-          }
           // 0=ENDED — restart same track
           if (st === 0 || st === '0') restartYtSingleTrack();
         }
-      });
-      window.addEventListener('offline', () => {
-        if (ytWantPlaying) fallbackPhaseMp3('No network — using local MP3');
-      });
-      window.addEventListener('online', () => {
-        ytUnavailableIds.clear(); // allow YouTube retry after reconnect
       });
     }
 
@@ -3252,8 +3263,6 @@
       ytWantPlaying = false;
       ytEmbedGen += 1;
       ytCurrentVideoId = null;
-      ytGotPlayingSignal = false;
-      clearYtWatchdog();
       setYtHostActive(false);
       const frame = getYtFrame();
       if (frame) {
@@ -3269,17 +3278,13 @@
       return track.name || 'Local MP3';
     }
 
-    function fallbackPhaseMp3(reason) {
+    function playLocalPhaseMp3() {
       const phase = getPhaseForSlide(currentSlideIdx);
       const track = customPhaseMp3s[phase.id];
-      // Prefer bundled/uploaded local file for this phase
       const fallback = track?.dataUrl || track?.url || '';
       stopYouTubeBgm({ silent: true });
-      // Flip top-left control so presenter sees Local MP3 is active
-      forceLocalBgm = true;
-      syncBgmSourceSwitchUI();
       if (!fallback || !isMusicActive) {
-        showToast(reason || 'No local MP3 available for this phase', 'error');
+        showToast('No local MP3 available for this phase', 'error');
         updateMusicHudUI();
         return;
       }
@@ -3290,56 +3295,31 @@
       currentPlayingTrackKey = `custom:${phase.id}:${localTrackLabel(track)}`;
       bgmLabel.textContent = `${phase.label}: ${localTrackLabel(track)}`;
       bgmIcon.className = 'fa-solid fa-pause';
-      showToast(reason || 'Using local MP3', 'error');
     }
 
     function playYouTubeBgm(videoId, label) {
-      const playGen = (ytEmbedGen += 1);
-      ensureYtSingleRepeatHook();
-
-      const startEmbed = () => {
-        if (playGen !== ytEmbedGen || !isMusicActive) return;
-        ytWantPlaying = true;
-        ytCurrentVideoId = videoId;
-        ytGotPlayingSignal = false;
-        setYtHostActive(true, `↻ ${label || 'YouTube BGM'}`);
-        const frame = getYtFrame();
-        if (!frame) {
-          fallbackPhaseMp3('YouTube player missing — using local MP3');
-          return;
-        }
-        frame.src = ytEmbedSrc(videoId);
-        const arm = () => {
-          if (!ytWantPlaying || playGen !== ytEmbedGen) return;
-          armYtApiListening();
-        };
-        setTimeout(arm, 600);
-        setTimeout(arm, 1600);
-        clearYtWatchdog();
-        // If embed never starts (offline mid-load / blocked video), revert to local MP3
-        ytWatchdogTimer = setTimeout(() => {
-          if (playGen !== ytEmbedGen || !ytWantPlaying || ytGotPlayingSignal) return;
-          ytUnavailableIds.add(videoId);
-          fallbackPhaseMp3('YouTube unavailable — using local MP3');
-        }, 5500);
-        showToast(`${label || 'YouTube BGM'} — looping this track`);
-      };
-
-      // Local switch, offline, or previously failed id → local MP3 immediately
-      if (forceLocalBgm || (typeof navigator !== 'undefined' && navigator.onLine === false) || ytUnavailableIds.has(videoId)) {
-        fallbackPhaseMp3(forceLocalBgm ? 'Using local MP3' : 'No network — using local MP3');
+      if (forceLocalBgm) {
+        playLocalPhaseMp3();
         return;
       }
-
-      void (async () => {
-        const ok = await probeYoutubeReachable();
-        if (playGen !== ytEmbedGen || !isMusicActive) return;
-        if (!ok) {
-          fallbackPhaseMp3('No network — using local MP3');
-          return;
-        }
-        startEmbed();
-      })();
+      const playGen = (ytEmbedGen += 1);
+      ensureYtSingleRepeatHook();
+      ytWantPlaying = true;
+      ytCurrentVideoId = videoId;
+      setYtHostActive(true, `↻ ${label || 'YouTube BGM'}`);
+      const frame = getYtFrame();
+      if (!frame) {
+        showToast('YouTube player missing — flip bulb to Local MP3', 'error');
+        return;
+      }
+      frame.src = ytEmbedSrc(videoId);
+      const arm = () => {
+        if (!ytWantPlaying || playGen !== ytEmbedGen) return;
+        armYtApiListening();
+      };
+      setTimeout(arm, 600);
+      setTimeout(arm, 1600);
+      showToast(`${label || 'YouTube BGM'} — looping this track`);
     }
 
     function promptPhaseYouTube() {
@@ -3534,16 +3514,7 @@
       const uploadPhaseId = document.getElementById('bgmPhaseSelect')?.value || phase.id;
       const custom = customPhaseMp3s[phase.id];
       const ytId = resolveYoutubeId(custom);
-      const offline = typeof navigator !== 'undefined' && navigator.onLine === false;
-      const usingLocalFallback = !!(custom && (custom.dataUrl || custom.url) && (
-        ytWantPlaying === false && (
-          forceLocalBgm ||
-          (currentPlayingTrackKey && currentPlayingTrackKey.startsWith('custom:')) ||
-          offline ||
-          (ytId && ytUnavailableIds.has(ytId))
-        )
-      ));
-      if (usingLocalFallback) {
+      if (forceLocalBgm && custom && (custom.dataUrl || custom.url)) {
         bgmLabel.textContent = `${phase.label}: ${localTrackLabel(custom)}`;
       } else if (custom) {
         bgmLabel.textContent = `${phase.label}: ${ytId ? '▶ ' : ''}${custom.name}`;
@@ -3584,36 +3555,29 @@
       const phase = getPhaseForSlide(slideIdx);
       const customTrack = customPhaseMp3s[phase.id];
       const ytId = resolveYoutubeId(customTrack);
-      const offline = typeof navigator !== 'undefined' && navigator.onLine === false;
-      const ytBlocked = !!(ytId && (forceLocalBgm || offline || ytUnavailableIds.has(ytId)));
-      // Prefer local MP3 when switch is Local, offline, or this YouTube id already failed
-      const trackSrc = (ytId && !ytBlocked) ? '' : resolveTrackSrc(customTrack);
-      const desiredKey = (ytId && !ytBlocked)
+      const useLocal = forceLocalBgm || !ytId;
+      const trackSrc = useLocal ? resolveTrackSrc(customTrack) : '';
+      const desiredKey = (!useLocal && ytId)
         ? `yt:embed:${ytId}`
         : (trackSrc ? `custom:${phase.id}:${localTrackLabel(customTrack)}` : phase.id);
       // Keep playing continuously when staying in the same phase / same track
-      if (isMusicActive && currentPlayingTrackKey === desiredKey && (!(ytId && !ytBlocked) || ytWantPlaying)) {
+      if (isMusicActive && currentPlayingTrackKey === desiredKey && (useLocal || ytWantPlaying)) {
         updateMusicHudUI();
         return;
       }
       const wasYt = ytWantPlaying;
       stopCurrentAudio();
-      if (wasYt && !(ytId && !ytBlocked)) showToast('YouTube BGM stopped');
+      if (wasYt && useLocal) showToast('YouTube BGM stopped');
       currentPlayingTrackKey = desiredKey;
       updateMusicHudUI();
       if (!isMusicActive) return;
-      if (ytId && !ytBlocked) {
+      if (!useLocal && ytId) {
         playYouTubeBgm(ytId, customTrack?.name || phase.label);
       } else if (trackSrc) {
         bgmAudio.src = trackSrc;
         bgmAudio.volume = bgmVolume;
         bgmAudio.loop = true;
         bgmAudio.play().catch(() => showToast(`Could not play ${customTrack?.name || phase.label}`, 'error'));
-        if (ytBlocked && !forceLocalBgm) {
-          showToast(offline ? 'No network — using local MP3' : 'YouTube unavailable — using local MP3', 'error');
-        } else if (ytBlocked && forceLocalBgm && offline) {
-          showToast('No network — using local MP3', 'error');
-        }
       } else {
         barIndex = 0;
         scheduleNextBar();
