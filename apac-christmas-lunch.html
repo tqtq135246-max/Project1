@@ -506,18 +506,21 @@
       display: grid;
       place-items: center;
       cursor: pointer;
+      visibility: hidden;
       opacity: 0;
       transform: scale(0.92);
-      transition: opacity 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+      transition: opacity 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, visibility 0.18s ease;
       background: rgba(30, 41, 59, 0.55);
       color: #94a3b8;
       box-shadow: none;
       pointer-events: none;
     }
     #bgmSourceHitZone:hover #bgmSourceSwitch,
+    #bgmSourceHitZone:focus-within #bgmSourceSwitch,
     #bgmSourceSwitch:focus-visible,
     #bgmSourceSwitch.is-peek {
-      opacity: 1;
+      visibility: visible !important;
+      opacity: 1 !important;
       transform: scale(1);
       pointer-events: auto;
     }
@@ -563,7 +566,9 @@
       transition: opacity 0.15s ease;
     }
     #bgmSourceHitZone:hover #bgmSourceSwitch .bgm-source-tip,
-    #bgmSourceSwitch:focus-visible .bgm-source-tip {
+    #bgmSourceHitZone:focus-within #bgmSourceSwitch .bgm-source-tip,
+    #bgmSourceSwitch:focus-visible .bgm-source-tip,
+    #bgmSourceSwitch.is-peek .bgm-source-tip {
       opacity: 1;
     }
 
