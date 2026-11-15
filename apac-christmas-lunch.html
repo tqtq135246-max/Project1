@@ -2297,7 +2297,7 @@
         <button type="button" onclick="document.getElementById('schoolBellFileInput').click()" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold flex items-center gap-1 transition cursor-pointer" title="Upload Bell Sound"><i class="fa-solid fa-bell"></i><span id="bellMp3Label" class="hidden xl:inline max-w-[80px] truncate">Bell</span></button>
         <button type="button" onclick="document.getElementById('logoFileInput').click()" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-sky-300 font-bold flex items-center gap-1 transition cursor-pointer" title="Upload company logo"><i class="fa-solid fa-image"></i><span class="hidden md:inline">Logo</span></button>
 
-        <input type="range" id="bgmVolumeSlider" min="0" max="1" step="0.05" value="0.5" oninput="setBGMVolume(this.value)" class="w-12 sm:w-16 accent-[#C8372D] cursor-pointer hidden lg:block" title="Volume" />
+        <input type="range" id="bgmVolumeSlider" min="0" max="1" step="0.05" value="0.32" oninput="setBGMVolume(this.value)" class="w-12 sm:w-16 accent-[#C8372D] cursor-pointer hidden lg:block" title="Background BGM volume" />
 
         <div class="h-5 w-px bg-slate-700 mx-0.5"></div>
         <button type="button" onclick="document.getElementById('bestDressedWinnerFileInput').click()" class="px-2.5 py-1.5 rounded-xl bg-amber-700/90 hover:bg-amber-600 text-amber-50 font-bold flex items-center gap-1 transition cursor-pointer border border-amber-300/40" title="Upload Best Dressed winner JSON (prepare offline, load anytime)">
@@ -2985,7 +2985,8 @@
     let isMusicActive = false;
     let musicLoopTimer = null;
     let barIndex = 0;
-    let bgmVolume = 0.5;
+    // Quiet default — BGM is underscore under MC talk / meal chatter
+    let bgmVolume = 0.32;
     let customBellDataUrl = 'audio/Bell.mp3';
     let customBellFileName = 'Bell.mp3';
 
