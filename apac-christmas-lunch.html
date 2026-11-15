@@ -506,38 +506,37 @@
       display: block;
     }
 
-    /* YouTube BGM: in-page embed (clearing iframe src stops audio on phase leave) */
+    /* YouTube BGM: compact in-page embed (clearing iframe src stops audio on phase leave) */
     #ytBgmHost {
       position: fixed;
-      left: 0.75rem;
-      bottom: 0.75rem;
+      left: 0.5rem;
+      bottom: 0.5rem;
       z-index: 60;
-      width: min(320px, calc(100vw - 1.5rem));
+      width: 148px;
       background: rgba(15, 23, 42, 0.94);
       border: 1px solid rgba(255, 255, 255, 0.22);
-      border-radius: 14px;
-      padding: 0.45rem;
-      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.4);
+      border-radius: 10px;
+      padding: 0.28rem;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.4);
       display: none;
       pointer-events: auto;
     }
     #ytBgmHost.is-active { display: block; }
     #ytBgmHost .yt-bgm-caption {
-      font-size: 11px;
+      font-size: 9px;
       font-weight: 800;
       color: #fde68a;
       letter-spacing: 0.02em;
-      margin: 0 0 0.3rem 0.2rem;
+      margin: 0 0 0.18rem 0.12rem;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
     #ytBgmFrame {
       width: 100%;
-      aspect-ratio: 16 / 9;
-      height: auto;
+      height: 84px;
       border: 0;
-      border-radius: 10px;
+      border-radius: 7px;
       background: #000;
       display: block;
     }
@@ -2380,14 +2379,16 @@
     let companyLogoDataUrl = '';
     // Phase BGM: { name, url?, dataUrl?, youtubeId? }. YouTube preferred when set (no dataUrl override).
     const DEFAULT_PHASE_MP3S = {
-      opening: { name: 'Opening.mp3', url: 'audio/Opening.mp3' },
-      mcs: { name: 'MC.mp3', url: 'audio/MC.mp3' },
-      headmaster: { name: 'headmaster.mp3', url: 'audio/headmaster.mp3' },
-      buffet: { name: 'buffet.mp3', url: 'audio/buffet.mp3' },
-      game1: { name: 'Game1.mp3', url: 'audio/Game1.mp3' },
-      game2: { name: 'Game2.mp3', url: 'audio/Game2.mp3' },
-      // In-page YouTube embed; local LuckyDraw.mp3 if embed is blocked / offline
+      opening: { name: 'Opening (YouTube)', youtubeId: 'aAkMkVFwAoo', url: 'audio/Opening.mp3' },
+      mcs: { name: 'MC (YouTube)', youtubeId: 'ibEOS9i77R4', url: 'audio/MC.mp3' },
+      headmaster: { name: 'Headmaster (YouTube)', youtubeId: '7gswtbX8G7Q', url: 'audio/headmaster.mp3' },
+      buffet: { name: 'Buffet (YouTube)', youtubeId: 'E8gmARGvPlI', url: 'audio/buffet.mp3' },
+      game1: { name: 'Game 1 (YouTube)', youtubeId: 'o0QK_V9ZsgM', url: 'audio/Game1.mp3' },
+      game2: { name: 'Game 2 (YouTube)', youtubeId: 'r_3RN7688rE', url: 'audio/Game2.mp3' },
+      recess: { name: 'Recess (YouTube)', youtubeId: 'E8gmARGvPlI', url: 'audio/buffet.mp3' },
+      // Prize draws keep Inkpot; local LuckyDraw.mp3 if embed is blocked / offline
       christmasGifts: { name: 'Shocking Blue — Inkpot (YouTube)', youtubeId: 'lAwiWIBOz24', url: 'audio/LuckyDraw.mp3' },
+      bestDressed: { name: 'Buffet (YouTube)', youtubeId: 'E8gmARGvPlI', url: 'audio/buffet.mp3' },
       grandPrizes: { name: 'Shocking Blue — Inkpot (YouTube)', youtubeId: 'lAwiWIBOz24', url: 'audio/LuckyDraw.mp3' },
       finale: { name: 'finale.mp3', url: 'audio/finale.mp3' }
     };
