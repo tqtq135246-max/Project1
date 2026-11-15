@@ -3065,10 +3065,11 @@
     }
     let currentPlayingTrackKey = null;
 
-    // --- YouTube BGM: real in-page <iframe> embed ---
+    // --- YouTube BGM: real in-page <iframe> embed (single-track repeat only) ---
     let ytCurrentVideoId = null;
     let ytWantPlaying = false;
     let ytEmbedGen = 0;
+    let ytLoopHooked = false;
 
     function getYtFrame() {
       return document.getElementById('ytBgmFrame');
@@ -3076,8 +3077,9 @@
 
     function ytEmbedSrc(videoId) {
       const origin = encodeURIComponent(window.location.origin || '');
-      // loop requires playlist=same id; enablejsapi lets us postMessage volume/pause
-      return `https://www.youtube.com/embed/${encodeURIComponent(videoId)}?autoplay=1&mute=0&controls=1&modestbranding=1&rel=0&playsinline=1&loop=1&playlist=${encodeURIComponent(videoId)}&enablejsapi=1&origin=${origin}`;
+      const id = encodeURIComponent(videoId);
+      // Single-video repeat only: loop=1 + playlist=<same id>. Never pass list=/RD radio mixes.
+      return `https://www.youtube.com/embed/${id}?autoplay=1&mute=0&controls=1&modestbranding=1&rel=0&fs=0&playsinline=1&loop=1&playlist=${id}&enablejsapi=1&origin=${origin}`;
     }
 
     function postYtCommand(func, args = []) {
@@ -3086,6 +3088,41 @@
       try {
         frame.contentWindow.postMessage(JSON.stringify({ event: 'command', func, args }), '*');
       } catch (_) {}
+    }
+
+    function restartYtSingleTrack() {
+      if (!ytWantPlaying || !ytCurrentVideoId) return;
+      // Prefer seek+play so we never advance into related/radio tracks
+      postYtCommand('seekTo', [0, true]);
+      postYtCommand('playVideo');
+    }
+
+    function ensureYtSingleRepeatHook() {
+      if (ytLoopHooked) return;
+      ytLoopHooked = true;
+      window.addEventListener('message', (event) => {
+        if (!ytWantPlaying || !ytCurrentVideoId) return;
+        let data = event.data;
+        try {
+          if (typeof data === 'string') data = JSON.parse(data);
+        } catch (_) {
+          return;
+        }
+        if (!data || typeof data !== 'object') return;
+        // ENDED = 0 — restart the same video (repeat one)
+        const ended = data.event === 'onStateChange' && (data.info === 0 || data.info === '0');
+        if (ended) restartYtSingleTrack();
+      });
+    }
+
+    function armYtApiListening() {
+      const frame = getYtFrame();
+      if (!frame || !frame.contentWindow) return;
+      try {
+        frame.contentWindow.postMessage(JSON.stringify({ event: 'listening', id: frame.id || 'ytBgmFrame' }), '*');
+      } catch (_) {}
+      applyYtVolume();
+      postYtCommand('playVideo');
     }
 
     function applyYtVolume() {
@@ -3124,29 +3161,33 @@
       if (!fallback || !isMusicActive) return;
       bgmAudio.src = fallback;
       bgmAudio.volume = bgmVolume;
-      bgmAudio.loop = true;
+      bgmAudio.loop = true; // single-track repeat for local fallback too
       bgmAudio.play().catch(() => {});
       currentPlayingTrackKey = `custom:${phase.id}:${track?.name || fallback}`;
       showToast('YouTube embed unavailable — playing local MP3', 'error');
     }
 
     function playYouTubeBgm(videoId, label) {
-      ytEmbedGen += 1;
+      const playGen = (ytEmbedGen += 1);
       ytWantPlaying = true;
       ytCurrentVideoId = videoId;
-      setYtHostActive(true, label || 'YouTube BGM');
+      ensureYtSingleRepeatHook();
+      setYtHostActive(true, `↻ ${label || 'YouTube BGM'}`);
       const frame = getYtFrame();
       if (!frame) {
         showToast('YouTube player missing', 'error');
         fallbackPhaseMp3();
         return;
       }
-      // Native embed inside this page — phase leave clears src to end music
+      // Native embed — single video only (no radio list); phase leave clears src
       frame.src = ytEmbedSrc(videoId);
-      // Volume commands after the player boots
-      setTimeout(() => { if (ytWantPlaying) applyYtVolume(); }, 800);
-      setTimeout(() => { if (ytWantPlaying) applyYtVolume(); }, 1800);
-      showToast(`${label || 'YouTube BGM'} — embedded bottom-left`);
+      const arm = () => {
+        if (!ytWantPlaying || playGen !== ytEmbedGen) return;
+        armYtApiListening();
+      };
+      setTimeout(arm, 600);
+      setTimeout(arm, 1600);
+      showToast(`${label || 'YouTube BGM'} — looping this track`);
     }
 
     function promptPhaseYouTube() {
