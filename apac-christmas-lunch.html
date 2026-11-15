@@ -506,33 +506,41 @@
       display: block;
     }
 
-    /* YouTube BGM: keep a small visible player (API / ToS need a real player) */
+    /* YouTube BGM: in-page embed (clearing iframe src stops audio on phase leave) */
     #ytBgmHost {
       position: fixed;
       left: 0.75rem;
       bottom: 0.75rem;
       z-index: 60;
-      width: 168px;
-      background: rgba(15, 23, 42, 0.92);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 12px;
-      padding: 0.35rem;
-      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.35);
+      width: min(320px, calc(100vw - 1.5rem));
+      background: rgba(15, 23, 42, 0.94);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 14px;
+      padding: 0.45rem;
+      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.4);
       display: none;
       pointer-events: auto;
     }
     #ytBgmHost.is-active { display: block; }
     #ytBgmHost .yt-bgm-caption {
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 800;
       color: #fde68a;
       letter-spacing: 0.02em;
-      margin: 0 0 0.25rem 0.15rem;
+      margin: 0 0 0.3rem 0.2rem;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    #ytBgmPlayer { width: 160px; height: 90px; border-radius: 8px; overflow: hidden; }
+    #ytBgmFrame {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      height: auto;
+      border: 0;
+      border-radius: 10px;
+      background: #000;
+      display: block;
+    }
 
     #snowCanvas {
       position: fixed;
@@ -1175,7 +1183,7 @@
   <input type="file" id="schoolBellFileInput" accept="audio/*" class="hidden" />
   <div id="ytBgmHost" aria-label="YouTube background music player">
     <div class="yt-bgm-caption" id="ytBgmCaption">YouTube BGM</div>
-    <div id="ytBgmPlayer"></div>
+    <iframe id="ytBgmFrame" title="YouTube BGM" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
   </div>
 
   <!-- Decorative Layer -->
@@ -2378,9 +2386,9 @@
       buffet: { name: 'buffet.mp3', url: 'audio/buffet.mp3' },
       game1: { name: 'Game1.mp3', url: 'audio/Game1.mp3' },
       game2: { name: 'Game2.mp3', url: 'audio/Game2.mp3' },
-      // Inkpot (Red Bullet) returns embed error 150 — use a player window; LuckyDraw.mp3 is offline fallback
-      christmasGifts: { name: 'Shocking Blue — Inkpot (YouTube)', youtubeId: 'lAwiWIBOz24', youtubeMode: 'window', url: 'audio/LuckyDraw.mp3' },
-      grandPrizes: { name: 'Shocking Blue — Inkpot (YouTube)', youtubeId: 'lAwiWIBOz24', youtubeMode: 'window', url: 'audio/LuckyDraw.mp3' },
+      // In-page YouTube embed; local LuckyDraw.mp3 if embed is blocked / offline
+      christmasGifts: { name: 'Shocking Blue — Inkpot (YouTube)', youtubeId: 'lAwiWIBOz24', url: 'audio/LuckyDraw.mp3' },
+      grandPrizes: { name: 'Shocking Blue — Inkpot (YouTube)', youtubeId: 'lAwiWIBOz24', url: 'audio/LuckyDraw.mp3' },
       finale: { name: 'finale.mp3', url: 'audio/finale.mp3' }
     };
     let customPhaseMp3s = { ...DEFAULT_PHASE_MP3S }; // phaseId -> { name, url? | dataUrl? | youtubeId? }
@@ -3036,14 +3044,6 @@
       if (track.dataUrl) return '';
       return track.youtubeId || '';
     }
-    function resolveYoutubeMode(track) {
-      // 'embed' (IFrame API) or 'window' (popup — needed when uploader disables embedding)
-      return (track && track.youtubeMode === 'window') ? 'window' : 'embed';
-    }
-    let ytBgmPopup = null;
-    let ytWindowModeActive = false;
-    const YT_BGM_WINDOW_NAME = 'apacYtBgm';
-    const YT_BGM_WINDOW_FEATURES = 'popup=yes,width=560,height=320';
     function parseYouTubeId(input) {
       if (!input) return '';
       const raw = String(input).trim();
@@ -3064,36 +3064,34 @@
     }
     let currentPlayingTrackKey = null;
 
-    // --- YouTube BGM (IFrame API) ---
-    let ytPlayer = null;
-    let ytApiLoadPromise = null;
+    // --- YouTube BGM: real in-page <iframe> embed ---
     let ytCurrentVideoId = null;
     let ytWantPlaying = false;
+    let ytEmbedGen = 0;
 
-    function loadYouTubeIframeApi() {
-      if (window.YT && window.YT.Player) return Promise.resolve();
-      if (ytApiLoadPromise) return ytApiLoadPromise;
-      ytApiLoadPromise = new Promise((resolve) => {
-        const prev = window.onYouTubeIframeAPIReady;
-        window.onYouTubeIframeAPIReady = function () {
-          if (typeof prev === 'function') prev();
-          resolve();
-        };
-        const tag = document.createElement('script');
-        tag.src = 'https://www.youtube.com/iframe_api';
-        tag.async = true;
-        document.head.appendChild(tag);
-      });
-      return ytApiLoadPromise;
+    function getYtFrame() {
+      return document.getElementById('ytBgmFrame');
+    }
+
+    function ytEmbedSrc(videoId) {
+      const origin = encodeURIComponent(window.location.origin || '');
+      // loop requires playlist=same id; enablejsapi lets us postMessage volume/pause
+      return `https://www.youtube.com/embed/${encodeURIComponent(videoId)}?autoplay=1&mute=0&controls=1&modestbranding=1&rel=0&playsinline=1&loop=1&playlist=${encodeURIComponent(videoId)}&enablejsapi=1&origin=${origin}`;
+    }
+
+    function postYtCommand(func, args = []) {
+      const frame = getYtFrame();
+      if (!frame || !frame.contentWindow) return;
+      try {
+        frame.contentWindow.postMessage(JSON.stringify({ event: 'command', func, args }), '*');
+      } catch (_) {}
     }
 
     function applyYtVolume() {
-      if (!ytPlayer || typeof ytPlayer.setVolume !== 'function') return;
-      try {
-        ytPlayer.setVolume(Math.round(Math.min(1, Math.max(0, bgmVolume)) * 100));
-        if (bgmVolume <= 0.001) ytPlayer.mute();
-        else ytPlayer.unMute();
-      } catch (_) {}
+      const vol = Math.round(Math.min(1, Math.max(0, bgmVolume)) * 100);
+      postYtCommand('setVolume', [vol]);
+      if (bgmVolume <= 0.001) postYtCommand('mute');
+      else postYtCommand('unMute');
     }
 
     function setYtHostActive(active, caption) {
@@ -3103,160 +3101,51 @@
       if (host) host.classList.toggle('is-active', !!active);
     }
 
-    function closeYtBgmPopup() {
-      // Must keep a real window handle (no noopener) so phase leave can stop the music
-      try {
-        let w = (ytBgmPopup && !ytBgmPopup.closed) ? ytBgmPopup : null;
-        if (!w && ytWindowModeActive) {
-          // Reclaim the named companion window if the handle was lost
-          w = window.open('', YT_BGM_WINDOW_NAME);
-        }
-        if (w && !w.closed) w.close();
-      } catch (_) {}
-      ytBgmPopup = null;
-      ytWindowModeActive = false;
-    }
-
-    function stopYouTubeBgm() {
-      const hadWindow = ytWindowModeActive || (ytBgmPopup && !ytBgmPopup.closed);
+    function stopYouTubeBgm(opts = {}) {
+      const wasPlaying = ytWantPlaying || !!ytCurrentVideoId;
       ytWantPlaying = false;
-      // Force loadVideoById on next play — seekTo/playVideo after a pause often stays UNSTARTED
+      ytEmbedGen += 1;
       ytCurrentVideoId = null;
       setYtHostActive(false);
-      if (ytPlayer && typeof ytPlayer.pauseVideo === 'function') {
-        try { ytPlayer.pauseVideo(); } catch (_) {}
+      const frame = getYtFrame();
+      if (frame) {
+        // Blanking the iframe hard-stops audio when leaving the phase
+        try { postYtCommand('pauseVideo'); } catch (_) {}
+        try { frame.src = 'about:blank'; } catch (_) {}
       }
-      closeYtBgmPopup();
-      if (hadWindow) showToast('YouTube BGM stopped for this phase');
+      if (wasPlaying && !opts.silent) showToast('YouTube BGM stopped');
     }
 
-    function playYouTubeWindow(videoId, label) {
+    function fallbackPhaseMp3() {
+      const phase = getPhaseForSlide(currentSlideIdx);
+      const track = customPhaseMp3s[phase.id];
+      const fallback = track?.url || '';
+      if (!fallback || !isMusicActive) return;
+      bgmAudio.src = fallback;
+      bgmAudio.volume = bgmVolume;
+      bgmAudio.loop = true;
+      bgmAudio.play().catch(() => {});
+      currentPlayingTrackKey = `custom:${phase.id}:${track?.name || fallback}`;
+      showToast('YouTube embed unavailable — playing local MP3', 'error');
+    }
+
+    function playYouTubeBgm(videoId, label) {
+      ytEmbedGen += 1;
       ytWantPlaying = true;
       ytCurrentVideoId = videoId;
-      ytWindowModeActive = true;
-      setYtHostActive(false);
-      const url = `https://www.youtube.com/watch?v=${encodeURIComponent(videoId)}`;
-      try {
-        // Do not use noopener — we need the handle to close on phase change
-        if (ytBgmPopup && !ytBgmPopup.closed) {
-          try { ytBgmPopup.location.href = url; } catch (_) {
-            ytBgmPopup = window.open(url, YT_BGM_WINDOW_NAME, YT_BGM_WINDOW_FEATURES);
-          }
-          try { ytBgmPopup.focus(); } catch (_) {}
-        } else {
-          ytBgmPopup = window.open(url, YT_BGM_WINDOW_NAME, YT_BGM_WINDOW_FEATURES);
-        }
-      } catch (_) {
-        ytBgmPopup = null;
-      }
-      if (!ytBgmPopup || ytBgmPopup.closed) {
-        ytWindowModeActive = false;
-        showToast('Popup blocked — allow popups, or using local MP3', 'error');
-        const phase = getPhaseForSlide(currentSlideIdx);
-        const track = customPhaseMp3s[phase.id];
-        const fallback = track?.url || '';
-        if (fallback && isMusicActive) {
-          bgmAudio.src = fallback;
-          bgmAudio.volume = bgmVolume;
-          bgmAudio.loop = true;
-          bgmAudio.play().catch(() => {});
-        }
+      setYtHostActive(true, label || 'YouTube BGM');
+      const frame = getYtFrame();
+      if (!frame) {
+        showToast('YouTube player missing', 'error');
+        fallbackPhaseMp3();
         return;
       }
-      showToast(`${label || 'YouTube BGM'} — play in the window; it closes when you leave this phase`);
-    }
-
-    async function ensureYtPlayer() {
-      await loadYouTubeIframeApi();
-      if (ytPlayer && typeof ytPlayer.playVideo === 'function') return ytPlayer;
-      return new Promise((resolve, reject) => {
-        try {
-          ytPlayer = new YT.Player('ytBgmPlayer', {
-            width: 160,
-            height: 90,
-            videoId: 'lAwiWIBOz24',
-            playerVars: {
-              autoplay: 0,
-              controls: 1,
-              modestbranding: 1,
-              rel: 0,
-              playsinline: 1,
-              fs: 0,
-              disablekb: 0,
-              origin: window.location.origin
-            },
-            events: {
-              onReady: () => {
-                applyYtVolume();
-                resolve(ytPlayer);
-              },
-              onStateChange: (e) => {
-                if (!ytWantPlaying || !ytPlayer) return;
-                if (e.data === YT.PlayerState.ENDED) {
-                  try { ytPlayer.seekTo(0, true); ytPlayer.playVideo(); } catch (_) {}
-                }
-              },
-              onError: (e) => {
-                const code = e?.data;
-                const vid = ytCurrentVideoId || 'lAwiWIBOz24';
-                // 101 / 150 = uploader disabled embedding on this watch page
-                if (code === 101 || code === 150) {
-                  showToast('This YouTube video blocks embedding — opening a player window', 'error');
-                  // Prefer window mode so phase leave can close it
-                  const phase = getPhaseForSlide(currentSlideIdx);
-                  const track = customPhaseMp3s[phase.id];
-                  if (track) track.youtubeMode = 'window';
-                  playYouTubeWindow(vid, track?.name || 'YouTube BGM');
-                  return;
-                }
-                showToast(`YouTube BGM error (${code ?? '?'}) — trying local MP3`, 'error');
-                const phase = getPhaseForSlide(currentSlideIdx);
-                const track = customPhaseMp3s[phase.id];
-                const fallback = track && !track.dataUrl ? (track.url || '') : '';
-                stopYouTubeBgm();
-                if (fallback && isMusicActive) {
-                  bgmAudio.src = fallback;
-                  bgmAudio.volume = bgmVolume;
-                  bgmAudio.loop = true;
-                  bgmAudio.play().catch(() => {});
-                  currentPlayingTrackKey = `custom:${phase.id}:${track?.name || fallback}`;
-                }
-              }
-            }
-          });
-        } catch (err) {
-          reject(err);
-        }
-      });
-    }
-
-    async function playYouTubeBgm(videoId, label) {
-      const playGen = (playYouTubeBgm._gen = (playYouTubeBgm._gen || 0) + 1);
-      ytWantPlaying = true;
-      setYtHostActive(true, label || 'YouTube BGM');
-      try {
-        const player = await ensureYtPlayer();
-        if (!ytWantPlaying || playGen !== playYouTubeBgm._gen) return;
-        applyYtVolume();
-        ytCurrentVideoId = videoId;
-        // Always reload — most reliable after phase switches / host hide
-        player.loadVideoById({ videoId, startSeconds: 0 });
-        for (let i = 0; i < 8; i++) {
-          await new Promise((r) => setTimeout(r, 120));
-          if (!ytWantPlaying || playGen !== playYouTubeBgm._gen) return;
-          try { player.unMute(); } catch (_) {}
-          applyYtVolume();
-          try { player.playVideo(); } catch (_) {}
-          const st = typeof player.getPlayerState === 'function' ? player.getPlayerState() : null;
-          // 1=PLAYING, 3=BUFFERING
-          if (st === 1 || st === 3) break;
-        }
-      } catch (_) {
-        if (playGen === playYouTubeBgm._gen) {
-          showToast('Could not start YouTube BGM', 'error');
-          stopYouTubeBgm();
-        }
-      }
+      // Native embed inside this page — phase leave clears src to end music
+      frame.src = ytEmbedSrc(videoId);
+      // Volume commands after the player boots
+      setTimeout(() => { if (ytWantPlaying) applyYtVolume(); }, 800);
+      setTimeout(() => { if (ytWantPlaying) applyYtVolume(); }, 1800);
+      showToast(`${label || 'YouTube BGM'} — embedded bottom-left`);
     }
 
     function promptPhaseYouTube() {
@@ -3270,22 +3159,20 @@
       if (raw === null) return;
       const trimmed = raw.trim();
       if (!trimmed) {
-        const { youtubeId, ...rest } = existing;
+        const { youtubeId, youtubeMode, ...rest } = existing;
         const fallbackName = (rest.url || '').split('/').pop() || rest.name || 'Local MP3';
         customPhaseMp3s[phaseId] = { ...rest, name: rest.dataUrl ? rest.name : fallbackName };
         showToast(`Cleared YouTube for ${phase?.label || phaseId}`);
       } else {
         const id = parseYouTubeId(trimmed);
         if (!id) { showToast('Could not parse YouTube URL', 'error'); return; }
-        // Default to embed; presenter can retry — error 101/150 auto-opens a window
         customPhaseMp3s[phaseId] = {
           ...existing,
           youtubeId: id,
-          youtubeMode: existing.youtubeMode || 'embed',
           name: `YouTube · ${id}`,
-          // drop dataUrl so YouTube can play; keep url as offline fallback
           dataUrl: undefined
         };
+        delete customPhaseMp3s[phaseId].youtubeMode;
         showToast(`YouTube BGM for ${phase?.label || phaseId}: ${id}`);
       }
       if (getPhaseForSlide(currentSlideIdx).id === phaseId) {
@@ -3465,7 +3352,7 @@
 
     function stopCurrentAudio() {
       clearTimeout(musicLoopTimer);
-      stopYouTubeBgm();
+      stopYouTubeBgm({ silent: true });
       bgmAudio.pause();
       try { bgmAudio.removeAttribute('src'); bgmAudio.load(); } catch (_) {}
     }
@@ -3490,24 +3377,24 @@
       const phase = getPhaseForSlide(slideIdx);
       const customTrack = customPhaseMp3s[phase.id];
       const ytId = resolveYoutubeId(customTrack);
-      const ytMode = resolveYoutubeMode(customTrack);
       const trackSrc = ytId ? '' : resolveTrackSrc(customTrack);
-      // Window/embed key omits phase id so Christmas Gifts → Grand keeps the same Inkpot window open
+      // Same YouTube id keeps one embed across Christmas Gifts → Grand Prizes
       const desiredKey = ytId
-        ? `yt:${ytMode}:${ytId}`
+        ? `yt:embed:${ytId}`
         : (trackSrc ? `custom:${phase.id}:${customTrack?.name || trackSrc}` : phase.id);
       // Keep playing continuously when staying in the same phase / same track
       if (isMusicActive && currentPlayingTrackKey === desiredKey && (!ytId || ytWantPlaying)) {
         updateMusicHudUI();
         return;
       }
+      const wasYt = ytWantPlaying;
       stopCurrentAudio();
+      if (wasYt && !ytId) showToast('YouTube BGM stopped');
       currentPlayingTrackKey = desiredKey;
       updateMusicHudUI();
       if (!isMusicActive) return;
       if (ytId) {
-        if (ytMode === 'window') playYouTubeWindow(ytId, customTrack?.name || phase.label);
-        else playYouTubeBgm(ytId, customTrack?.name || phase.label);
+        playYouTubeBgm(ytId, customTrack?.name || phase.label);
       } else if (trackSrc) {
         bgmAudio.src = trackSrc;
         bgmAudio.volume = bgmVolume;
@@ -3522,7 +3409,13 @@
     function toggleBGM() {
       isMusicActive = !isMusicActive;
       if (isMusicActive) { startSlideMusic(currentSlideIdx); showToast(`Playing ${getPhaseForSlide(currentSlideIdx).label} BGM`); }
-      else { stopCurrentAudio(); currentPlayingTrackKey = null; updateMusicHudUI(); }
+      else {
+        const hadYt = ytWantPlaying;
+        stopCurrentAudio();
+        currentPlayingTrackKey = null;
+        updateMusicHudUI();
+        if (hadYt) showToast('YouTube BGM stopped');
+      }
     }
 
     function setBGMVolume(val) {
@@ -3721,9 +3614,7 @@
       try {
         bgmAudio.volume = Math.min(bgmVolume, 0.12);
         const duck = Math.min(bgmVolume, 0.12);
-        if (ytPlayer && typeof ytPlayer.setVolume === 'function') {
-          try { ytPlayer.setVolume(Math.round(duck * 100)); } catch (_) {}
-        }
+        postYtCommand('setVolume', [Math.round(duck * 100)]);
         await AudioEngine.playDrumroll(4600);
         stage.classList.add('is-flash');
         stage.classList.remove('is-drumrolling');
