@@ -2047,6 +2047,12 @@
         <div class="bd-envelope" aria-hidden="true"><i class="fa-solid fa-scroll"></i></div>
         <div class="bd-drum-bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
         <p id="bestDressedDrumStatus" class="text-sm font-bold text-amber-100/90">Lights down — press for the drumroll</p>
+        <p id="bestDressedSealedHint" class="text-[11px] font-semibold text-amber-100/55 mb-2">Winner list: not loaded yet · use HUD “Best Dressed” or button below</p>
+        <div class="flex flex-wrap items-center justify-center gap-2 mb-2">
+          <button type="button" onclick="document.getElementById('bestDressedWinnerFileInput').click()" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-black/35 hover:bg-black/50 text-amber-50 font-bold text-xs tracking-wide border border-amber-200/35 cursor-pointer transition">
+            <i class="fa-solid fa-file-arrow-up"></i> Load winner JSON
+          </button>
+        </div>
         <button type="button" id="bestDressedRevealBtn" onclick="startBestDressedReveal()" class="mt-1 inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#C8372D] to-[#D97724] hover:from-[#b91c1c] hover:to-[#b45309] text-white font-black text-base sm:text-lg tracking-wide shadow-xl transition transform hover:scale-105 active:scale-95 cursor-pointer border-2 border-amber-200">
           <i class="fa-solid fa-drum"></i> Drumroll &amp; Reveal
         </button>
@@ -2245,6 +2251,7 @@
   </section>
 
   <input type="file" id="orderFormPhotoInput" accept="image/*" class="hidden" />
+  <input type="file" id="bestDressedWinnerFileInput" accept="application/json,.json" class="hidden" />
 
   <!-- Modals & Toast -->
   <div id="winnerModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/70 backdrop-blur-md p-4 opacity-0 pointer-events-none transition-all duration-300">
@@ -2297,6 +2304,12 @@
         <button type="button" onclick="document.getElementById('logoFileInput').click()" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-sky-300 font-bold flex items-center gap-1 transition cursor-pointer" title="Upload company logo"><i class="fa-solid fa-image"></i><span class="hidden md:inline">Logo</span></button>
 
         <input type="range" id="bgmVolumeSlider" min="0" max="1" step="0.05" value="0.5" oninput="setBGMVolume(this.value)" class="w-12 sm:w-16 accent-[#C8372D] cursor-pointer hidden lg:block" title="Volume" />
+
+        <div class="h-5 w-px bg-slate-700 mx-0.5"></div>
+        <button type="button" onclick="document.getElementById('bestDressedWinnerFileInput').click()" class="px-2.5 py-1.5 rounded-xl bg-amber-700/90 hover:bg-amber-600 text-amber-50 font-bold flex items-center gap-1 transition cursor-pointer border border-amber-300/40" title="Upload Best Dressed winner JSON (prepare offline, load anytime)">
+          <i class="fa-solid fa-user-group"></i><span class="hidden lg:inline">Best Dressed</span>
+        </button>
+        <span id="bestDressedLoadStatus" class="hidden xl:inline max-w-[140px] truncate text-[10px] font-bold text-amber-200/80" title="Loaded Best Dressed winner">Not loaded</span>
 
         <div class="h-5 w-px bg-slate-700 mx-0.5"></div>
         <button type="button" onclick="saveCustomizedHTML()" class="px-2.5 py-1.5 rounded-xl bg-[#23486A] hover:bg-[#1a3650] text-white font-bold flex items-center gap-1.5 transition cursor-pointer border border-sky-400/30" title="Save HTML"><i class="fa-solid fa-floppy-disk text-amber-300"></i><span class="hidden sm:inline">Save HTML</span></button>
@@ -3270,6 +3283,83 @@
     }
 
     let bestDressedRevealBusy = false;
+    const BEST_DRESSED_STORAGE_KEY = 'apacBestDressedWinnerV1';
+    let bestDressedWinnerData = null;
+
+    function formatBestDressedTeamLabel(data) {
+      const en = String(data?.teamName || '').trim();
+      const zh = String(data?.teamNameZh || '').trim();
+      if (en && zh) return `${en} · ${zh}`;
+      return en || zh || '';
+    }
+
+    function updateBestDressedLoadStatus() {
+      const hud = document.getElementById('bestDressedLoadStatus');
+      const sealed = document.getElementById('bestDressedSealedHint');
+      const label = formatBestDressedTeamLabel(bestDressedWinnerData);
+      if (hud) {
+        hud.textContent = label ? `Loaded: ${label}` : 'Not loaded';
+        hud.title = label ? `Best Dressed winner ready: ${label}` : 'Best Dressed winner not loaded';
+      }
+      if (sealed) {
+        sealed.textContent = label
+          ? `Winner list ready: ${label}`
+          : 'Winner list: not loaded yet · use HUD “Best Dressed” or button below';
+      }
+    }
+
+    function applyBestDressedWinner(data, opts = {}) {
+      const teamName = String(data?.teamName || '').trim();
+      const teamNameZh = String(data?.teamNameZh || '').trim();
+      const membersRaw = Array.isArray(data?.members) ? data.members : [];
+      const members = membersRaw.map(m => String(m || '').trim()).filter(Boolean);
+      if (!teamName && !teamNameZh) {
+        throw new Error('JSON needs teamName (or teamNameZh)');
+      }
+      const nameEl = document.getElementById('bestDressedTeamName');
+      const membersEl = document.getElementById('bestDressedTeamMembers');
+      if (nameEl) nameEl.textContent = formatBestDressedTeamLabel({ teamName, teamNameZh });
+      if (membersEl) {
+        membersEl.replaceChildren();
+        const list = members.length ? members : ['(members TBA)'];
+        list.forEach((m) => {
+          const li = document.createElement('li');
+          li.textContent = m;
+          membersEl.appendChild(li);
+        });
+      }
+      bestDressedWinnerData = { teamName, teamNameZh, members };
+      try {
+        localStorage.setItem(BEST_DRESSED_STORAGE_KEY, JSON.stringify(bestDressedWinnerData));
+      } catch (_) { /* ignore quota */ }
+      updateBestDressedLoadStatus();
+      if (!opts.silent) showToast(`Best Dressed loaded: ${formatBestDressedTeamLabel(bestDressedWinnerData)}`, 'success');
+    }
+
+    function restoreBestDressedWinnerFromStorage() {
+      try {
+        const raw = localStorage.getItem(BEST_DRESSED_STORAGE_KEY);
+        if (!raw) { updateBestDressedLoadStatus(); return; }
+        applyBestDressedWinner(JSON.parse(raw), { silent: true });
+      } catch (_) {
+        updateBestDressedLoadStatus();
+      }
+    }
+
+    function handleBestDressedWinnerFile(file) {
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const data = JSON.parse(String(reader.result || ''));
+          applyBestDressedWinner(data);
+        } catch (err) {
+          showToast(err?.message || 'Invalid Best Dressed JSON', 'error');
+        }
+      };
+      reader.onerror = () => showToast('Could not read winner file', 'error');
+      reader.readAsText(file);
+    }
 
     function resetBestDressedReveal(opts = {}) {
       bestDressedRevealBusy = false;
@@ -3279,6 +3369,7 @@
       if (stage) stage.classList.remove('is-drumrolling', 'is-revealed', 'is-flash');
       if (btn) { btn.disabled = false; btn.classList.remove('opacity-50', 'pointer-events-none'); }
       if (status) status.textContent = 'Lights down — press for the drumroll';
+      updateBestDressedLoadStatus();
       if (!opts.silent) showToast('Best Dressed seal reset');
     }
 
@@ -3809,6 +3900,13 @@
       e.target.value = '';
     });
 
+    document.getElementById('bestDressedWinnerFileInput').addEventListener('change', (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      handleBestDressedWinnerFile(file);
+      e.target.value = '';
+    });
+
     document.getElementById('soundToggleBtn').addEventListener('click', () => {
       soundEnabled = !soundEnabled;
       document.getElementById('soundIcon').className = soundEnabled ? 'fa-solid fa-volume-high text-[#C8372D]' : 'fa-solid fa-volume-xmark text-slate-400';
@@ -3923,6 +4021,7 @@
     syncPrizeWinnersGrid2();
     applyCompanyLogo();
     applyOrderFormPhoto();
+    restoreBestDressedWinnerFromStorage();
     buildFestiveScatter();
     window.addEventListener('resize', () => buildFestiveScatter());
     // Prepare VDO room quietly; expand only after a camera connects
