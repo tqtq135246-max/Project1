@@ -550,171 +550,322 @@
       color: #92400e;
     }
 
-    /* School leaderboard (Grand Prizes Wall) — all 6 ranks, no scroll */
+    /* Celebrative Grand honor board — all 6 ranks, no scroll */
     .school-leaderboard {
       position: relative;
-      border-radius: 0.9rem;
-      padding: 0.65rem 0.75rem 0.75rem;
-      background: linear-gradient(180deg, #1a3a55 0%, #23486A 55%, #1a3650 100%);
-      border: 7px solid #b4692e;
+      border-radius: 1.1rem;
+      padding: 0.7rem 0.8rem 0.8rem;
+      background:
+        radial-gradient(ellipse at 50% -10%, rgba(253, 224, 71, 0.35), transparent 45%),
+        linear-gradient(180deg, #3b1d12 0%, #7f1d1d 38%, #1a3650 100%);
+      border: 6px solid #f59e0b;
       box-shadow:
-        inset 0 0 0 3px #d97724,
-        0 22px 40px -18px rgba(15, 40, 70, 0.5);
+        inset 0 0 0 3px #7f1d1d,
+        0 0 40px -8px rgba(245, 158, 11, 0.45),
+        0 22px 40px -18px rgba(15, 40, 70, 0.55);
       overflow: hidden;
+    }
+    .school-leaderboard::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(254,243,199,0.18), transparent 28%),
+        radial-gradient(circle at 88% 22%, rgba(253,224,71,0.14), transparent 26%);
+      pointer-events: none;
     }
     .school-leaderboard-header {
       text-align: center;
-      margin-bottom: 0.45rem;
+      margin-bottom: 0.5rem;
+      position: relative;
+      z-index: 1;
     }
     .school-leaderboard-banner {
       display: inline-block;
-      background: linear-gradient(90deg, #C8372D, #D97724);
+      background: linear-gradient(90deg, #f59e0b, #C8372D 50%, #f59e0b);
+      background-size: 200% 100%;
+      animation: lbBannerShine 4s linear infinite;
       color: #fff;
       font-family: 'Fredoka', sans-serif;
       font-weight: 700;
-      font-size: clamp(0.95rem, 2.1vw, 1.3rem);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 0.28rem 1rem;
-      border-radius: 0.3rem;
-      border: 2px solid #fde68a;
-      box-shadow: 0 3px 0 #7f1d1d;
-      transform: rotate(-0.8deg);
-    }
-    .school-leaderboard-sub {
-      margin-top: 0.3rem;
-      color: #cbd5e1;
-      font-size: 0.62rem;
-      font-weight: 700;
+      font-size: clamp(1rem, 2.2vw, 1.4rem);
       letter-spacing: 0.08em;
       text-transform: uppercase;
+      padding: 0.35rem 1.15rem;
+      border-radius: 999px;
+      border: 2px solid #fde68a;
+      box-shadow: 0 4px 0 #7f1d1d, 0 0 18px rgba(253, 224, 71, 0.35);
+    }
+    @keyframes lbBannerShine {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+    .school-leaderboard-sub {
+      margin-top: 0.35rem;
+      color: #fde68a;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-shadow: 0 1px 0 rgba(0,0,0,0.35);
     }
     .leaderboard-rows {
       display: flex;
       flex-direction: column;
-      gap: 0.32rem;
+      gap: 0.34rem;
+      position: relative;
+      z-index: 1;
     }
     .lb-row {
       display: grid;
-      grid-template-columns: 40px 52px 1fr;
+      grid-template-columns: 44px 54px 1fr;
       gap: 0.45rem;
       align-items: center;
-      background: rgba(255,255,255,0.96);
-      border: 2px solid rgba(251, 191, 36, 0.45);
-      border-radius: 0.55rem;
-      padding: 0.28rem 0.45rem;
+      background: rgba(255,255,255,0.97);
+      border: 2px solid rgba(251, 191, 36, 0.55);
+      border-radius: 0.7rem;
+      padding: 0.3rem 0.5rem;
       text-align: left;
-      box-shadow: 0 4px 10px -8px rgba(0,0,0,0.35);
+      box-shadow: 0 6px 14px -10px rgba(0,0,0,0.4);
       min-height: 0;
+      position: relative;
+      overflow: hidden;
     }
-    .lb-row.rank-1 { border-color: #f59e0b; background: linear-gradient(90deg, #fffbeb, #fff); }
+    .lb-row.rank-1 {
+      border-color: #f59e0b;
+      background: linear-gradient(100deg, #fffbeb 0%, #fef3c7 35%, #fff 100%);
+      padding: 0.42rem 0.55rem;
+      box-shadow: 0 0 0 2px rgba(245,158,11,0.25), 0 10px 22px -12px rgba(180,83,9,0.55);
+      transform: scale(1.01);
+    }
+    .lb-row.rank-1.is-won { animation: lbChampPulse 2.2s ease-in-out infinite; }
+    @keyframes lbChampPulse {
+      0%, 100% { box-shadow: 0 0 0 2px rgba(245,158,11,0.25), 0 10px 22px -12px rgba(180,83,9,0.55); }
+      50% { box-shadow: 0 0 0 4px rgba(253,224,71,0.45), 0 12px 28px -10px rgba(180,83,9,0.7); }
+    }
     .lb-row.rank-2 { border-color: #94a3b8; background: linear-gradient(90deg, #f8fafc, #fff); }
     .lb-row.rank-3 { border-color: #d97724; background: linear-gradient(90deg, #fff7ed, #fff); }
+    .lb-row.is-won .winner-slot {
+      background: linear-gradient(90deg, #ecfdf5, #d1fae5);
+      border-color: #1E6B3B;
+      border-style: solid;
+      color: #14532D;
+      font-weight: 900;
+    }
+    .lb-row.is-won::after {
+      content: '★';
+      position: absolute;
+      right: 0.45rem;
+      top: 0.25rem;
+      color: #f59e0b;
+      font-size: 0.75rem;
+      opacity: 0.85;
+      animation: lbStarTwinkle 1.6s ease-in-out infinite;
+    }
+    @keyframes lbStarTwinkle {
+      0%, 100% { opacity: 0.4; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.15); }
+    }
     .lb-row.is-locked {
       background: repeating-linear-gradient(-45deg, #f8fafc, #f8fafc 8px, #eef2f7 8px, #eef2f7 16px);
       border-style: dashed;
-      opacity: 0.92;
+      opacity: 0.9;
     }
     .lb-rank-badge {
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       border-radius: 999px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: 'Fredoka', sans-serif;
       font-weight: 700;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       color: #fff;
-      box-shadow: 0 3px 0 rgba(0,0,0,0.18);
+      box-shadow: 0 3px 0 rgba(0,0,0,0.18), 0 0 12px rgba(253,224,71,0.25);
+    }
+    .lb-row.rank-1 .lb-rank-badge {
+      width: 42px;
+      height: 42px;
+      font-size: 1.05rem;
+      box-shadow: 0 0 0 3px #fde68a, 0 4px 0 rgba(127,29,29,0.35);
     }
     .lb-row .prize-card-photo {
       aspect-ratio: 1 / 1;
-      min-height: 44px;
-      max-height: 52px;
-      border-radius: 0.4rem;
+      min-height: 46px;
+      max-height: 54px;
+      border-radius: 0.45rem;
     }
+    .lb-row.rank-1 .prize-card-photo { min-height: 52px; max-height: 60px; }
     .lb-row .prize-card-photo .fa-gift,
     .lb-row .prize-card-photo i { font-size: 0.95rem !important; margin-bottom: 0 !important; }
     .lb-row .winner-slot {
-      border-radius: 0.35rem;
+      border-radius: 0.4rem;
       background: #f1f5f9;
       border: 1px dashed #94a3b8;
       color: #64748b;
       justify-content: flex-start;
-      font-size: 0.68rem;
-      min-height: 1.35rem;
-      padding: 0.1rem 0.4rem;
-    }
-    .lb-row .winner-slot.filled {
-      background: #ecfdf5;
-      border-color: #1E6B3B;
-      border-style: solid;
-      color: #14532D;
+      font-size: 0.72rem;
+      min-height: 1.4rem;
+      padding: 0.12rem 0.45rem;
     }
     .lb-row input[type="text"] {
-      font-size: 0.8rem !important;
+      font-size: 0.82rem !important;
       padding-top: 0 !important;
       padding-bottom: 0 !important;
       line-height: 1.2;
     }
+    .lb-row.rank-1 input[type="text"] { font-size: 0.95rem !important; }
     @media (max-width: 640px) {
-      .lb-row { grid-template-columns: 32px 44px 1fr; gap: 0.35rem; }
+      .lb-row { grid-template-columns: 34px 44px 1fr; gap: 0.35rem; }
       .lb-rank-badge { width: 30px; height: 30px; font-size: 0.75rem; }
+      .lb-row.rank-1 .lb-rank-badge { width: 34px; height: 34px; }
     }
 
-    /* Best Dressed drumroll reveal */
+    /* Best Dressed — dramatic stage reveal */
     .bd-reveal-stage {
       position: relative;
       overflow: hidden;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(253, 224, 71, 0.22), transparent 55%),
+        linear-gradient(165deg, #1a1208 0%, #3b1d12 40%, #1f140c 100%);
+      border-color: #f59e0b !important;
+      color: #fff7ed;
+      min-height: min(72vh, 640px);
     }
+    .bd-reveal-stage::before,
+    .bd-reveal-stage::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: 42%;
+      height: 100%;
+      z-index: 5;
+      pointer-events: none;
+      transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+      background:
+        repeating-linear-gradient(90deg, #7f1d1d 0 14px, #991b1b 14px 28px);
+      box-shadow: inset -18px 0 28px rgba(0,0,0,0.35);
+    }
+    .bd-reveal-stage::before {
+      left: 0;
+      transform-origin: left center;
+      border-right: 4px solid #fde68a;
+    }
+    .bd-reveal-stage::after {
+      right: 0;
+      transform-origin: right center;
+      border-left: 4px solid #fde68a;
+      box-shadow: inset 18px 0 28px rgba(0,0,0,0.35);
+    }
+    .bd-reveal-stage.is-drumrolling::before { transform: translateX(-18%) scaleX(0.92); }
+    .bd-reveal-stage.is-drumrolling::after { transform: translateX(18%) scaleX(0.92); }
+    .bd-reveal-stage.is-revealed::before { transform: translateX(-105%); }
+    .bd-reveal-stage.is-revealed::after { transform: translateX(105%); }
+    .bd-rays {
+      position: absolute;
+      inset: -30%;
+      background: conic-gradient(from 0deg at 50% 45%,
+        transparent 0deg, rgba(253,224,71,0.18) 12deg, transparent 24deg,
+        transparent 40deg, rgba(253,224,71,0.14) 52deg, transparent 64deg,
+        transparent 80deg, rgba(255,255,255,0.1) 92deg, transparent 104deg,
+        transparent 120deg, rgba(253,224,71,0.16) 132deg, transparent 144deg,
+        transparent 160deg, rgba(253,224,71,0.12) 172deg, transparent 184deg,
+        transparent 200deg, rgba(255,255,255,0.08) 212deg, transparent 224deg,
+        transparent 240deg, rgba(253,224,71,0.15) 252deg, transparent 264deg,
+        transparent 280deg, rgba(253,224,71,0.1) 292deg, transparent 304deg,
+        transparent 320deg, rgba(255,255,255,0.1) 332deg, transparent 344deg,
+        transparent 360deg);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .bd-reveal-stage.is-drumrolling .bd-rays { opacity: 0.55; animation: bdSpinRays 8s linear infinite; }
+    .bd-reveal-stage.is-revealed .bd-rays { opacity: 0.9; animation: bdSpinRays 14s linear infinite; }
+    @keyframes bdSpinRays { to { transform: rotate(360deg); } }
     .bd-spotlight {
       position: absolute;
-      inset: -20%;
-      background: radial-gradient(circle at 50% 35%, rgba(253, 224, 71, 0.35), transparent 55%);
+      inset: -10%;
+      background:
+        radial-gradient(circle at 50% 42%, rgba(254, 243, 199, 0.55), transparent 42%),
+        radial-gradient(circle at 50% 80%, rgba(217, 119, 36, 0.25), transparent 50%);
       opacity: 0;
       transition: opacity 0.6s ease;
       pointer-events: none;
+      z-index: 2;
     }
-    .bd-reveal-stage.is-drumrolling .bd-spotlight { opacity: 0.85; animation: bdPulse 0.45s ease-in-out infinite; }
+    .bd-reveal-stage.is-drumrolling .bd-spotlight { opacity: 0.75; animation: bdPulse 0.4s ease-in-out infinite; }
     .bd-reveal-stage.is-revealed .bd-spotlight { opacity: 1; }
+    .bd-flash {
+      position: absolute;
+      inset: 0;
+      background: #fffbeb;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 8;
+    }
+    .bd-reveal-stage.is-flash .bd-flash { animation: bdFlash 0.55s ease-out forwards; }
+    @keyframes bdFlash {
+      0% { opacity: 0.95; }
+      100% { opacity: 0; }
+    }
     @keyframes bdPulse {
-      0%, 100% { transform: scale(1); opacity: 0.7; }
-      50% { transform: scale(1.05); opacity: 1; }
+      0%, 100% { transform: scale(1); opacity: 0.65; }
+      50% { transform: scale(1.06); opacity: 1; }
     }
     .bd-sealed {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 0.75rem;
-      min-height: 220px;
+      gap: 0.85rem;
+      min-height: 280px;
+      position: relative;
+      z-index: 6;
     }
     .bd-envelope {
-      width: min(280px, 70vw);
-      height: 160px;
-      border-radius: 1rem;
-      background: linear-gradient(145deg, #C8372D, #991B1B);
-      border: 4px solid #fde68a;
-      box-shadow: 0 18px 36px -14px rgba(153, 27, 27, 0.55);
+      width: min(300px, 72vw);
+      height: 175px;
+      border-radius: 1.1rem;
+      background:
+        linear-gradient(145deg, #f59e0b 0%, #C8372D 45%, #7f1d1d 100%);
+      border: 5px solid #fde68a;
+      box-shadow:
+        0 0 0 4px rgba(127, 29, 29, 0.35),
+        0 22px 48px -12px rgba(0, 0, 0, 0.65),
+        inset 0 0 30px rgba(253, 224, 71, 0.2);
       display: flex;
       align-items: center;
       justify-content: center;
       color: #fef9c3;
-      font-size: 3.5rem;
+      font-size: 3.8rem;
       position: relative;
       transition: transform 0.35s ease;
     }
-    .bd-reveal-stage.is-drumrolling .bd-envelope { animation: bdShake 0.28s ease-in-out infinite; }
+    .bd-envelope::after {
+      content: 'SEALED';
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      font-weight: 900;
+      color: #fef3c7;
+      opacity: 0.85;
+    }
+    .bd-reveal-stage.is-drumrolling .bd-envelope { animation: bdShake 0.22s ease-in-out infinite; }
     @keyframes bdShake {
-      0%, 100% { transform: rotate(-2deg) scale(1); }
-      50% { transform: rotate(2deg) scale(1.04); }
+      0%, 100% { transform: rotate(-3deg) scale(1); }
+      50% { transform: rotate(3deg) scale(1.06); }
     }
     .bd-winner-card {
       display: none;
       opacity: 0;
-      transform: scale(0.85) translateY(18px);
-      transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transform: scale(0.72) translateY(28px);
+      transition: opacity 0.55s ease, transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      z-index: 6;
     }
     .bd-reveal-stage.is-revealed .bd-sealed { display: none; }
     .bd-reveal-stage.is-revealed .bd-winner-card {
@@ -722,27 +873,69 @@
       opacity: 1;
       transform: scale(1) translateY(0);
     }
+    .bd-winner-plaque {
+      max-width: 36rem;
+      margin: 0 auto;
+      padding: 1.25rem 1.4rem 1.35rem;
+      border-radius: 1.4rem;
+      background:
+        linear-gradient(160deg, #fffbeb 0%, #fef3c7 40%, #fde68a 100%);
+      border: 4px solid #b45309;
+      box-shadow:
+        0 0 0 6px rgba(245, 158, 11, 0.25),
+        0 24px 48px -16px rgba(0,0,0,0.55);
+      text-align: left;
+      color: #1f2937;
+      position: relative;
+      overflow: hidden;
+    }
+    .bd-winner-plaque::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.55) 48%, transparent 62%);
+      transform: translateX(-120%);
+      animation: bdSheen 2.4s ease-in-out 0.4s infinite;
+      pointer-events: none;
+    }
+    @keyframes bdSheen {
+      0%, 40% { transform: translateX(-120%); }
+      70%, 100% { transform: translateX(120%); }
+    }
+    .bd-crown {
+      font-size: 2.6rem;
+      line-height: 1;
+      filter: drop-shadow(0 6px 10px rgba(180, 83, 9, 0.45));
+      animation: bdCrownBob 1.8s ease-in-out infinite;
+    }
+    @keyframes bdCrownBob {
+      0%, 100% { transform: translateY(0) rotate(-4deg); }
+      50% { transform: translateY(-6px) rotate(4deg); }
+    }
     .bd-drum-bars {
       display: flex;
-      gap: 5px;
-      height: 28px;
+      gap: 6px;
+      height: 34px;
       align-items: flex-end;
       opacity: 0;
     }
     .bd-reveal-stage.is-drumrolling .bd-drum-bars { opacity: 1; }
     .bd-drum-bars span {
-      width: 7px;
-      background: #f59e0b;
+      width: 8px;
+      background: linear-gradient(180deg, #fde68a, #f59e0b);
       border-radius: 4px;
-      animation: bdBar 0.35s ease-in-out infinite alternate;
+      animation: bdBar 0.32s ease-in-out infinite alternate;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.55);
     }
     .bd-drum-bars span:nth-child(2) { animation-delay: 0.08s; }
     .bd-drum-bars span:nth-child(3) { animation-delay: 0.16s; }
     .bd-drum-bars span:nth-child(4) { animation-delay: 0.04s; }
     .bd-drum-bars span:nth-child(5) { animation-delay: 0.2s; }
+    .bd-drum-bars span:nth-child(6) { animation-delay: 0.12s; }
+    .bd-drum-bars span:nth-child(7) { animation-delay: 0.24s; }
     @keyframes bdBar {
-      from { height: 6px; }
-      to { height: 28px; }
+      from { height: 7px; }
+      to { height: 34px; }
     }
 
     #festiveScatter {
@@ -1661,43 +1854,47 @@
   <!-- SLIDE 16: BEST DRESSED — WINNER REVEAL (DRUMROLL)                     -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center text-center" data-title="17. Best Dressed — Reveal">
-    <div id="bestDressedRevealStage" class="bd-reveal-stage max-w-4xl w-full festive-card rounded-3xl p-8 sm:p-12 border-4 border-[#C8372D] animate-pulse-glow relative">
+    <div id="bestDressedRevealStage" class="bd-reveal-stage max-w-5xl w-full rounded-3xl p-8 sm:p-12 border-4 relative shadow-2xl">
+      <div class="bd-rays" aria-hidden="true"></div>
       <div class="bd-spotlight" aria-hidden="true"></div>
+      <div class="bd-flash" aria-hidden="true"></div>
 
-      <span class="relative z-10 px-4 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-amber-800 text-xs font-extrabold uppercase tracking-widest">
+      <span class="relative z-10 px-4 py-1.5 rounded-full bg-amber-300/20 border border-amber-200/70 text-amber-100 text-xs font-extrabold uppercase tracking-widest backdrop-blur-sm">
         🥁 And the winner is… • 得獎隊伍是…
       </span>
 
-      <div class="relative z-10 bd-sealed mt-6">
-        <div class="bd-envelope" aria-hidden="true"><i class="fa-solid fa-envelope-open-text"></i></div>
-        <div class="bd-drum-bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
-        <p id="bestDressedDrumStatus" class="text-sm font-bold text-slate-600">Press reveal for the drumroll</p>
-        <button type="button" id="bestDressedRevealBtn" onclick="startBestDressedReveal()" class="mt-2 inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl bg-gradient-to-r from-[#C8372D] to-[#D97724] hover:from-[#b91c1c] hover:to-[#b45309] text-white font-black text-base sm:text-lg tracking-wide shadow-xl transition transform hover:scale-105 active:scale-95 cursor-pointer border-2 border-amber-200">
+      <div class="bd-sealed mt-7">
+        <div class="bd-envelope" aria-hidden="true"><i class="fa-solid fa-scroll"></i></div>
+        <div class="bd-drum-bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <p id="bestDressedDrumStatus" class="text-sm font-bold text-amber-100/90">Lights down — press for the drumroll</p>
+        <button type="button" id="bestDressedRevealBtn" onclick="startBestDressedReveal()" class="mt-1 inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#C8372D] to-[#D97724] hover:from-[#b91c1c] hover:to-[#b45309] text-white font-black text-base sm:text-lg tracking-wide shadow-xl transition transform hover:scale-105 active:scale-95 cursor-pointer border-2 border-amber-200">
           <i class="fa-solid fa-drum"></i> Drumroll &amp; Reveal
         </button>
+        <p class="text-[11px] font-semibold text-amber-100/60">or press <kbd class="px-1.5 py-0.5 rounded bg-black/30 border border-amber-200/40 font-mono">SPACE</kbd></p>
       </div>
 
-      <div class="relative z-10 bd-winner-card mt-5">
-        <h1 class="font-festive-display text-4xl sm:text-6xl font-bold tracking-tight text-[#C8372D] mb-4" contenteditable="true">
+      <div class="bd-winner-card mt-4">
+        <div class="bd-crown mx-auto mb-2" aria-hidden="true">👑</div>
+        <h1 class="font-festive-display text-4xl sm:text-6xl font-bold tracking-tight text-amber-200 mb-4 drop-shadow" contenteditable="true">
           BEST DRESSED TEAM
         </h1>
-        <div class="max-w-xl mx-auto bg-green-50 border-2 border-[#1E6B3B] rounded-2xl p-5 text-left space-y-3 shadow-lg">
+        <div class="bd-winner-plaque space-y-3">
           <div>
-            <div class="text-xs font-extrabold uppercase tracking-widest text-[#1E6B3B] mb-1">Winning Team • 得獎隊伍</div>
-            <div id="bestDressedTeamName" class="text-2xl sm:text-4xl font-black text-slate-800" contenteditable="true">
+            <div class="text-xs font-extrabold uppercase tracking-widest text-amber-800 mb-1">Winning Team • 得獎隊伍</div>
+            <div id="bestDressedTeamName" class="text-2xl sm:text-4xl font-black text-[#7f1d1d]" contenteditable="true">
               [Team Name]
             </div>
           </div>
           <div>
-            <div class="text-xs font-extrabold uppercase tracking-widest text-[#1E6B3B] mb-1">Team Members • 隊員</div>
-            <ul id="bestDressedTeamMembers" class="text-base sm:text-lg font-bold text-slate-700 list-disc pl-5 space-y-1" contenteditable="true">
+            <div class="text-xs font-extrabold uppercase tracking-widest text-amber-800 mb-1">Team Members • 隊員</div>
+            <ul id="bestDressedTeamMembers" class="text-base sm:text-lg font-bold text-slate-800 list-disc pl-5 space-y-1" contenteditable="true">
               <li>Member 1</li>
               <li>Member 2</li>
               <li>Member 3</li>
             </ul>
           </div>
         </div>
-        <button type="button" onclick="resetBestDressedReveal()" class="mt-5 text-xs font-bold text-slate-500 hover:text-[#C8372D] underline cursor-pointer">
+        <button type="button" onclick="resetBestDressedReveal()" class="mt-5 text-xs font-bold text-amber-100/70 hover:text-amber-100 underline cursor-pointer">
           Reset seal (rehearsal)
         </button>
       </div>
@@ -1713,19 +1910,19 @@
         <i class="fa-solid fa-gift"></i>
       </div>
       <span class="px-4 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-amber-900 text-xs font-extrabold uppercase tracking-widest">
-        ✨ Surprise Finale
+        ✨ Surprise Finale · 壓軸大獎
       </span>
       <h1 class="font-festive-display text-5xl sm:text-7xl font-bold text-[#C8372D] tracking-tight mt-4 mb-3" contenteditable="true">
         GRAND PRIZES
       </h1>
-      <p class="text-lg sm:text-2xl text-slate-600 font-bold max-w-2xl mx-auto mb-8" contenteditable="true">
-        Time for the surprise finale — roll the wheel again for the premium prizes!
+      <h2 class="text-2xl sm:text-3xl font-black text-[#D97724] mb-4" contenteditable="true">
+        豪華大獎
+      </h2>
+      <p class="text-lg sm:text-2xl text-slate-600 font-bold max-w-2xl mx-auto" contenteditable="true">
+        Time for the surprise finale — premium individual prizes on the next spin!
       </p>
-      <button type="button" onclick="startPhase2Draw()" class="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#C8372D] to-[#D97724] hover:from-[#b91c1c] hover:to-[#b45309] text-white font-black text-lg sm:text-xl tracking-wide shadow-xl transition transform hover:scale-105 active:scale-95 cursor-pointer">
-        <i class="fa-solid fa-dharmachakra"></i> Open Grand Prize Spinner
-      </button>
-      <p class="text-xs sm:text-sm text-slate-500 font-semibold mt-4" id="grandIntroPoolHint">
-        Shared pool — Christmas winners stay out · need 6 remaining names
+      <p class="text-sm text-slate-500 font-semibold mt-3" id="grandIntroPoolHint">
+        Shared pool — Christmas winners stay out · advance to spin
       </p>
     </div>
   </section>
@@ -1774,9 +1971,6 @@
               <p class="text-[10px] text-slate-500 font-semibold">Drawn #6 → #1 · #1 is the best · shared pool</p>
               <button type="button" id="grandSideSpinBtn" onclick="spinWheel()" class="w-full py-2 px-4 rounded-xl bg-gradient-to-r from-[#D97724] to-[#F59E0B] hover:from-[#b45309] hover:to-[#D97724] text-white font-black text-xs tracking-wide transition shadow-lg flex items-center justify-center gap-2 cursor-pointer">
                 <i class="fa-solid fa-dharmachakra"></i> Spin Next Grand Prize
-              </button>
-              <button type="button" onclick="goToSlide(19)" class="w-full py-2 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-black text-xs tracking-wide transition flex items-center justify-center gap-2 cursor-pointer">
-                <i class="fa-solid fa-trophy"></i> View Leaderboard
               </button>
             </div>
           </div>
@@ -1830,8 +2024,8 @@
       <input type="file" id="phase2PrizePhotoInput" accept="image/*" class="hidden" />
       <div class="school-leaderboard">
         <div class="school-leaderboard-header">
-          <div class="school-leaderboard-banner" contenteditable="true">🏆 Honor Roll Leaderboard · 榮譽榜</div>
-          <div class="school-leaderboard-sub">Grand Prizes · Rank #1 first · all 6 posted · no scroll</div>
+          <div class="school-leaderboard-banner" contenteditable="true">🏆 Champions Honor Roll · 榮譽榜</div>
+          <div class="school-leaderboard-sub">Individual Grand Prizes · #1 crowned first · celebrate every winner</div>
         </div>
         <div id="grandPrizesWall" class="leaderboard-rows">
           <!-- filled by JS: ranked leaderboard rows -->
@@ -1908,16 +2102,7 @@
         <button type="button" id="nextSlideBtn" onclick="nextSlide()" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white transition cursor-pointer" title="Next Slide"><i class="fa-solid fa-chevron-right"></i></button>
 
         <div class="h-5 w-px bg-slate-700 mx-0.5"></div>
-        <div class="flex items-center gap-1.5 flex-wrap justify-center">
-          <button type="button" onclick="goToSlide(13)" class="px-2.5 py-1.5 rounded-xl bg-[#C8372D] hover:bg-[#b91c1c] text-white font-black transition cursor-pointer" title="Christmas Gifts Spinner">Xmas Spin</button>
-          <button type="button" onclick="goToSlide(14)" class="px-2.5 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white font-black transition cursor-pointer" title="Christmas Prizes winners">Christmas Winners</button>
-          <button type="button" onclick="goToSlide(16)" class="px-2.5 py-1.5 rounded-xl bg-fuchsia-700 hover:bg-fuchsia-600 text-white font-black transition cursor-pointer hidden sm:inline-flex" title="Best Dress Reveal">Best Dress</button>
-          <button type="button" onclick="goToSlide(18)" class="px-2.5 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-black transition cursor-pointer" title="Grand Prizes Spinner">Grand Spin</button>
-          <button type="button" onclick="goToSlide(19)" class="px-2.5 py-1.5 rounded-xl bg-amber-800 hover:bg-amber-700 text-white font-black transition cursor-pointer" title="Grand Prizes winners">Grand Winners</button>
-          <button type="button" onclick="goToSlide(20)" class="px-2.5 py-1.5 rounded-xl bg-sky-700 hover:bg-sky-600 text-white font-black transition cursor-pointer" title="Group Photo">Group Photo</button>
-          <button type="button" onclick="exportWinners()" class="px-2.5 py-1.5 rounded-xl bg-slate-700 hover:bg-slate-600 text-amber-200 font-black transition cursor-pointer" title="Export winners list"><i class="fa-solid fa-file-export"></i> Export</button>
-        </div>
-
+        <button type="button" onclick="exportWinners()" class="px-2.5 py-1.5 rounded-xl bg-slate-700 hover:bg-slate-600 text-amber-200 font-black transition cursor-pointer" title="Export winners list"><i class="fa-solid fa-file-export"></i> Export</button>
         <div class="h-5 w-px bg-slate-700 mx-0.5"></div>
 
         <button type="button" onclick="toggleBGM()" id="bgmPlayBtn" class="px-3 py-1.5 rounded-xl bg-[#1E6B3B] hover:bg-[#14532D] text-white font-bold flex items-center gap-1.5 transition cursor-pointer" title="Play / Pause phase BGM">
@@ -2445,19 +2630,20 @@
         const photo = grandPrizePhotos[idx];
         const title = w ? (grandPrizeNames[idx] || prize.name) : `🔒 Mystery Prize #${prize.rank}`;
         const medal = prize.rank === 1 ? '🥇' : prize.rank === 2 ? '🥈' : prize.rank === 3 ? '🥉' : `#${prize.rank}`;
-        const lockedClass = w ? '' : ' is-locked';
-        return `<div class="lb-row rank-${prize.rank}${lockedClass}">
+        const stateClass = w ? ' is-won' : ' is-locked';
+        const cheer = prize.rank === 1 ? 'Champion' : prize.rank <= 3 ? 'Podium' : 'Honoree';
+        return `<div class="lb-row rank-${prize.rank}${stateClass}">
           <div class="lb-rank-badge" style="background:${prize.color}" title="Rank ${prize.rank}">${medal}</div>
           <div id="phase2PhotoBox${idx}" onclick="triggerPhase2PhotoUpload(${idx})" class="prize-card-photo">
             ${photo ? `<img src="${photo}" alt="Grand ${idx + 1}" />` : `<i class="fa-solid fa-gift text-lg mb-0.5"></i><span class="text-[9px] font-bold">${w ? 'Photo' : '???'}</span>`}
           </div>
           <div class="min-w-0 flex flex-col gap-1">
             <div class="flex items-center justify-between gap-2 flex-wrap">
-              <span class="text-[9px] font-black uppercase tracking-wider text-slate-500">Rank #${prize.rank}</span>
+              <span class="text-[9px] font-black uppercase tracking-wider ${prize.rank === 1 ? 'text-amber-700' : 'text-slate-500'}">${cheer} · Rank #${prize.rank}</span>
               <button type="button" onclick="triggerPhase2PhotoUpload(${idx})" class="text-[9px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
             </div>
             <input type="text" class="w-full text-xs sm:text-sm font-black text-slate-800 bg-transparent border-b border-dashed border-slate-300 focus:outline-none focus:border-[#D97724] py-0.5" value="${escapeHTML(title)}" onchange="grandPrizeNames[${idx}]=this.value; updateBatchLabels();" />
-            <div class="winner-slot ${w ? 'filled' : ''}">${w ? escapeHTML(w.name) : 'TBA — awaiting winner'}</div>
+            <div class="winner-slot ${w ? 'filled' : ''}">${w ? '🎉 ' + escapeHTML(w.name) : 'TBA — awaiting winner'}</div>
           </div>
         </div>`;
       }).join('');
@@ -2909,9 +3095,9 @@
       const stage = document.getElementById('bestDressedRevealStage');
       const btn = document.getElementById('bestDressedRevealBtn');
       const status = document.getElementById('bestDressedDrumStatus');
-      if (stage) stage.classList.remove('is-drumrolling', 'is-revealed');
+      if (stage) stage.classList.remove('is-drumrolling', 'is-revealed', 'is-flash');
       if (btn) { btn.disabled = false; btn.classList.remove('opacity-50', 'pointer-events-none'); }
-      if (status) status.textContent = 'Press reveal for the drumroll';
+      if (status) status.textContent = 'Lights down — press for the drumroll';
       if (!opts.silent) showToast('Best Dressed seal reset');
     }
 
@@ -2922,20 +3108,23 @@
       const status = document.getElementById('bestDressedDrumStatus');
       if (!stage) return;
       bestDressedRevealBusy = true;
-      stage.classList.remove('is-revealed');
+      stage.classList.remove('is-revealed', 'is-flash');
       stage.classList.add('is-drumrolling');
       if (btn) { btn.disabled = true; btn.classList.add('opacity-50', 'pointer-events-none'); }
-      if (status) status.textContent = '🥁 Drumroll…';
-      // duck BGM a bit during drumroll
+      if (status) status.textContent = '🥁 Drumroll… curtains parting…';
       const prevVol = bgmVolume;
       try {
-        bgmAudio.volume = Math.min(bgmVolume, 0.18);
-        await AudioEngine.playDrumroll(3400);
+        bgmAudio.volume = Math.min(bgmVolume, 0.12);
+        await AudioEngine.playDrumroll(4600);
+        stage.classList.add('is-flash');
         stage.classList.remove('is-drumrolling');
         stage.classList.add('is-revealed');
         if (status) status.textContent = '🎉 Revealed!';
         celebrateWin(3);
+        setTimeout(() => triggerFestiveConfetti(3), 180);
+        setTimeout(() => triggerFestiveConfetti(2), 700);
         showToast('Best Dressed Team revealed!', 'success');
+        setTimeout(() => stage.classList.remove('is-flash'), 600);
       } finally {
         bgmAudio.volume = prevVol;
         bestDressedRevealBusy = false;
@@ -3031,6 +3220,9 @@
         if (currentSlideIdx === SLIDE_GRAND_SPIN && drawPhase !== 2) setDrawPhase(2, { silent: true });
         if (currentSlideIdx === SLIDE_XMAS_SPIN && drawPhase !== 1) setDrawPhase(1, { silent: true });
         spinWheel();
+      } else if (e.code === 'Space' && currentSlideIdx === SLIDE_BEST_REVEAL) {
+        e.preventDefault();
+        startBestDressedReveal();
       }
     });
 
