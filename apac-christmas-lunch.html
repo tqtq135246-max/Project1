@@ -3041,6 +3041,9 @@
       return (track && track.youtubeMode === 'window') ? 'window' : 'embed';
     }
     let ytBgmPopup = null;
+    let ytWindowModeActive = false;
+    const YT_BGM_WINDOW_NAME = 'apacYtBgm';
+    const YT_BGM_WINDOW_FEATURES = 'popup=yes,width=560,height=320';
     function parseYouTubeId(input) {
       if (!input) return '';
       const raw = String(input).trim();
@@ -3100,7 +3103,22 @@
       if (host) host.classList.toggle('is-active', !!active);
     }
 
+    function closeYtBgmPopup() {
+      // Must keep a real window handle (no noopener) so phase leave can stop the music
+      try {
+        let w = (ytBgmPopup && !ytBgmPopup.closed) ? ytBgmPopup : null;
+        if (!w && ytWindowModeActive) {
+          // Reclaim the named companion window if the handle was lost
+          w = window.open('', YT_BGM_WINDOW_NAME);
+        }
+        if (w && !w.closed) w.close();
+      } catch (_) {}
+      ytBgmPopup = null;
+      ytWindowModeActive = false;
+    }
+
     function stopYouTubeBgm() {
+      const hadWindow = ytWindowModeActive || (ytBgmPopup && !ytBgmPopup.closed);
       ytWantPlaying = false;
       // Force loadVideoById on next play — seekTo/playVideo after a pause often stays UNSTARTED
       ytCurrentVideoId = null;
@@ -3108,29 +3126,31 @@
       if (ytPlayer && typeof ytPlayer.pauseVideo === 'function') {
         try { ytPlayer.pauseVideo(); } catch (_) {}
       }
-      // Close companion window on phase leave / pause so Opening MP3 isn't doubled
-      if (ytBgmPopup && !ytBgmPopup.closed) {
-        try { ytBgmPopup.close(); } catch (_) {}
-      }
-      ytBgmPopup = null;
+      closeYtBgmPopup();
+      if (hadWindow) showToast('YouTube BGM stopped for this phase');
     }
 
     function playYouTubeWindow(videoId, label) {
       ytWantPlaying = true;
       ytCurrentVideoId = videoId;
+      ytWindowModeActive = true;
       setYtHostActive(false);
       const url = `https://www.youtube.com/watch?v=${encodeURIComponent(videoId)}`;
       try {
+        // Do not use noopener — we need the handle to close on phase change
         if (ytBgmPopup && !ytBgmPopup.closed) {
-          ytBgmPopup.location.href = url;
-          ytBgmPopup.focus();
+          try { ytBgmPopup.location.href = url; } catch (_) {
+            ytBgmPopup = window.open(url, YT_BGM_WINDOW_NAME, YT_BGM_WINDOW_FEATURES);
+          }
+          try { ytBgmPopup.focus(); } catch (_) {}
         } else {
-          ytBgmPopup = window.open(url, 'apacYtBgm', 'popup=yes,width=560,height=320,noopener');
+          ytBgmPopup = window.open(url, YT_BGM_WINDOW_NAME, YT_BGM_WINDOW_FEATURES);
         }
       } catch (_) {
         ytBgmPopup = null;
       }
-      if (!ytBgmPopup) {
+      if (!ytBgmPopup || ytBgmPopup.closed) {
+        ytWindowModeActive = false;
         showToast('Popup blocked — allow popups, or using local MP3', 'error');
         const phase = getPhaseForSlide(currentSlideIdx);
         const track = customPhaseMp3s[phase.id];
@@ -3143,7 +3163,7 @@
         }
         return;
       }
-      showToast(`${label || 'YouTube BGM'} — play in the YouTube window`);
+      showToast(`${label || 'YouTube BGM'} — play in the window; it closes when you leave this phase`);
     }
 
     async function ensureYtPlayer() {
@@ -3181,17 +3201,15 @@
                 const vid = ytCurrentVideoId || 'lAwiWIBOz24';
                 // 101 / 150 = uploader disabled embedding on this watch page
                 if (code === 101 || code === 150) {
-                  showToast('This YouTube video blocks embedding — opened a player window; local MP3 is backup', 'error');
-                  try {
-                    window.open(
-                      `https://www.youtube.com/watch?v=${encodeURIComponent(vid)}`,
-                      'apacYtBgm',
-                      'popup=yes,width=560,height=320,noopener'
-                    );
-                  } catch (_) {}
-                } else {
-                  showToast(`YouTube BGM error (${code ?? '?'}) — trying local MP3`, 'error');
+                  showToast('This YouTube video blocks embedding — opening a player window', 'error');
+                  // Prefer window mode so phase leave can close it
+                  const phase = getPhaseForSlide(currentSlideIdx);
+                  const track = customPhaseMp3s[phase.id];
+                  if (track) track.youtubeMode = 'window';
+                  playYouTubeWindow(vid, track?.name || 'YouTube BGM');
+                  return;
                 }
+                showToast(`YouTube BGM error (${code ?? '?'}) — trying local MP3`, 'error');
                 const phase = getPhaseForSlide(currentSlideIdx);
                 const track = customPhaseMp3s[phase.id];
                 const fallback = track && !track.dataUrl ? (track.url || '') : '';
@@ -3474,8 +3492,9 @@
       const ytId = resolveYoutubeId(customTrack);
       const ytMode = resolveYoutubeMode(customTrack);
       const trackSrc = ytId ? '' : resolveTrackSrc(customTrack);
+      // Window/embed key omits phase id so Christmas Gifts → Grand keeps the same Inkpot window open
       const desiredKey = ytId
-        ? `yt:${ytMode}:${phase.id}:${ytId}`
+        ? `yt:${ytMode}:${ytId}`
         : (trackSrc ? `custom:${phase.id}:${customTrack?.name || trackSrc}` : phase.id);
       // Keep playing continuously when staying in the same phase / same track
       if (isMusicActive && currentPlayingTrackKey === desiredKey && (!ytId || ytWantPlaying)) {
