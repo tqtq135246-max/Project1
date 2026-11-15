@@ -115,6 +115,26 @@
       box-shadow: 0 20px 45px -12px rgba(35, 72, 106, 0.18);
     }
 
+    /* Stage layout tokens — story cards vs wide boards */
+    .stage-card {
+      width: 100%;
+      max-width: 56rem; /* ~max-w-4xl */
+      padding: 2rem;
+    }
+    @media (min-width: 640px) {
+      .stage-card { padding: 3rem; }
+    }
+    .stage-board {
+      width: 100%;
+      max-width: 72rem; /* ~max-w-6xl */
+    }
+    .stage-board-pad {
+      padding: 1.75rem;
+    }
+    @media (min-width: 640px) {
+      .stage-board-pad { padding: 2.5rem; }
+    }
+
 
     .chalkboard-card {
       background: linear-gradient(145deg, #164e33 0%, #1E6B3B 55%, #14532D 100%);
@@ -1185,7 +1205,7 @@
   <!-- SLIDE 2: MEET YOUR MCs (WITH TRADITIONAL CHINESE)                     -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center text-center" data-title="2. Meet the MCs: Eric & Tony">
-    <div class="festive-card max-w-4xl w-full rounded-3xl p-7 sm:p-10 border-4 border-[#C8372D] overflow-hidden">
+    <div class="festive-card stage-card rounded-3xl border-4 border-[#C8372D] overflow-hidden">
       <div class="mb-6">
         <span class="px-4 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-amber-900 text-xs font-extrabold uppercase tracking-widest">
           🎙️ Class Monitors • 班長 / 主持人
@@ -1255,7 +1275,7 @@
   <!-- SLIDE 3: OPENING SPEECH — HEADMASTER JONATHAN (WITH TRAD CHINESE)     -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center text-center" data-title="3. Opening Speech: Headmaster Jonathan">
-    <div class="chalkboard-card max-w-4xl w-full rounded-3xl p-8 sm:p-14 text-white relative overflow-hidden">
+    <div class="chalkboard-card stage-card rounded-3xl text-white relative overflow-hidden">
       <div class="curtain-panel-left absolute inset-y-0 left-0 w-1/2 z-20 pointer-events-none border-r-4 border-amber-400/80 flex items-center justify-end pr-3">
         <div class="w-4 h-16 rounded-full bg-amber-400 shadow-lg"></div>
       </div>
@@ -1307,7 +1327,7 @@
   <!-- SLIDE 4: BUFFET SCREEN (PREVIEW ONLY)                                 -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center text-center" data-title="4. Lunch Buffet & Game Preview">
-    <div class="festive-card canteen-frame theme-rail max-w-4xl w-full rounded-3xl p-8 sm:p-12 border-4 border-[#1E6B3B]">
+    <div class="festive-card canteen-frame theme-rail stage-card rounded-3xl border-4 border-[#1E6B3B]">
       <div class="w-24 h-24 mx-auto mb-4 rounded-3xl bg-gradient-to-tr from-[#1E6B3B] to-[#23486A] flex items-center justify-center text-white text-4xl shadow-lg animate-float">
         <i class="fa-solid fa-utensils"></i>
       </div>
@@ -1341,7 +1361,7 @@
   <!-- SLIDE 5: GAME 1 SESSION INTRO (BILINGUAL)                             -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center text-center" data-title="5. Game 1: Make a Guess — Intro">
-    <div class="festive-card quiz-sheet theme-rail max-w-4xl w-full rounded-3xl p-10 sm:p-14 border-4 border-[#1E6B3B]">
+    <div class="festive-card quiz-sheet theme-rail stage-card rounded-3xl border-4 border-[#1E6B3B]">
       <div class="theme-icon-tile w-24 h-24 mx-auto mb-5 rounded-3xl bg-[#1E6B3B] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
         <i class="fa-solid fa-clipboard-question"></i>
       </div>
@@ -1367,7 +1387,7 @@
   <!-- SLIDE 6: GAME 1 — OPEN AHASLIDES ONLY                                 -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center text-center" data-title="6. Game 1: Open AhaSlides">
-    <div class="festive-card quiz-sheet theme-rail max-w-3xl w-full rounded-3xl p-10 sm:p-14 border-4 border-[#1E6B3B] flex flex-col items-center justify-center">
+    <div class="festive-card quiz-sheet theme-rail stage-card rounded-3xl border-4 border-[#1E6B3B] flex flex-col items-center justify-center">
       <div class="theme-icon-tile w-24 h-24 mx-auto mb-5 rounded-3xl bg-[#1E6B3B] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
         <i class="fa-solid fa-clipboard-question"></i>
       </div>
@@ -1391,7 +1411,7 @@
   <!-- SLIDE 7: GAME 2 SESSION INTRO (BILINGUAL)                             -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center text-center" data-title="7. Game 2: The Culinary Fanatic — Intro">
-    <div class="festive-card canteen-frame theme-rail max-w-4xl w-full rounded-3xl p-10 sm:p-14 border-4 border-[#23486A]">
+    <div class="festive-card canteen-frame theme-rail stage-card rounded-3xl border-4 border-[#23486A]">
       <div class="theme-icon-tile w-24 h-24 mx-auto mb-5 rounded-3xl bg-[#23486A] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
         <i class="fa-solid fa-people-group"></i>
       </div>
@@ -1417,7 +1437,7 @@
   <!-- SLIDE 8: GAME 2: 6-SET MENU BOARD                                    -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center" data-title="8. Game 2: Menu Board">
-    <div class="max-w-6xl w-full flex flex-col h-full justify-center">
+    <div class="stage-board flex flex-col h-full justify-center">
       <div class="menu-board-shell">
       <div class="menu-board-chalk">
       <div class="text-center mb-3">
@@ -1522,7 +1542,7 @@
   <!-- SLIDE 9: GAME 2: TEAM ROLES (ORDER TAKER, CHEF, SERVER) — BILINGUAL   -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center" data-title="9. Game 2: Team Roles">
-    <div class="max-w-5xl w-full festive-card canteen-frame theme-rail rounded-3xl p-7 sm:p-10">
+    <div class="stage-board stage-board-pad festive-card canteen-frame theme-rail rounded-3xl">
       <div class="text-center mb-6">
         <span class="px-4 py-1 rounded-full bg-sky-100 border border-sky-300 text-sky-900 text-xs font-extrabold uppercase tracking-widest">
           Home Ec Group Project • 家政課小組專題
@@ -1627,7 +1647,7 @@
   <!-- SLIDE 10: GAME 2: SAMPLE ORDER FORM                                   -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center" data-title="10. Game 2: Sample Order Form">
-    <div class="max-w-4xl w-full festive-card homework-sheet theme-rail rounded-3xl p-6 sm:p-9">
+    <div class="stage-card festive-card homework-sheet theme-rail rounded-3xl">
       <div class="text-center mb-4">
         <span class="px-4 py-1 rounded-full bg-sky-100 border border-sky-300 text-sky-900 text-xs font-extrabold uppercase tracking-widest">
           Class Worksheet • 課堂習作單
@@ -1660,7 +1680,7 @@
   <!-- SLIDE 11: GAME 2: LIVE DEMO PROCESS FLOW                               -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center" data-title="11. Game 2: Demo Process Flow">
-    <div class="max-w-6xl w-full festive-card canteen-frame theme-rail rounded-3xl p-6 sm:p-8">
+    <div class="stage-board stage-board-pad festive-card canteen-frame theme-rail rounded-3xl">
       <div class="text-center mb-6">
         <span class="px-4 py-1.5 rounded-full bg-blue-100 border border-blue-300 text-blue-800 text-xs font-extrabold uppercase tracking-widest">
           Teacher Demo • 老師課堂示範
@@ -1806,7 +1826,7 @@
   <!-- SLIDE 12: DESSERT & COFFEE BREAK (TUCK SHOP RECESS)                   -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center text-center" data-title="13. Dessert & Coffee Break">
-    <div class="festive-card canteen-frame theme-rail max-w-4xl w-full rounded-3xl p-8 sm:p-12 border-4 border-[#1E6B3B]">
+    <div class="festive-card canteen-frame theme-rail stage-card rounded-3xl border-4 border-[#1E6B3B]">
       <div class="w-24 h-24 mx-auto mb-4 rounded-3xl bg-gradient-to-tr from-[#1E6B3B] to-[#23486A] flex items-center justify-center text-white text-4xl shadow-lg animate-float">
         <i class="fa-solid fa-cookie-bite"></i>
       </div>
@@ -1948,7 +1968,7 @@
   <!-- SLIDE 14: CHRISTMAS GIFTS WALL (SCHOOL NOTICE BOARD)                  -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center" data-title="15. Christmas Gifts Wall">
-    <div class="max-w-6xl w-full">
+    <div class="stage-board">
       <input type="file" id="phase1PrizePhotoInput" accept="image/*" class="hidden" />
       <div class="school-notice-board">
         <div class="notice-deco sticky-yellow">Don't peel!<br/>老師留步</div>
@@ -1970,7 +1990,7 @@
   <!-- SLIDE 15: BEST DRESSED — AWARD INTRO                                  -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center text-center" data-title="16. Best Dressed — Intro">
-    <div class="max-w-4xl w-full festive-card yearbook-card theme-rail rounded-3xl p-8 sm:p-12 border-4 border-[#C8372D]">
+    <div class="stage-card festive-card yearbook-card theme-rail rounded-3xl border-4 border-[#C8372D]">
       <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-tr from-[#C8372D] via-amber-500 to-yellow-300 flex items-center justify-center text-white text-4xl shadow-xl animate-float">
         <i class="fa-solid fa-camera-retro"></i>
       </div>
@@ -2014,7 +2034,7 @@
   <!-- SLIDE 16: BEST DRESSED — WINNER REVEAL (DRUMROLL)                     -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center text-center" data-title="17. Best Dressed — Reveal">
-    <div id="bestDressedRevealStage" class="bd-reveal-stage max-w-5xl w-full rounded-3xl p-8 sm:p-12 border-4 relative shadow-2xl">
+    <div id="bestDressedRevealStage" class="bd-reveal-stage stage-board stage-board-pad rounded-3xl border-4 relative shadow-2xl">
       <div class="bd-rays" aria-hidden="true"></div>
       <div class="bd-spotlight" aria-hidden="true"></div>
       <div class="bd-flash" aria-hidden="true"></div>
@@ -2066,7 +2086,7 @@
   <!-- SLIDE 17: LUCKY DRAW PHASE 2 (INTRO & WHEEL)                           -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center text-center" data-title="18. Grand Prizes Intro">
-    <div class="festive-card finale-card theme-rail max-w-4xl w-full rounded-3xl p-10 sm:p-14 border-4 border-[#D97724]">
+    <div class="festive-card finale-card theme-rail stage-card rounded-3xl border-4 border-[#D97724]">
       <div class="w-24 h-24 mx-auto mb-5 rounded-3xl bg-gradient-to-tr from-[#C8372D] to-[#D97724] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
         <i class="fa-solid fa-gift"></i>
       </div>
@@ -2181,7 +2201,7 @@
   <!-- SLIDE 20: GRAND PRIZES WALL (SCHOOL LEADERBOARD)                       -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center" style="padding-top: 3.25rem; padding-bottom: 4.25rem;" data-title="20. Grand Prizes Wall">
-    <div class="max-w-5xl w-full">
+    <div class="stage-board">
       <input type="file" id="phase2PrizePhotoInput" accept="image/*" class="hidden" />
       <div class="school-leaderboard">
         <div class="school-leaderboard-header">
