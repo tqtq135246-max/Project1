@@ -2343,7 +2343,17 @@
     let activeProductSetIdx = 1;
     let customVdoNinjaUrl = '';
     let companyLogoDataUrl = '';
-    let customPhaseMp3s = {}; // phaseId -> { name, dataUrl }
+    // Bundled phase MP3s (relative paths). Uploads may override with { name, dataUrl }.
+    const DEFAULT_PHASE_MP3S = {
+      opening: { name: 'Opening.mp3', url: 'audio/Opening.mp3' },
+      mcs: { name: 'MC.mp3', url: 'audio/MC.mp3' },
+      headmaster: { name: 'headmaster.mp3', url: 'audio/headmaster.mp3' },
+      buffet: { name: 'buffet.mp3', url: 'audio/buffet.mp3' },
+      game1: { name: 'Game1.mp3', url: 'audio/Game1.mp3' },
+      game2: { name: 'Game2.mp3', url: 'audio/Game2.mp3' },
+      finale: { name: 'finale.mp3', url: 'audio/finale.mp3' }
+    };
+    let customPhaseMp3s = { ...DEFAULT_PHASE_MP3S }; // phaseId -> { name, url? | dataUrl? }
     let vdoRoomId = '';
     let vdoPushUrl = '';
     let christmasBatchIndex = 0; // 0..4 into CHRISTMAS_BATCHES
@@ -2982,8 +2992,13 @@
     let musicLoopTimer = null;
     let barIndex = 0;
     let bgmVolume = 0.5;
-    let customBellDataUrl = '';
-    let customBellFileName = '';
+    let customBellDataUrl = 'audio/Bell.mp3';
+    let customBellFileName = 'Bell.mp3';
+
+    function resolveTrackSrc(track) {
+      if (!track) return '';
+      return track.dataUrl || track.url || '';
+    }
     let currentPlayingTrackKey = null;
 
     const F = {
@@ -3139,11 +3154,12 @@
       const phase = getPhaseForSlide(currentSlideIdx);
       const uploadPhaseId = document.getElementById('bgmPhaseSelect')?.value || phase.id;
       const custom = customPhaseMp3s[phase.id];
-      const track = TRACKS[phase.trackKey];
       bgmLabel.textContent = custom ? `${phase.label}: ${custom.name}` : phase.label;
       bgmIcon.className = isMusicActive ? 'fa-solid fa-pause' : 'fa-solid fa-play';
       const sel = document.getElementById('bgmPhaseSelect');
       if (sel && document.activeElement !== sel) sel.value = uploadPhaseId;
+      const bellLbl = document.getElementById('bellMp3Label');
+      if (bellLbl && customBellFileName) bellLbl.textContent = customBellFileName;
     }
 
     function stopCurrentAudio() {
@@ -3154,7 +3170,7 @@
 
     function scheduleNextBar() {
       const phase = getPhaseForSlide(currentSlideIdx);
-      if (!isMusicActive || customPhaseMp3s[phase.id]) return;
+      if (!isMusicActive || resolveTrackSrc(customPhaseMp3s[phase.id])) return;
       StudioSynth.init(); if (!StudioSynth.ctx) return;
       const arr = TRACKS[phase.trackKey];
       const bar = arr.bars[barIndex % arr.bars.length];
@@ -3170,7 +3186,8 @@
     function startSlideMusic(slideIdx) {
       const phase = getPhaseForSlide(slideIdx);
       const customTrack = customPhaseMp3s[phase.id];
-      const desiredKey = customTrack ? `custom:${phase.id}` : phase.id;
+      const trackSrc = resolveTrackSrc(customTrack);
+      const desiredKey = trackSrc ? `custom:${phase.id}:${customTrack?.name || trackSrc}` : phase.id;
       // Keep playing continuously when staying in the same phase
       if (isMusicActive && currentPlayingTrackKey === desiredKey) {
         updateMusicHudUI();
@@ -3180,11 +3197,11 @@
       currentPlayingTrackKey = desiredKey;
       updateMusicHudUI();
       if (!isMusicActive) return;
-      if (customTrack) {
-        bgmAudio.src = customTrack.dataUrl;
+      if (trackSrc) {
+        bgmAudio.src = trackSrc;
         bgmAudio.volume = bgmVolume;
         bgmAudio.loop = true;
-        bgmAudio.play().catch(() => {});
+        bgmAudio.play().catch(() => showToast(`Could not play ${customTrack?.name || phase.label}`, 'error'));
       } else {
         barIndex = 0;
         scheduleNextBar();
