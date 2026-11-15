@@ -3065,11 +3065,14 @@
     }
     let currentPlayingTrackKey = null;
 
-    // --- YouTube BGM: real in-page <iframe> embed (single-track repeat only) ---
+    // --- YouTube BGM: in-page embed with local MP3 fallback when offline / embed fails ---
     let ytCurrentVideoId = null;
     let ytWantPlaying = false;
     let ytEmbedGen = 0;
     let ytLoopHooked = false;
+    let ytGotPlayingSignal = false;
+    let ytWatchdogTimer = null;
+    const ytUnavailableIds = new Set(); // video ids that failed this session
 
     function getYtFrame() {
       return document.getElementById('ytBgmFrame');
@@ -3092,9 +3095,33 @@
 
     function restartYtSingleTrack() {
       if (!ytWantPlaying || !ytCurrentVideoId) return;
-      // Prefer seek+play so we never advance into related/radio tracks
       postYtCommand('seekTo', [0, true]);
       postYtCommand('playVideo');
+    }
+
+    function clearYtWatchdog() {
+      if (ytWatchdogTimer) {
+        clearTimeout(ytWatchdogTimer);
+        ytWatchdogTimer = null;
+      }
+    }
+
+    async function probeYoutubeReachable() {
+      if (typeof navigator !== 'undefined' && navigator.onLine === false) return false;
+      try {
+        const ctrl = new AbortController();
+        const t = setTimeout(() => ctrl.abort(), 2000);
+        // no-cors: opaque OK means the network reached YouTube; failure => offline/blocked
+        await fetch('https://www.youtube.com/favicon.ico', {
+          mode: 'no-cors',
+          cache: 'no-store',
+          signal: ctrl.signal
+        });
+        clearTimeout(t);
+        return true;
+      } catch (_) {
+        return false;
+      }
     }
 
     function ensureYtSingleRepeatHook() {
@@ -3109,9 +3136,28 @@
           return;
         }
         if (!data || typeof data !== 'object') return;
-        // ENDED = 0 — restart the same video (repeat one)
-        const ended = data.event === 'onStateChange' && (data.info === 0 || data.info === '0');
-        if (ended) restartYtSingleTrack();
+        if (data.event === 'onError') {
+          const failedId = ytCurrentVideoId;
+          if (failedId) ytUnavailableIds.add(failedId);
+          fallbackPhaseMp3('YouTube error — using local MP3');
+          return;
+        }
+        if (data.event === 'onStateChange') {
+          const st = data.info;
+          // 1=PLAYING, 3=BUFFERING — embed is alive
+          if (st === 1 || st === 3 || st === '1' || st === '3') {
+            ytGotPlayingSignal = true;
+            clearYtWatchdog();
+          }
+          // 0=ENDED — restart same track
+          if (st === 0 || st === '0') restartYtSingleTrack();
+        }
+      });
+      window.addEventListener('offline', () => {
+        if (ytWantPlaying) fallbackPhaseMp3('No network — using local MP3');
+      });
+      window.addEventListener('online', () => {
+        ytUnavailableIds.clear(); // allow YouTube retry after reconnect
       });
     }
 
@@ -3144,50 +3190,91 @@
       ytWantPlaying = false;
       ytEmbedGen += 1;
       ytCurrentVideoId = null;
+      ytGotPlayingSignal = false;
+      clearYtWatchdog();
       setYtHostActive(false);
       const frame = getYtFrame();
       if (frame) {
-        // Blanking the iframe hard-stops audio when leaving the phase
         try { postYtCommand('pauseVideo'); } catch (_) {}
         try { frame.src = 'about:blank'; } catch (_) {}
       }
       if (wasPlaying && !opts.silent) showToast('YouTube BGM stopped');
     }
 
-    function fallbackPhaseMp3() {
+    function localTrackLabel(track) {
+      if (!track) return 'Local MP3';
+      if (track.url) return track.url.split('/').pop() || track.name || 'Local MP3';
+      return track.name || 'Local MP3';
+    }
+
+    function fallbackPhaseMp3(reason) {
       const phase = getPhaseForSlide(currentSlideIdx);
       const track = customPhaseMp3s[phase.id];
-      const fallback = track?.url || '';
-      if (!fallback || !isMusicActive) return;
+      // Prefer bundled/uploaded local file for this phase
+      const fallback = track?.dataUrl || track?.url || '';
+      stopYouTubeBgm({ silent: true });
+      if (!fallback || !isMusicActive) {
+        showToast(reason || 'No local MP3 available for this phase', 'error');
+        updateMusicHudUI();
+        return;
+      }
       bgmAudio.src = fallback;
       bgmAudio.volume = bgmVolume;
-      bgmAudio.loop = true; // single-track repeat for local fallback too
-      bgmAudio.play().catch(() => {});
-      currentPlayingTrackKey = `custom:${phase.id}:${track?.name || fallback}`;
-      showToast('YouTube embed unavailable — playing local MP3', 'error');
+      bgmAudio.loop = true;
+      bgmAudio.play().catch(() => showToast('Could not play local MP3', 'error'));
+      currentPlayingTrackKey = `custom:${phase.id}:${localTrackLabel(track)}`;
+      bgmLabel.textContent = `${phase.label}: ${localTrackLabel(track)}`;
+      bgmIcon.className = 'fa-solid fa-pause';
+      showToast(reason || 'Using local MP3', 'error');
     }
 
     function playYouTubeBgm(videoId, label) {
       const playGen = (ytEmbedGen += 1);
-      ytWantPlaying = true;
-      ytCurrentVideoId = videoId;
       ensureYtSingleRepeatHook();
-      setYtHostActive(true, `↻ ${label || 'YouTube BGM'}`);
-      const frame = getYtFrame();
-      if (!frame) {
-        showToast('YouTube player missing', 'error');
-        fallbackPhaseMp3();
+
+      const startEmbed = () => {
+        if (playGen !== ytEmbedGen || !isMusicActive) return;
+        ytWantPlaying = true;
+        ytCurrentVideoId = videoId;
+        ytGotPlayingSignal = false;
+        setYtHostActive(true, `↻ ${label || 'YouTube BGM'}`);
+        const frame = getYtFrame();
+        if (!frame) {
+          fallbackPhaseMp3('YouTube player missing — using local MP3');
+          return;
+        }
+        frame.src = ytEmbedSrc(videoId);
+        const arm = () => {
+          if (!ytWantPlaying || playGen !== ytEmbedGen) return;
+          armYtApiListening();
+        };
+        setTimeout(arm, 600);
+        setTimeout(arm, 1600);
+        clearYtWatchdog();
+        // If embed never starts (offline mid-load / blocked video), revert to local MP3
+        ytWatchdogTimer = setTimeout(() => {
+          if (playGen !== ytEmbedGen || !ytWantPlaying || ytGotPlayingSignal) return;
+          ytUnavailableIds.add(videoId);
+          fallbackPhaseMp3('YouTube unavailable — using local MP3');
+        }, 5500);
+        showToast(`${label || 'YouTube BGM'} — looping this track`);
+      };
+
+      // Offline or previously failed id → local MP3 immediately
+      if ((typeof navigator !== 'undefined' && navigator.onLine === false) || ytUnavailableIds.has(videoId)) {
+        fallbackPhaseMp3('No network — using local MP3');
         return;
       }
-      // Native embed — single video only (no radio list); phase leave clears src
-      frame.src = ytEmbedSrc(videoId);
-      const arm = () => {
-        if (!ytWantPlaying || playGen !== ytEmbedGen) return;
-        armYtApiListening();
-      };
-      setTimeout(arm, 600);
-      setTimeout(arm, 1600);
-      showToast(`${label || 'YouTube BGM'} — looping this track`);
+
+      void (async () => {
+        const ok = await probeYoutubeReachable();
+        if (playGen !== ytEmbedGen || !isMusicActive) return;
+        if (!ok) {
+          fallbackPhaseMp3('No network — using local MP3');
+          return;
+        }
+        startEmbed();
+      })();
     }
 
     function promptPhaseYouTube() {
@@ -3382,9 +3469,21 @@
       const uploadPhaseId = document.getElementById('bgmPhaseSelect')?.value || phase.id;
       const custom = customPhaseMp3s[phase.id];
       const ytId = resolveYoutubeId(custom);
-      bgmLabel.textContent = custom
-        ? `${phase.label}: ${ytId ? '▶ ' : ''}${custom.name}`
-        : phase.label;
+      const offline = typeof navigator !== 'undefined' && navigator.onLine === false;
+      const usingLocalFallback = !!(custom && (custom.dataUrl || custom.url) && (
+        ytWantPlaying === false && (
+          (currentPlayingTrackKey && currentPlayingTrackKey.startsWith('custom:')) ||
+          offline ||
+          (ytId && ytUnavailableIds.has(ytId))
+        )
+      ));
+      if (usingLocalFallback) {
+        bgmLabel.textContent = `${phase.label}: ${localTrackLabel(custom)}`;
+      } else if (custom) {
+        bgmLabel.textContent = `${phase.label}: ${ytId ? '▶ ' : ''}${custom.name}`;
+      } else {
+        bgmLabel.textContent = phase.label;
+      }
       bgmIcon.className = isMusicActive ? 'fa-solid fa-pause' : 'fa-solid fa-play';
       const sel = document.getElementById('bgmPhaseSelect');
       if (sel && document.activeElement !== sel) sel.value = uploadPhaseId;
@@ -3419,29 +3518,32 @@
       const phase = getPhaseForSlide(slideIdx);
       const customTrack = customPhaseMp3s[phase.id];
       const ytId = resolveYoutubeId(customTrack);
-      const trackSrc = ytId ? '' : resolveTrackSrc(customTrack);
-      // Same YouTube id keeps one embed across Christmas Gifts → Grand Prizes
-      const desiredKey = ytId
+      const offline = typeof navigator !== 'undefined' && navigator.onLine === false;
+      const ytBlocked = !!(ytId && (offline || ytUnavailableIds.has(ytId)));
+      // Prefer local MP3 when offline or this YouTube id already failed
+      const trackSrc = (ytId && !ytBlocked) ? '' : resolveTrackSrc(customTrack);
+      const desiredKey = (ytId && !ytBlocked)
         ? `yt:embed:${ytId}`
-        : (trackSrc ? `custom:${phase.id}:${customTrack?.name || trackSrc}` : phase.id);
+        : (trackSrc ? `custom:${phase.id}:${localTrackLabel(customTrack)}` : phase.id);
       // Keep playing continuously when staying in the same phase / same track
-      if (isMusicActive && currentPlayingTrackKey === desiredKey && (!ytId || ytWantPlaying)) {
+      if (isMusicActive && currentPlayingTrackKey === desiredKey && (!(ytId && !ytBlocked) || ytWantPlaying)) {
         updateMusicHudUI();
         return;
       }
       const wasYt = ytWantPlaying;
       stopCurrentAudio();
-      if (wasYt && !ytId) showToast('YouTube BGM stopped');
+      if (wasYt && !(ytId && !ytBlocked)) showToast('YouTube BGM stopped');
       currentPlayingTrackKey = desiredKey;
       updateMusicHudUI();
       if (!isMusicActive) return;
-      if (ytId) {
+      if (ytId && !ytBlocked) {
         playYouTubeBgm(ytId, customTrack?.name || phase.label);
       } else if (trackSrc) {
         bgmAudio.src = trackSrc;
         bgmAudio.volume = bgmVolume;
         bgmAudio.loop = true;
         bgmAudio.play().catch(() => showToast(`Could not play ${customTrack?.name || phase.label}`, 'error'));
+        if (ytBlocked) showToast(offline ? 'No network — using local MP3' : 'YouTube unavailable — using local MP3', 'error');
       } else {
         barIndex = 0;
         scheduleNextBar();
