@@ -1910,10 +1910,7 @@
                   <label class="text-xs font-extrabold text-slate-700 flex items-center gap-1.5"><i class="fa-solid fa-layer-group text-[#1E6B3B]"></i> Next batch</label>
                   <span id="nextBatchLabel" class="text-[11px] font-black text-[#C8372D]">3× Gift A</span>
                 </div>
-                <p class="text-[10px] text-slate-500 font-semibold">Sequence: 3 → 3 → 4 → 3 → 1 of a kind</p>
-                <button type="button" id="batchDrawBtn" class="w-full py-2 px-4 rounded-xl bg-gradient-to-r from-[#C8372D] to-[#DC2626] hover:from-[#b91c1c] hover:to-[#C8372D] text-white font-black text-xs tracking-wide transition shadow-lg shadow-red-900/20 flex items-center justify-center gap-2 cursor-pointer">
-                  <i class="fa-solid fa-play"></i> Draw Next Christmas Batch
-                </button>
+                <p class="text-[10px] text-slate-500 font-semibold">Sequence: 3 → 3 → 4 → 3 → 1 · use the center DRAW / Space</p>
                 <div id="sharedPoolHandoff" class="rounded-xl bg-amber-50 border border-amber-200 px-2.5 py-2 text-[10px] font-semibold text-amber-900 leading-relaxed">
                   Shared pool · <span id="sharedPoolLeftLabel">28</span> names left after Christmas winners are removed · need 6 for Grand
                 </div>
@@ -1935,12 +1932,12 @@
             <div class="w-full h-full rounded-full p-2 relative flex items-center justify-center">
               <canvas id="wheelCanvas" class="wheel-shadow w-full h-full cursor-pointer max-w-full max-h-full rounded-full transition-transform" width="900" height="900"></canvas>
               <button type="button" id="spinBtn" class="absolute z-10 w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-tr from-[#991B1B] via-[#C8372D] to-[#DC2626] text-white font-black text-base sm:text-lg tracking-wider uppercase flex flex-col items-center justify-center shadow-2xl border-4 border-[#FEF3C7] hover:scale-105 active:scale-95 transition-all group cursor-pointer">
-                <span class="group-hover:text-amber-200 transition">SPIN</span>
+                <span class="group-hover:text-amber-200 transition">DRAW</span>
                 <div class="w-4 h-1.5 bg-[#F59E0B] rounded-full mt-1"></div>
               </button>
             </div>
           </div>
-          <div class="mt-2 text-center text-sm text-slate-600 font-bold">Click <span class="text-[#C8372D] font-black uppercase">Spin</span> or press <kbd class="px-2 py-0.5 rounded bg-slate-100 border border-slate-300 text-slate-800 font-mono">SPACE</kbd></div>
+          <div class="mt-2 text-center text-sm text-slate-600 font-bold">Click <span class="text-[#C8372D] font-black uppercase">Draw</span> for the next gift batch · or press <kbd class="px-2 py-0.5 rounded bg-slate-100 border border-slate-300 text-slate-800 font-mono">SPACE</kbd></div>
         </div>
 
         <div class="lg:col-span-3 flex flex-col gap-3 order-3">
@@ -2155,10 +2152,7 @@
                 <label class="text-xs font-extrabold text-slate-700 flex items-center gap-1.5"><i class="fa-solid fa-crown text-amber-500"></i> Next rank</label>
                 <span id="nextGrandLabel" class="text-[11px] font-black text-[#D97724]">Grand Prize #6</span>
               </div>
-              <p class="text-[10px] text-slate-500 font-semibold">Drawn #6 → #1 · #1 is the best · shared pool</p>
-              <button type="button" id="grandSideSpinBtn" onclick="spinWheel()" class="w-full py-2 px-4 rounded-xl bg-gradient-to-r from-[#D97724] to-[#F59E0B] hover:from-[#b45309] hover:to-[#D97724] text-white font-black text-xs tracking-wide transition shadow-lg flex items-center justify-center gap-2 cursor-pointer">
-                <i class="fa-solid fa-dharmachakra"></i> Spin Next Grand Prize
-              </button>
+              <p class="text-[10px] text-slate-500 font-semibold">Drawn #6 → #1 · #1 is the best · use center SPIN / Space</p>
             </div>
           </div>
         </div>
@@ -3512,9 +3506,13 @@
       else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prevSlide(); }
       else if (e.code === 'Space' && (currentSlideIdx === SLIDE_XMAS_SPIN || currentSlideIdx === SLIDE_GRAND_SPIN) && !isSpinning && !isBatchRunning) {
         e.preventDefault();
-        if (currentSlideIdx === SLIDE_GRAND_SPIN && drawPhase !== 2) setDrawPhase(2, { silent: true });
-        if (currentSlideIdx === SLIDE_XMAS_SPIN && drawPhase !== 1) setDrawPhase(1, { silent: true });
-        spinWheel();
+        if (currentSlideIdx === SLIDE_XMAS_SPIN) {
+          if (drawPhase !== 1) setDrawPhase(1, { silent: true });
+          runBatchDraw();
+        } else {
+          if (drawPhase !== 2) setDrawPhase(2, { silent: true });
+          spinWheel();
+        }
       } else if (e.code === 'Space' && currentSlideIdx === SLIDE_BEST_REVEAL) {
         e.preventDefault();
         startBestDressedReveal();
@@ -3549,14 +3547,14 @@
     const grandSpinBtn = document.getElementById('grandSpinBtn');
     const itemCountBadge = document.getElementById('itemCountBadge'); const winnersList = document.getElementById('winnersList');
     const winnerCountText = document.getElementById('winnerCountText'); const autoRemoveToggle = document.getElementById('autoRemoveToggle');
-    const batchDrawBtn = document.getElementById('batchDrawBtn'); const batchCountInput = document.getElementById('batchCountInput');
+    const batchCountInput = document.getElementById('batchCountInput');
 
     function getWheelCanvases() {
       return [canvas, grandCanvas].filter(Boolean);
     }
 
     function setSpinControlsDisabled(disabled) {
-      [spinBtn, grandSpinBtn, document.getElementById('grandSideSpinBtn')].forEach((btn) => {
+      [spinBtn, grandSpinBtn].forEach((btn) => {
         if (!btn) return;
         btn.disabled = disabled;
         btn.classList.toggle('opacity-80', disabled);
@@ -3759,11 +3757,10 @@
       const drawCount = Math.min(need, items.length);
       if (drawCount <= 0) { showToast('Batch already filled'); return; }
       isBatchRunning = true;
-      spinBtn.disabled = true;
-      if (batchDrawBtn) {
-        batchDrawBtn.disabled = true;
-        batchDrawBtn.classList.add('opacity-70');
-        batchDrawBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Drawing batch…';
+      if (spinBtn) {
+        spinBtn.disabled = true;
+        const label = spinBtn.querySelector('span');
+        if (label) label.textContent = '…';
       }
       const giftIndex = christmasBatchIndex;
       const drawn = [];
@@ -3784,10 +3781,9 @@
       isBatchRunning = false;
       isSpinning = false;
       setSpinControlsDisabled(false);
-      if (batchDrawBtn) {
-        batchDrawBtn.disabled = false;
-        batchDrawBtn.classList.remove('opacity-70');
-        batchDrawBtn.innerHTML = '<i class="fa-solid fa-play"></i> Draw Next Christmas Batch';
+      if (spinBtn) {
+        const label = spinBtn.querySelector('span');
+        if (label) label.textContent = 'DRAW';
       }
       if (drawn.length) {
         celebrateWin(2);
@@ -3882,9 +3878,14 @@
     function escapeHTML(str) { return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)); }
 
     entriesInput.addEventListener('input', syncItemsFromInput);
-    spinBtn.addEventListener('click', () => { if (drawPhase !== 1) setDrawPhase(1, { silent: true }); spinWheel(); });
-    if (grandSpinBtn) grandSpinBtn.addEventListener('click', () => { if (drawPhase !== 2) setDrawPhase(2, { silent: true }); spinWheel(); });
-    batchDrawBtn.addEventListener('click', runBatchDraw);
+    spinBtn.addEventListener('click', () => {
+      if (drawPhase !== 1) setDrawPhase(1, { silent: true });
+      runBatchDraw();
+    });
+    if (grandSpinBtn) grandSpinBtn.addEventListener('click', () => {
+      if (drawPhase !== 2) setDrawPhase(2, { silent: true });
+      spinWheel();
+    });
 
     document.getElementById('shuffleBtn').addEventListener('click', () => {
       for (let i = items.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [items[i], items[j]] = [items[j], items[i]]; }
@@ -3954,7 +3955,11 @@
     });
 
     document.getElementById('closeModalBtn').addEventListener('click', hideWinnerModal);
-    document.getElementById('modalSpinAgainBtn').addEventListener('click', () => { hideWinnerModal(); spinWheel(); });
+    document.getElementById('modalSpinAgainBtn').addEventListener('click', () => {
+      hideWinnerModal();
+      if (drawPhase === 1) runBatchDraw();
+      else spinWheel();
+    });
     document.getElementById('modalContinueBtn').addEventListener('click', hideWinnerModal);
     document.getElementById('winnerModal').addEventListener('click', (e) => {
       if (e.target.id === 'winnerModal' && !document.getElementById('modalActionRow')?.classList.contains('pointer-events-none')) {
