@@ -115,10 +115,159 @@
       box-shadow: 0 20px 45px -12px rgba(35, 72, 106, 0.18);
     }
 
+
     .chalkboard-card {
       background: linear-gradient(145deg, #164e33 0%, #1E6B3B 55%, #14532D 100%);
       border: 6px solid #b4692e;
       box-shadow: 0 20px 45px -12px rgba(20, 83, 45, 0.35), inset 0 0 28px rgba(0,0,0,0.28);
+    }
+
+    /* Dual-theme visual frames: Christmas + Back to School */
+    .theme-rail {
+      position: relative;
+      overflow: hidden;
+    }
+    .theme-rail::before {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 10px;
+      background: repeating-linear-gradient(
+        90deg,
+        #C8372D 0 18px,
+        #1E6B3B 18px 36px,
+        #D97724 36px 54px,
+        #23486A 54px 72px
+      );
+      opacity: 0.95;
+      z-index: 2;
+    }
+    .theme-rail::after {
+      content: '✏️ 🎄 📚 🎁 🎓 ❄️';
+      position: absolute;
+      right: 0.85rem;
+      top: 0.85rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      opacity: 0.7;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .quiz-sheet {
+      border-color: #C8372D !important;
+      background:
+        linear-gradient(90deg, rgba(200,55,45,0.08) 0 28px, transparent 28px),
+        rgba(255,255,255,0.97);
+      background-image:
+        linear-gradient(90deg, rgba(200,55,45,0.12) 0 28px, transparent 28px),
+        linear-gradient(to bottom, transparent 96%, rgba(148, 163, 184, 0.18) 97%);
+      background-size: auto, 100% 28px;
+      box-shadow: 0 20px 45px -12px rgba(200, 55, 45, 0.18);
+    }
+    .quiz-sheet .theme-icon-tile {
+      background: linear-gradient(145deg, #C8372D, #1E6B3B) !important;
+    }
+    .canteen-frame {
+      border-color: #b4692e !important;
+      border-width: 5px !important;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(253,224,71,0.14), transparent 42%),
+        rgba(255,255,255,0.97);
+      box-shadow:
+        0 0 0 3px rgba(30,107,59,0.15),
+        0 20px 45px -12px rgba(35, 72, 106, 0.2);
+    }
+    .canteen-frame .theme-icon-tile {
+      background: linear-gradient(145deg, #23486A, #C8372D) !important;
+    }
+    .menu-board-shell {
+      position: relative;
+      border-radius: 1.1rem;
+      padding: 0.85rem 0.85rem 1rem;
+      background: linear-gradient(160deg, #3b2414 0%, #6b3e1f 45%, #3b2414 100%);
+      border: 6px solid #b4692e;
+      box-shadow: inset 0 0 0 3px #d97724, 0 22px 40px -18px rgba(59,36,20,0.45);
+    }
+    .menu-board-shell .menu-board-chalk {
+      border-radius: 0.75rem;
+      background: linear-gradient(160deg, #164e33, #1E6B3B 55%, #14532D);
+      padding: 0.85rem 0.9rem 1rem;
+      border: 2px dashed rgba(253, 224, 71, 0.35);
+    }
+    .menu-board-shell .festive-card {
+      background: rgba(255,255,255,0.96);
+    }
+    .homework-sheet {
+      border-style: solid !important;
+      border-color: #23486A !important;
+      background:
+        radial-gradient(circle at 18px 28px, #e2e8f0 0 6px, transparent 7px),
+        radial-gradient(circle at 18px 58px, #e2e8f0 0 6px, transparent 7px),
+        radial-gradient(circle at 18px 88px, #e2e8f0 0 6px, transparent 7px),
+        linear-gradient(90deg, transparent 40px, rgba(200,55,45,0.12) 40px 42px, transparent 42px),
+        linear-gradient(to bottom, transparent 96%, rgba(148,163,184,0.16) 97%),
+        #fffef8;
+      background-size: auto, auto, auto, auto, 100% 28px, auto;
+      box-shadow: 0 18px 40px -14px rgba(35,72,106,0.22);
+    }
+    .homework-stamp {
+      display: inline-block;
+      margin-top: 0.65rem;
+      padding: 0.2rem 0.55rem;
+      border: 2px solid #C8372D;
+      color: #C8372D;
+      font-weight: 900;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transform: rotate(-6deg);
+      opacity: 0.85;
+    }
+    .lab-live-bar {
+      background:
+        linear-gradient(90deg, rgba(200,55,45,0.08), rgba(30,107,59,0.08)),
+        rgba(255,255,255,0.97) !important;
+      border-color: #C8372D !important;
+    }
+    .lab-live-bar.theme-rail::after { display: none; }
+    .theme-rail { padding-top: 1.35rem; }
+    .flow-step {
+      position: relative;
+    }
+    .flow-step::after {
+      content: '✓';
+      position: absolute;
+      top: 0.55rem;
+      right: 0.65rem;
+      width: 1.35rem;
+      height: 1.35rem;
+      border-radius: 999px;
+      border: 2px dashed rgba(30,107,59,0.35);
+      color: #1E6B3B;
+      font-size: 0.7rem;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.55;
+    }
+    .yearbook-card {
+      border-color: #C8372D !important;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(253,224,71,0.18), transparent 28%),
+        radial-gradient(circle at 88% 12%, rgba(200,55,45,0.1), transparent 26%),
+        linear-gradient(to bottom, transparent 96%, rgba(148,163,184,0.14) 97%),
+        rgba(255,255,255,0.97);
+      background-size: auto, auto, 100% 28px, auto;
+    }
+    .finale-card {
+      border-color: #D97724 !important;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(253,224,71,0.22), transparent 45%),
+        linear-gradient(to bottom, transparent 96%, rgba(148,163,184,0.14) 97%),
+        rgba(255,255,255,0.97);
+      background-size: auto, 100% 28px, auto;
+      box-shadow: 0 0 0 3px rgba(200,55,45,0.08), 0 20px 45px -12px rgba(217,119,36,0.25);
     }
 
     /* Role avatars */
@@ -1158,7 +1307,7 @@
   <!-- SLIDE 4: BUFFET SCREEN (PREVIEW ONLY)                                 -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center text-center" data-title="4. Lunch Buffet & Game Preview">
-    <div class="festive-card max-w-4xl w-full rounded-3xl p-8 sm:p-12 border-4 border-[#1E6B3B]">
+    <div class="festive-card canteen-frame theme-rail max-w-4xl w-full rounded-3xl p-8 sm:p-12 border-4 border-[#1E6B3B]">
       <div class="w-24 h-24 mx-auto mb-4 rounded-3xl bg-gradient-to-tr from-[#1E6B3B] to-[#23486A] flex items-center justify-center text-white text-4xl shadow-lg animate-float">
         <i class="fa-solid fa-utensils"></i>
       </div>
@@ -1192,8 +1341,8 @@
   <!-- SLIDE 5: GAME 1 SESSION INTRO (BILINGUAL)                             -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center text-center" data-title="5. Game 1: Make a Guess — Intro">
-    <div class="festive-card max-w-4xl w-full rounded-3xl p-10 sm:p-14 border-4 border-[#1E6B3B]">
-      <div class="w-24 h-24 mx-auto mb-5 rounded-3xl bg-[#1E6B3B] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
+    <div class="festive-card quiz-sheet theme-rail max-w-4xl w-full rounded-3xl p-10 sm:p-14 border-4 border-[#1E6B3B]">
+      <div class="theme-icon-tile w-24 h-24 mx-auto mb-5 rounded-3xl bg-[#1E6B3B] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
         <i class="fa-solid fa-clipboard-question"></i>
       </div>
       <span class="px-4 py-1.5 rounded-full bg-sky-100 border border-sky-300 text-sky-900 text-xs font-extrabold uppercase tracking-widest">
@@ -1218,8 +1367,8 @@
   <!-- SLIDE 6: GAME 1 — OPEN AHASLIDES ONLY                                 -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center text-center" data-title="6. Game 1: Open AhaSlides">
-    <div class="festive-card max-w-3xl w-full rounded-3xl p-10 sm:p-14 border-4 border-[#1E6B3B] flex flex-col items-center justify-center">
-      <div class="w-24 h-24 mx-auto mb-5 rounded-3xl bg-[#1E6B3B] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
+    <div class="festive-card quiz-sheet theme-rail max-w-3xl w-full rounded-3xl p-10 sm:p-14 border-4 border-[#1E6B3B] flex flex-col items-center justify-center">
+      <div class="theme-icon-tile w-24 h-24 mx-auto mb-5 rounded-3xl bg-[#1E6B3B] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
         <i class="fa-solid fa-clipboard-question"></i>
       </div>
       <span class="px-4 py-1.5 rounded-full bg-sky-100 border border-sky-300 text-sky-900 text-xs font-extrabold uppercase tracking-widest">
@@ -1242,8 +1391,8 @@
   <!-- SLIDE 7: GAME 2 SESSION INTRO (BILINGUAL)                             -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center text-center" data-title="7. Game 2: The Culinary Fanatic — Intro">
-    <div class="festive-card max-w-4xl w-full rounded-3xl p-10 sm:p-14 border-4 border-[#23486A]">
-      <div class="w-24 h-24 mx-auto mb-5 rounded-3xl bg-[#23486A] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
+    <div class="festive-card canteen-frame theme-rail max-w-4xl w-full rounded-3xl p-10 sm:p-14 border-4 border-[#23486A]">
+      <div class="theme-icon-tile w-24 h-24 mx-auto mb-5 rounded-3xl bg-[#23486A] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
         <i class="fa-solid fa-people-group"></i>
       </div>
       <span class="px-4 py-1.5 rounded-full bg-green-100 border border-green-300 text-green-800 text-xs font-extrabold uppercase tracking-widest">
@@ -1269,14 +1418,16 @@
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center" data-title="8. Game 2: Menu Board">
     <div class="max-w-6xl w-full flex flex-col h-full justify-center">
+      <div class="menu-board-shell">
+      <div class="menu-board-chalk">
       <div class="text-center mb-3">
-        <span class="px-3.5 py-1 rounded-full bg-red-100 border border-red-300 text-red-700 text-xs font-extrabold uppercase tracking-widest">
+        <span class="px-3.5 py-1 rounded-full bg-amber-300/20 border border-amber-200/60 text-amber-100 text-xs font-extrabold uppercase tracking-widest">
           🍱 School Cafeteria · Christmas Sets (6)
         </span>
-        <h1 class="font-festive-display text-3xl sm:text-5xl font-bold text-[#1E6B3B] tracking-tight mt-1" contenteditable="true">
+        <h1 class="font-festive-display text-3xl sm:text-5xl font-bold text-amber-200 tracking-tight mt-1" contenteditable="true">
           GAME 2: CAFETERIA MENU BOARD
         </h1>
-        <p class="text-xs sm:text-sm text-slate-600 font-semibold mt-1" contenteditable="true">
+        <p class="text-xs sm:text-sm text-emerald-100/85 font-semibold mt-1" contenteditable="true">
           Today’s school canteen specials · 今日學校食堂聖誕套餐
         </p>
       </div>
@@ -1362,6 +1513,8 @@
           <p class="text-xs text-slate-600 font-semibold mt-0.5" contenteditable="true">Items / Ingredients</p>
         </div>
       </div>
+      </div>
+      </div>
     </div>
   </section>
 
@@ -1369,7 +1522,7 @@
   <!-- SLIDE 9: GAME 2: TEAM ROLES (ORDER TAKER, CHEF, SERVER) — BILINGUAL   -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center" data-title="9. Game 2: Team Roles">
-    <div class="max-w-5xl w-full festive-card rounded-3xl p-7 sm:p-10">
+    <div class="max-w-5xl w-full festive-card canteen-frame theme-rail rounded-3xl p-7 sm:p-10">
       <div class="text-center mb-6">
         <span class="px-4 py-1 rounded-full bg-sky-100 border border-sky-300 text-sky-900 text-xs font-extrabold uppercase tracking-widest">
           Home Ec Group Project • 家政課小組專題
@@ -1474,7 +1627,7 @@
   <!-- SLIDE 10: GAME 2: SAMPLE ORDER FORM                                   -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center" data-title="10. Game 2: Sample Order Form">
-    <div class="max-w-4xl w-full festive-card rounded-3xl p-6 sm:p-9">
+    <div class="max-w-4xl w-full festive-card homework-sheet theme-rail rounded-3xl p-6 sm:p-9">
       <div class="text-center mb-4">
         <span class="px-4 py-1 rounded-full bg-sky-100 border border-sky-300 text-sky-900 text-xs font-extrabold uppercase tracking-widest">
           Class Worksheet • 課堂習作單
@@ -1488,6 +1641,7 @@
         <p class="text-xs text-slate-500 font-semibold mt-1" contenteditable="true">
           聖誕食堂習作：每桌都要用這張訂單表
         </p>
+        <div class="homework-stamp">Class Homework · Due Today</div>
       </div>
       <div class="rounded-2xl border-2 border-dashed border-[#23486A]/40 bg-sky-50/70 p-4 flex flex-col">
         <div class="flex items-center justify-between gap-2 mb-2">
@@ -1506,7 +1660,7 @@
   <!-- SLIDE 11: GAME 2: LIVE DEMO PROCESS FLOW                               -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center" data-title="11. Game 2: Demo Process Flow">
-    <div class="max-w-6xl w-full">
+    <div class="max-w-6xl w-full festive-card canteen-frame theme-rail rounded-3xl p-6 sm:p-8">
       <div class="text-center mb-6">
         <span class="px-4 py-1.5 rounded-full bg-blue-100 border border-blue-300 text-blue-800 text-xs font-extrabold uppercase tracking-widest">
           Teacher Demo • 老師課堂示範
@@ -1570,7 +1724,7 @@
   <section class="slide flex-col items-center justify-center" style="padding-top: 1.25rem; padding-bottom: 4.5rem; padding-left: 1.5rem; padding-right: 1.5rem;" data-title="12. Game 2: Cook — Timer & Livestream">
     <div class="max-w-[1520px] w-full h-full flex flex-col gap-2.5 justify-center">
 
-      <div class="festive-card rounded-2xl px-5 py-2 flex flex-wrap items-center justify-between gap-3 border-2 border-[#C8372D]/40">
+      <div class="festive-card lab-live-bar theme-rail rounded-2xl px-5 py-3 flex flex-wrap items-center justify-between gap-3 border-2 border-[#C8372D]/40">
         <div class="flex items-center gap-3">
           <span class="px-3 py-1 rounded-lg bg-[#C8372D] text-white font-black text-xs uppercase animate-pulse">
             <i class="fa-solid fa-circle text-[9px] mr-1"></i> Home Ec Lab Live
@@ -1652,7 +1806,7 @@
   <!-- SLIDE 12: DESSERT & COFFEE BREAK (TUCK SHOP RECESS)                   -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center text-center" data-title="13. Dessert & Coffee Break">
-    <div class="festive-card max-w-4xl w-full rounded-3xl p-8 sm:p-12 border-4 border-[#1E6B3B]">
+    <div class="festive-card canteen-frame theme-rail max-w-4xl w-full rounded-3xl p-8 sm:p-12 border-4 border-[#1E6B3B]">
       <div class="w-24 h-24 mx-auto mb-4 rounded-3xl bg-gradient-to-tr from-[#1E6B3B] to-[#23486A] flex items-center justify-center text-white text-4xl shadow-lg animate-float">
         <i class="fa-solid fa-cookie-bite"></i>
       </div>
@@ -1816,7 +1970,7 @@
   <!-- SLIDE 15: BEST DRESSED — AWARD INTRO                                  -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center text-center" data-title="16. Best Dressed — Intro">
-    <div class="max-w-4xl w-full festive-card rounded-3xl p-8 sm:p-12 border-4 border-[#C8372D]">
+    <div class="max-w-4xl w-full festive-card yearbook-card theme-rail rounded-3xl p-8 sm:p-12 border-4 border-[#C8372D]">
       <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-tr from-[#C8372D] via-amber-500 to-yellow-300 flex items-center justify-center text-white text-4xl shadow-xl animate-float">
         <i class="fa-solid fa-camera-retro"></i>
       </div>
@@ -1912,7 +2066,7 @@
   <!-- SLIDE 17: LUCKY DRAW PHASE 2 (INTRO & WHEEL)                           -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center text-center" data-title="18. Grand Prizes Intro">
-    <div class="festive-card max-w-4xl w-full rounded-3xl p-10 sm:p-14 border-4 border-[#D97724]">
+    <div class="festive-card finale-card theme-rail max-w-4xl w-full rounded-3xl p-10 sm:p-14 border-4 border-[#D97724]">
       <div class="w-24 h-24 mx-auto mb-5 rounded-3xl bg-gradient-to-tr from-[#C8372D] to-[#D97724] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
         <i class="fa-solid fa-gift"></i>
       </div>
