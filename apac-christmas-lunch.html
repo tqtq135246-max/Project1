@@ -3086,7 +3086,9 @@
         if (icon) { icon.classList.remove('animate-wiggle'); void icon.offsetWidth; icon.classList.add('animate-wiggle'); }
       }
       if (customBellDataUrl) {
-        schoolBellAudio.src = customBellDataUrl; schoolBellAudio.volume = Math.min(1, Math.max(0.2, bgmVolume));
+        // Bell mastered slightly hotter than BGM; follow the same slider (no 0.2 floor).
+        schoolBellAudio.src = customBellDataUrl;
+        schoolBellAudio.volume = Math.min(1, Math.max(0, bgmVolume));
         schoolBellAudio.currentTime = 0; schoolBellAudio.play().catch(() => StudioSynth.playSchoolBellSynth());
         showToast(`🔔 Ringing "${customBellFileName || 'School Bell'}"`);
       } else {
@@ -3214,7 +3216,11 @@
       else { stopCurrentAudio(); currentPlayingTrackKey = null; updateMusicHudUI(); }
     }
 
-    function setBGMVolume(val) { bgmVolume = parseFloat(val); bgmAudio.volume = bgmVolume; }
+    function setBGMVolume(val) {
+      bgmVolume = Math.min(1, Math.max(0, parseFloat(val) || 0));
+      bgmAudio.volume = bgmVolume;
+      if (schoolBellAudio && !schoolBellAudio.paused) schoolBellAudio.volume = bgmVolume;
+    }
 
     bgmFileInput.addEventListener('change', (e) => {
       const file = e.target.files[0]; if (!file) return;
