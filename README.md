@@ -26,7 +26,7 @@ Then visit `http://127.0.0.1:8080/apac-christmas-lunch.html`.
 3. Headmaster Dumbledore curtain reveal  
 4. Lunch buffet preview  
 5–6. Game 1 Quick Guess + AhaSlides launcher  
-7–11. Cooking Challenge (intro, roles, workflow, 6-set menu uploads, timer + webcam/VDO.ninja)  
+7–12. Cooking Challenge (intro → team of 3 → game flow → menu → order form → timer/livestream demo)  
 12. Tuck Shop recess  
 13–14. Lucky Draw Phase 1 spinner + report card / prize photos  
 15. Best Dressed award  
