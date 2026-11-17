@@ -2360,12 +2360,6 @@
             <button type="button" onclick="goFullStage()" id="goFullStageBtn" class="hidden px-3 py-1.5 rounded-xl bg-[#1E6B3B]/90 hover:bg-[#14532D] text-white text-xs font-bold backdrop-blur-md border border-white/20 transition cursor-pointer shadow-lg">
               <i class="fa-solid fa-expand mr-1"></i> Full Stage
             </button>
-            <button type="button" onclick="toggleVdoQrPanel()" id="showQrBtn" class="px-3 py-1.5 rounded-xl bg-slate-900/75 hover:bg-[#23486A] text-white/90 text-xs font-bold backdrop-blur-md border border-white/20 transition cursor-pointer shadow-lg">
-              <i class="fa-solid fa-qrcode mr-1"></i> Show QR
-            </button>
-            <button type="button" onclick="regenerateVdoRoom()" class="px-3 py-1.5 rounded-xl bg-[#C8372D]/90 hover:bg-[#b91c1c] text-white text-xs font-bold backdrop-blur-md border border-white/20 transition cursor-pointer shadow-lg">
-              <i class="fa-solid fa-arrows-rotate mr-1"></i> Regenerate
-            </button>
           </div>
           <button type="button" onclick="stopLiveWebcam()" id="stopCamBtn" class="hidden absolute top-3 right-3 z-20 px-3 py-1.5 rounded-xl bg-slate-900/75 hover:bg-red-600 text-white/90 hover:text-white text-xs font-bold backdrop-blur-md border border-white/20 transition cursor-pointer shadow-lg">
             <i class="fa-solid fa-video-slash mr-1"></i> Disconnect
@@ -3373,13 +3367,11 @@
     }
 
     function syncQrToggleLabels(visible) {
+      const btn = document.getElementById('toggleQrBarBtn');
+      if (!btn) return;
       const label = visible ? 'Hide QR' : 'Show QR';
       const icon = visible ? 'fa-eye-slash' : 'fa-qrcode';
-      ['showQrBtn', 'toggleQrBarBtn'].forEach((id) => {
-        const btn = document.getElementById(id);
-        if (!btn) return;
-        btn.innerHTML = `<i class="fa-solid ${icon} mr-1"></i> ${label}`;
-      });
+      btn.innerHTML = `<i class="fa-solid ${icon}"></i> ${label}`;
     }
 
     function setQrVisible(visible) {
