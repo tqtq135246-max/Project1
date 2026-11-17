@@ -293,6 +293,30 @@
     .slide[data-title="8. Game 2: Menu Board"] .menu-board-chalk {
       padding: 0.55rem 0.6rem 0.7rem;
     }
+    /* Slide 10 — landscape order sheet (PDF rendered to image) */
+    .slide[data-title="10. Game 2: Sample Order Form"] .order-sheet-slide {
+      max-width: min(96rem, 96vw);
+      padding: 1rem 1.1rem 1.15rem;
+    }
+    @media (min-width: 640px) {
+      .slide[data-title="10. Game 2: Sample Order Form"] .order-sheet-slide {
+        padding: 1.25rem 1.5rem 1.4rem;
+      }
+    }
+    .order-sheet-frame {
+      width: 100%;
+      max-height: min(68vh, 720px);
+      min-height: 0;
+    }
+    .order-sheet-img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: min(68vh, 720px);
+      object-fit: contain;
+      object-position: center;
+      background: #fffef8;
+    }
     .homework-sheet {
       border-style: solid !important;
       border-color: #23486A !important;
@@ -1855,30 +1879,31 @@
   <!-- SLIDE 10: GAME 2: SAMPLE ORDER FORM                                   -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center" data-title="10. Game 2: Sample Order Form">
-    <div class="stage-card festive-card homework-sheet theme-rail rounded-3xl">
-      <div class="text-center mb-4">
+    <div class="stage-board stage-board-pad festive-card homework-sheet theme-rail rounded-3xl order-sheet-slide">
+      <div class="text-center mb-2 sm:mb-3">
         <span class="px-4 py-1 rounded-full bg-sky-100 border border-sky-300 text-sky-900 text-xs font-extrabold uppercase tracking-widest">
           Class Worksheet • 課堂習作單
         </span>
-        <h1 class="font-festive-display text-3xl sm:text-5xl font-bold text-[#23486A] tracking-tight mt-2">
+        <h1 class="font-festive-display text-2xl sm:text-4xl font-bold text-[#23486A] tracking-tight mt-1.5">
           ORDER FORM • 訂單表格
         </h1>
-        <p class="text-sm text-slate-600 font-semibold mt-2" contenteditable="true">
-          Christmas cafeteria homework for every table — upload a photo of the printed form
+        <p class="text-xs sm:text-sm text-slate-600 font-semibold mt-1" contenteditable="true">
+          Christmas cafeteria homework for every table — tick your order on this sheet
         </p>
-        <p class="text-xs text-slate-500 font-semibold mt-1" contenteditable="true">
+        <p class="text-[11px] sm:text-xs text-slate-500 font-semibold mt-0.5" contenteditable="true">
           聖誕食堂習作：每桌都要用這張訂單表
         </p>
-        <div class="homework-stamp">Class Homework · Due Today</div>
       </div>
-      <div class="rounded-2xl border-2 border-dashed border-[#23486A]/40 bg-sky-50/70 p-4 flex flex-col">
-        <div class="flex items-center justify-between gap-2 mb-2">
-          <div class="text-xs font-black uppercase tracking-wider text-[#23486A]">Sample order form photo</div>
-          <button type="button" onclick="document.getElementById('orderFormPhotoInput').click()" class="px-2.5 py-1.5 rounded-lg bg-[#23486A] hover:bg-[#1a3650] text-white text-[11px] font-black cursor-pointer"><i class="fa-solid fa-image"></i> Upload</button>
+      <div class="rounded-2xl border-2 border-[#23486A]/35 bg-sky-50/70 p-2.5 sm:p-3 flex flex-col">
+        <div class="flex items-center justify-between gap-2 mb-1.5">
+          <div class="text-[10px] sm:text-xs font-black uppercase tracking-wider text-[#23486A]">Sample order sheet</div>
+          <div class="flex items-center gap-2">
+            <a href="media/order-sheet/order-sheet.pdf" download class="px-2.5 py-1.5 rounded-lg bg-white border border-[#23486A]/30 hover:bg-sky-50 text-[#23486A] text-[11px] font-black cursor-pointer no-underline"><i class="fa-solid fa-file-pdf"></i> PDF</a>
+            <button type="button" onclick="document.getElementById('orderFormPhotoInput').click()" class="px-2.5 py-1.5 rounded-lg bg-[#23486A] hover:bg-[#1a3650] text-white text-[11px] font-black cursor-pointer"><i class="fa-solid fa-image"></i> Replace</button>
+          </div>
         </div>
-        <div id="orderFormPhotoBox" onclick="document.getElementById('orderFormPhotoInput').click()" class="min-h-[320px] sm:min-h-[420px] rounded-xl border-2 border-dashed border-slate-300 bg-white overflow-hidden flex flex-col items-center justify-center text-slate-400 cursor-pointer hover:border-[#23486A] transition">
-          <i class="fa-solid fa-file-lines text-4xl mb-2"></i>
-          <span class="text-[11px] font-bold">Click to add sample order form photo</span>
+        <div id="orderFormPhotoBox" onclick="document.getElementById('orderFormPhotoInput').click()" class="order-sheet-frame rounded-xl border-2 border-solid border-[#23486A]/40 bg-white overflow-hidden flex flex-col items-center justify-center cursor-pointer hover:border-[#23486A] transition" title="Click to replace order sheet image">
+          <img src="media/order-sheet/order-sheet.jpg" alt="Christmas cafeteria order sheet — Orders A–G" class="order-sheet-img" />
         </div>
       </div>
     </div>
@@ -2858,18 +2883,15 @@
       updateSharedPoolHud();
     }
 
+    const DEFAULT_ORDER_SHEET_SRC = 'media/order-sheet/order-sheet.jpg';
+
     function applyOrderFormPhoto() {
       const box = document.getElementById('orderFormPhotoBox');
       if (!box) return;
-      if (orderFormPhotoDataUrl) {
-        box.innerHTML = `<img src="${orderFormPhotoDataUrl}" alt="Order form" class="w-full h-full object-contain" />`;
-        box.classList.remove('border-dashed');
-        box.classList.add('border-solid', 'border-[#23486A]');
-      } else {
-        box.innerHTML = `<i class="fa-solid fa-file-lines text-3xl mb-2"></i><span class="text-[11px] font-bold">Click to add order form photo</span>`;
-        box.classList.add('border-dashed');
-        box.classList.remove('border-solid', 'border-[#23486A]');
-      }
+      const src = orderFormPhotoDataUrl || DEFAULT_ORDER_SHEET_SRC;
+      box.innerHTML = `<img src="${src}" alt="Christmas cafeteria order sheet" class="order-sheet-img" />`;
+      box.classList.remove('border-dashed');
+      box.classList.add('border-solid', 'border-[#23486A]');
     }
 
     function getPrizePhotoForWinner(entry) {
