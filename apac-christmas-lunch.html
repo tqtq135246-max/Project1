@@ -217,6 +217,79 @@
     .menu-board-shell .festive-card {
       background: rgba(255,255,255,0.96);
     }
+    /* Landscape-friendly 6-menu board: portrait menus in one row on wide screens */
+    .menu-board-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.65rem;
+      align-items: stretch;
+    }
+    @media (min-width: 768px) {
+      .menu-board-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.75rem;
+      }
+    }
+    @media (min-width: 1100px) {
+      .menu-board-grid {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 0.55rem;
+      }
+    }
+    .menu-board-shell .menu-set-card {
+      padding: 0.55rem 0.55rem 0.65rem;
+      min-width: 0;
+    }
+    .menu-board-shell .menu-set-card h3 {
+      font-size: clamp(0.72rem, 1.05vw, 0.95rem);
+      line-height: 1.2;
+    }
+    .menu-board-shell .menu-set-card .menu-set-sub {
+      font-size: clamp(0.58rem, 0.85vw, 0.72rem);
+      line-height: 1.25;
+    }
+    .menu-photo-box {
+      width: 100%;
+      height: min(36vh, 280px);
+      margin-inline: auto;
+      border-radius: 0.75rem;
+      background: #fff7ed;
+      border: 2px solid rgba(148, 163, 184, 0.55);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.35rem;
+      cursor: pointer;
+      transition: border-color 0.2s ease;
+    }
+    @media (min-width: 768px) and (max-width: 1099px) {
+      .menu-photo-box {
+        height: min(26vh, 220px);
+      }
+    }
+    @media (min-width: 1100px) {
+      .menu-photo-box {
+        /* Single landscape row of six portrait menus */
+        height: min(56vh, 460px);
+      }
+    }
+    .menu-photo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center top;
+      display: block;
+    }
+    .slide[data-title="8. Game 2: Menu Board"] .stage-board {
+      max-width: min(96rem, 96vw);
+    }
+    .slide[data-title="8. Game 2: Menu Board"] .menu-board-shell {
+      padding: 0.55rem 0.55rem 0.7rem;
+    }
+    .slide[data-title="8. Game 2: Menu Board"] .menu-board-chalk {
+      padding: 0.55rem 0.6rem 0.7rem;
+    }
     .homework-sheet {
       border-style: solid !important;
       border-color: #23486A !important;
@@ -1572,97 +1645,97 @@
     <div class="stage-board flex flex-col h-full justify-center">
       <div class="menu-board-shell">
       <div class="menu-board-chalk">
-      <div class="text-center mb-3">
-        <span class="px-3.5 py-1 rounded-full bg-amber-300/20 border border-amber-200/60 text-amber-100 text-xs font-extrabold uppercase tracking-widest">
-          🍱 School Cafeteria · Christmas Sets (6)
+      <div class="text-center mb-2">
+        <span class="px-3 py-0.5 rounded-full bg-amber-300/20 border border-amber-200/60 text-amber-100 text-[10px] sm:text-xs font-extrabold uppercase tracking-widest">
+          School Cafeteria · Orders A–F
         </span>
-        <h1 class="font-festive-display text-3xl sm:text-5xl font-bold text-amber-200 tracking-tight mt-1" contenteditable="true">
+        <h1 class="font-festive-display text-2xl sm:text-4xl font-bold text-amber-200 tracking-tight mt-1" contenteditable="true">
           GAME 2: CAFETERIA MENU BOARD
         </h1>
-        <p class="text-xs sm:text-sm text-emerald-100/85 font-semibold mt-1" contenteditable="true">
+        <p class="text-[11px] sm:text-sm text-emerald-100/85 font-semibold mt-0.5" contenteditable="true">
           Today’s school canteen specials · 今日學校食堂聖誕套餐
         </p>
       </div>
 
       <input type="file" id="productPhotoInput" accept="image/*" class="hidden" />
 
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-3.5 sm:gap-4">
-        <!-- Set 1 -->
-        <div class="festive-card rounded-2xl p-3.5 border-2 border-[#C8372D]/40 flex flex-col">
-          <div class="flex items-center justify-between mb-2">
-            <span class="px-2.5 py-0.5 rounded-md bg-[#C8372D] text-white font-black text-xs uppercase">Set 1</span>
-            <button type="button" onclick="triggerProductPhotoUpload(1)" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
+      <div class="menu-board-grid">
+        <!-- Order A -->
+        <div class="festive-card menu-set-card rounded-2xl border-2 border-[#C8372D]/40 flex flex-col">
+          <div class="flex items-center justify-between mb-1.5 gap-1">
+            <span class="px-2 py-0.5 rounded-md bg-[#C8372D] text-white font-black text-[10px] sm:text-xs uppercase tracking-wide">Order A</span>
+            <button type="button" onclick="triggerProductPhotoUpload(1)" class="text-[10px] sm:text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer shrink-0"><i class="fa-solid fa-image"></i></button>
           </div>
-          <div id="setPhotoBox1" onclick="triggerProductPhotoUpload(1)" class="w-full h-24 sm:h-28 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 hover:border-[#C8372D] flex flex-col items-center justify-center text-slate-400 cursor-pointer overflow-hidden mb-2 transition">
-            <i class="fa-solid fa-camera text-2xl mb-1"></i><span class="text-[11px] font-bold">Set 1 Photo</span>
+          <div id="setPhotoBox1" onclick="triggerProductPhotoUpload(1)" class="menu-photo-box hover:border-[#C8372D]" title="Replace Order A photo">
+            <img src="media/menus/order-a-classic-beef.jpg" alt="Order A Classic Beef" />
           </div>
-          <h3 class="text-base sm:text-lg font-black text-slate-800 leading-tight" contenteditable="true">Set 1 Title</h3>
-          <p class="text-xs text-slate-600 font-semibold mt-0.5" contenteditable="true">Items / Ingredients</p>
+          <h3 class="font-black text-slate-800" contenteditable="true">Classic Beef</h3>
+          <p class="menu-set-sub text-slate-600 font-semibold mt-0.5" contenteditable="true">Order A · 經典牛肉堡</p>
         </div>
 
-        <!-- Set 2 -->
-        <div class="festive-card rounded-2xl p-3.5 border-2 border-[#1E6B3B]/40 flex flex-col">
-          <div class="flex items-center justify-between mb-2">
-            <span class="px-2.5 py-0.5 rounded-md bg-[#1E6B3B] text-white font-black text-xs uppercase">Set 2</span>
-            <button type="button" onclick="triggerProductPhotoUpload(2)" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
+        <!-- Order B -->
+        <div class="festive-card menu-set-card rounded-2xl border-2 border-[#1E6B3B]/40 flex flex-col">
+          <div class="flex items-center justify-between mb-1.5 gap-1">
+            <span class="px-2 py-0.5 rounded-md bg-[#1E6B3B] text-white font-black text-[10px] sm:text-xs uppercase tracking-wide">Order B</span>
+            <button type="button" onclick="triggerProductPhotoUpload(2)" class="text-[10px] sm:text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer shrink-0"><i class="fa-solid fa-image"></i></button>
           </div>
-          <div id="setPhotoBox2" onclick="triggerProductPhotoUpload(2)" class="w-full h-24 sm:h-28 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 hover:border-[#1E6B3B] flex flex-col items-center justify-center text-slate-400 cursor-pointer overflow-hidden mb-2 transition">
-            <i class="fa-solid fa-camera text-2xl mb-1"></i><span class="text-[11px] font-bold">Set 2 Photo</span>
+          <div id="setPhotoBox2" onclick="triggerProductPhotoUpload(2)" class="menu-photo-box hover:border-[#1E6B3B]" title="Replace Order B photo">
+            <img src="media/menus/order-b-fish.jpg" alt="Order B Fish" />
           </div>
-          <h3 class="text-base sm:text-lg font-black text-slate-800 leading-tight" contenteditable="true">Set 2 Title</h3>
-          <p class="text-xs text-slate-600 font-semibold mt-0.5" contenteditable="true">Items / Ingredients</p>
+          <h3 class="font-black text-slate-800" contenteditable="true">Fish</h3>
+          <p class="menu-set-sub text-slate-600 font-semibold mt-0.5" contenteditable="true">Order B · 魚柳堡</p>
         </div>
 
-        <!-- Set 3 -->
-        <div class="festive-card rounded-2xl p-3.5 border-2 border-[#23486A]/40 flex flex-col">
-          <div class="flex items-center justify-between mb-2">
-            <span class="px-2.5 py-0.5 rounded-md bg-[#23486A] text-white font-black text-xs uppercase">Set 3</span>
-            <button type="button" onclick="triggerProductPhotoUpload(3)" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
+        <!-- Order C -->
+        <div class="festive-card menu-set-card rounded-2xl border-2 border-[#23486A]/40 flex flex-col">
+          <div class="flex items-center justify-between mb-1.5 gap-1">
+            <span class="px-2 py-0.5 rounded-md bg-[#23486A] text-white font-black text-[10px] sm:text-xs uppercase tracking-wide">Order C</span>
+            <button type="button" onclick="triggerProductPhotoUpload(3)" class="text-[10px] sm:text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer shrink-0"><i class="fa-solid fa-image"></i></button>
           </div>
-          <div id="setPhotoBox3" onclick="triggerProductPhotoUpload(3)" class="w-full h-24 sm:h-28 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 hover:border-[#23486A] flex flex-col items-center justify-center text-slate-400 cursor-pointer overflow-hidden mb-2 transition">
-            <i class="fa-solid fa-camera text-2xl mb-1"></i><span class="text-[11px] font-bold">Set 3 Photo</span>
+          <div id="setPhotoBox3" onclick="triggerProductPhotoUpload(3)" class="menu-photo-box hover:border-[#23486A]" title="Replace Order C photo">
+            <img src="media/menus/order-c-chicken.jpg" alt="Order C Chicken" />
           </div>
-          <h3 class="text-base sm:text-lg font-black text-slate-800 leading-tight" contenteditable="true">Set 3 Title</h3>
-          <p class="text-xs text-slate-600 font-semibold mt-0.5" contenteditable="true">Items / Ingredients</p>
+          <h3 class="font-black text-slate-800" contenteditable="true">Chicken</h3>
+          <p class="menu-set-sub text-slate-600 font-semibold mt-0.5" contenteditable="true">Order C · 雞肉堡</p>
         </div>
 
-        <!-- Set 4 -->
-        <div class="festive-card rounded-2xl p-3.5 border-2 border-[#D97724]/40 flex flex-col">
-          <div class="flex items-center justify-between mb-2">
-            <span class="px-2.5 py-0.5 rounded-md bg-[#D97724] text-white font-black text-xs uppercase">Set 4</span>
-            <button type="button" onclick="triggerProductPhotoUpload(4)" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
+        <!-- Order D -->
+        <div class="festive-card menu-set-card rounded-2xl border-2 border-[#D97724]/40 flex flex-col">
+          <div class="flex items-center justify-between mb-1.5 gap-1">
+            <span class="px-2 py-0.5 rounded-md bg-[#D97724] text-white font-black text-[10px] sm:text-xs uppercase tracking-wide">Order D</span>
+            <button type="button" onclick="triggerProductPhotoUpload(4)" class="text-[10px] sm:text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer shrink-0"><i class="fa-solid fa-image"></i></button>
           </div>
-          <div id="setPhotoBox4" onclick="triggerProductPhotoUpload(4)" class="w-full h-24 sm:h-28 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 hover:border-[#D97724] flex flex-col items-center justify-center text-slate-400 cursor-pointer overflow-hidden mb-2 transition">
-            <i class="fa-solid fa-camera text-2xl mb-1"></i><span class="text-[11px] font-bold">Set 4 Photo</span>
+          <div id="setPhotoBox4" onclick="triggerProductPhotoUpload(4)" class="menu-photo-box hover:border-[#D97724]" title="Replace Order D photo">
+            <img src="media/menus/order-d-bacon-beef.jpg" alt="Order D Bacon Beef" />
           </div>
-          <h3 class="text-base sm:text-lg font-black text-slate-800 leading-tight" contenteditable="true">Set 4 Title</h3>
-          <p class="text-xs text-slate-600 font-semibold mt-0.5" contenteditable="true">Items / Ingredients</p>
+          <h3 class="font-black text-slate-800" contenteditable="true">Bacon Beef</h3>
+          <p class="menu-set-sub text-slate-600 font-semibold mt-0.5" contenteditable="true">Order D · 培根牛肉堡</p>
         </div>
 
-        <!-- Set 5 -->
-        <div class="festive-card rounded-2xl p-3.5 border-2 border-[#C8372D]/40 flex flex-col">
-          <div class="flex items-center justify-between mb-2">
-            <span class="px-2.5 py-0.5 rounded-md bg-[#C8372D] text-white font-black text-xs uppercase">Set 5</span>
-            <button type="button" onclick="triggerProductPhotoUpload(5)" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
+        <!-- Order E -->
+        <div class="festive-card menu-set-card rounded-2xl border-2 border-[#C8372D]/40 flex flex-col">
+          <div class="flex items-center justify-between mb-1.5 gap-1">
+            <span class="px-2 py-0.5 rounded-md bg-[#C8372D] text-white font-black text-[10px] sm:text-xs uppercase tracking-wide">Order E</span>
+            <button type="button" onclick="triggerProductPhotoUpload(5)" class="text-[10px] sm:text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer shrink-0"><i class="fa-solid fa-image"></i></button>
           </div>
-          <div id="setPhotoBox5" onclick="triggerProductPhotoUpload(5)" class="w-full h-24 sm:h-28 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 hover:border-[#C8372D] flex flex-col items-center justify-center text-slate-400 cursor-pointer overflow-hidden mb-2 transition">
-            <i class="fa-solid fa-camera text-2xl mb-1"></i><span class="text-[11px] font-bold">Set 5 Photo</span>
+          <div id="setPhotoBox5" onclick="triggerProductPhotoUpload(5)" class="menu-photo-box hover:border-[#C8372D]" title="Replace Order E photo">
+            <img src="media/menus/order-e-double-cheese.jpg" alt="Order E Double Cheeseburger" />
           </div>
-          <h3 class="text-base sm:text-lg font-black text-slate-800 leading-tight" contenteditable="true">Set 5 Title</h3>
-          <p class="text-xs text-slate-600 font-semibold mt-0.5" contenteditable="true">Items / Ingredients</p>
+          <h3 class="font-black text-slate-800" contenteditable="true">Double Cheeseburger</h3>
+          <p class="menu-set-sub text-slate-600 font-semibold mt-0.5" contenteditable="true">Order E · 雙層芝士堡</p>
         </div>
 
-        <!-- Set 6 -->
-        <div class="festive-card rounded-2xl p-3.5 border-2 border-[#1E6B3B]/40 flex flex-col">
-          <div class="flex items-center justify-between mb-2">
-            <span class="px-2.5 py-0.5 rounded-md bg-[#1E6B3B] text-white font-black text-xs uppercase">Set 6</span>
-            <button type="button" onclick="triggerProductPhotoUpload(6)" class="text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
+        <!-- Order F -->
+        <div class="festive-card menu-set-card rounded-2xl border-2 border-[#1E6B3B]/40 flex flex-col">
+          <div class="flex items-center justify-between mb-1.5 gap-1">
+            <span class="px-2 py-0.5 rounded-md bg-[#1E6B3B] text-white font-black text-[10px] sm:text-xs uppercase tracking-wide">Order F</span>
+            <button type="button" onclick="triggerProductPhotoUpload(6)" class="text-[10px] sm:text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer shrink-0"><i class="fa-solid fa-image"></i></button>
           </div>
-          <div id="setPhotoBox6" onclick="triggerProductPhotoUpload(6)" class="w-full h-24 sm:h-28 rounded-xl bg-slate-100 border-2 border-dashed border-slate-300 hover:border-[#1E6B3B] flex flex-col items-center justify-center text-slate-400 cursor-pointer overflow-hidden mb-2 transition">
-            <i class="fa-solid fa-camera text-2xl mb-1"></i><span class="text-[11px] font-bold">Set 6 Photo</span>
+          <div id="setPhotoBox6" onclick="triggerProductPhotoUpload(6)" class="menu-photo-box hover:border-[#1E6B3B]" title="Replace Order F photo">
+            <img src="media/menus/order-f-deluxe-fish.jpg" alt="Order F Deluxe Fish" />
           </div>
-          <h3 class="text-base sm:text-lg font-black text-slate-800 leading-tight" contenteditable="true">Set 6 Title</h3>
-          <p class="text-xs text-slate-600 font-semibold mt-0.5" contenteditable="true">Items / Ingredients</p>
+          <h3 class="font-black text-slate-800" contenteditable="true">Deluxe Fish</h3>
+          <p class="menu-set-sub text-slate-600 font-semibold mt-0.5" contenteditable="true">Order F · 豪華魚柳堡</p>
         </div>
       </div>
       </div>
@@ -4339,10 +4412,9 @@
       reader.onload = function (ev) {
         const box = document.getElementById(`setPhotoBox${activeProductSetIdx}`);
         if (box) {
-          box.innerHTML = `<img src="${ev.target.result}" alt="Set ${activeProductSetIdx}" class="w-full h-full object-cover" />`;
-          box.classList.remove('border-dashed', 'border-slate-300');
-          box.classList.add('border-solid', 'border-[#C8372D]');
-          showToast(`Set ${activeProductSetIdx} photo uploaded`);
+          box.innerHTML = `<img src="${ev.target.result}" alt="Order ${String.fromCharCode(64 + activeProductSetIdx)}" />`;
+          box.classList.add('border-[#C8372D]');
+          showToast(`Order ${String.fromCharCode(64 + activeProductSetIdx)} photo uploaded`);
         }
       };
       reader.readAsDataURL(file);
