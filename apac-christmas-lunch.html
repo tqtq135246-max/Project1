@@ -2041,7 +2041,7 @@
         </div>
       </div>
       <div id="orderFormPhotoBox" class="order-sheet-frame rounded-xl border-2 border-solid border-[#23486A]/40 overflow-hidden">
-        <img src="media/order-sheet/order-sheet.jpg" alt="Christmas cafeteria order sheet — Orders A–G" class="order-sheet-img" />
+        <img src="media/order-sheet/order-sheet.png" alt="SSOB School Home Economics exam order sheet — Orders A–C" class="order-sheet-img" />
       </div>
     </div>
   </section>
@@ -2080,7 +2080,7 @@
       <div id="livestreamLayout" class="grid grid-cols-1 xl:grid-cols-12 gap-3 flex-1 min-h-0">
         <div id="livestreamFrameBox" class="xl:col-span-8 rounded-3xl bg-slate-950 border-4 border-dashed border-slate-400 shadow-2xl relative overflow-hidden flex flex-col items-center justify-center text-center min-h-[280px] transition-all">
           <video id="liveCameraVideo" autoplay playsinline muted class="hidden absolute inset-0 w-full h-full object-contain bg-black"></video>
-          <iframe id="vdoNinjaFrame" class="hidden absolute inset-0 w-full h-full border-0 bg-black" allow="autoplay;camera;microphone;fullscreen;display-capture;encrypted-media" allowfullscreen></iframe>
+          <iframe id="vdoNinjaFrame" class="hidden absolute inset-0 w-full h-full border-0 bg-black" allow="autoplay;camera;microphone;fullscreen;display-capture;encrypted-media" allowfullscreen referrerpolicy="no-referrer"></iframe>
 
           <button type="button" onclick="stopLiveWebcam()" id="stopCamBtn" class="hidden absolute top-3 right-3 z-20 px-3 py-1.5 rounded-xl bg-slate-900/75 hover:bg-red-600 text-white/90 hover:text-white text-xs font-bold backdrop-blur-md border border-white/20 transition cursor-pointer shadow-lg">
             <i class="fa-solid fa-video-slash mr-1"></i> Disconnect
@@ -2958,7 +2958,7 @@
       updateSharedPoolHud();
     }
 
-    const DEFAULT_ORDER_SHEET_SRC = 'media/order-sheet/order-sheet.jpg';
+    const DEFAULT_ORDER_SHEET_SRC = 'media/order-sheet/order-sheet.png';
 
     function applyOrderFormPhoto() {
       const box = document.getElementById('orderFormPhotoBox');
@@ -3010,18 +3010,42 @@
       return 'apac' + Math.random().toString(36).slice(2, 10);
     }
 
-    function startVdoNinjaRoom(forceNew = false) {
-      if (forceNew || !vdoRoomId) vdoRoomId = makeRoomId();
-      vdoPushUrl = `https://vdo.ninja/?push=${encodeURIComponent(vdoRoomId)}&webcam&autostart&label=FloorCam`;
-      customVdoNinjaUrl = `https://vdo.ninja/?view=${encodeURIComponent(vdoRoomId)}&scene&cleanoutput&solidbg&bgcolor=000000`;
+    function buildVdoUrls(roomId) {
+      const id = encodeURIComponent(roomId);
+      // Phone broadcaster (QR / open link). Keep params mobile-friendly.
+      const push = `https://vdo.ninja/?push=${id}&webcam&autostart&label=${encodeURIComponent('FloorCam')}&quality=0`;
+      // Stage viewer iframe — same stream id as push
+      const view = `https://vdo.ninja/?view=${id}&scene&cleanoutput&solidbg&bgcolor=000000`;
+      return { push, view };
+    }
+
+    function syncVdoRoomUi() {
       const roomLabel = document.getElementById('vdoRoomIdLabel');
       const pushLink = document.getElementById('vdoPushLink');
-      if (roomLabel) roomLabel.textContent = vdoRoomId;
-      if (pushLink) { pushLink.href = vdoPushUrl; pushLink.textContent = vdoPushUrl; }
+      if (roomLabel) roomLabel.textContent = vdoRoomId || '—';
+      if (pushLink) {
+        if (vdoPushUrl) {
+          pushLink.href = vdoPushUrl;
+          pushLink.textContent = vdoPushUrl;
+        } else {
+          pushLink.href = '#';
+          pushLink.textContent = 'Open push link';
+        }
+      }
+    }
+
+    function startVdoNinjaRoom(forceNew = false, opts = {}) {
+      if (forceNew || !vdoRoomId) vdoRoomId = makeRoomId();
+      const urls = buildVdoUrls(vdoRoomId);
+      vdoPushUrl = urls.push;
+      customVdoNinjaUrl = urls.view;
+      syncVdoRoomUi();
       renderVdoQr(vdoPushUrl);
-      // Keep QR visible until the host confirms the camera is live
-      loadVdoNinjaStream(customVdoNinjaUrl, { expand: false });
-      showToast('Scan QR with phone, then tap Full Stage');
+      // Always (re)attach the viewer so the stage is ready when the phone joins
+      loadVdoNinjaStream(customVdoNinjaUrl, { expand: false, forceReload: true });
+      if (!opts.silent) {
+        showToast(forceNew ? 'New room ready — scan QR, then Full Stage' : 'Scan QR with phone, then tap Full Stage');
+      }
     }
 
     function renderVdoQr(url) {
@@ -3090,18 +3114,27 @@
       const stopBtn = document.getElementById('stopCamBtn');
       const frameBox = document.getElementById('livestreamFrameBox');
       const goLiveBtn = document.getElementById('goFullStageBtn');
-      frame.src = viewUrl;
+      if (!frame) return;
+      // Bust stuck waiting-state iframes when re-entering the cook slide
+      if (opts.forceReload || frame.getAttribute('src') !== viewUrl) {
+        frame.removeAttribute('src');
+        frame.src = viewUrl;
+      }
       frame.classList.remove('hidden');
-      placeholderUI.classList.add('hidden');
-      stopBtn.classList.remove('hidden');
+      if (placeholderUI) placeholderUI.classList.add('hidden');
+      if (stopBtn) stopBtn.classList.remove('hidden');
       if (goLiveBtn) goLiveBtn.classList.remove('hidden');
-      frameBox.classList.remove('border-dashed', 'border-slate-400');
-      frameBox.classList.add('border-solid', 'border-[#1E6B3B]');
+      if (frameBox) {
+        frameBox.classList.remove('border-dashed', 'border-slate-400');
+        frameBox.classList.add('border-solid', 'border-[#1E6B3B]');
+      }
       setLivestreamExpanded(!!opts.expand);
     }
 
     function goFullStage() {
-      setLivestreamExpanded(true);
+      // Reload viewer so it picks up a phone that started pushing after the iframe first loaded
+      if (customVdoNinjaUrl) loadVdoNinjaStream(customVdoNinjaUrl, { expand: true, forceReload: true });
+      else setLivestreamExpanded(true);
       showToast('Broadcast full stage — QR hidden');
     }
 
@@ -3861,7 +3894,8 @@
       if (currentSlideIdx === SLIDE_XMAS_WALL) syncPrizeWinnersGrid1();
       if (currentSlideIdx === SLIDE_GRAND_WALL) syncPrizeWinnersGrid2();
       if (currentSlideIdx === SLIDE_BEST_REVEAL && prevIdx !== SLIDE_BEST_REVEAL) resetBestDressedReveal({ silent: true });
-      if (currentSlideIdx === 11 && !vdoRoomId) startVdoNinjaRoom(false);
+      // Always sync VDO room + viewer when entering the cook slide (room may already exist from boot)
+      if (currentSlideIdx === 11) startVdoNinjaRoom(false, { silent: true });
     }
 
     let bestDressedRevealBusy = false;
@@ -4620,15 +4654,13 @@
     restoreBestDressedWinnerFromStorage();
     buildFestiveScatter();
     window.addEventListener('resize', () => buildFestiveScatter());
-    // Prepare VDO room quietly; expand only after a camera connects
+    // Prepare VDO room + QR quietly; viewer attaches when entering the cook slide
     if (!vdoRoomId) {
       vdoRoomId = makeRoomId();
-      vdoPushUrl = `https://vdo.ninja/?push=${encodeURIComponent(vdoRoomId)}&webcam&autostart&label=FloorCam`;
-      customVdoNinjaUrl = `https://vdo.ninja/?view=${encodeURIComponent(vdoRoomId)}&scene&cleanoutput&solidbg&bgcolor=000000`;
-      const roomLabel = document.getElementById('vdoRoomIdLabel');
-      const pushLink = document.getElementById('vdoPushLink');
-      if (roomLabel) roomLabel.textContent = vdoRoomId;
-      if (pushLink) { pushLink.href = vdoPushUrl; pushLink.textContent = vdoPushUrl; }
+      const urls = buildVdoUrls(vdoRoomId);
+      vdoPushUrl = urls.push;
+      customVdoNinjaUrl = urls.view;
+      syncVdoRoomUi();
       renderVdoQr(vdoPushUrl);
     }
   </script>
