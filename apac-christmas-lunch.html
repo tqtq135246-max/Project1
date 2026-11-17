@@ -2861,11 +2861,11 @@
       "Uma Sharma", "Victor Hugo", "Wendy Hall", "Xavier Young",
       "Yvonne Strahovski", "Zachary Quinto", "Amy Pond", "Brian Cox"
     ];
-    let items = [...DEFAULT_ROSTER];
-    let masterRoster = [...DEFAULT_ROSTER]; // full class list for re-rolling Grand Prizes
+    let items = [...DEFAULT_ROSTER]; // #SAVE:items
+    let masterRoster = [...DEFAULT_ROSTER]; // #SAVE:masterRoster
     let winners = [];
-    let winnersPhase1 = []; // Christmas Gifts winners (flat, chronological)
-    let winnersPhase2 = []; // Grand Prizes winners (flat, chronological)
+    let winnersPhase1 = []; // #SAVE:winnersPhase1
+    let winnersPhase2 = []; // #SAVE:winnersPhase2
     let drawPhase = 1; // 1 = Christmas Gifts, 2 = Grand Prizes
     let isSpinning = false;
     let isBatchRunning = false;
@@ -2873,8 +2873,8 @@
     let soundEnabled = true;
     let currentWinningItem = null;
     let activeProductSetIdx = 1;
-    let customVdoNinjaUrl = '';
-    let companyLogoDataUrl = '';
+    let customVdoNinjaUrl = ''; // #SAVE:customVdoNinjaUrl
+    let companyLogoDataUrl = ''; // #SAVE:companyLogoDataUrl
     // Phase BGM: { name, url?, dataUrl?, youtubeId? }. YouTube preferred when set (no dataUrl override).
     const DEFAULT_PHASE_MP3S = {
       opening: { name: 'Opening (YouTube)', youtubeId: 'aAkMkVFwAoo', url: 'audio/Opening.mp3' },
@@ -2890,13 +2890,14 @@
       grandPrizes: { name: 'Shocking Blue — Inkpot (YouTube)', youtubeId: 'lAwiWIBOz24', url: 'audio/LuckyDraw.mp3' },
       finale: { name: 'finale.mp3', url: 'audio/finale.mp3' }
     };
-    let customPhaseMp3s = { ...DEFAULT_PHASE_MP3S }; // phaseId -> { name, url? | dataUrl? | youtubeId? }
-    let vdoRoomId = '';
+    let customPhaseMp3s = { ...DEFAULT_PHASE_MP3S }; // #SAVE:customPhaseMp3s
+    let vdoRoomId = ''; // #SAVE:vdoRoomId
     let vdoPushUrl = '';
-    let christmasBatchIndex = 0; // 0..4 into CHRISTMAS_BATCHES
-    let grandPrizeIndex = 5; // draw order #6 → #1 (index into GRAND_PRIZES)
+    let christmasBatchIndex = 0; // #SAVE:christmasBatchIndex
+    let grandPrizeIndex = 5; // #SAVE:grandPrizeIndex
     let preferGrandOnSpinner = false; // armed by Grand intro CTA
-    let orderFormPhotoDataUrl = '';
+    let orderFormPhotoDataUrl = ''; // #SAVE:orderFormPhotoDataUrl
+    let menuPhotos = {}; // #SAVE:menuPhotos
     // Stable slide indices (0-based) after dedicated Grand spinner insert
     const SLIDE_XMAS_SPIN = 13;
     const SLIDE_XMAS_WALL = 14;
@@ -2927,10 +2928,13 @@
       { id: 'gp5', rank: 5, name: 'Grand Prize #5', color: '#991B1B' },
       { id: 'gp6', rank: 6, name: 'Grand Prize #6', color: '#14532D' }
     ];
-    const christmasGiftPhotos = {};
-    const grandPrizePhotos = {};
-    const christmasGiftNames = CHRISTMAS_BATCHES.map(g => g.name);
-    const grandPrizeNames = GRAND_PRIZES.map(g => g.name);
+    let christmasGiftPhotos = {}; // #SAVE:christmasGiftPhotos
+    let grandPrizePhotos = {}; // #SAVE:grandPrizePhotos
+    let christmasGiftNames = CHRISTMAS_BATCHES.map(g => g.name); // #SAVE:christmasGiftNames
+    let grandPrizeNames = GRAND_PRIZES.map(g => g.name); // #SAVE:grandPrizeNames
+    let customBellDataUrl = 'audio/Bell.mp3'; // #SAVE:customBellDataUrl
+    let customBellFileName = 'Bell.mp3'; // #SAVE:customBellFileName
+    let bestDressedWinnerData = null; // #SAVE:bestDressedWinnerData
 
     function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
 
@@ -3196,6 +3200,18 @@
       box.innerHTML = `<img src="${src}" alt="Christmas cafeteria order sheet" class="order-sheet-img" />`;
       box.classList.remove('border-dashed');
       box.classList.add('border-solid', 'border-[#23486A]');
+    }
+
+    function applyMenuPhotos() {
+      Object.keys(menuPhotos || {}).forEach((key) => {
+        const idx = Number(key);
+        const src = menuPhotos[key];
+        if (!src || !idx) return;
+        const box = document.getElementById(`setPhotoBox${idx}`);
+        if (!box) return;
+        box.innerHTML = `<img src="${src}" alt="Order ${String.fromCharCode(64 + idx)}" />`;
+        box.classList.add('border-[#C8372D]');
+      });
     }
 
     function getPrizePhotoForWinner(entry) {
@@ -3593,8 +3609,6 @@
     let barIndex = 0;
     // Quiet default — BGM is underscore under MC talk / meal chatter
     let bgmVolume = 0.32;
-    let customBellDataUrl = 'audio/Bell.mp3';
-    let customBellFileName = 'Bell.mp3';
 
     function resolveTrackSrc(track) {
       if (!track) return '';
@@ -4162,7 +4176,6 @@
 
     let bestDressedRevealBusy = false;
     const BEST_DRESSED_STORAGE_KEY = 'apacBestDressedWinnerV1';
-    let bestDressedWinnerData = null;
 
     function formatBestDressedTeamLabel(data) {
       const en = String(data?.teamName || '').trim();
@@ -4808,12 +4821,9 @@
       const file = e.target.files[0]; if (!file) return;
       const reader = new FileReader();
       reader.onload = function (ev) {
-        const box = document.getElementById(`setPhotoBox${activeProductSetIdx}`);
-        if (box) {
-          box.innerHTML = `<img src="${ev.target.result}" alt="Order ${String.fromCharCode(64 + activeProductSetIdx)}" />`;
-          box.classList.add('border-[#C8372D]');
-          showToast(`Order ${String.fromCharCode(64 + activeProductSetIdx)} photo uploaded`);
-        }
+        menuPhotos[String(activeProductSetIdx)] = ev.target.result;
+        applyMenuPhotos();
+        showToast(`Order ${String.fromCharCode(64 + activeProductSetIdx)} photo uploaded`);
       };
       reader.readAsDataURL(file);
       e.target.value = '';
@@ -4838,40 +4848,171 @@
     }
     window.addEventListener('resize', () => { resizeCanvas(); initSnow(); });
 
-    function saveCustomizedHTML() {
+    function replaceSaveBinding(html, name, value) {
+      const re = new RegExp(
+        `((?:let|const)\\s+${name}\\s*=)\\s*[\\s\\S]*?(\\s*;\\s*\\/\\/\\s*#SAVE:${name})`
+      );
+      if (!re.test(html)) {
+        console.warn('Save binding marker missing:', name);
+        return html;
+      }
+      return html.replace(re, `$1 ${JSON.stringify(value)}$2`);
+    }
+
+    async function resourceToDataUrl(src) {
+      if (!src || typeof src !== 'string') return src;
+      if (src.startsWith('data:')) return src;
+      let href = src;
+      try {
+        href = new URL(src, window.location.href).href;
+      } catch (_) { /* keep raw */ }
+      try {
+        const res = await fetch(href);
+        if (!res.ok) return src;
+        const blob = await res.blob();
+        return await new Promise((resolve, reject) => {
+          const fr = new FileReader();
+          fr.onload = () => resolve(fr.result);
+          fr.onerror = reject;
+          fr.readAsDataURL(blob);
+        });
+      } catch (_) {
+        return src;
+      }
+    }
+
+    async function embedRelativeMediaInClone(cloneDoc) {
+      const nodes = [
+        ...cloneDoc.querySelectorAll('img[src]'),
+        ...cloneDoc.querySelectorAll('audio[src], source[src]')
+      ];
+      await Promise.all(nodes.map(async (el) => {
+        const src = el.getAttribute('src') || el.src || '';
+        if (!src || src.startsWith('data:') || src.startsWith('blob:')) return;
+        // Skip third-party remote assets; bake same-origin / relative media only
+        try {
+          const abs = new URL(src, window.location.href);
+          if (abs.origin !== window.location.origin) return;
+        } catch (_) { /* continue */ }
+        const dataUrl = await resourceToDataUrl(src);
+        if (dataUrl && String(dataUrl).startsWith('data:')) el.setAttribute('src', dataUrl);
+      }));
+    }
+
+    async function bakeUploadsForSave() {
+      // Ensure default order sheet / menu / bell assets travel with a single HTML file
+      const bakedMenu = { ...menuPhotos };
+      for (let i = 1; i <= 3; i++) {
+        const key = String(i);
+        if (bakedMenu[key]) continue;
+        const img = document.querySelector(`#setPhotoBox${i} img`);
+        const src = img?.getAttribute('src') || '';
+        if (src) bakedMenu[key] = await resourceToDataUrl(src);
+      }
+      let bakedOrder = orderFormPhotoDataUrl;
+      if (!bakedOrder) bakedOrder = await resourceToDataUrl(DEFAULT_ORDER_SHEET_SRC);
+      let bakedBell = customBellDataUrl;
+      if (bakedBell && !bakedBell.startsWith('data:')) bakedBell = await resourceToDataUrl(bakedBell);
+      const bakedPhase = {};
+      for (const [phaseId, track] of Object.entries(customPhaseMp3s || {})) {
+        const copy = { ...(track || {}) };
+        if (copy.dataUrl && !String(copy.dataUrl).startsWith('data:')) {
+          copy.dataUrl = await resourceToDataUrl(copy.dataUrl);
+        } else if (!copy.dataUrl && copy.url && !copy.youtubeId) {
+          const dataUrl = await resourceToDataUrl(copy.url);
+          if (dataUrl && String(dataUrl).startsWith('data:')) {
+            copy.dataUrl = dataUrl;
+            delete copy.url;
+          }
+        }
+        bakedPhase[phaseId] = copy;
+      }
+      const bakedGiftPhotos = { ...christmasGiftPhotos };
+      const bakedGrandPhotos = { ...grandPrizePhotos };
+      return {
+        menuPhotos: bakedMenu,
+        orderFormPhotoDataUrl: bakedOrder,
+        customBellDataUrl: bakedBell,
+        customPhaseMp3s: bakedPhase,
+        christmasGiftPhotos: bakedGiftPhotos,
+        grandPrizePhotos: bakedGrandPhotos
+      };
+    }
+
+    async function saveCustomizedHTML() {
       syncItemsFromInput();
+      showToast('Packing uploads into HTML…');
+      let baked;
+      try {
+        baked = await bakeUploadsForSave();
+      } catch (err) {
+        console.warn('Bake uploads failed', err);
+        baked = {
+          menuPhotos,
+          orderFormPhotoDataUrl,
+          customBellDataUrl,
+          customPhaseMp3s,
+          christmasGiftPhotos,
+          grandPrizePhotos
+        };
+      }
       const cloneDoc = document.documentElement.cloneNode(true);
       const cloneToast = cloneDoc.querySelector('#toast'); if (cloneToast) cloneToast.classList.add('translate-y-20', 'opacity-0');
       const cloneVideo = cloneDoc.querySelector('#liveCameraVideo'); if (cloneVideo) { cloneVideo.classList.add('hidden'); cloneVideo.removeAttribute('src'); }
       const cloneVdo = cloneDoc.querySelector('#vdoNinjaFrame'); if (cloneVdo) { cloneVdo.classList.add('hidden'); cloneVdo.removeAttribute('src'); }
       const clonePlaceholder = cloneDoc.querySelector('#livestreamPlaceholderUI'); if (clonePlaceholder) clonePlaceholder.classList.remove('hidden');
       const cloneStopBtn = cloneDoc.querySelector('#stopCamBtn'); if (cloneStopBtn) cloneStopBtn.classList.add('hidden');
+      const cloneGoLive = cloneDoc.querySelector('#goFullStageBtn'); if (cloneGoLive) cloneGoLive.classList.add('hidden');
       const cloneFrameBox = cloneDoc.querySelector('#livestreamFrameBox');
       if (cloneFrameBox) { cloneFrameBox.classList.add('border-dashed', 'border-slate-400'); cloneFrameBox.classList.remove('border-solid', 'border-[#1E6B3B]'); }
+      const cloneLayout = cloneDoc.querySelector('#livestreamLayout'); if (cloneLayout) cloneLayout.classList.remove('qr-visible');
       const cloneModal = cloneDoc.querySelector('#winnerModal');
       if (cloneModal) { cloneModal.classList.add('opacity-0', 'pointer-events-none'); }
       const cloneSlides = cloneDoc.querySelectorAll('.slide');
       cloneSlides.forEach((s, idx) => { if (idx === 0) s.classList.add('active'); else s.classList.remove('active'); });
       const cloneSelector = cloneDoc.querySelector('#slideSelector'); if (cloneSelector) cloneSelector.innerHTML = '';
       const clonePhaseSel = cloneDoc.querySelector('#bgmPhaseSelect'); if (clonePhaseSel) clonePhaseSel.innerHTML = '';
+      // Reflect baked menu / order images into the clone DOM as well
+      Object.keys(baked.menuPhotos || {}).forEach((key) => {
+        const box = cloneDoc.querySelector(`#setPhotoBox${key}`);
+        if (!box || !baked.menuPhotos[key]) return;
+        box.innerHTML = `<img src="${baked.menuPhotos[key]}" alt="Order ${String.fromCharCode(64 + Number(key))}" />`;
+      });
+      const orderBox = cloneDoc.querySelector('#orderFormPhotoBox');
+      if (orderBox && baked.orderFormPhotoDataUrl) {
+        orderBox.innerHTML = `<img src="${baked.orderFormPhotoDataUrl}" alt="Christmas cafeteria order sheet" class="order-sheet-img" />`;
+      }
+      try { await embedRelativeMediaInClone(cloneDoc); } catch (_) { /* best-effort */ }
       let serializedHTML = '<!DOCTYPE html>\n' + cloneDoc.outerHTML;
-      serializedHTML = serializedHTML.replace(/let items = \[([\s\S]*?)\];/, 'let items = ' + JSON.stringify(items, null, 6) + ';');
-      serializedHTML = serializedHTML.replace(/let winnersPhase1 = \[([\s\S]*?)\];/, 'let winnersPhase1 = ' + JSON.stringify(winnersPhase1) + ';');
-      serializedHTML = serializedHTML.replace(/let winnersPhase2 = \[([\s\S]*?)\];/, 'let winnersPhase2 = ' + JSON.stringify(winnersPhase2) + ';');
-      serializedHTML = serializedHTML.replace(/let customPhaseMp3s = \{[\s\S]*?\};/, 'let customPhaseMp3s = ' + JSON.stringify(customPhaseMp3s) + ';');
-      serializedHTML = serializedHTML.replace(/let customBellDataUrl = '[^']*';/, 'let customBellDataUrl = ' + JSON.stringify(customBellDataUrl) + ';');
-      serializedHTML = serializedHTML.replace(/let customBellFileName = '[^']*';/, 'let customBellFileName = ' + JSON.stringify(customBellFileName) + ';');
-      serializedHTML = serializedHTML.replace(/let customVdoNinjaUrl = '[^']*';/, 'let customVdoNinjaUrl = ' + JSON.stringify(customVdoNinjaUrl) + ';');
-      serializedHTML = serializedHTML.replace(/let companyLogoDataUrl = '[^']*';/, 'let companyLogoDataUrl = ' + JSON.stringify(companyLogoDataUrl) + ';');
-      serializedHTML = serializedHTML.replace(/let vdoRoomId = '[^']*';/, 'let vdoRoomId = ' + JSON.stringify(vdoRoomId) + ';');
-      serializedHTML = serializedHTML.replace(/let christmasBatchIndex = \d+;/, 'let christmasBatchIndex = ' + christmasBatchIndex + ';');
-      serializedHTML = serializedHTML.replace(/let grandPrizeIndex = -?\d+;/, 'let grandPrizeIndex = ' + grandPrizeIndex + ';');
-      serializedHTML = serializedHTML.replace(/let orderFormPhotoDataUrl = '[^']*';/, 'let orderFormPhotoDataUrl = ' + JSON.stringify(orderFormPhotoDataUrl) + ';');
+      const bindings = {
+        items,
+        masterRoster,
+        winnersPhase1,
+        winnersPhase2,
+        customPhaseMp3s: baked.customPhaseMp3s,
+        customBellDataUrl: baked.customBellDataUrl,
+        customBellFileName,
+        customVdoNinjaUrl,
+        companyLogoDataUrl,
+        vdoRoomId,
+        christmasBatchIndex,
+        grandPrizeIndex,
+        orderFormPhotoDataUrl: baked.orderFormPhotoDataUrl,
+        menuPhotos: baked.menuPhotos,
+        christmasGiftPhotos: baked.christmasGiftPhotos,
+        grandPrizePhotos: baked.grandPrizePhotos,
+        christmasGiftNames,
+        grandPrizeNames,
+        bestDressedWinnerData
+      };
+      Object.keys(bindings).forEach((name) => {
+        serializedHTML = replaceSaveBinding(serializedHTML, name, bindings[name]);
+      });
       const blob = new Blob([serializedHTML], { type: 'text/html;charset=utf-8;' });
       const url = URL.createObjectURL(blob); const a = document.createElement('a');
       a.href = url; a.download = 'APAC_Christmas_Party_Presentation-FINAL.html';
       document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
-      showToast('Saved APAC_Christmas_Party_Presentation-FINAL.html!');
+      showToast('Saved self-contained HTML (uploads embedded)!');
     }
 
     function buildFestiveScatter() {
@@ -4915,7 +5056,13 @@
     syncPrizeWinnersGrid2();
     applyCompanyLogo();
     applyOrderFormPhoto();
-    restoreBestDressedWinnerFromStorage();
+    applyMenuPhotos();
+    if (bestDressedWinnerData) {
+      try { applyBestDressedWinner(bestDressedWinnerData, { silent: true }); }
+      catch (_) { restoreBestDressedWinnerFromStorage(); }
+    } else {
+      restoreBestDressedWinnerFromStorage();
+    }
     buildFestiveScatter();
     window.addEventListener('resize', () => buildFestiveScatter());
     // Prepare VDO room + QR quietly; viewer attaches when entering the cook slide
