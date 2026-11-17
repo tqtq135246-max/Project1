@@ -293,26 +293,60 @@
     .slide[data-title="8. Game 2: Menu Board"] .menu-board-chalk {
       padding: 0.55rem 0.6rem 0.7rem;
     }
-    /* Slide 10 — landscape order sheet (PDF rendered to image) */
-    .slide[data-title="10. Game 2: Sample Order Form"] .order-sheet-slide {
-      max-width: min(96rem, 96vw);
-      padding: 1rem 1.1rem 1.15rem;
+    /* Slide 10 — full-bleed landscape order sheet (fit entire form) */
+    .slide[data-title="10. Game 2: Sample Order Form"] {
+      padding-top: 3.25rem;
+      padding-bottom: 3.75rem;
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
     }
-    @media (min-width: 640px) {
-      .slide[data-title="10. Game 2: Sample Order Form"] .order-sheet-slide {
-        padding: 1.25rem 1.5rem 1.4rem;
+    @media (min-width: 1024px) {
+      .slide[data-title="10. Game 2: Sample Order Form"] {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
       }
     }
-    .order-sheet-frame {
+    .slide[data-title="10. Game 2: Sample Order Form"] .order-sheet-slide {
       width: 100%;
-      max-height: min(68vh, 720px);
+      max-width: min(98rem, 98vw);
+      flex: 1 1 auto;
+      align-self: stretch;
+      height: auto;
+      max-height: 100%;
       min-height: 0;
+      display: flex;
+      flex-direction: column;
+      padding: 0.45rem 0.65rem 0.55rem;
+      gap: 0.35rem;
+      margin-inline: auto;
+    }
+    .slide[data-title="10. Game 2: Sample Order Form"] .order-sheet-slide.stage-board-pad {
+      padding: 0.45rem 0.65rem 0.55rem;
+    }
+    .order-sheet-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.35rem 0.75rem;
+      flex: 0 0 auto;
+    }
+    .order-sheet-frame {
+      flex: 1 1 auto;
+      width: 100%;
+      min-height: 0;
+      max-height: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fffef8;
     }
     .order-sheet-img {
       display: block;
-      width: 100%;
+      width: auto;
       height: auto;
-      max-height: min(68vh, 720px);
+      max-width: 100%;
+      max-height: 100%;
       object-fit: contain;
       object-position: center;
       background: #fffef8;
@@ -1878,33 +1912,27 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 10: GAME 2: SAMPLE ORDER FORM                                   -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center" data-title="10. Game 2: Sample Order Form">
-    <div class="stage-board stage-board-pad festive-card homework-sheet theme-rail rounded-3xl order-sheet-slide">
-      <div class="text-center mb-2 sm:mb-3">
-        <span class="px-4 py-1 rounded-full bg-sky-100 border border-sky-300 text-sky-900 text-xs font-extrabold uppercase tracking-widest">
-          Class Worksheet • 課堂習作單
-        </span>
-        <h1 class="font-festive-display text-2xl sm:text-4xl font-bold text-[#23486A] tracking-tight mt-1.5">
-          ORDER FORM • 訂單表格
-        </h1>
-        <p class="text-xs sm:text-sm text-slate-600 font-semibold mt-1" contenteditable="true">
-          Christmas cafeteria homework for every table — tick your order on this sheet
-        </p>
-        <p class="text-[11px] sm:text-xs text-slate-500 font-semibold mt-0.5" contenteditable="true">
-          聖誕食堂習作：每桌都要用這張訂單表
-        </p>
+  <section class="slide flex-col items-stretch justify-stretch" data-title="10. Game 2: Sample Order Form">
+    <div class="stage-board festive-card homework-sheet theme-rail rounded-3xl order-sheet-slide">
+      <div class="order-sheet-toolbar">
+        <div class="flex flex-wrap items-center gap-2 min-w-0">
+          <span class="px-2.5 py-0.5 rounded-full bg-sky-100 border border-sky-300 text-sky-900 text-[10px] sm:text-xs font-extrabold uppercase tracking-widest shrink-0">
+            Class Worksheet • 課堂習作單
+          </span>
+          <h1 class="font-festive-display text-lg sm:text-2xl font-bold text-[#23486A] tracking-tight m-0 leading-tight" contenteditable="true">
+            ORDER FORM • 訂單表格
+          </h1>
+          <p class="text-[10px] sm:text-xs text-slate-600 font-semibold m-0" contenteditable="true">
+            Tick your order · 每桌用這張訂單表
+          </p>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <a href="media/order-sheet/order-sheet.pdf" download class="px-2.5 py-1.5 rounded-lg bg-white border border-[#23486A]/30 hover:bg-sky-50 text-[#23486A] text-[11px] font-black cursor-pointer no-underline"><i class="fa-solid fa-file-pdf"></i> PDF</a>
+          <button type="button" onclick="document.getElementById('orderFormPhotoInput').click()" class="px-2.5 py-1.5 rounded-lg bg-[#23486A] hover:bg-[#1a3650] text-white text-[11px] font-black cursor-pointer"><i class="fa-solid fa-image"></i> Replace</button>
+        </div>
       </div>
-      <div class="rounded-2xl border-2 border-[#23486A]/35 bg-sky-50/70 p-2.5 sm:p-3 flex flex-col">
-        <div class="flex items-center justify-between gap-2 mb-1.5">
-          <div class="text-[10px] sm:text-xs font-black uppercase tracking-wider text-[#23486A]">Sample order sheet</div>
-          <div class="flex items-center gap-2">
-            <a href="media/order-sheet/order-sheet.pdf" download class="px-2.5 py-1.5 rounded-lg bg-white border border-[#23486A]/30 hover:bg-sky-50 text-[#23486A] text-[11px] font-black cursor-pointer no-underline"><i class="fa-solid fa-file-pdf"></i> PDF</a>
-            <button type="button" onclick="document.getElementById('orderFormPhotoInput').click()" class="px-2.5 py-1.5 rounded-lg bg-[#23486A] hover:bg-[#1a3650] text-white text-[11px] font-black cursor-pointer"><i class="fa-solid fa-image"></i> Replace</button>
-          </div>
-        </div>
-        <div id="orderFormPhotoBox" onclick="document.getElementById('orderFormPhotoInput').click()" class="order-sheet-frame rounded-xl border-2 border-solid border-[#23486A]/40 bg-white overflow-hidden flex flex-col items-center justify-center cursor-pointer hover:border-[#23486A] transition" title="Click to replace order sheet image">
-          <img src="media/order-sheet/order-sheet.jpg" alt="Christmas cafeteria order sheet — Orders A–G" class="order-sheet-img" />
-        </div>
+      <div id="orderFormPhotoBox" onclick="document.getElementById('orderFormPhotoInput').click()" class="order-sheet-frame rounded-xl border-2 border-solid border-[#23486A]/40 overflow-hidden cursor-pointer hover:border-[#23486A] transition" title="Click to replace order sheet image">
+        <img src="media/order-sheet/order-sheet.jpg" alt="Christmas cafeteria order sheet — Orders A–G" class="order-sheet-img" />
       </div>
     </div>
   </section>
