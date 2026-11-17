@@ -217,40 +217,35 @@
     .menu-board-shell .festive-card {
       background: rgba(255,255,255,0.96);
     }
-    /* Landscape-friendly 6-menu board: portrait menus in one row on wide screens */
+    /* Landscape-friendly 3-menu board (Orders A–C) */
     .menu-board-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.65rem;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
       align-items: stretch;
+      max-width: min(72rem, 100%);
+      margin-inline: auto;
     }
-    @media (min-width: 768px) {
+    @media (min-width: 640px) {
       .menu-board-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 0.75rem;
-      }
-    }
-    @media (min-width: 1100px) {
-      .menu-board-grid {
-        grid-template-columns: repeat(6, minmax(0, 1fr));
-        gap: 0.55rem;
+        gap: 0.9rem;
       }
     }
     .menu-board-shell .menu-set-card {
-      padding: 0.55rem 0.55rem 0.65rem;
+      padding: 0.7rem 0.7rem 0.85rem;
       min-width: 0;
     }
     .menu-board-shell .menu-set-card h3 {
-      font-size: clamp(0.72rem, 1.05vw, 0.95rem);
+      font-size: clamp(0.95rem, 1.4vw, 1.25rem);
       line-height: 1.2;
     }
     .menu-board-shell .menu-set-card .menu-set-sub {
-      font-size: clamp(0.58rem, 0.85vw, 0.72rem);
+      font-size: clamp(0.7rem, 1vw, 0.85rem);
       line-height: 1.25;
     }
     .menu-photo-box {
-      /* Keep portrait menu aspect; cap height so 2-row grids still fit */
-      width: min(100%, calc(min(38vh, 300px) * 723 / 1024));
+      width: min(100%, calc(min(52vh, 420px) * 723 / 1024));
       aspect-ratio: 723 / 1024;
       height: auto;
       margin-inline: auto;
@@ -261,20 +256,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.45rem;
       cursor: pointer;
       transition: border-color 0.2s ease;
     }
-    @media (min-width: 768px) and (max-width: 1099px) {
+    @media (min-width: 640px) {
       .menu-photo-box {
-        width: min(100%, calc(min(28vh, 230px) * 723 / 1024));
-      }
-    }
-    @media (min-width: 1100px) {
-      .menu-photo-box {
-        /* Six-across landscape: full card width, true portrait ratio */
         width: 100%;
-        max-height: min(64vh, 540px);
+        max-height: min(58vh, 480px);
       }
     }
     .menu-photo-box img {
@@ -2194,7 +2183,7 @@
       <div class="menu-board-chalk">
       <div class="text-center mb-2">
         <span class="px-3 py-0.5 rounded-full bg-amber-300/20 border border-amber-200/60 text-amber-100 text-[10px] sm:text-xs font-extrabold uppercase tracking-widest">
-          School Cafeteria · Orders A–F
+          School Cafeteria · Orders A–C
         </span>
         <h1 class="font-festive-display text-2xl sm:text-4xl font-bold text-amber-200 tracking-tight mt-1" contenteditable="true">
           GAME 2: CAFETERIA MENU BOARD
@@ -2244,45 +2233,6 @@
           </div>
           <h3 class="font-black text-slate-800" contenteditable="true">Chicken</h3>
           <p class="menu-set-sub text-slate-600 font-semibold mt-0.5" contenteditable="true">Order C · 雞肉堡</p>
-        </div>
-
-        <!-- Order D -->
-        <div class="festive-card menu-set-card rounded-2xl border-2 border-[#D97724]/40 flex flex-col">
-          <div class="flex items-center justify-between mb-1.5 gap-1">
-            <span class="px-2 py-0.5 rounded-md bg-[#D97724] text-white font-black text-[10px] sm:text-xs uppercase tracking-wide">Order D</span>
-            <button type="button" onclick="triggerProductPhotoUpload(4)" class="text-[10px] sm:text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer shrink-0"><i class="fa-solid fa-image"></i></button>
-          </div>
-          <div id="setPhotoBox4" onclick="triggerProductPhotoUpload(4)" class="menu-photo-box hover:border-[#D97724]" title="Replace Order D photo">
-            <img src="media/menus/order-d-bacon-beef.jpg" alt="Order D Bacon Beef" />
-          </div>
-          <h3 class="font-black text-slate-800" contenteditable="true">Bacon Beef</h3>
-          <p class="menu-set-sub text-slate-600 font-semibold mt-0.5" contenteditable="true">Order D · 培根牛肉堡</p>
-        </div>
-
-        <!-- Order E -->
-        <div class="festive-card menu-set-card rounded-2xl border-2 border-[#C8372D]/40 flex flex-col">
-          <div class="flex items-center justify-between mb-1.5 gap-1">
-            <span class="px-2 py-0.5 rounded-md bg-[#C8372D] text-white font-black text-[10px] sm:text-xs uppercase tracking-wide">Order E</span>
-            <button type="button" onclick="triggerProductPhotoUpload(5)" class="text-[10px] sm:text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer shrink-0"><i class="fa-solid fa-image"></i></button>
-          </div>
-          <div id="setPhotoBox5" onclick="triggerProductPhotoUpload(5)" class="menu-photo-box hover:border-[#C8372D]" title="Replace Order E photo">
-            <img src="media/menus/order-e-double-cheese.jpg" alt="Order E Double Cheeseburger" />
-          </div>
-          <h3 class="font-black text-slate-800" contenteditable="true">Double Cheeseburger</h3>
-          <p class="menu-set-sub text-slate-600 font-semibold mt-0.5" contenteditable="true">Order E · 雙層芝士堡</p>
-        </div>
-
-        <!-- Order F -->
-        <div class="festive-card menu-set-card rounded-2xl border-2 border-[#1E6B3B]/40 flex flex-col">
-          <div class="flex items-center justify-between mb-1.5 gap-1">
-            <span class="px-2 py-0.5 rounded-md bg-[#1E6B3B] text-white font-black text-[10px] sm:text-xs uppercase tracking-wide">Order F</span>
-            <button type="button" onclick="triggerProductPhotoUpload(6)" class="text-[10px] sm:text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer shrink-0"><i class="fa-solid fa-image"></i></button>
-          </div>
-          <div id="setPhotoBox6" onclick="triggerProductPhotoUpload(6)" class="menu-photo-box hover:border-[#1E6B3B]" title="Replace Order F photo">
-            <img src="media/menus/order-f-deluxe-fish.jpg" alt="Order F Deluxe Fish" />
-          </div>
-          <h3 class="font-black text-slate-800" contenteditable="true">Deluxe Fish</h3>
-          <p class="menu-set-sub text-slate-600 font-semibold mt-0.5" contenteditable="true">Order F · 豪華魚柳堡</p>
         </div>
       </div>
       </div>
@@ -3472,20 +3422,7 @@
     function buildGrandPrizesWall() {
       const wall = document.getElementById('grandPrizesWall');
       if (!wall) return;
-      const cheerFor = (rank) => {
-        if (rank === 1) return 'Head Prefect · Champion';
-        if (rank === 2) return 'Vice Champion';
-        if (rank === 3) return 'House Captain';
-        if (rank === 4) return 'Merit Scholar';
-        if (rank === 5) return 'Class Star';
-        return 'Honor Student';
-      };
-      const medalFor = (rank) => {
-        if (rank === 1) return '1';
-        if (rank === 2) return '2';
-        if (rank === 3) return '3';
-        return String(rank);
-      };
+      const medalFor = (rank) => String(rank);
       const cardHtml = (prize, idx) => {
         const w = winnersPhase2.find(x => x.rankIndex === idx);
         const photo = grandPrizePhotos[idx];
@@ -3495,7 +3432,6 @@
         return `<article class="award-card${champClass}${stateClass}" style="--award-accent:${prize.color}">
           ${w ? '<span class="award-stamp">Awarded</span>' : ''}
           <div class="award-medal" title="Rank ${prize.rank}">${medalFor(prize.rank)}</div>
-          <div class="award-label">${cheerFor(prize.rank)}</div>
           <div id="phase2PhotoBox${idx}" onclick="triggerPhase2PhotoUpload(${idx})" class="prize-card-photo">
             ${photo ? `<img src="${photo}" alt="Grand ${idx + 1}" />` : `<i class="fa-solid fa-gift text-lg mb-0.5"></i><span class="text-[9px] font-bold">${w ? 'Photo' : '???'}</span>`}
           </div>
