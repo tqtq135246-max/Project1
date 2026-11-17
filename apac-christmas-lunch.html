@@ -1436,11 +1436,279 @@
       0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
       50% { transform: translateY(-10px) rotate(calc(var(--rot, 0deg) + 8deg)); }
     }
-    #livestreamLayout.stream-expanded #livestreamFrameBox {
-      grid-column: 1 / -1;
+    /* Cook slide — full-bleed stage; QR is an overlay, not a side column */
+    #livestreamLayout {
+      position: relative;
+      display: block;
     }
-    #livestreamLayout.stream-expanded #vdoQrPanel {
+    #livestreamFrameBox {
+      width: 100%;
+      min-height: min(62vh, 640px);
+      height: 100%;
+    }
+    #vdoQrPanel {
       display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 30;
+      width: min(360px, 92%);
+      max-height: min(78vh, 620px);
+      overflow: auto;
+      box-shadow: 0 24px 60px -12px rgba(15, 23, 42, 0.55);
+    }
+    #livestreamLayout.qr-visible #vdoQrPanel {
+      display: flex;
+      flex-direction: column;
+    }
+    #vdoQrBackdrop {
+      display: none;
+      position: absolute;
+      inset: 0;
+      z-index: 25;
+      background: rgba(15, 23, 42, 0.55);
+      border-radius: 1.5rem;
+    }
+    #livestreamLayout.qr-visible #vdoQrBackdrop {
+      display: block;
+    }
+    .honor-roll-panel {
+      height: min(74vh, 680px) !important;
+      min-height: 420px;
+    }
+    .honor-roll-panel #winnersList .honor-chip,
+    .honor-roll-panel #grandWinnersList .honor-chip {
+      padding: 0.65rem 0.75rem;
+      border-radius: 0.85rem;
+      font-size: 0.85rem;
+    }
+    .honor-roll-panel #winnersList .honor-chip span:first-child,
+    .honor-roll-panel #grandWinnersList .honor-chip span:first-child {
+      font-size: 0.9rem;
+      line-height: 1.25;
+    }
+
+    /* Slide 20 — school awards assembly / yearbook honor board */
+    .slide[data-title="20. Grand Prizes Wall"] {
+      padding-top: 3.25rem;
+      padding-bottom: 3.75rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    .school-awards-hall {
+      width: 100%;
+      max-width: min(96rem, 96vw);
+      margin-inline: auto;
+      border-radius: 1.25rem;
+      padding: 0.85rem 1rem 1.1rem;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(253, 224, 71, 0.28), transparent 42%),
+        linear-gradient(165deg, #1e3a5f 0%, #23486A 35%, #14532D 100%);
+      border: 7px solid #b4692e;
+      box-shadow:
+        inset 0 0 0 4px #f59e0b,
+        0 28px 50px -20px rgba(15, 40, 70, 0.55);
+      position: relative;
+      overflow: hidden;
+    }
+    .school-awards-hall::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(255,255,255,0.03) 28px),
+        radial-gradient(circle at 10% 20%, rgba(254,243,199,0.12), transparent 30%),
+        radial-gradient(circle at 90% 15%, rgba(200,55,45,0.12), transparent 28%);
+      pointer-events: none;
+    }
+    .school-awards-header {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      margin-bottom: 0.75rem;
+    }
+    .school-awards-plaque {
+      display: inline-block;
+      background: linear-gradient(180deg, #fde68a, #f59e0b 55%, #d97724);
+      color: #7f1d1d;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.05rem, 2.4vw, 1.55rem);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.4rem 1.35rem;
+      border-radius: 0.35rem;
+      border: 3px solid #7f1d1d;
+      box-shadow: 0 4px 0 #5b2a0a, 0 0 20px rgba(253,224,71,0.35);
+    }
+    .school-awards-sub {
+      margin-top: 0.4rem;
+      color: #fde68a;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .school-awards-podium {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1.25fr 1fr;
+      gap: 0.65rem;
+      align-items: end;
+      margin-bottom: 0.65rem;
+    }
+    .school-awards-rest {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.55rem;
+    }
+    .award-card {
+      background: linear-gradient(180deg, #fffef8 0%, #fff7ed 100%);
+      border: 2px solid #d6c7a8;
+      border-radius: 0.9rem;
+      padding: 0.65rem 0.7rem 0.75rem;
+      text-align: center;
+      box-shadow: 0 12px 24px -16px rgba(0,0,0,0.45);
+      position: relative;
+      overflow: hidden;
+      min-height: 0;
+    }
+    .award-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 0.35rem;
+      background: var(--award-accent, #C8372D);
+    }
+    .award-card.is-champ {
+      background: linear-gradient(165deg, #fffbeb, #fef3c7 40%, #fffef8);
+      border-color: #f59e0b;
+      box-shadow: 0 0 0 3px rgba(245,158,11,0.35), 0 18px 36px -14px rgba(180,83,9,0.55);
+      padding: 0.85rem 0.85rem 0.95rem;
+      transform: translateY(-0.35rem);
+    }
+    .award-card.is-won {
+      animation: awardReveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    .award-card.is-locked {
+      background: repeating-linear-gradient(-45deg, #f8fafc, #f8fafc 10px, #eef2f7 10px, #eef2f7 20px);
+      opacity: 0.92;
+    }
+    @keyframes awardReveal {
+      from { opacity: 0; transform: translateY(12px) scale(0.96); }
+      to { opacity: 1; transform: none; }
+    }
+    .award-card.is-champ.is-won { animation: awardReveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) both, lbChampPulse 2.4s ease-in-out 0.7s infinite; }
+    .award-medal {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 999px;
+      background: var(--award-accent, #C8372D);
+      color: #fff;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 0.35rem;
+      box-shadow: 0 3px 0 rgba(0,0,0,0.2);
+    }
+    .award-card.is-champ .award-medal {
+      width: 3rem;
+      height: 3rem;
+      font-size: 1.2rem;
+      box-shadow: 0 0 0 3px #fde68a, 0 4px 0 rgba(127,29,29,0.35);
+    }
+    .award-card .prize-card-photo {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      max-height: 88px;
+      margin: 0.25rem auto 0.4rem;
+      border-radius: 0.55rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      color: #94a3b8;
+      overflow: hidden;
+    }
+    .award-card.is-champ .prize-card-photo {
+      max-height: 120px;
+      aspect-ratio: 16 / 10;
+    }
+    .award-card.is-won .prize-card-photo {
+      border-style: solid;
+      border-color: #f59e0b;
+    }
+    .award-label {
+      font-size: 0.62rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #92400e;
+      margin-bottom: 0.15rem;
+    }
+    .award-card input[type="text"] {
+      width: 100%;
+      text-align: center;
+      font-size: 0.78rem !important;
+      font-weight: 900;
+      color: #1e293b;
+      background: transparent;
+      border-bottom: 1px dashed #d6c7a8;
+      padding: 0.1rem 0;
+      margin-bottom: 0.35rem;
+    }
+    .award-card.is-champ input[type="text"] { font-size: 1rem !important; }
+    .award-winner {
+      border-radius: 0.45rem;
+      background: #f1f5f9;
+      border: 1px dashed #94a3b8;
+      color: #64748b;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 0.35rem 0.45rem;
+      min-height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .award-card.is-won .award-winner {
+      background: linear-gradient(90deg, #ecfdf5, #d1fae5);
+      border-color: #1E6B3B;
+      border-style: solid;
+      color: #14532D;
+    }
+    .award-card.is-champ .award-winner { font-size: 0.9rem; min-height: 2.35rem; }
+    .award-stamp {
+      position: absolute;
+      top: 0.45rem;
+      right: 0.45rem;
+      font-size: 0.55rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #C8372D;
+      border: 2px solid #C8372D;
+      padding: 0.1rem 0.3rem;
+      border-radius: 0.2rem;
+      transform: rotate(8deg);
+      opacity: 0.85;
+    }
+    @media (max-width: 900px) {
+      .school-awards-podium,
+      .school-awards-rest {
+        grid-template-columns: 1fr;
+      }
+      .award-card.is-champ { transform: none; }
     }
   </style>
 </head>
@@ -2063,6 +2331,12 @@
         </div>
 
         <div class="flex flex-wrap items-center gap-2">
+          <button type="button" onclick="toggleVdoQrPanel()" id="toggleQrBarBtn" class="px-3 py-2 rounded-xl bg-[#23486A] hover:bg-[#1a3650] text-white text-xs font-black transition cursor-pointer shadow">
+            <i class="fa-solid fa-qrcode"></i> Show QR
+          </button>
+          <button type="button" onclick="regenerateVdoRoom()" class="px-3 py-2 rounded-xl bg-[#C8372D] hover:bg-[#b91c1c] text-white text-xs font-black transition cursor-pointer shadow">
+            <i class="fa-solid fa-arrows-rotate"></i> Regenerate ID
+          </button>
           <button type="button" onclick="adjustCookTimer(-30)" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-extrabold border border-slate-300 cursor-pointer">-30s</button>
           <div class="px-4 py-1 rounded-xl bg-slate-900 font-mono text-2xl sm:text-4xl font-black text-amber-300 tracking-wider shadow-inner" id="cookTimerDisplay">
             03:00
@@ -2077,19 +2351,24 @@
         </div>
       </div>
 
-      <div id="livestreamLayout" class="grid grid-cols-1 xl:grid-cols-12 gap-3 flex-1 min-h-0">
-        <div id="livestreamFrameBox" class="xl:col-span-8 rounded-3xl bg-slate-950 border-4 border-dashed border-slate-400 shadow-2xl relative overflow-hidden flex flex-col items-center justify-center text-center min-h-[280px] transition-all">
+      <div id="livestreamLayout" class="relative flex-1 min-h-0">
+        <div id="livestreamFrameBox" class="rounded-3xl bg-slate-950 border-4 border-dashed border-slate-400 shadow-2xl relative overflow-hidden flex flex-col items-center justify-center text-center min-h-[min(62vh,640px)] h-full transition-all">
           <video id="liveCameraVideo" autoplay playsinline muted class="hidden absolute inset-0 w-full h-full object-contain bg-black"></video>
           <iframe id="vdoNinjaFrame" class="hidden absolute inset-0 w-full h-full border-0 bg-black" allow="autoplay;camera;microphone;fullscreen;display-capture;encrypted-media" allowfullscreen referrerpolicy="no-referrer"></iframe>
 
+          <div class="absolute top-3 left-3 z-20 flex flex-wrap gap-2">
+            <button type="button" onclick="goFullStage()" id="goFullStageBtn" class="hidden px-3 py-1.5 rounded-xl bg-[#1E6B3B]/90 hover:bg-[#14532D] text-white text-xs font-bold backdrop-blur-md border border-white/20 transition cursor-pointer shadow-lg">
+              <i class="fa-solid fa-expand mr-1"></i> Full Stage
+            </button>
+            <button type="button" onclick="toggleVdoQrPanel()" id="showQrBtn" class="px-3 py-1.5 rounded-xl bg-slate-900/75 hover:bg-[#23486A] text-white/90 text-xs font-bold backdrop-blur-md border border-white/20 transition cursor-pointer shadow-lg">
+              <i class="fa-solid fa-qrcode mr-1"></i> Show QR
+            </button>
+            <button type="button" onclick="regenerateVdoRoom()" class="px-3 py-1.5 rounded-xl bg-[#C8372D]/90 hover:bg-[#b91c1c] text-white text-xs font-bold backdrop-blur-md border border-white/20 transition cursor-pointer shadow-lg">
+              <i class="fa-solid fa-arrows-rotate mr-1"></i> Regenerate
+            </button>
+          </div>
           <button type="button" onclick="stopLiveWebcam()" id="stopCamBtn" class="hidden absolute top-3 right-3 z-20 px-3 py-1.5 rounded-xl bg-slate-900/75 hover:bg-red-600 text-white/90 hover:text-white text-xs font-bold backdrop-blur-md border border-white/20 transition cursor-pointer shadow-lg">
             <i class="fa-solid fa-video-slash mr-1"></i> Disconnect
-          </button>
-          <button type="button" onclick="goFullStage()" id="goFullStageBtn" class="hidden absolute top-3 left-3 z-20 px-3 py-1.5 rounded-xl bg-[#1E6B3B]/90 hover:bg-[#14532D] text-white text-xs font-bold backdrop-blur-md border border-white/20 transition cursor-pointer shadow-lg">
-            <i class="fa-solid fa-expand mr-1"></i> Full Stage
-          </button>
-          <button type="button" onclick="showVdoQrPanel()" id="showQrBtn" class="hidden absolute top-3 left-3 z-20 px-3 py-1.5 rounded-xl bg-slate-900/75 hover:bg-[#23486A] text-white/90 text-xs font-bold backdrop-blur-md border border-white/20 transition cursor-pointer shadow-lg">
-            <i class="fa-solid fa-qrcode mr-1"></i> Show QR
           </button>
 
           <div id="livestreamPlaceholderUI" class="relative z-10 max-w-lg mx-auto text-white space-y-3 p-6">
@@ -2099,17 +2378,23 @@
             <h3 class="font-festive-display text-2xl sm:text-3xl font-bold text-white tracking-wide">
               CLASSROOM FLOOR CAM
             </h3>
-            <p class="text-xs text-slate-300 font-semibold">School lab livestream — waiting for phone camera…</p>
+            <p class="text-xs text-slate-300 font-semibold">School lab livestream — tap Show QR to connect a phone, or Regenerate if the room expired.</p>
             <button type="button" onclick="startLiveWebcam()" id="startCamBtn" class="px-5 py-2.5 rounded-xl bg-slate-700 hover:bg-slate-600 text-white text-xs font-black shadow transition cursor-pointer inline-flex items-center gap-2">
               <i class="fa-solid fa-desktop"></i> Use This Computer Camera
             </button>
           </div>
         </div>
 
-        <div id="vdoQrPanel" class="xl:col-span-4 festive-card rounded-3xl p-4 border-2 border-[#C8372D]/40 flex flex-col items-center text-center gap-3">
-          <span class="px-3 py-1 rounded-lg bg-[#C8372D] text-white font-black text-[11px] uppercase tracking-wider">Scan to Broadcast</span>
+        <div id="vdoQrBackdrop" onclick="setQrVisible(false)" aria-hidden="true"></div>
+        <div id="vdoQrPanel" class="festive-card rounded-3xl p-4 border-2 border-[#C8372D]/40 flex-col items-center text-center gap-3">
+          <div class="w-full flex items-center justify-between gap-2">
+            <span class="px-3 py-1 rounded-lg bg-[#C8372D] text-white font-black text-[11px] uppercase tracking-wider">Scan to Broadcast</span>
+            <button type="button" onclick="setQrVisible(false)" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-black cursor-pointer">
+              <i class="fa-solid fa-xmark mr-1"></i> Hide
+            </button>
+          </div>
           <h3 class="font-festive-display text-xl font-bold text-slate-800">Phone Floor Cam</h3>
-          <p class="text-[11px] text-slate-600 font-semibold leading-relaxed">Scan with your phone → allow camera → stream goes full stage.</p>
+          <p class="text-[11px] text-slate-600 font-semibold leading-relaxed">Scan with your phone → allow camera → tap Full Stage.</p>
           <div id="vdoQrBox" class="rounded-xl border-2 border-slate-200 bg-white p-2 shadow w-[196px] h-[196px] flex items-center justify-center overflow-hidden"></div>
           <div class="w-full text-left space-y-1.5">
             <div class="text-[10px] font-black uppercase tracking-wider text-slate-500">Room</div>
@@ -2117,8 +2402,8 @@
             <a id="vdoPushLink" href="#" target="_blank" rel="noopener" class="block text-[11px] font-bold text-[#C8372D] hover:underline break-all">Open push link</a>
           </div>
           <div class="flex flex-wrap gap-2 justify-center w-full">
-            <button type="button" onclick="startVdoNinjaRoom(true)" class="px-3 py-2 rounded-xl bg-[#1E6B3B] hover:bg-[#14532D] text-white text-xs font-black cursor-pointer">
-              <i class="fa-solid fa-qrcode mr-1"></i> New Room + QR
+            <button type="button" onclick="regenerateVdoRoom()" class="px-3 py-2 rounded-xl bg-[#C8372D] hover:bg-[#b91c1c] text-white text-xs font-black cursor-pointer">
+              <i class="fa-solid fa-arrows-rotate mr-1"></i> Regenerate ID
             </button>
             <button type="button" onclick="copyVdoPushLink()" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-black cursor-pointer">
               <i class="fa-solid fa-copy mr-1"></i> Copy Link
@@ -2228,7 +2513,7 @@
           </div>
         </div>
 
-        <div class="lg:col-span-6 flex flex-col items-center justify-center order-1 lg:order-2">
+        <div class="lg:col-span-5 flex flex-col items-center justify-center order-1 lg:order-2">
           <div class="relative w-full max-w-[min(68vh,680px)] aspect-square flex items-center justify-center p-0">
             <div class="absolute -top-2 z-20 pointer-shadow flex flex-col items-center">
               <svg width="56" height="64" viewBox="0 0 46 52" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -2248,8 +2533,8 @@
           <div class="mt-2 text-center text-sm text-slate-600 font-bold">Click <span class="text-[#C8372D] font-black uppercase">Draw</span> for the next gift batch · or press <kbd class="px-2 py-0.5 rounded bg-slate-100 border border-slate-300 text-slate-800 font-mono">SPACE</kbd></div>
         </div>
 
-        <div class="lg:col-span-3 flex flex-col gap-3 order-3">
-          <div class="chalkboard-card rounded-2xl p-3.5 border-2 border-amber-400 flex flex-col h-[min(520px,62vh)] text-white">
+        <div class="lg:col-span-4 flex flex-col gap-3 order-3">
+          <div class="honor-roll-panel chalkboard-card rounded-2xl p-3.5 border-2 border-amber-400 flex flex-col text-white">
             <div class="flex items-center justify-between pb-2 border-b border-amber-500/40">
               <div class="flex items-center gap-2">
                 <div class="w-7 h-7 rounded-lg bg-amber-400 text-slate-900 flex items-center justify-center"><i class="fa-solid fa-scroll text-sm"></i></div>
@@ -2465,7 +2750,7 @@
           </div>
         </div>
 
-        <div class="lg:col-span-6 flex flex-col items-center justify-center order-1 lg:order-2">
+        <div class="lg:col-span-5 flex flex-col items-center justify-center order-1 lg:order-2">
           <div class="relative w-full max-w-[min(68vh,680px)] aspect-square flex items-center justify-center p-0">
             <div class="absolute -top-2 z-20 pointer-shadow flex flex-col items-center">
               <svg width="56" height="64" viewBox="0 0 46 52" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -2485,8 +2770,8 @@
           <div class="mt-2 text-center text-sm text-slate-600 font-bold">Click <span class="text-[#D97724] font-black uppercase">Spin</span> or press <kbd class="px-2 py-0.5 rounded bg-slate-100 border border-slate-300 text-slate-800 font-mono">SPACE</kbd></div>
         </div>
 
-        <div class="lg:col-span-3 flex flex-col gap-3 order-3">
-          <div class="chalkboard-card rounded-2xl p-3.5 border-2 border-amber-400 flex flex-col h-[min(520px,62vh)] text-white">
+        <div class="lg:col-span-4 flex flex-col gap-3 order-3">
+          <div class="honor-roll-panel chalkboard-card rounded-2xl p-3.5 border-2 border-amber-400 flex flex-col text-white">
             <div class="flex items-center justify-between pb-2 border-b border-amber-500/40">
               <div class="flex items-center gap-2">
                 <div class="w-7 h-7 rounded-lg bg-amber-400 text-slate-900 flex items-center justify-center"><i class="fa-solid fa-crown text-sm"></i></div>
@@ -2508,16 +2793,16 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 20: GRAND PRIZES WALL (SCHOOL LEADERBOARD)                       -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center" style="padding-top: 3.25rem; padding-bottom: 4.25rem;" data-title="20. Grand Prizes Wall">
-    <div class="stage-board">
+  <section class="slide flex-col items-center justify-center" data-title="20. Grand Prizes Wall">
+    <div class="stage-board w-full">
       <input type="file" id="phase2PrizePhotoInput" accept="image/*" class="hidden" />
-      <div class="school-leaderboard">
-        <div class="school-leaderboard-header">
-          <div class="school-leaderboard-banner" contenteditable="true">🏆 Class Christmas Honor Roll · 聖誕學期榮譽榜</div>
-          <div class="school-leaderboard-sub">Individual Grand Prizes · school champions · #1 crowned first</div>
+      <div class="school-awards-hall">
+        <div class="school-awards-header">
+          <div class="school-awards-plaque" contenteditable="true">🎓 Annual Awards Assembly · 聖誕學期頒獎禮</div>
+          <div class="school-awards-sub">Six school champions · yearbook honor board · #1 takes center stage</div>
         </div>
-        <div id="grandPrizesWall" class="leaderboard-rows">
-          <!-- filled by JS: ranked leaderboard rows -->
+        <div id="grandPrizesWall">
+          <!-- filled by JS: podium + yearbook cards -->
         </div>
       </div>
     </div>
@@ -3042,10 +3327,16 @@
       syncVdoRoomUi();
       renderVdoQr(vdoPushUrl);
       // Always (re)attach the viewer so the stage is ready when the phone joins
-      loadVdoNinjaStream(customVdoNinjaUrl, { expand: false, forceReload: true });
+      loadVdoNinjaStream(customVdoNinjaUrl, { forceReload: true, showQr: opts.showQr });
       if (!opts.silent) {
-        showToast(forceNew ? 'New room ready — scan QR, then Full Stage' : 'Scan QR with phone, then tap Full Stage');
+        showToast(forceNew ? 'New room ready — scan QR, then Full Stage' : 'Room ready — Show QR to connect phone');
       }
+    }
+
+    function regenerateVdoRoom() {
+      startVdoNinjaRoom(true, { silent: true, showQr: true });
+      setQrVisible(true);
+      showToast('Fresh VDO room ID — scan the new QR');
     }
 
     function renderVdoQr(url) {
@@ -3081,22 +3372,44 @@
       navigator.clipboard.writeText(vdoPushUrl).then(() => showToast('Push link copied')).catch(() => showToast(vdoPushUrl));
     }
 
-    function setLivestreamExpanded(expanded) {
+    function syncQrToggleLabels(visible) {
+      const label = visible ? 'Hide QR' : 'Show QR';
+      const icon = visible ? 'fa-eye-slash' : 'fa-qrcode';
+      ['showQrBtn', 'toggleQrBarBtn'].forEach((id) => {
+        const btn = document.getElementById(id);
+        if (!btn) return;
+        btn.innerHTML = `<i class="fa-solid ${icon} mr-1"></i> ${label}`;
+      });
+    }
+
+    function setQrVisible(visible) {
       const layout = document.getElementById('livestreamLayout');
-      const showQrBtn = document.getElementById('showQrBtn');
-      const goLiveBtn = document.getElementById('goFullStageBtn');
-      if (layout) layout.classList.toggle('stream-expanded', !!expanded);
-      if (showQrBtn) showQrBtn.classList.toggle('hidden', !expanded);
-      if (goLiveBtn) {
-        const hasStream = !document.getElementById('vdoNinjaFrame')?.classList.contains('hidden')
-          || !document.getElementById('liveCameraVideo')?.classList.contains('hidden');
-        goLiveBtn.classList.toggle('hidden', !!expanded || !hasStream);
-      }
+      if (layout) layout.classList.toggle('qr-visible', !!visible);
+      syncQrToggleLabels(!!visible);
+    }
+
+    function toggleVdoQrPanel() {
+      const layout = document.getElementById('livestreamLayout');
+      const next = !(layout && layout.classList.contains('qr-visible'));
+      if (next && !vdoPushUrl) startVdoNinjaRoom(false, { silent: true, showQr: true });
+      setQrVisible(next);
+      if (next) showToast('QR shown — hide when phone is connected');
     }
 
     function showVdoQrPanel() {
-      setLivestreamExpanded(false);
-      showToast('QR panel shown');
+      if (!vdoPushUrl) startVdoNinjaRoom(false, { silent: true, showQr: true });
+      setQrVisible(true);
+    }
+
+    /** @deprecated kept for older call sites — camera is always full-bleed now */
+    function setLivestreamExpanded(expanded) {
+      if (expanded) setQrVisible(false);
+      const goLiveBtn = document.getElementById('goFullStageBtn');
+      if (goLiveBtn) {
+        const hasStream = !document.getElementById('vdoNinjaFrame')?.classList.contains('hidden')
+          || !document.getElementById('liveCameraVideo')?.classList.contains('hidden');
+        goLiveBtn.classList.toggle('hidden', !hasStream);
+      }
     }
 
     function loadVdoNinjaStream(url, opts = {}) {
@@ -3128,13 +3441,14 @@
         frameBox.classList.remove('border-dashed', 'border-slate-400');
         frameBox.classList.add('border-solid', 'border-[#1E6B3B]');
       }
-      setLivestreamExpanded(!!opts.expand);
+      if (opts.showQr === true) setQrVisible(true);
+      else if (opts.showQr === false || opts.expand) setQrVisible(false);
     }
 
     function goFullStage() {
       // Reload viewer so it picks up a phone that started pushing after the iframe first loaded
-      if (customVdoNinjaUrl) loadVdoNinjaStream(customVdoNinjaUrl, { expand: true, forceReload: true });
-      else setLivestreamExpanded(true);
+      if (customVdoNinjaUrl) loadVdoNinjaStream(customVdoNinjaUrl, { forceReload: true, showQr: false });
+      else setQrVisible(false);
       showToast('Broadcast full stage — QR hidden');
     }
 
@@ -3166,29 +3480,49 @@
     function buildGrandPrizesWall() {
       const wall = document.getElementById('grandPrizesWall');
       if (!wall) return;
-      // Top → down: best (#1) first
-      wall.innerHTML = GRAND_PRIZES.map((prize, idx) => {
+      const cheerFor = (rank) => {
+        if (rank === 1) return 'Head Prefect · Champion';
+        if (rank === 2) return 'Vice Champion';
+        if (rank === 3) return 'House Captain';
+        if (rank === 4) return 'Merit Scholar';
+        if (rank === 5) return 'Class Star';
+        return 'Honor Student';
+      };
+      const medalFor = (rank) => {
+        if (rank === 1) return '1';
+        if (rank === 2) return '2';
+        if (rank === 3) return '3';
+        return String(rank);
+      };
+      const cardHtml = (prize, idx) => {
         const w = winnersPhase2.find(x => x.rankIndex === idx);
         const photo = grandPrizePhotos[idx];
-        const title = w ? (grandPrizeNames[idx] || prize.name) : `🔒 Mystery Prize #${prize.rank}`;
-        const medal = prize.rank === 1 ? '🥇' : prize.rank === 2 ? '🥈' : prize.rank === 3 ? '🥉' : `#${prize.rank}`;
+        const title = w ? (grandPrizeNames[idx] || prize.name) : `Mystery Prize #${prize.rank}`;
         const stateClass = w ? ' is-won' : ' is-locked';
-        const cheer = prize.rank === 1 ? 'Champion' : prize.rank <= 3 ? 'Podium' : 'Honoree';
-        return `<div class="lb-row rank-${prize.rank}${stateClass}">
-          <div class="lb-rank-badge" style="background:${prize.color}" title="Rank ${prize.rank}">${medal}</div>
+        const champClass = prize.rank === 1 ? ' is-champ' : '';
+        return `<article class="award-card${champClass}${stateClass}" style="--award-accent:${prize.color}">
+          ${w ? '<span class="award-stamp">Awarded</span>' : ''}
+          <div class="award-medal" title="Rank ${prize.rank}">${medalFor(prize.rank)}</div>
+          <div class="award-label">${cheerFor(prize.rank)}</div>
           <div id="phase2PhotoBox${idx}" onclick="triggerPhase2PhotoUpload(${idx})" class="prize-card-photo">
             ${photo ? `<img src="${photo}" alt="Grand ${idx + 1}" />` : `<i class="fa-solid fa-gift text-lg mb-0.5"></i><span class="text-[9px] font-bold">${w ? 'Photo' : '???'}</span>`}
           </div>
-          <div class="min-w-0 flex flex-col gap-1">
-            <div class="flex items-center justify-between gap-2 flex-wrap">
-              <span class="text-[9px] font-black uppercase tracking-wider ${prize.rank === 1 ? 'text-amber-700' : 'text-slate-500'}">${cheer} · Rank #${prize.rank}</span>
-              <button type="button" onclick="triggerPhase2PhotoUpload(${idx})" class="text-[9px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
-            </div>
-            <input type="text" class="w-full text-xs sm:text-sm font-black text-slate-800 bg-transparent border-b border-dashed border-slate-300 focus:outline-none focus:border-[#D97724] py-0.5" value="${escapeHTML(title)}" onchange="grandPrizeNames[${idx}]=this.value; updateBatchLabels();" />
-            <div class="winner-slot ${w ? 'filled' : ''}">${w ? '🎉 ' + escapeHTML(w.name) : 'TBA — awaiting winner'}</div>
-          </div>
+          <input type="text" value="${escapeHTML(title)}" onchange="grandPrizeNames[${idx}]=this.value; updateBatchLabels();" />
+          <div class="award-winner">${w ? escapeHTML(w.name) : 'TBA — awaiting draw'}</div>
+          <button type="button" onclick="triggerPhase2PhotoUpload(${idx})" class="mt-1.5 text-[9px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
+        </article>`;
+      };
+      // Podium visual: #2 | #1 (center, tall) | #3 — then #4 #5 #6 yearbook row
+      const byRank = (r) => GRAND_PRIZES.findIndex(p => p.rank === r);
+      const podiumOrder = [2, 1, 3].map(byRank);
+      const restOrder = [4, 5, 6].map(byRank);
+      wall.innerHTML = `
+        <div class="school-awards-podium">
+          ${podiumOrder.map(idx => cardHtml(GRAND_PRIZES[idx], idx)).join('')}
+        </div>
+        <div class="school-awards-rest">
+          ${restOrder.map(idx => cardHtml(GRAND_PRIZES[idx], idx)).join('')}
         </div>`;
-      }).join('');
     }
 
     function showWinnerModal(name, opts = {}) {
@@ -4076,7 +4410,9 @@
         videoEl.srcObject = activeMediaStream; videoEl.classList.remove('hidden');
         placeholderUI.classList.add('hidden'); stopBtn.classList.remove('hidden');
         frameBox.classList.remove('border-dashed', 'border-slate-400'); frameBox.classList.add('border-solid', 'border-[#1E6B3B]');
-        setLivestreamExpanded(true);
+        const goLiveBtn = document.getElementById('goFullStageBtn');
+        if (goLiveBtn) goLiveBtn.classList.remove('hidden');
+        setQrVisible(false);
         showToast('Camera connected — full stage');
       } catch (err) { showToast('Camera unavailable', 'error'); }
     }
@@ -4096,7 +4432,7 @@
       frameBox.classList.remove('border-solid', 'border-[#1E6B3B]');
       const goLiveBtn = document.getElementById('goFullStageBtn');
       if (goLiveBtn) goLiveBtn.classList.add('hidden');
-      setLivestreamExpanded(false);
+      setQrVisible(false);
     }
 
     window.addEventListener('keydown', (e) => {
@@ -4335,7 +4671,7 @@
       }
       listEl.innerHTML = [...list].reverse().map((w) => {
         const label = w.prizeName || (w.rankIndex != null ? `GP #${w.rank}` : `Gift`);
-        return `<div class="flex items-center justify-between p-2 rounded-xl bg-black/30 border border-amber-500/40 text-amber-100 gap-2"><span class="text-xs font-extrabold truncate">${escapeHTML(label)}: ${escapeHTML(w.name)}</span><span class="text-[10px] text-amber-300/80 shrink-0">${w.time}</span></div>`;
+        return `<div class="honor-chip flex items-center justify-between bg-black/35 border border-amber-400/50 text-amber-50 gap-2"><span class="font-extrabold truncate">${escapeHTML(label)}: ${escapeHTML(w.name)}</span><span class="text-[10px] text-amber-200/80 shrink-0">${w.time}</span></div>`;
       }).join('');
     }
 
