@@ -59,7 +59,7 @@
     }
   </script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Fredoka:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Fredoka:wght@600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap');
 
     * { box-sizing: border-box; }
 
@@ -422,161 +422,172 @@
     }
     /* Game 2 exam-paper cover (before Team of 3) */
     .slide[data-title="9. Game 2: Exam Cover"] {
-      padding-top: 3.1rem;
-      padding-bottom: 3.6rem;
-      padding-left: 1rem;
-      padding-right: 1rem;
+      padding-top: 2.6rem;
+      padding-bottom: 3.2rem;
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+      background:
+        linear-gradient(180deg, #e8e8e8 0%, #f4f4f4 40%, #dedede 100%);
     }
-    .game2-exam-cover {
+    .hkcee-cover {
       width: 100%;
-      max-width: min(72rem, 94vw);
+      max-width: min(58rem, 96vw);
       margin-inline: auto;
-      text-align: left;
-      padding: 1rem 1.15rem 1.15rem;
-    }
-    .game2-exam-masthead {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 0.75rem 1.25rem;
-      border-bottom: 3px double #23486A;
-      padding-bottom: 0.65rem;
-      margin-bottom: 0.85rem;
-    }
-    .game2-exam-school {
-      font-size: 0.72rem;
-      font-weight: 900;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: #23486A;
-    }
-    .game2-exam-title {
-      font-family: 'Fredoka', sans-serif;
-      font-size: clamp(1.55rem, 3.4vw, 2.35rem);
-      font-weight: 700;
-      color: #C8372D;
-      line-height: 1.1;
-      margin-top: 0.15rem;
-    }
-    .game2-exam-sub {
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: #1E6B3B;
-      margin-top: 0.15rem;
-    }
-    .game2-exam-meta {
-      text-align: right;
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: #475569;
-      line-height: 1.45;
-    }
-    .game2-exam-meta strong {
-      color: #23486A;
-      letter-spacing: 0.04em;
-    }
-    .game2-exam-grid {
+      background: #fff;
+      color: #111;
+      border: 1.5px solid #111;
+      box-shadow: 0 18px 40px -22px rgba(0,0,0,0.45);
       display: grid;
-      grid-template-columns: 1.15fr 1fr;
-      gap: 0.85rem;
+      grid-template-columns: minmax(0, 1.55fr) minmax(12rem, 0.72fr);
+      min-height: min(78vh, 44rem);
+      font-family: 'Libre Baskerville', 'Times New Roman', Times, serif;
     }
     @media (max-width: 900px) {
-      .game2-exam-grid { grid-template-columns: 1fr; }
-      .game2-exam-meta { text-align: left; }
+      .hkcee-cover { grid-template-columns: 1fr; }
+      .hkcee-side { border-left: 0; border-top: 1.5px solid #111; }
     }
-    .game2-exam-block {
-      border: 2px solid rgba(35, 72, 106, 0.28);
-      border-radius: 0.85rem;
-      background: rgba(255, 255, 255, 0.72);
-      padding: 0.7rem 0.8rem 0.8rem;
-    }
-    .game2-exam-block h3 {
-      font-size: 0.72rem;
-      font-weight: 900;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #23486A;
-      margin-bottom: 0.45rem;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-    .game2-exam-block h3 .num {
-      width: 1.35rem;
-      height: 1.35rem;
-      border-radius: 999px;
-      background: #23486A;
-      color: #fff;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.7rem;
-      letter-spacing: 0;
-    }
-    .game2-exam-block ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
+    .hkcee-main {
+      padding: 0.85rem 1.05rem 0.9rem 1.15rem;
+      border-right: 0;
       display: flex;
       flex-direction: column;
-      gap: 0.4rem;
-    }
-    .game2-exam-block li {
       position: relative;
-      padding-left: 1.15rem;
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: #1f2937;
-      line-height: 1.35;
     }
-    .game2-exam-block li::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0.45rem;
-      width: 0.55rem;
-      height: 0.55rem;
-      border: 2px solid #C8372D;
-      border-radius: 2px;
-      background: #fff;
-    }
-    .game2-exam-block li span {
-      display: block;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #64748b;
-      margin-top: 0.1rem;
-    }
-    .game2-exam-win {
-      border-color: #C8372D;
-      background:
-        linear-gradient(135deg, rgba(254, 243, 199, 0.65), rgba(255, 255, 255, 0.85)),
-        #fffef8;
-    }
-    .game2-exam-win h3 { color: #9f1239; }
-    .game2-exam-win h3 .num { background: #C8372D; }
-    .game2-exam-win .win-line {
-      font-family: 'Fredoka', sans-serif;
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #9f1239;
-      margin-top: 0.35rem;
-    }
-    .game2-exam-footer {
-      margin-top: 0.75rem;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.5rem;
-      border-top: 2px dashed rgba(35, 72, 106, 0.25);
-      padding-top: 0.55rem;
-    }
-    .game2-exam-footer p {
+    .hkcee-paper-code {
+      font-family: Arial, Helvetica, sans-serif;
       font-size: 0.78rem;
       font-weight: 700;
-      color: #475569;
+      letter-spacing: 0.02em;
+    }
+    .hkcee-diag {
+      width: 3.2rem;
+      height: 0.9rem;
+      margin: 0.35rem 0 0.55rem;
+      background:
+        linear-gradient(135deg, transparent 42%, #111 42% 48%, transparent 48%),
+        linear-gradient(135deg, transparent 52%, #111 52% 58%, transparent 58%);
+    }
+    .hkcee-authority {
+      text-align: center;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      line-height: 1.35;
+      text-transform: uppercase;
+    }
+    .hkcee-paper-title {
+      text-align: center;
+      margin-top: 0.85rem;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(1.15rem, 2.6vw, 1.55rem);
+      font-weight: 800;
+      letter-spacing: 0.06em;
+    }
+    .hkcee-paper-sub {
+      text-align: center;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-top: 0.15rem;
+    }
+    .hkcee-time {
+      text-align: center;
+      font-size: 0.82rem;
+      margin-top: 0.55rem;
+      line-height: 1.45;
+    }
+    .hkcee-instructions-label {
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: 0.12em;
+      margin: 1.1rem 0 0.55rem;
+      text-align: left;
+    }
+    .hkcee-instructions {
+      margin: 0;
+      padding-left: 1.35rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      font-size: clamp(0.88rem, 1.55vw, 1.02rem);
+      line-height: 1.45;
+    }
+    .hkcee-instructions li { padding-left: 0.15rem; }
+    .hkcee-instructions .zh {
+      display: block;
+      font-size: 0.86em;
+      color: #333;
+      margin-top: 0.15rem;
+    }
+    .hkcee-footer {
+      margin-top: auto;
+      padding-top: 1rem;
+      font-size: 0.68rem;
+      text-align: center;
+      color: #222;
+      line-height: 1.4;
+    }
+    .hkcee-side {
+      padding: 0.7rem 0.65rem 0.75rem;
+      border-left: 1.5px solid #111;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .hkcee-barcode {
+      border: 1.5px solid #111;
+      min-height: 4.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.5rem;
+    }
+    .hkcee-cand-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      margin-top: 0.15rem;
+    }
+    .hkcee-cand-boxes {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      border: 1.5px solid #111;
+    }
+    .hkcee-cand-boxes span {
+      aspect-ratio: 1;
+      border-right: 1px solid #111;
+    }
+    .hkcee-cand-boxes span:last-child { border-right: 0; }
+    .hkcee-mark-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.65rem;
+      line-height: 1.2;
+    }
+    .hkcee-mark-table th,
+    .hkcee-mark-table td {
+      border: 1px solid #111;
+      padding: 0.28rem 0.2rem;
+      text-align: center;
+      vertical-align: middle;
+    }
+    .hkcee-mark-table th {
+      font-weight: 700;
+      background: #f0f0f0;
+    }
+    .hkcee-mark-table .shade { background: #e6e6e6; }
+    .hkcee-mark-table .tall { height: 1.55rem; }
+    .hkcee-check-box {
+      border: 1.5px solid #111;
+      padding: 0.4rem 0.35rem;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-align: center;
     }
     .lab-live-bar {
       background:
@@ -585,6 +596,59 @@
       border-color: #C8372D !important;
     }
     .lab-live-bar.theme-rail::after { display: none; }
+    .vdo-link-banner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.4rem 0.55rem;
+      max-width: min(52rem, 92vw);
+      padding: 0.35rem 0.55rem;
+      border-radius: 0.65rem;
+      background: rgba(248, 250, 252, 0.95);
+      border: 1px solid rgba(35, 72, 106, 0.2);
+    }
+    .menu-board-grid-light {
+      margin-top: 0.35rem;
+    }
+    .slide[data-title="12. Game 2: Menu Board"] .menu-board-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.85rem;
+    }
+    @media (max-width: 900px) {
+      .slide[data-title="12. Game 2: Menu Board"] .menu-board-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .slide[data-title="13. Game 2: Sample Order Form"] .order-sheet-slide {
+      width: 100%;
+      max-width: min(72rem, 96vw);
+      margin-inline: auto;
+    }
+    .slide[data-title="13. Game 2: Sample Order Form"] .order-sheet-frame {
+      max-height: min(58vh, 560px);
+      margin-top: 0.35rem;
+    }
+    .catwalk-yearbook {
+      overflow: hidden;
+      padding-bottom: 4.5rem !important;
+    }
+    .cc-walkers-on-yearbook {
+      position: absolute;
+      left: 4%;
+      right: 4%;
+      bottom: 0.55rem;
+      height: 3rem;
+      z-index: 5;
+      pointer-events: none;
+      color: #C8372D;
+      font-size: 1.85rem;
+    }
+    .cc-walkers-on-yearbook i {
+      position: absolute;
+      bottom: 0;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.22));
+    }
     .theme-rail { padding-top: 1.35rem; }
     .flow-step {
       position: relative;
@@ -1461,10 +1525,7 @@
     .catwalk-stage.is-drumrolling .catwalk-silhouette { animation-duration: 0.55s; }
     .catwalk-stage.is-revealed .catwalk-floor { animation: none; filter: brightness(1.25); }
 
-    /* Best Dressed — canteen catwalk backdrop (floor announce, no winner card) */
-    .slide[data-title="18. Best Dressed — Catwalk"] {
-      padding: 0 !important;
-    }
+    /* Best Dressed — yearbook card + walking figures */
     .canteen-catwalk {
       position: relative;
       flex: 1 1 auto;
@@ -2554,7 +2615,7 @@
           <i class="fa-solid fa-clock"></i> Up Next • 緊接活動
         </div>
         <h3 class="text-xl sm:text-2xl font-black text-slate-800" contenteditable="true">
-          Sock guess winners, then class quiz • 先揭曉襪子猜謎，再課堂測驗
+          Get ready for quizzes • 準備好課堂測驗
         </h3>
       </div>
 
@@ -2572,34 +2633,32 @@
       <div class="sock-flash" aria-hidden="true"></div>
 
       <span class="relative z-10 px-4 py-1.5 rounded-full bg-rose-200/20 border border-rose-100/50 text-rose-50 text-xs font-extrabold uppercase tracking-widest backdrop-blur-sm">
-        Sock Guess Winners · 襪子猜謎揭曉
+        Surprise reveal · 驚喜揭曉
       </span>
 
       <div class="sock-sealed mt-4">
         <div class="sock-icon-badge" aria-hidden="true"><i class="fa-solid fa-socks"></i></div>
         <div class="bd-drum-bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
-        <p id="sockGuessDrumStatus" class="text-sm font-bold text-rose-50/90">Socks sealed — upload 1 photo per sock, then reveal</p>
-        <button type="button" id="sockGuessRevealBtn" onclick="startSockGuessReveal()" class="mt-1 inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#C8372D] to-[#D97724] hover:from-[#b91c1c] hover:to-[#b45309] text-white font-black text-base sm:text-lg tracking-wide shadow-xl transition transform hover:scale-105 active:scale-95 cursor-pointer border-2 border-amber-200">
-          <i class="fa-solid fa-drum"></i> Drumroll &amp; Reveal Socks
+        <p class="text-sm sm:text-base font-bold text-rose-50/95 max-w-xl mx-auto leading-snug" contenteditable="true">
+          Quizzes are coming… but first, a surprise! · 測驗即將開始……先來個驚喜！
+        </p>
+        <p id="sockGuessDrumStatus" class="text-sm font-bold text-amber-100/90 mt-2">Sock guess winners · 襪子猜謎得獎者</p>
+        <button type="button" id="sockGuessRevealBtn" onclick="startSockGuessReveal()" class="mt-2 inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#C8372D] to-[#D97724] hover:from-[#b91c1c] hover:to-[#b45309] text-white font-black text-base sm:text-lg tracking-wide shadow-xl transition transform hover:scale-105 active:scale-95 cursor-pointer border-2 border-amber-200">
+          <i class="fa-solid fa-drum"></i> Drumroll &amp; Reveal · 擊鼓揭曉
         </button>
         <p class="text-[11px] font-semibold text-rose-50/60 mt-1">or press <kbd class="px-1.5 py-0.5 rounded bg-black/30 border border-rose-100/40 font-mono">SPACE</kbd></p>
       </div>
 
-      <div class="sock-setup">
-        <p class="text-[11px] font-extrabold uppercase tracking-widest text-rose-100/80 mb-2">
-          Presenter setup · 3 socks · 1 photo each (details in the photo) · saved with Save HTML
-        </p>
-        <div id="sockGuessSetupGrid" class="sock-guess-grid"></div>
-      </div>
-
       <div class="sock-results mt-2">
         <h1 class="font-festive-display text-3xl sm:text-5xl font-bold tracking-tight text-amber-100 mb-1 drop-shadow" contenteditable="true">
-          SOCK GUESS RESULTS
+          SOCK GUESS WINNERS · 襪子猜謎得獎者
         </h1>
-        <p class="text-sm font-bold text-rose-50/85 mb-3" contenteditable="true">What’s inside · 答案在照片裡</p>
+        <p class="text-sm font-bold text-rose-50/85 mb-3" contenteditable="true">
+          Tap each sock to attach the reveal photo · 點擊襪子貼上揭曉照片（每襪 1 張）
+        </p>
         <div id="sockGuessRevealGrid" class="sock-guess-grid"></div>
         <button type="button" onclick="resetSockGuessReveal()" class="mt-4 text-xs font-bold text-rose-50/70 hover:text-rose-50 underline cursor-pointer">
-          Reset seal (rehearsal)
+          Reset seal · 重設封印（綵排）
         </button>
       </div>
     </div>
@@ -2624,10 +2683,10 @@
         遊戲一：猜一猜
       </h2>
       <p class="text-base sm:text-xl text-slate-700 font-bold" contenteditable="true">
-        Pop quiz time — how carefully did you watch our Christmas lunch setup?
+        A school guessing game — phones out, brains on!
       </p>
       <p class="text-sm text-slate-600 font-semibold mt-2" contenteditable="true">
-        聖誕課堂突擊測驗：剛才看到什麼，記得多少？
+        學校猜謎遊戲：拿出手機，開動腦筋！
       </p>
     </div>
   </section>
@@ -2683,48 +2742,62 @@
   <!-- SLIDE 9: GAME 2 — EXAM / ORDER-FORM COVER (RULES + WIN)                -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center" data-title="9. Game 2: Exam Cover">
-    <div class="festive-card homework-sheet theme-rail rounded-3xl game2-exam-cover">
-      <div class="game2-exam-masthead">
-        <div>
-          <div class="game2-exam-school" contenteditable="true">Christmas Cafeteria · 聖誕食堂</div>
-          <h1 class="game2-exam-title" contenteditable="true">HOW TO PLAY</h1>
-          <p class="game2-exam-sub" contenteditable="true">遊戲規則</p>
+    <div class="hkcee-cover" role="document" aria-label="Game 2 exam cover sheet">
+      <div class="hkcee-main">
+        <div class="hkcee-paper-code" contenteditable="true">2026-XMAS GAME 2 PAPER 1</div>
+        <div class="hkcee-diag" aria-hidden="true"></div>
+        <div class="hkcee-authority" contenteditable="true">
+          APAC CHRISTMAS LUNCH AUTHORITY<br />
+          SCHOOL CAFETERIA EXAMINATION 2026
         </div>
-        <div class="game2-exam-meta" contenteditable="true">
-          <strong>Win:</strong> 2 tickets<br />
-          <strong>First:</strong> Head table
+        <h1 class="hkcee-paper-title" contenteditable="true">THE CULINARY FANATIC</h1>
+        <div class="hkcee-paper-sub" contenteditable="true">Question-Answer Book · 料理狂熱者</div>
+        <div class="hkcee-time" contenteditable="true">
+          10 minutes · 十分鐘<br />
+          This paper must be answered by a team of 3
         </div>
-      </div>
-
-      <div class="game2-exam-grid">
-        <div class="game2-exam-block">
-          <h3><span class="num">1</span> Sheets · 訂單表</h3>
-          <ul contenteditable="true">
-            <li>6 sheets · 共 6 張</li>
-            <li>3 on head table · 主桌 3</li>
-            <li>1 × 3 guest tables · 三桌各 1</li>
-            <li>Pre-fill head + target · 賽前預填</li>
-          </ul>
-        </div>
-        <div class="game2-exam-block">
-          <h3><span class="num">2</span> Play · 玩法</h3>
-          <ul contenteditable="true">
-            <li>Start! · 開始！</li>
-            <li>Order Taker: head + target · 向主桌與目標桌取單</li>
-            <li>Serve head table 1st · 主桌優先</li>
-            <li>Order Taker → Chef → Server</li>
-          </ul>
-        </div>
-        <div class="game2-exam-block game2-exam-win" style="grid-column: 1 / -1;">
-          <h3><span class="num">3</span> Win · 過關</h3>
-          <p class="win-line" contenteditable="true" style="margin-top:0.15rem;">2 APPROVED TICKETS · 兩張核可票</p>
+        <div class="hkcee-instructions-label">INSTRUCTIONS</div>
+        <ol class="hkcee-instructions" contenteditable="true">
+          <li>
+            Each table forms a team of 3.
+            <span class="zh">每桌組成三人小組。</span>
+          </li>
+          <li>
+            The team completes orders from the floor: 1 from the head table, and 1 from one of the other teams.
+            <span class="zh">小組完成場地訂單：主桌 1 張，其他隊伍其中一桌 1 張。</span>
+          </li>
+          <li>
+            Within 10 minutes, the fastest team that completes both orders correctly wins.
+            <span class="zh">限時 10 分鐘，最快且兩張訂單皆正確完成的隊伍勝出。</span>
+          </li>
+        </ol>
+        <div class="hkcee-footer" contenteditable="true">
+          © APAC Christmas Lunch · Home Economics · All Rights Reserved 2026
         </div>
       </div>
-
-      <div class="game2-exam-footer">
-        <p contenteditable="true">Next: Team of 3 · 下一頁三人角色</p>
-        <span class="homework-stamp" contenteditable="true">GO</span>
-      </div>
+      <aside class="hkcee-side" aria-hidden="true">
+        <div class="hkcee-barcode">Please stick the<br />barcode label here.</div>
+        <div class="hkcee-cand-label">Candidate Number</div>
+        <div class="hkcee-cand-boxes"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <table class="hkcee-mark-table">
+          <thead>
+            <tr><th colspan="2">Marker’s Use Only</th><th>Examiner’s Use Only</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="shade">Order</td><td class="shade">Mark</td><td class="shade">Mark</td></tr>
+            <tr><td>Head table</td><td class="tall"></td><td class="tall"></td></tr>
+            <tr><td>Other team</td><td class="tall"></td><td class="tall"></td></tr>
+            <tr><td class="shade">Total</td><td class="tall shade"></td><td class="tall shade"></td></tr>
+          </tbody>
+        </table>
+        <div class="hkcee-check-box">Checker’s Use Only</div>
+        <table class="hkcee-mark-table">
+          <tbody>
+            <tr><td class="shade">Pass</td><td class="tall"></td></tr>
+            <tr><td class="shade">Time</td><td class="tall"></td></tr>
+          </tbody>
+        </table>
+      </aside>
     </div>
   </section>
 
@@ -2896,26 +2969,26 @@
   <!-- SLIDE 10: GAME 2: 6-SET MENU BOARD                                     -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center" data-title="12. Game 2: Menu Board">
-    <div class="stage-board flex flex-col h-full justify-center">
-      <div class="menu-board-shell">
-      <div class="menu-board-chalk">
-      <div class="text-center mb-2">
-        <span class="px-3 py-0.5 rounded-full bg-amber-300/20 border border-amber-200/60 text-amber-100 text-[10px] sm:text-xs font-extrabold uppercase tracking-widest">
-          School Cafeteria · Orders A–C
+    <div class="stage-board stage-board-pad festive-card canteen-frame theme-rail rounded-3xl">
+      <div class="text-center mb-4">
+        <span class="px-4 py-1.5 rounded-full bg-blue-100 border border-blue-300 text-blue-800 text-xs font-extrabold uppercase tracking-widest">
+          School Cafeteria · Orders A–C · 學校食堂
         </span>
-        <h1 class="font-festive-display text-2xl sm:text-4xl font-bold text-amber-200 tracking-tight mt-1" contenteditable="true">
-          GAME 2: CAFETERIA MENU BOARD
+        <h1 class="font-festive-display text-3xl sm:text-5xl font-bold text-[#23486A] tracking-tight mt-2" contenteditable="true">
+          CAFETERIA MENU BOARD
         </h1>
-        <p class="text-[11px] sm:text-sm text-emerald-100/85 font-semibold mt-0.5" contenteditable="true">
-          Today’s school canteen specials · 今日學校食堂聖誕套餐
+        <h2 class="text-xl sm:text-2xl font-black text-[#1E6B3B] mt-1" contenteditable="true">
+          食堂餐牌
+        </h2>
+        <p class="text-sm text-slate-600 font-semibold mt-2" contenteditable="true">
+          Today’s Christmas canteen specials · 今日聖誕食堂套餐
         </p>
       </div>
 
       <input type="file" id="productPhotoInput" accept="image/*" class="hidden" />
 
-      <div class="menu-board-grid">
-        <!-- Order A -->
-        <div class="festive-card menu-set-card rounded-2xl border-2 border-[#C8372D]/40 flex flex-col">
+      <div class="menu-board-grid menu-board-grid-light">
+        <div class="festive-card menu-set-card rounded-2xl border-2 border-[#C8372D]/40 flex flex-col bg-white/90">
           <div class="flex items-center justify-between mb-1.5 gap-1">
             <span class="px-2 py-0.5 rounded-md bg-[#C8372D] text-white font-black text-[10px] sm:text-xs uppercase tracking-wide">Order A</span>
             <button type="button" onclick="triggerProductPhotoUpload(1)" class="text-[10px] sm:text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer shrink-0"><i class="fa-solid fa-image"></i></button>
@@ -2927,8 +3000,7 @@
           <p class="menu-set-sub text-slate-600 font-semibold mt-0.5" contenteditable="true">Order A · 經典牛肉堡</p>
         </div>
 
-        <!-- Order B -->
-        <div class="festive-card menu-set-card rounded-2xl border-2 border-[#1E6B3B]/40 flex flex-col">
+        <div class="festive-card menu-set-card rounded-2xl border-2 border-[#1E6B3B]/40 flex flex-col bg-white/90">
           <div class="flex items-center justify-between mb-1.5 gap-1">
             <span class="px-2 py-0.5 rounded-md bg-[#1E6B3B] text-white font-black text-[10px] sm:text-xs uppercase tracking-wide">Order B</span>
             <button type="button" onclick="triggerProductPhotoUpload(2)" class="text-[10px] sm:text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer shrink-0"><i class="fa-solid fa-image"></i></button>
@@ -2940,8 +3012,7 @@
           <p class="menu-set-sub text-slate-600 font-semibold mt-0.5" contenteditable="true">Order B · 魚柳堡</p>
         </div>
 
-        <!-- Order C -->
-        <div class="festive-card menu-set-card rounded-2xl border-2 border-[#23486A]/40 flex flex-col">
+        <div class="festive-card menu-set-card rounded-2xl border-2 border-[#23486A]/40 flex flex-col bg-white/90">
           <div class="flex items-center justify-between mb-1.5 gap-1">
             <span class="px-2 py-0.5 rounded-md bg-[#23486A] text-white font-black text-[10px] sm:text-xs uppercase tracking-wide">Order C</span>
             <button type="button" onclick="triggerProductPhotoUpload(3)" class="text-[10px] sm:text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer shrink-0"><i class="fa-solid fa-image"></i></button>
@@ -2953,28 +3024,27 @@
           <p class="menu-set-sub text-slate-600 font-semibold mt-0.5" contenteditable="true">Order C · 雞肉堡</p>
         </div>
       </div>
-      </div>
-      </div>
     </div>
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 11: GAME 2: SAMPLE ORDER FORM                                    -->
+  <!-- SLIDE 13: GAME 2: SAMPLE ORDER FORM                                    -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-stretch justify-stretch" data-title="13. Game 2: Sample Order Form">
-    <div class="stage-board festive-card homework-sheet theme-rail rounded-3xl order-sheet-slide">
-      <div class="order-sheet-toolbar">
-        <div class="flex flex-wrap items-center gap-2 min-w-0">
-          <span class="px-2.5 py-0.5 rounded-full bg-sky-100 border border-sky-300 text-sky-900 text-[10px] sm:text-xs font-extrabold uppercase tracking-widest shrink-0">
-            Class Worksheet • 課堂習作單
-          </span>
-          <h1 class="font-festive-display text-lg sm:text-2xl font-bold text-[#23486A] tracking-tight m-0 leading-tight" contenteditable="true">
-            ORDER FORM • 訂單表格
-          </h1>
-          <p class="text-[10px] sm:text-xs text-slate-600 font-semibold m-0" contenteditable="true">
-            Tick your order · 每桌用這張訂單表
-          </p>
-        </div>
+  <section class="slide flex-col items-center justify-center" data-title="13. Game 2: Sample Order Form">
+    <div class="stage-board stage-board-pad festive-card canteen-frame theme-rail rounded-3xl order-sheet-slide">
+      <div class="text-center mb-3">
+        <span class="px-4 py-1.5 rounded-full bg-blue-100 border border-blue-300 text-blue-800 text-xs font-extrabold uppercase tracking-widest">
+          Class Worksheet • 課堂習作單
+        </span>
+        <h1 class="font-festive-display text-3xl sm:text-5xl font-bold text-[#23486A] tracking-tight mt-2" contenteditable="true">
+          ORDER FORM
+        </h1>
+        <h2 class="text-xl sm:text-2xl font-black text-[#1E6B3B] mt-1" contenteditable="true">
+          訂單表格
+        </h2>
+        <p class="text-sm text-slate-600 font-semibold mt-2" contenteditable="true">
+          Tick your order · 每桌用這張訂單表
+        </p>
       </div>
       <div id="orderFormPhotoBox" class="order-sheet-frame rounded-xl border-2 border-solid border-[#23486A]/40 overflow-hidden">
         <img src="media/order-sheet/order-sheet.png" alt="SSOB School Home Economics exam order sheet — Orders A–C" class="order-sheet-img" />
@@ -2989,25 +3059,36 @@
     <div class="max-w-[1520px] w-full h-full flex flex-col gap-2.5 justify-center">
 
       <div class="festive-card lab-live-bar theme-rail rounded-2xl px-5 py-3 flex flex-wrap items-center justify-between gap-3 border-2 border-[#C8372D]/40">
-        <div class="flex items-center gap-3">
-          <span class="px-3 py-1 rounded-lg bg-[#C8372D] text-white font-black text-xs uppercase animate-pulse">
-            <i class="fa-solid fa-circle text-[9px] mr-1"></i> Home Ec Lab Live
-          </span>
-          <h2 class="font-festive-display text-lg sm:text-2xl font-bold text-slate-800">
-            CHRISTMAS CAFETERIA CHALLENGE
-          </h2>
+        <div class="flex flex-col gap-1 min-w-0">
+          <div class="flex items-center gap-3 flex-wrap">
+            <span class="px-3 py-1 rounded-lg bg-[#C8372D] text-white font-black text-xs uppercase animate-pulse">
+              <i class="fa-solid fa-circle text-[9px] mr-1"></i> Home Ec Lab Live
+            </span>
+            <h2 class="font-festive-display text-lg sm:text-2xl font-bold text-slate-800">
+              CHRISTMAS CAFETERIA CHALLENGE
+            </h2>
+          </div>
+          <div class="vdo-link-banner">
+            <span class="text-[10px] font-black uppercase tracking-wider text-slate-500 shrink-0">Livestream</span>
+            <a id="vdoViewLinkDisplay"
+               href="https://vdo.ninja/?view=ssp_christmas_2026&amp;p=ssp2026&amp;room=SSP_Christmas_Party_2026&amp;solo"
+               target="_blank" rel="noopener noreferrer"
+               class="font-mono text-[11px] sm:text-xs font-bold text-[#23486A] hover:underline break-all">
+              https://vdo.ninja/?view=ssp_christmas_2026&amp;p=ssp2026&amp;room=SSP_Christmas_Party_2026&amp;solo
+            </a>
+            <button type="button" onclick="copyVdoViewLink()" class="shrink-0 px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-[10px] font-black cursor-pointer">
+              <i class="fa-solid fa-copy mr-1"></i> Copy
+            </button>
+            <button type="button" onclick="connectTonyVdoStream()" class="shrink-0 px-2.5 py-1 rounded-lg bg-[#23486A] hover:bg-[#1a3650] text-white text-[10px] font-black cursor-pointer">
+              <i class="fa-solid fa-plug mr-1"></i> Connect
+            </button>
+          </div>
         </div>
 
         <div class="flex flex-wrap items-center gap-2">
-          <button type="button" onclick="toggleVdoQrPanel()" id="toggleQrBarBtn" class="px-3 py-2 rounded-xl bg-[#23486A] hover:bg-[#1a3650] text-white text-xs font-black transition cursor-pointer shadow">
-            <i class="fa-solid fa-qrcode"></i> Show QR
-          </button>
-          <button type="button" onclick="regenerateVdoRoom()" class="px-3 py-2 rounded-xl bg-[#C8372D] hover:bg-[#b91c1c] text-white text-xs font-black transition cursor-pointer shadow">
-            <i class="fa-solid fa-arrows-rotate"></i> Regenerate ID
-          </button>
           <button type="button" onclick="adjustCookTimer(-30)" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-extrabold border border-slate-300 cursor-pointer">-30s</button>
           <div class="px-4 py-1 rounded-xl bg-slate-900 font-mono text-2xl sm:text-4xl font-black text-amber-300 tracking-wider shadow-inner" id="cookTimerDisplay">
-            03:00
+            10:00
           </div>
           <button type="button" onclick="adjustCookTimer(30)" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-extrabold border border-slate-300 cursor-pointer">+30s</button>
           <button type="button" onclick="toggleCookTimer()" id="cookTimerStartBtn" class="px-4 py-2 rounded-xl bg-[#1E6B3B] hover:bg-[#14532D] text-white text-xs font-black transition cursor-pointer shadow">
@@ -3040,44 +3121,22 @@
             <h3 class="font-festive-display text-2xl sm:text-3xl font-bold text-white tracking-wide">
               CLASSROOM FLOOR CAM
             </h3>
-            <p class="text-xs text-slate-300 font-semibold">School lab livestream — tap Show QR to connect a phone, or Regenerate if the room expired.</p>
-            <button type="button" onclick="startLiveWebcam()" id="startCamBtn" class="px-5 py-2.5 rounded-xl bg-slate-700 hover:bg-slate-600 text-white text-xs font-black shadow transition cursor-pointer inline-flex items-center gap-2">
-              <i class="fa-solid fa-desktop"></i> Use This Computer Camera
-            </button>
-          </div>
-        </div>
-
-        <div id="vdoQrBackdrop" onclick="setQrVisible(false)" aria-hidden="true"></div>
-        <div id="vdoQrPanel" class="festive-card rounded-3xl p-4 border-2 border-[#C8372D]/40 flex-col items-center text-center gap-3">
-          <div class="w-full flex items-center justify-between gap-2">
-            <span class="px-3 py-1 rounded-lg bg-[#C8372D] text-white font-black text-[11px] uppercase tracking-wider">Scan to Broadcast</span>
-            <button type="button" onclick="setQrVisible(false)" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-black cursor-pointer">
-              <i class="fa-solid fa-xmark mr-1"></i> Hide
-            </button>
-          </div>
-          <h3 class="font-festive-display text-xl font-bold text-slate-800">Phone Floor Cam</h3>
-          <p class="text-[11px] text-slate-600 font-semibold leading-relaxed">Scan with your phone → allow camera → tap Full Stage.</p>
-          <div id="vdoQrBox" class="rounded-xl border-2 border-slate-200 bg-white p-2 shadow w-[196px] h-[196px] flex items-center justify-center overflow-hidden"></div>
-          <div class="w-full text-left space-y-1.5">
-            <div class="text-[10px] font-black uppercase tracking-wider text-slate-500">Room</div>
-            <div id="vdoRoomIdLabel" class="font-mono text-xs font-bold text-[#23486A] break-all bg-slate-50 border border-slate-200 rounded-lg px-2 py-1.5">—</div>
-            <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500" for="vdoPasswordInput">Stream password (this session only)</label>
-            <div class="flex gap-2">
-              <input id="vdoPasswordInput" type="password" autocomplete="off" spellcheck="false" placeholder="Enter room password" class="flex-1 min-w-0 font-mono text-xs font-bold text-[#23486A] bg-slate-50 border border-slate-200 rounded-lg px-2 py-1.5" />
-              <button type="button" onclick="applyVdoPasswordFromUi()" class="shrink-0 px-3 py-1.5 rounded-lg bg-[#23486A] hover:bg-[#1a3650] text-white text-[11px] font-black cursor-pointer">Apply</button>
+            <p class="text-xs text-slate-300 font-semibold">Tap Connect for the party livestream, or use this computer’s camera as backup.</p>
+            <div class="flex flex-wrap gap-2 justify-center">
+              <button type="button" onclick="connectTonyVdoStream()" class="px-5 py-2.5 rounded-xl bg-[#C8372D] hover:bg-[#b91c1c] text-white text-xs font-black shadow transition cursor-pointer inline-flex items-center gap-2">
+                <i class="fa-solid fa-tower-broadcast"></i> Connect Livestream
+              </button>
+              <button type="button" onclick="startLiveWebcam()" id="startCamBtn" class="px-5 py-2.5 rounded-xl bg-slate-700 hover:bg-slate-600 text-white text-xs font-black shadow transition cursor-pointer inline-flex items-center gap-2">
+                <i class="fa-solid fa-desktop"></i> Use This Computer Camera
+              </button>
             </div>
-            <p class="text-[10px] text-slate-500 font-semibold leading-snug">Not saved in the app or exported HTML. Rotate on VDO.ninja if it was shared before.</p>
-            <a id="vdoPushLink" href="#" target="_blank" rel="noopener" class="block text-[11px] font-bold text-[#C8372D] hover:underline break-all">Open push link</a>
-          </div>
-          <div class="flex flex-wrap gap-2 justify-center w-full">
-            <button type="button" onclick="regenerateVdoRoom()" class="px-3 py-2 rounded-xl bg-[#C8372D] hover:bg-[#b91c1c] text-white text-xs font-black cursor-pointer">
-              <i class="fa-solid fa-arrows-rotate mr-1"></i> Regenerate ID
-            </button>
-            <button type="button" onclick="copyVdoPushLink()" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-black cursor-pointer">
-              <i class="fa-solid fa-copy mr-1"></i> Copy Link
-            </button>
           </div>
         </div>
+        <!-- Hidden hosts keep save/clone helpers stable after QR UI removal -->
+        <div id="vdoQrBox" class="hidden" aria-hidden="true"></div>
+        <div id="vdoRoomIdLabel" class="hidden" aria-hidden="true">—</div>
+        <a id="vdoPushLink" href="#" class="hidden" aria-hidden="true">Open push link</a>
+        <input id="vdoPasswordInput" type="password" class="hidden" autocomplete="off" aria-hidden="true" />
       </div>
 
     </div>
@@ -3269,27 +3328,32 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 18: BEST DRESSED — CANTEEN CATWALK (FLOOR ANNOUNCE)             -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-stretch justify-stretch overflow-hidden" data-title="18. Best Dressed — Catwalk">
-    <div class="canteen-catwalk" id="bestDressedRevealStage">
-      <div class="cc-sky" aria-hidden="true"></div>
-      <div class="cc-garland" aria-hidden="true">
-        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-      </div>
-      <div class="cc-steam" aria-hidden="true"></div>
-      <div class="cc-tray-lane" aria-hidden="true"></div>
-      <div class="cc-floor" aria-hidden="true"></div>
-      <div class="cc-walkers" aria-hidden="true">
+  <section class="slide flex-col items-center justify-center text-center overflow-hidden" data-title="18. Best Dressed — Catwalk">
+    <div class="stage-card festive-card yearbook-card theme-rail rounded-3xl border-4 border-[#C8372D] relative catwalk-yearbook" id="bestDressedRevealStage">
+      <div class="cc-walkers cc-walkers-on-yearbook" aria-hidden="true">
         <i class="fa-solid fa-person-walking cc-w1"></i>
         <i class="fa-solid fa-person-walking cc-w2"></i>
         <i class="fa-solid fa-person-walking cc-w3"></i>
       </div>
 
-      <div class="cc-copy relative z-10">
-        <span class="cc-pill">Canteen runway · 食堂伸展台</span>
-        <h1 class="font-festive-display cc-title" contenteditable="true">BEST DRESSED</h1>
-        <p class="cc-announce" contenteditable="true">Announced on the floor · 現場宣布</p>
+      <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-tr from-[#C8372D] via-amber-500 to-yellow-300 flex items-center justify-center text-white text-4xl shadow-xl animate-float">
+        <i class="fa-solid fa-camera-retro"></i>
       </div>
+
+      <span class="px-4 py-1.5 rounded-full bg-amber-100 border border-amber-300 text-amber-800 text-xs font-extrabold uppercase tracking-widest">
+        📸 Yearbook Runway • Christmas Party Look · 聖誕派對穿搭
+      </span>
+
+      <h1 class="font-festive-display text-5xl sm:text-7xl font-bold tracking-tight mt-4 mb-2 text-[#C8372D]" contenteditable="true">
+        BEST DRESSED TEAM
+      </h1>
+      <h2 class="text-xl sm:text-2xl font-black text-[#1E6B3B] mb-5" contenteditable="true">
+        最佳服裝隊伍獎 · 聖誕年刊造型
+      </h2>
+
+      <p class="text-base sm:text-lg text-slate-700 font-bold max-w-xl mx-auto" contenteditable="true">
+        Winners announced on the floor · 得獎隊伍現場宣布
+      </p>
     </div>
   </section>
 
@@ -4121,6 +4185,38 @@
     function copyVdoPushLink() {
       if (!vdoPushUrl) startVdoNinjaRoom(false);
       navigator.clipboard.writeText(vdoPushUrl).then(() => showToast('Push link copied')).catch(() => showToast(vdoPushUrl));
+    }
+
+    function getDisplayedVdoViewUrl() {
+      const el = document.getElementById('vdoViewLinkDisplay');
+      const href = el?.getAttribute('href') || el?.textContent || '';
+      return String(href || '').trim();
+    }
+
+    function copyVdoViewLink() {
+      const url = getDisplayedVdoViewUrl();
+      if (!url) { showToast('No livestream link', 'error'); return; }
+      navigator.clipboard.writeText(url).then(() => showToast('Livestream link copied')).catch(() => showToast(url));
+    }
+
+    function connectTonyVdoStream(opts = {}) {
+      const url = getDisplayedVdoViewUrl();
+      if (!url || !isAllowedVdoUrl(url)) {
+        if (!opts.silent) showToast('Livestream URL must be on vdo.ninja', 'error');
+        return;
+      }
+      try {
+        const u = new URL(url);
+        const pwd = u.searchParams.get('p') || '';
+        if (pwd) writeVdoPasswordToSession(pwd);
+        vdoRoomId = u.searchParams.get('room') || DEFAULT_VDO_ROOM_ID;
+      } catch (_) { /* keep defaults */ }
+      // Load the displayed view URL into the stage iframe (password stays session-scoped for Save HTML)
+      loadVdoNinjaStream(url, { forceReload: true, showQr: false });
+      const pushBase = `https://vdo.ninja/?push=${encodeURIComponent(DEFAULT_VDO_STREAM_ID)}&room=${encodeURIComponent(DEFAULT_VDO_ROOM_ID)}&webcam&autostart&label=${encodeURIComponent('FloorCam')}&quality=0`;
+      vdoPushUrl = withVdoPassword(pushBase);
+      syncVdoRoomUi();
+      if (!opts.silent) showToast('Party livestream connected');
     }
 
     function syncQrToggleLabels(visible) {
@@ -5039,7 +5135,7 @@
       }
       if (currentSlideIdx === SLIDE_SOCK_GUESS && prevIdx !== SLIDE_SOCK_GUESS) resetSockGuessReveal({ silent: true });
       // Always sync VDO room + viewer when entering the cook slide (room may already exist from boot)
-      if (currentSlideIdx === SLIDE_COOK) startVdoNinjaRoom(false, { silent: true });
+      if (currentSlideIdx === SLIDE_COOK) connectTonyVdoStream({ silent: true });
     }
 
     let bestDressedRevealBusy = false;
@@ -5184,9 +5280,9 @@
     }
 
     function sockPhotoButton(g, i) {
-      return `<button type="button" class="sock-photo-slot" data-sock-photo="${i}" onclick="triggerSockGuessPhotoUpload(${i})" title="Upload photo for ${escapeHTML(g.label)} — put all details in the image">
+      return `<button type="button" class="sock-photo-slot" data-sock-photo="${i}" onclick="triggerSockGuessPhotoUpload(${i})" title="Attach reveal photo for ${escapeHTML(g.label)}">
         <i class="fa-solid fa-camera"></i>
-        <span>Click to upload<br/>1 photo · details in image</span>
+        <span>Attach photo · 貼照片<br/>1 per sock</span>
       </button>`;
     }
 
@@ -5210,24 +5306,12 @@
       });
     }
 
-    function renderSockGuessSetup() {
-      const grid = document.getElementById('sockGuessSetupGrid');
-      if (!grid) return;
-      sockGuesses = normalizeSockGuesses(sockGuesses);
-      grid.innerHTML = sockGuesses.map((g, i) => `<article class="sock-card" data-sock-idx="${i}">
-          <div class="sock-card-kicker">Guess ${i + 1} of ${SOCK_GUESS_COUNT}</div>
-          <h3>${escapeHTML(g.label)}</h3>
-          ${sockPhotoButton(g, i)}
-        </article>`).join('');
-      hydrateSockPhotoButtons(grid);
-    }
-
     function renderSockGuessRevealCards() {
       const grid = document.getElementById('sockGuessRevealGrid');
       if (!grid) return;
       sockGuesses = normalizeSockGuesses(sockGuesses);
       grid.innerHTML = sockGuesses.map((g, i) => `<article class="sock-card" data-sock-idx="${i}">
-          <div class="sock-card-kicker">Guess ${i + 1}</div>
+          <div class="sock-card-kicker">Sock ${i + 1} · 襪子 ${i + 1}</div>
           <h3>${escapeHTML(g.label)}</h3>
           ${sockPhotoButton(g, i)}
         </article>`).join('');
@@ -5235,7 +5319,6 @@
     }
 
     function renderSockGuessUI() {
-      renderSockGuessSetup();
       renderSockGuessRevealCards();
     }
 
@@ -5267,7 +5350,7 @@
       const status = document.getElementById('sockGuessDrumStatus');
       if (stage) stage.classList.remove('is-drumrolling', 'is-revealed', 'is-flash');
       if (btn) { btn.disabled = false; btn.classList.remove('opacity-50', 'pointer-events-none'); }
-      if (status) status.textContent = 'Socks sealed — upload 1 photo per sock, then reveal';
+      if (status) status.textContent = 'Sock guess winners · 襪子猜謎得獎者';
       renderSockGuessUI();
       if (!opts.silent) showToast('Sock guess seal reset');
     }
@@ -5283,7 +5366,7 @@
       stage.classList.remove('is-revealed', 'is-flash');
       stage.classList.add('is-drumrolling');
       if (btn) { btn.disabled = true; btn.classList.add('opacity-50', 'pointer-events-none'); }
-      if (status) status.textContent = 'Drumroll… peeling the socks…';
+      if (status) status.textContent = 'Drumroll… · 擊鼓中…';
       const prevVol = bgmVolume;
       try {
         bgmAudio.volume = Math.min(bgmVolume, 0.12);
@@ -5293,11 +5376,11 @@
         stage.classList.add('is-flash');
         stage.classList.remove('is-drumrolling');
         stage.classList.add('is-revealed');
-        if (status) status.textContent = 'Revealed!';
+        if (status) status.textContent = 'Revealed — attach photos · 已揭曉，請貼照片';
         celebrateWin(3);
         setTimeout(() => triggerFestiveConfetti(3), 180);
         setTimeout(() => triggerFestiveConfetti(2), 700);
-        showToast('Sock photos revealed!', 'success');
+        showToast('Attach 1 photo per sock after reveal', 'success');
         setTimeout(() => stage.classList.remove('is-flash'), 600);
       } finally {
         bgmAudio.volume = prevVol;
@@ -5408,7 +5491,7 @@
     });
 
     // Cooking Timer
-    let cookSeconds = 180; let cookInterval = null;
+    let cookSeconds = 600; let cookInterval = null;
     function updateCookTimerUI() {
       const mins = String(Math.floor(cookSeconds / 60)).padStart(2, '0');
       const secs = String(cookSeconds % 60).padStart(2, '0');
@@ -5426,7 +5509,7 @@
         }, 1000);
       }
     }
-    function resetCookTimer() { clearInterval(cookInterval); cookInterval = null; cookSeconds = 180; updateCookTimerUI(); document.getElementById('cookTimerStartBtn').innerHTML = '<i class="fa-solid fa-play"></i> Start'; }
+    function resetCookTimer() { clearInterval(cookInterval); cookInterval = null; cookSeconds = 600; updateCookTimerUI(); document.getElementById('cookTimerStartBtn').innerHTML = '<i class="fa-solid fa-play"></i> Start'; }
 
     // Lucky Wheel (shared pool; Christmas + Grand each have a canvas)
     const canvas = document.getElementById('wheelCanvas');
@@ -5979,6 +6062,13 @@
       const cloneFrameBox = cloneDoc.querySelector('#livestreamFrameBox');
       if (cloneFrameBox) { cloneFrameBox.classList.add('border-dashed', 'border-slate-400'); cloneFrameBox.classList.remove('border-solid', 'border-[#1E6B3B]'); }
       const cloneLayout = cloneDoc.querySelector('#livestreamLayout'); if (cloneLayout) cloneLayout.classList.remove('qr-visible');
+      // Do not bake stream password into exported HTML display link
+      const cloneViewLink = cloneDoc.querySelector('#vdoViewLinkDisplay');
+      if (cloneViewLink) {
+        const clean = stripVdoPassword(cloneViewLink.getAttribute('href') || cloneViewLink.textContent || '') || DEFAULT_VDO_VIEW_URL;
+        cloneViewLink.setAttribute('href', clean);
+        cloneViewLink.textContent = clean;
+      }
       const cloneModal = cloneDoc.querySelector('#winnerModal');
       if (cloneModal) { cloneModal.classList.add('opacity-0', 'pointer-events-none'); }
       const cloneSlides = cloneDoc.querySelectorAll('.slide');
