@@ -1460,6 +1460,181 @@
     }
     .catwalk-stage.is-drumrolling .catwalk-silhouette { animation-duration: 0.55s; }
     .catwalk-stage.is-revealed .catwalk-floor { animation: none; filter: brightness(1.25); }
+
+    /* Best Dressed — canteen catwalk backdrop (floor announce, no winner card) */
+    .slide[data-title="18. Best Dressed — Catwalk"] {
+      padding: 0 !important;
+    }
+    .canteen-catwalk {
+      position: relative;
+      flex: 1 1 auto;
+      width: 100%;
+      min-height: 100%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff8f0;
+      background:
+        radial-gradient(ellipse at 50% 18%, rgba(253, 224, 71, 0.22), transparent 48%),
+        linear-gradient(180deg, #1a3a2a 0%, #23486A 38%, #3b2414 72%, #1c1410 100%);
+    }
+    .cc-sky {
+      position: absolute;
+      inset: 0 0 42%;
+      background:
+        repeating-linear-gradient(90deg, transparent 0 48px, rgba(255,255,255,0.03) 48px 49px),
+        linear-gradient(180deg, rgba(30,107,59,0.55), transparent 70%);
+      pointer-events: none;
+    }
+    .cc-garland {
+      position: absolute;
+      top: 4%;
+      left: 6%;
+      right: 6%;
+      height: 18px;
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .cc-garland span {
+      width: 14px;
+      height: 18px;
+      clip-path: polygon(50% 100%, 0 0, 100% 0);
+      background: #C8372D;
+      animation: ccBob 2.2s ease-in-out infinite;
+    }
+    .cc-garland span:nth-child(even) { background: #1E6B3B; animation-delay: 0.35s; }
+    .cc-garland span:nth-child(3n) { background: #F59E0B; animation-delay: 0.7s; }
+    @keyframes ccBob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(5px); }
+    }
+    .cc-steam {
+      position: absolute;
+      inset: 28% 18% 40%;
+      background:
+        radial-gradient(ellipse at 30% 60%, rgba(255,255,255,0.14), transparent 55%),
+        radial-gradient(ellipse at 70% 50%, rgba(255,255,255,0.1), transparent 50%);
+      animation: ccSteam 5s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+    @keyframes ccSteam {
+      0%, 100% { opacity: 0.35; transform: translateY(8px); }
+      50% { opacity: 0.7; transform: translateY(-6px); }
+    }
+    .cc-tray-lane {
+      position: absolute;
+      left: 50%;
+      bottom: 26%;
+      width: 118%;
+      height: 3.2rem;
+      transform: translateX(-50%) perspective(600px) rotateX(58deg);
+      transform-origin: center bottom;
+      background:
+        repeating-linear-gradient(90deg, #b4692e 0 28px, #8b5a2b 28px 56px);
+      border-top: 3px solid #f59e0b;
+      box-shadow: 0 0 40px rgba(245, 158, 11, 0.25);
+      pointer-events: none;
+      z-index: 2;
+      animation: ccLanePulse 3.4s ease-in-out infinite;
+    }
+    @keyframes ccLanePulse {
+      0%, 100% { filter: brightness(1); }
+      50% { filter: brightness(1.15); }
+    }
+    .cc-floor {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 34%;
+      background:
+        repeating-linear-gradient(90deg, #2a1a12 0 36px, #3b2414 36px 72px),
+        linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.45));
+      background-blend-mode: multiply;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .cc-walkers {
+      position: absolute;
+      left: 10%;
+      right: 10%;
+      bottom: 30%;
+      height: 3rem;
+      z-index: 3;
+      pointer-events: none;
+      color: rgba(254, 243, 199, 0.85);
+      font-size: 1.75rem;
+    }
+    .cc-walkers i { position: absolute; bottom: 0; filter: drop-shadow(0 6px 10px rgba(0,0,0,0.45)); }
+    .cc-w1 { left: 8%; animation: ccWalk 7.5s linear infinite; }
+    .cc-w2 { left: 42%; animation: ccWalk 9s linear infinite reverse; animation-delay: -2s; font-size: 1.45rem; opacity: 0.75; }
+    .cc-w3 { left: 72%; animation: ccWalk 8.2s linear infinite; animation-delay: -4s; }
+    @keyframes ccWalk {
+      0% { transform: translateX(0) scaleX(1); }
+      49% { transform: translateX(42vw) scaleX(1); }
+      50% { transform: translateX(42vw) scaleX(-1); }
+      100% { transform: translateX(0) scaleX(-1); }
+    }
+    .cc-copy {
+      max-width: min(44rem, 92vw);
+      padding: 1.5rem 1.25rem 2rem;
+      margin-bottom: 6vh;
+    }
+    .cc-pill {
+      display: inline-block;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(30, 107, 59, 0.55);
+      border: 1px solid rgba(253, 224, 71, 0.45);
+      font-size: 0.7rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #fef3c7;
+      backdrop-filter: blur(6px);
+    }
+    .cc-title {
+      margin-top: 0.85rem;
+      font-size: clamp(2.8rem, 8vw, 5.5rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: #fde68a;
+      text-shadow: 0 10px 28px rgba(0,0,0,0.45);
+      animation: ccTitleGlow 3.6s ease-in-out infinite;
+    }
+    @keyframes ccTitleGlow {
+      0%, 100% { filter: brightness(1); }
+      50% { filter: brightness(1.12); }
+    }
+    .cc-sub {
+      margin-top: 0.35rem;
+      font-size: clamp(1rem, 2.4vw, 1.35rem);
+      font-weight: 800;
+      color: #bbf7d0;
+    }
+    .cc-announce {
+      margin: 1.1rem auto 0;
+      max-width: 28rem;
+      padding: 0.7rem 1rem;
+      border-radius: 1rem;
+      background: rgba(200, 55, 45, 0.88);
+      border: 2px solid #fde68a;
+      font-size: clamp(0.95rem, 2.2vw, 1.2rem);
+      font-weight: 900;
+      color: #fff7ed;
+      box-shadow: 0 14px 30px -12px rgba(0,0,0,0.5);
+    }
+    .cc-hint {
+      margin-top: 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: rgba(254, 243, 199, 0.72);
+    }
     .bd-reveal-stage::before,
     .bd-reveal-stage::after {
       content: '';
@@ -2379,7 +2554,7 @@
           <i class="fa-solid fa-clock"></i> Up Next • 緊接活動
         </div>
         <h3 class="text-xl sm:text-2xl font-black text-slate-800" contenteditable="true">
-          Christmas class quiz next • 聖誕課堂測驗即將開始
+          Sock guess winners, then class quiz • 先揭曉襪子猜謎，再課堂測驗
         </h3>
       </div>
 
@@ -2391,67 +2566,13 @@
     </div>
   </section>
 
-  <!-- ===================================================================== -->
-  <!-- SLIDE 5: GAME 1 SESSION INTRO (BILINGUAL)                             -->
-  <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center" data-title="5. Game 1: Make a Guess — Intro">
-    <div class="festive-card quiz-sheet theme-rail stage-card rounded-3xl border-4 border-[#1E6B3B]">
-      <div class="theme-icon-tile w-24 h-24 mx-auto mb-5 rounded-3xl bg-[#1E6B3B] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
-        <i class="fa-solid fa-clipboard-question"></i>
-      </div>
-      <span class="px-4 py-1.5 rounded-full bg-sky-100 border border-sky-300 text-sky-900 text-xs font-extrabold uppercase tracking-widest">
-        Christmas Class Quiz • 聖誕課堂測驗
-      </span>
-      <h1 class="font-festive-display text-5xl sm:text-7xl font-bold text-[#1E6B3B] tracking-tight mt-4 mb-2" contenteditable="true">
-        GAME 1: MAKE A GUESS
-      </h1>
-      <h2 class="text-2xl sm:text-3xl font-black text-[#23486A] mb-4" contenteditable="true">
-        遊戲一：猜一猜
-      </h2>
-      <p class="text-base sm:text-xl text-slate-700 font-bold" contenteditable="true">
-        Pop quiz time — how carefully did you watch our Christmas lunch setup?
-      </p>
-      <p class="text-sm text-slate-600 font-semibold mt-2" contenteditable="true">
-        聖誕課堂突擊測驗：剛才看到什麼，記得多少？
-      </p>
-    </div>
-  </section>
-
-  <!-- ===================================================================== -->
-  <!-- SLIDE 6: GAME 1 — OPEN AHASLIDES ONLY                                 -->
-  <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center" data-title="6. Game 1: Open AhaSlides">
-    <div class="festive-card quiz-sheet theme-rail stage-card rounded-3xl border-4 border-[#1E6B3B] flex flex-col items-center justify-center">
-      <div class="theme-icon-tile w-24 h-24 mx-auto mb-5 rounded-3xl bg-[#1E6B3B] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
-        <i class="fa-solid fa-clipboard-question"></i>
-      </div>
-      <span class="px-4 py-1.5 rounded-full bg-sky-100 border border-sky-300 text-sky-900 text-xs font-extrabold uppercase tracking-widest">
-        Live Class Quiz • 課堂即時測驗
-      </span>
-      <h2 class="font-festive-display text-4xl sm:text-6xl font-bold text-[#1E6B3B] tracking-tight mt-4 mb-3" contenteditable="true">
-        MAKE A GUESS
-      </h2>
-      <p class="text-sm text-slate-600 font-semibold mb-8" contenteditable="true">Phones out — Christmas class quiz starting now · 拿出手機，開始聖誕課堂測驗</p>
-
-      <a id="ahaPresenterLaunchBtn" href="https://presenter.ahaslides.com/share/1793154443570-hpjbw2yzme/present" target="_blank" rel="noopener noreferrer"
-         onclick="pauseBgmForPresenterTab()"
-         class="w-full max-w-lg py-5 px-8 rounded-2xl bg-gradient-to-r from-[#1E6B3B] to-[#23486A] hover:from-[#14532D] hover:to-[#1a3650] text-white font-black text-xl sm:text-2xl tracking-wide shadow-xl flex items-center justify-center gap-3 cursor-pointer transition transform hover:scale-105 active:scale-95">
-        <i class="fa-solid fa-rocket text-amber-200"></i> OPEN AHASLIDES
-      </a>
-      <p class="text-xs text-slate-500 font-semibold mt-4" contenteditable="true">Next: sock-guess reveal · 下一頁揭曉襪子猜獎</p>
-    </div>
-  </section>
-
-  <!-- ===================================================================== -->
-  <!-- SLIDE 7: GAME 1 — SOCK GUESS REVEAL (PRE-LUNCH)                       -->
-  <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center" data-title="7. Game 1: Sock Guess Reveal">
+<section class="slide flex-col items-center justify-center text-center" data-title="5. Sock Guess Reveal">
     <div id="sockGuessRevealStage" class="sock-reveal-stage stage-board stage-board-pad rounded-3xl border-4 relative shadow-2xl">
       <div class="sock-twinkle" aria-hidden="true"></div>
       <div class="sock-flash" aria-hidden="true"></div>
 
       <span class="relative z-10 px-4 py-1.5 rounded-full bg-rose-200/20 border border-rose-100/50 text-rose-50 text-xs font-extrabold uppercase tracking-widest backdrop-blur-sm">
-        Pre-lunch Sock Guess · 午餐前襪子猜謎
+        Sock Guess Winners · 襪子猜謎揭曉
       </span>
 
       <div class="sock-sealed mt-4">
@@ -2486,6 +2607,59 @@
   </section>
 
   <!-- ===================================================================== -->
+  <!-- SLIDE 6: GAME 1 SESSION INTRO (BILINGUAL)                             -->
+  <!-- ===================================================================== -->
+  <section class="slide flex-col items-center justify-center text-center" data-title="6. Game 1: Make a Guess — Intro">
+    <div class="festive-card quiz-sheet theme-rail stage-card rounded-3xl border-4 border-[#1E6B3B]">
+      <div class="theme-icon-tile w-24 h-24 mx-auto mb-5 rounded-3xl bg-[#1E6B3B] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
+        <i class="fa-solid fa-clipboard-question"></i>
+      </div>
+      <span class="px-4 py-1.5 rounded-full bg-sky-100 border border-sky-300 text-sky-900 text-xs font-extrabold uppercase tracking-widest">
+        Christmas Class Quiz • 聖誕課堂測驗
+      </span>
+      <h1 class="font-festive-display text-5xl sm:text-7xl font-bold text-[#1E6B3B] tracking-tight mt-4 mb-2" contenteditable="true">
+        GAME 1: MAKE A GUESS
+      </h1>
+      <h2 class="text-2xl sm:text-3xl font-black text-[#23486A] mb-4" contenteditable="true">
+        遊戲一：猜一猜
+      </h2>
+      <p class="text-base sm:text-xl text-slate-700 font-bold" contenteditable="true">
+        Pop quiz time — how carefully did you watch our Christmas lunch setup?
+      </p>
+      <p class="text-sm text-slate-600 font-semibold mt-2" contenteditable="true">
+        聖誕課堂突擊測驗：剛才看到什麼，記得多少？
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SLIDE 7: GAME 1 — OPEN AHASLIDES ONLY                                 -->
+  <!-- ===================================================================== -->
+  <section class="slide flex-col items-center justify-center text-center" data-title="7. Game 1: Open AhaSlides">
+    <div class="festive-card quiz-sheet theme-rail stage-card rounded-3xl border-4 border-[#1E6B3B] flex flex-col items-center justify-center">
+      <div class="theme-icon-tile w-24 h-24 mx-auto mb-5 rounded-3xl bg-[#1E6B3B] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
+        <i class="fa-solid fa-clipboard-question"></i>
+      </div>
+      <span class="px-4 py-1.5 rounded-full bg-sky-100 border border-sky-300 text-sky-900 text-xs font-extrabold uppercase tracking-widest">
+        Live Class Quiz • 課堂即時測驗
+      </span>
+      <h2 class="font-festive-display text-4xl sm:text-6xl font-bold text-[#1E6B3B] tracking-tight mt-4 mb-3" contenteditable="true">
+        MAKE A GUESS
+      </h2>
+      <p class="text-sm text-slate-600 font-semibold mb-8" contenteditable="true">Phones out — Christmas class quiz starting now · 拿出手機，開始聖誕課堂測驗</p>
+
+      <a id="ahaPresenterLaunchBtn" href="https://presenter.ahaslides.com/share/1793154443570-hpjbw2yzme/present" target="_blank" rel="noopener noreferrer"
+         onclick="pauseBgmForPresenterTab()"
+         class="w-full max-w-lg py-5 px-8 rounded-2xl bg-gradient-to-r from-[#1E6B3B] to-[#23486A] hover:from-[#14532D] hover:to-[#1a3650] text-white font-black text-xl sm:text-2xl tracking-wide shadow-xl flex items-center justify-center gap-3 cursor-pointer transition transform hover:scale-105 active:scale-95">
+        <i class="fa-solid fa-rocket text-amber-200"></i> OPEN AHASLIDES
+      </a>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SLIDE 7: GAME 1 — SOCK GUESS REVEAL (PRE-LUNCH)                       -->
+  <!-- ===================================================================== -->
+    <!-- ===================================================================== -->
   <!-- SLIDE 8: GAME 2 SESSION INTRO (BILINGUAL)                             -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center text-center" data-title="8. Game 2: The Culinary Fanatic — Intro">
@@ -3094,72 +3268,38 @@
       </div>
 
       <p class="text-sm sm:text-base text-slate-600 font-semibold" contenteditable="true">
-        The yearbook judges have chosen… Christmas catwalk reveal on the next slide! · 年刊評判已選定——下一頁伸展台揭曉！
+        Next: canteen catwalk backdrop — winners announced on the floor · 下一頁食堂伸展台氣氛頁，得獎者現場宣布
       </p>
     </div>
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 16: BEST DRESSED — CATWALK REVEAL                               -->
+  <!-- SLIDE 18: BEST DRESSED — CANTEEN CATWALK (FLOOR ANNOUNCE)             -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center" data-title="18. Best Dressed — Catwalk">
-    <div id="bestDressedRevealStage" class="bd-reveal-stage catwalk-stage stage-board stage-board-pad rounded-3xl border-4 relative shadow-2xl">
-      <div class="catwalk-floor" aria-hidden="true"></div>
-      <div class="catwalk-lights" aria-hidden="true">
+  <section class="slide flex-col items-stretch justify-stretch overflow-hidden" data-title="18. Best Dressed — Catwalk">
+    <div class="canteen-catwalk" id="bestDressedRevealStage">
+      <div class="cc-sky" aria-hidden="true"></div>
+      <div class="cc-garland" aria-hidden="true">
         <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
         <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
       </div>
-      <div class="catwalk-beams" aria-hidden="true"></div>
-      <div class="bd-rays" aria-hidden="true"></div>
-      <div class="bd-spotlight" aria-hidden="true"></div>
-      <div class="bd-flash" aria-hidden="true"></div>
-      <div class="catwalk-sparkles" aria-hidden="true"></div>
-
-      <span class="relative z-10 px-4 py-1.5 rounded-full bg-amber-300/20 border border-amber-200/70 text-amber-100 text-xs font-extrabold uppercase tracking-widest backdrop-blur-sm">
-        ✨ Christmas Catwalk • 聖誕伸展台揭曉
-      </span>
-
-      <div class="bd-sealed mt-6">
-        <div class="catwalk-silhouette" aria-hidden="true"><i class="fa-solid fa-person-walking"></i></div>
-        <div class="bd-drum-bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
-        <p id="bestDressedDrumStatus" class="text-sm font-bold text-amber-100/90">Runway dark — press for the catwalk reveal</p>
-        <p id="bestDressedSealedHint" class="text-[11px] font-semibold text-amber-100/55 mb-2">Winner list: not loaded yet · use HUD “Best Dressed” or button below</p>
-        <div class="flex flex-wrap items-center justify-center gap-2 mb-2">
-          <button type="button" onclick="document.getElementById('bestDressedWinnerFileInput').click()" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-black/35 hover:bg-black/50 text-amber-50 font-bold text-xs tracking-wide border border-amber-200/35 cursor-pointer transition">
-            <i class="fa-solid fa-file-arrow-up"></i> Load winner JSON
-          </button>
-        </div>
-        <button type="button" id="bestDressedRevealBtn" onclick="startBestDressedReveal()" class="mt-1 inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#C8372D] to-[#D97724] hover:from-[#b91c1c] hover:to-[#b45309] text-white font-black text-base sm:text-lg tracking-wide shadow-xl transition transform hover:scale-105 active:scale-95 cursor-pointer border-2 border-amber-200">
-          <i class="fa-solid fa-shoe-prints"></i> Lights · Catwalk · Reveal
-        </button>
-        <p class="text-[11px] font-semibold text-amber-100/60">or press <kbd class="px-1.5 py-0.5 rounded bg-black/30 border border-amber-200/40 font-mono">SPACE</kbd></p>
+      <div class="cc-steam" aria-hidden="true"></div>
+      <div class="cc-tray-lane" aria-hidden="true"></div>
+      <div class="cc-floor" aria-hidden="true"></div>
+      <div class="cc-walkers" aria-hidden="true">
+        <i class="fa-solid fa-person-walking cc-w1"></i>
+        <i class="fa-solid fa-person-walking cc-w2"></i>
+        <i class="fa-solid fa-person-walking cc-w3"></i>
       </div>
 
-      <div class="bd-winner-card mt-4">
-        <div class="bd-crown mx-auto mb-2" aria-hidden="true">👑</div>
-        <h1 class="font-festive-display text-4xl sm:text-6xl font-bold tracking-tight text-amber-200 mb-4 drop-shadow" contenteditable="true">
-          BEST DRESSED TEAM
-        </h1>
-        <p class="text-sm font-bold text-amber-100/85 mb-3" contenteditable="true">Christmas Catwalk Champions · 聖誕伸展台冠軍</p>
-        <div class="bd-winner-plaque space-y-3">
-          <div>
-            <div class="text-xs font-extrabold uppercase tracking-widest text-amber-800 mb-1">Winning Team • 得獎隊伍</div>
-            <div id="bestDressedTeamName" class="text-2xl sm:text-4xl font-black text-[#7f1d1d]" contenteditable="true">
-              [Team Name]
-            </div>
-          </div>
-          <div>
-            <div class="text-xs font-extrabold uppercase tracking-widest text-amber-800 mb-1">Team Members • 隊員</div>
-            <ul id="bestDressedTeamMembers" class="text-base sm:text-lg font-bold text-slate-800 list-disc pl-5 space-y-1" contenteditable="true">
-              <li>Member 1</li>
-              <li>Member 2</li>
-              <li>Member 3</li>
-            </ul>
-          </div>
-        </div>
-        <button type="button" onclick="resetBestDressedReveal()" class="mt-5 text-xs font-bold text-amber-100/70 hover:text-amber-100 underline cursor-pointer">
-          Reset runway (rehearsal)
-        </button>
+      <div class="cc-copy relative z-10">
+        <span class="cc-pill">School Canteen Runway · 食堂伸展台</span>
+        <h1 class="font-festive-display cc-title" contenteditable="true">BEST DRESSED</h1>
+        <p class="cc-sub" contenteditable="true">Christmas Lunch look · 聖誕午餐穿搭</p>
+        <p class="cc-announce" contenteditable="true">
+          Winners announced on the floor · 得獎隊伍於現場宣布
+        </p>
+        <p class="cc-hint" contenteditable="true">Keep this slide up while MCs call the table · 本頁作氣氛背景，由 MC 現場唱名</p>
       </div>
     </div>
   </section>
@@ -3411,12 +3551,13 @@
       mcs: { name: 'MC (YouTube)', youtubeId: 'ibEOS9i77R4', url: 'audio/MC.mp3', volumeGain: 1.05 },
       headmaster: { name: 'Headmaster (YouTube)', youtubeId: '7gswtbX8G7Q', url: 'audio/headmaster.mp3', volumeGain: 1.0 },
       buffet: { name: 'Buffet (YouTube)', youtubeId: 'E8gmARGvPlI', url: 'audio/buffet.mp3', volumeGain: 0.62 },
+      sockGuess: { name: 'Sock Guess Reveal (YouTube)', youtubeId: 'lAwiWIBOz24', url: 'audio/LuckyDraw.mp3', volumeGain: 1.15 },
       game1: { name: 'Game 1 (YouTube)', youtubeId: 'o0QK_V9ZsgM', url: 'audio/Game1.mp3', volumeGain: 0.95 },
       game2: { name: 'Game 2 (YouTube)', youtubeId: 'r_3RN7688rE', url: 'audio/Game2.mp3', volumeGain: 0.9 },
       recess: { name: 'Recess (YouTube)', youtubeId: 'E8gmARGvPlI', url: 'audio/buffet.mp3', volumeGain: 0.62 },
       // Prize draws keep Inkpot; local LuckyDraw.mp3 if embed is blocked / offline
       christmasGifts: { name: 'Shocking Blue — Inkpot (YouTube)', youtubeId: 'lAwiWIBOz24', url: 'audio/LuckyDraw.mp3', volumeGain: 1.28 },
-      bestDressed: { name: 'Buffet (YouTube)', youtubeId: 'E8gmARGvPlI', url: 'audio/buffet.mp3', volumeGain: 0.62 },
+      bestDressed: { name: 'Best Dressed Catwalk (YouTube)', youtubeId: 'E8gmARGvPlI', url: 'audio/buffet.mp3', volumeGain: 0.7 },
       grandPrizes: { name: 'Shocking Blue — Inkpot (YouTube)', youtubeId: 'lAwiWIBOz24', url: 'audio/LuckyDraw.mp3', volumeGain: 1.28 },
       finale: { name: 'finale.mp3', url: 'audio/finale.mp3', volumeGain: 1.0 }
     };
@@ -3429,12 +3570,12 @@
     let orderFormPhotoDataUrl = ''; // #SAVE:orderFormPhotoDataUrl
     let menuPhotos = {}; // #SAVE:menuPhotos
     // Stable slide indices (0-based) after dedicated Grand spinner insert
-    // 21 slides (0..20) after sock-guess + Game 2 exam cover + wall removals
-    const SLIDE_SOCK_GUESS = 6;
+    // 21 slides (0..20): sock reveal before Game 1; Game 2 exam cover; walls removed
+    const SLIDE_SOCK_GUESS = 4;
     const SLIDE_COOK = 13;
     const SLIDE_XMAS_SPIN = 15;
     const SLIDE_BEST_INTRO = 16;
-    const SLIDE_BEST_REVEAL = 17;
+    const SLIDE_BEST_REVEAL = 17; // catwalk backdrop (floor announce — no on-slide winner reveal)
     const SLIDE_GRAND_INTRO = 18;
     const SLIDE_GRAND_SPIN = 19;
     const SLIDE_GROUP = 20;
@@ -4554,11 +4695,12 @@
       { id: 'mcs', label: 'MCs Intro', slides: [1], trackKey: 'maruko' },
       { id: 'headmaster', label: 'Headmaster Intro', slides: [2], trackKey: 'dumbledore' },
       { id: 'buffet', label: 'Buffet', slides: [3], trackKey: 'buffet' },
-      { id: 'game1', label: 'Game 1 Make a Guess', slides: [4, 5, 6], trackKey: 'game1' },
+      { id: 'sockGuess', label: 'Sock Guess Reveal', slides: [4], trackKey: 'luckyDraw' },
+      { id: 'game1', label: 'Game 1 Make a Guess', slides: [5, 6], trackKey: 'game1' },
       { id: 'game2', label: 'Game 2 Culinary Fanatic', slides: [7, 8, 9, 10, 11, 12, 13], trackKey: 'game2' },
       { id: 'recess', label: 'Recess', slides: [14], trackKey: 'recess' },
       { id: 'christmasGifts', label: 'Christmas Gifts', slides: [15], trackKey: 'luckyDraw' },
-      { id: 'bestDressed', label: 'Best Dressed', slides: [16, 17], trackKey: 'buffet' },
+      { id: 'bestDressed', label: 'Best Dressed Catwalk', slides: [16, 17], trackKey: 'buffet' },
       { id: 'grandPrizes', label: 'Grand Prizes', slides: [18, 19], trackKey: 'luckyDraw' },
       { id: 'finale', label: 'Finale', slides: [20], trackKey: 'finale' }
     ];
@@ -4764,7 +4906,6 @@
           updateSharedPoolHud();
         }
       }
-      if (currentSlideIdx === SLIDE_BEST_REVEAL && prevIdx !== SLIDE_BEST_REVEAL) resetBestDressedReveal({ silent: true });
       if (currentSlideIdx === SLIDE_SOCK_GUESS && prevIdx !== SLIDE_SOCK_GUESS) resetSockGuessReveal({ silent: true });
       // Always sync VDO room + viewer when entering the cook slide (room may already exist from boot)
       if (currentSlideIdx === SLIDE_COOK) startVdoNinjaRoom(false, { silent: true });
@@ -5109,9 +5250,6 @@
           if (drawPhase !== 2) setDrawPhase(2, { silent: true });
           spinWheel();
         }
-      } else if (e.code === 'Space' && currentSlideIdx === SLIDE_BEST_REVEAL) {
-        e.preventDefault();
-        startBestDressedReveal();
       } else if (e.code === 'Space' && currentSlideIdx === SLIDE_SOCK_GUESS) {
         e.preventDefault();
         startSockGuessReveal();
