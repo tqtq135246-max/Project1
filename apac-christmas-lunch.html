@@ -3071,11 +3071,15 @@
           <div class="vdo-link-banner">
             <span class="text-[10px] font-black uppercase tracking-wider text-slate-500 shrink-0">Livestream</span>
             <a id="vdoViewLinkDisplay"
-               href="https://vdo.ninja/?view=ssp_christmas_2026&amp;p=ssp2026&amp;room=SSP_Christmas_Party_2026&amp;solo"
+               href="https://vdo.ninja/?view=ssp_christmas_2026&amp;room=SSP_Christmas_Party_2026&amp;solo"
                target="_blank" rel="noopener noreferrer"
                class="font-mono text-[11px] sm:text-xs font-bold text-[#23486A] hover:underline break-all">
-              https://vdo.ninja/?view=ssp_christmas_2026&amp;p=ssp2026&amp;room=SSP_Christmas_Party_2026&amp;solo
+              https://vdo.ninja/?view=ssp_christmas_2026&amp;room=SSP_Christmas_Party_2026&amp;solo
             </a>
+            <input id="vdoPasswordInput" type="password" autocomplete="off" spellcheck="false" placeholder="Password (session)" aria-label="Stream password for this session" class="w-[8.5rem] shrink-0 font-mono text-[11px] font-bold text-[#23486A] bg-white border border-slate-200 rounded-lg px-2 py-1" />
+            <button type="button" onclick="applyVdoPasswordFromUi()" class="shrink-0 px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-[10px] font-black cursor-pointer">
+              Apply
+            </button>
             <button type="button" onclick="copyVdoViewLink()" class="shrink-0 px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-[10px] font-black cursor-pointer">
               <i class="fa-solid fa-copy mr-1"></i> Copy
             </button>
@@ -3136,7 +3140,6 @@
         <div id="vdoQrBox" class="hidden" aria-hidden="true"></div>
         <div id="vdoRoomIdLabel" class="hidden" aria-hidden="true">—</div>
         <a id="vdoPushLink" href="#" class="hidden" aria-hidden="true">Open push link</a>
-        <input id="vdoPasswordInput" type="password" class="hidden" autocomplete="off" aria-hidden="true" />
       </div>
 
     </div>
@@ -4155,23 +4158,25 @@
     }
 
     function connectTonyVdoStream(opts = {}) {
-      const url = getDisplayedVdoViewUrl();
+      const input = document.getElementById('vdoPasswordInput');
+      if (input && input.value.trim()) writeVdoPasswordToSession(input.value.trim());
+      const url = stripVdoPassword(getDisplayedVdoViewUrl());
       if (!url || !isAllowedVdoUrl(url)) {
         if (!opts.silent) showToast('Livestream URL must be on vdo.ninja', 'error');
         return;
       }
       try {
         const u = new URL(url);
-        const pwd = u.searchParams.get('p') || '';
-        if (pwd) writeVdoPasswordToSession(pwd);
         vdoRoomId = u.searchParams.get('room') || DEFAULT_VDO_ROOM_ID;
       } catch (_) { /* keep defaults */ }
-      // Load the displayed view URL into the stage iframe (password stays session-scoped for Save HTML)
+      // Session password (if any) is attached at load time — never bake into shipped HTML
       loadVdoNinjaStream(url, { forceReload: true, showQr: false });
       const pushBase = `https://vdo.ninja/?push=${encodeURIComponent(DEFAULT_VDO_STREAM_ID)}&room=${encodeURIComponent(DEFAULT_VDO_ROOM_ID)}&webcam&autostart&label=${encodeURIComponent('FloorCam')}&quality=0`;
       vdoPushUrl = withVdoPassword(pushBase);
       syncVdoRoomUi();
-      if (!opts.silent) showToast('Party livestream connected');
+      if (!opts.silent) {
+        showToast(vdoStreamPassword ? 'Party livestream connected (session password)' : 'Party livestream connected — enter password if the room needs one');
+      }
     }
 
     function syncQrToggleLabels(visible) {
