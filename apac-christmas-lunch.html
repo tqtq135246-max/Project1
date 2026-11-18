@@ -1808,51 +1808,23 @@
     }
     .sock-card h3 {
       font-family: 'Fredoka', sans-serif;
-      font-size: 1.25rem;
+      font-size: 1.15rem;
       font-weight: 700;
       color: #7f1d1d;
-      margin-bottom: 0.45rem;
-    }
-    .sock-field-label {
-      display: block;
-      font-size: 0.65rem;
-      font-weight: 800;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: #9f1239;
-      margin: 0.35rem 0 0.15rem;
-    }
-    .sock-field-input {
-      width: 100%;
-      border: 2px solid #fda4af;
-      border-radius: 0.55rem;
-      padding: 0.4rem 0.55rem;
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: #1f2937;
-      background: rgba(255,255,255,0.85);
-    }
-    .sock-field-input:focus {
-      outline: none;
-      border-color: #C8372D;
-      box-shadow: 0 0 0 3px rgba(200, 55, 45, 0.18);
-    }
-    .sock-photo-row {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 0.35rem;
-      margin-top: 0.45rem;
+      margin: 0.15rem 0 0.55rem;
     }
     .sock-photo-slot {
-      aspect-ratio: 1;
-      border-radius: 0.65rem;
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      min-height: 11rem;
+      border-radius: 0.85rem;
       border: 2px dashed #fb7185;
       background: rgba(255,255,255,0.55);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 0.15rem;
+      gap: 0.35rem;
       cursor: pointer;
       overflow: hidden;
       position: relative;
@@ -1871,36 +1843,21 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
+      background: #fff7ed;
     }
     .sock-photo-slot span {
-      font-size: 0.58rem;
+      font-size: 0.78rem;
       font-weight: 800;
       color: #9f1239;
       text-align: center;
-      line-height: 1.15;
-      padding: 0 0.2rem;
+      line-height: 1.25;
+      padding: 0 0.6rem;
       z-index: 1;
     }
     .sock-photo-slot.has-photo span { display: none; }
-    .sock-photo-slot i { color: #be123c; font-size: 0.85rem; z-index: 1; }
+    .sock-photo-slot i { color: #be123c; font-size: 1.35rem; z-index: 1; }
     .sock-photo-slot.has-photo i { display: none; }
-    .sock-answer-display {
-      margin-top: 0.35rem;
-      padding: 0.45rem 0.55rem;
-      border-radius: 0.65rem;
-      background: linear-gradient(135deg, #fffbeb, #fde68a);
-      border: 2px solid #b45309;
-      font-weight: 800;
-      font-size: 0.95rem;
-      color: #7c2d12;
-    }
-    .sock-winner-display {
-      margin-top: 0.35rem;
-      font-size: 0.88rem;
-      font-weight: 800;
-      color: #14532D;
-    }
     .sock-setup .sock-card {
       background: linear-gradient(160deg, rgba(255,241,242,0.95), rgba(254,205,211,0.92));
       animation: none;
@@ -2500,7 +2457,7 @@
       <div class="sock-sealed mt-4">
         <div class="sock-icon-badge" aria-hidden="true"><i class="fa-solid fa-socks"></i></div>
         <div class="bd-drum-bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
-        <p id="sockGuessDrumStatus" class="text-sm font-bold text-rose-50/90">Socks sealed — configure below, then reveal</p>
+        <p id="sockGuessDrumStatus" class="text-sm font-bold text-rose-50/90">Socks sealed — upload 1 photo per sock, then reveal</p>
         <button type="button" id="sockGuessRevealBtn" onclick="startSockGuessReveal()" class="mt-1 inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#C8372D] to-[#D97724] hover:from-[#b91c1c] hover:to-[#b45309] text-white font-black text-base sm:text-lg tracking-wide shadow-xl transition transform hover:scale-105 active:scale-95 cursor-pointer border-2 border-amber-200">
           <i class="fa-solid fa-drum"></i> Drumroll &amp; Reveal Socks
         </button>
@@ -2509,7 +2466,7 @@
 
       <div class="sock-setup">
         <p class="text-[11px] font-extrabold uppercase tracking-widest text-rose-100/80 mb-2">
-          Presenter setup · 3 socks · 3 photos each · answers &amp; winners (saved with Save HTML)
+          Presenter setup · 3 socks · 1 photo each (details in the photo) · saved with Save HTML
         </p>
         <div id="sockGuessSetupGrid" class="sock-guess-grid"></div>
       </div>
@@ -2518,7 +2475,7 @@
         <h1 class="font-festive-display text-3xl sm:text-5xl font-bold tracking-tight text-amber-100 mb-1 drop-shadow" contenteditable="true">
           SOCK GUESS RESULTS
         </h1>
-        <p class="text-sm font-bold text-rose-50/85 mb-3" contenteditable="true">What’s inside · who guessed it · 答案與得獎者</p>
+        <p class="text-sm font-bold text-rose-50/85 mb-3" contenteditable="true">What’s inside · 答案在照片裡</p>
         <div id="sockGuessRevealGrid" class="sock-guess-grid"></div>
         <button type="button" onclick="resetSockGuessReveal()" class="mt-4 text-xs font-bold text-rose-50/70 hover:text-rose-50 underline cursor-pointer">
           Reset seal (rehearsal)
@@ -3482,7 +3439,6 @@
     const SLIDE_GRAND_SPIN = 19;
     const SLIDE_GROUP = 20;
     const SOCK_GUESS_COUNT = 3;
-    const SOCK_PHOTOS_PER = 3;
     const CHRISTMAS_SLOTS = 14; // 3+3+4+3+1
     const GRAND_SLOTS = 6;
     let winnerModalHoldTimer = null;
@@ -3515,9 +3471,7 @@
     let sockGuesses = Array.from({ length: SOCK_GUESS_COUNT }, (_, i) => ({
       id: `sock${i + 1}`,
       label: `Sock ${i + 1}`,
-      answer: '',
-      winner: '',
-      photos: Array.from({ length: SOCK_PHOTOS_PER }, () => '')
+      photo: ''
     })); // #SAVE:sockGuesses
 
     function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
@@ -4940,7 +4894,7 @@
     }
 
     let sockGuessRevealBusy = false;
-    let activeSockPhoto = { guessIdx: 0, photoIdx: 0 };
+    let activeSockGuessIdx = 0;
     const sockGuessPhotoInput = document.getElementById('sockGuessPhotoInput');
 
     function normalizeSockGuesses(raw) {
@@ -4948,81 +4902,44 @@
       return Array.from({ length: SOCK_GUESS_COUNT }, (_, i) => {
         const src = list[i] || {};
         const photosRaw = Array.isArray(src.photos) ? src.photos : [];
+        const photo = String(src.photo || photosRaw[0] || '').trim();
         return {
           id: src.id || `sock${i + 1}`,
-          label: String(src.label || `Sock ${i + 1}`).trim() || `Sock ${i + 1}`,
-          answer: String(src.answer || '').trim(),
-          winner: String(src.winner || '').trim(),
-          photos: Array.from({ length: SOCK_PHOTOS_PER }, (_, p) => String(photosRaw[p] || ''))
+          label: `Sock ${i + 1}`,
+          photo
         };
       });
     }
 
-    function syncSockGuessFieldsFromDom() {
-      for (let i = 0; i < SOCK_GUESS_COUNT; i++) {
-        const labelEl = document.getElementById(`sockLabel${i}`);
-        const answerEl = document.getElementById(`sockAnswer${i}`);
-        const winnerEl = document.getElementById(`sockWinner${i}`);
-        if (!sockGuesses[i]) continue;
-        if (labelEl) sockGuesses[i].label = labelEl.value.trim() || `Sock ${i + 1}`;
-        if (answerEl) sockGuesses[i].answer = answerEl.value.trim();
-        if (winnerEl) sockGuesses[i].winner = winnerEl.value.trim();
-      }
+    function sockPhotoButton(g, i) {
+      const has = !!g.photo;
+      return `<button type="button" class="sock-photo-slot${has ? ' has-photo' : ''}" onclick="triggerSockGuessPhotoUpload(${i})" title="Upload photo for ${escapeHTML(g.label)} — put all details in the image">
+        ${has ? `<img src="${escapeHTML(g.photo)}" alt="${escapeHTML(g.label)}" />` : ''}
+        <i class="fa-solid fa-camera"></i>
+        <span>Click to upload<br/>1 photo · details in image</span>
+      </button>`;
     }
 
     function renderSockGuessSetup() {
       const grid = document.getElementById('sockGuessSetupGrid');
       if (!grid) return;
       sockGuesses = normalizeSockGuesses(sockGuesses);
-      grid.innerHTML = sockGuesses.map((g, i) => {
-        const photos = g.photos.map((src, p) => {
-          const has = !!src;
-          return `<button type="button" class="sock-photo-slot${has ? ' has-photo' : ''}" onclick="triggerSockGuessPhotoUpload(${i}, ${p})" title="Upload photo ${p + 1} of 3 for ${escapeHTML(g.label)}">
-            ${has ? `<img src="${escapeHTML(src)}" alt="${escapeHTML(g.label)} photo ${p + 1}" />` : ''}
-            <i class="fa-solid fa-camera"></i>
-            <span>Photo ${p + 1}/3<br/>click to upload</span>
-          </button>`;
-        }).join('');
-        return `<article class="sock-card" data-sock-idx="${i}">
+      grid.innerHTML = sockGuesses.map((g, i) => `<article class="sock-card" data-sock-idx="${i}">
           <div class="sock-card-kicker">Guess ${i + 1} of ${SOCK_GUESS_COUNT}</div>
-          <label class="sock-field-label" for="sockLabel${i}">Sock label</label>
-          <input id="sockLabel${i}" class="sock-field-input" type="text" value="${escapeHTML(g.label)}" oninput="syncSockGuessFieldsFromDom()" />
-          <label class="sock-field-label" for="sockAnswer${i}">Answer (what’s inside)</label>
-          <input id="sockAnswer${i}" class="sock-field-input" type="text" placeholder="e.g. candy cane" value="${escapeHTML(g.answer)}" oninput="syncSockGuessFieldsFromDom()" />
-          <label class="sock-field-label" for="sockWinner${i}">Winner / best guess</label>
-          <input id="sockWinner${i}" class="sock-field-input" type="text" placeholder="Name or team" value="${escapeHTML(g.winner)}" oninput="syncSockGuessFieldsFromDom()" />
-          <div class="sock-field-label">Photos (3 slots)</div>
-          <div class="sock-photo-row">${photos}</div>
-        </article>`;
-      }).join('');
+          <h3>${escapeHTML(g.label)}</h3>
+          ${sockPhotoButton(g, i)}
+        </article>`).join('');
     }
 
     function renderSockGuessRevealCards() {
       const grid = document.getElementById('sockGuessRevealGrid');
       if (!grid) return;
-      syncSockGuessFieldsFromDom();
       sockGuesses = normalizeSockGuesses(sockGuesses);
-      grid.innerHTML = sockGuesses.map((g, i) => {
-        const photos = g.photos.map((src, p) => {
-          const has = !!src;
-          return `<button type="button" class="sock-photo-slot${has ? ' has-photo' : ''}" onclick="triggerSockGuessPhotoUpload(${i}, ${p})" title="Replace photo ${p + 1}">
-            ${has ? `<img src="${escapeHTML(src)}" alt="${escapeHTML(g.label)} photo ${p + 1}" />` : ''}
-            <i class="fa-solid fa-camera"></i>
-            <span>Photo ${p + 1}/3</span>
-          </button>`;
-        }).join('');
-        const answer = escapeHTML(g.answer || '(answer TBA)');
-        const winner = escapeHTML(g.winner || '(winner TBA)');
-        return `<article class="sock-card" data-sock-idx="${i}">
+      grid.innerHTML = sockGuesses.map((g, i) => `<article class="sock-card" data-sock-idx="${i}">
           <div class="sock-card-kicker">Guess ${i + 1}</div>
           <h3>${escapeHTML(g.label)}</h3>
-          <div class="sock-field-label">What’s inside</div>
-          <div class="sock-answer-display">${answer}</div>
-          <div class="sock-winner-display"><i class="fa-solid fa-trophy text-amber-600"></i> ${winner}</div>
-          <div class="sock-field-label">Photos</div>
-          <div class="sock-photo-row">${photos}</div>
-        </article>`;
-      }).join('');
+          ${sockPhotoButton(g, i)}
+        </article>`).join('');
     }
 
     function renderSockGuessUI() {
@@ -5030,8 +4947,8 @@
       renderSockGuessRevealCards();
     }
 
-    function triggerSockGuessPhotoUpload(guessIdx, photoIdx) {
-      activeSockPhoto = { guessIdx, photoIdx };
+    function triggerSockGuessPhotoUpload(guessIdx) {
+      activeSockGuessIdx = guessIdx;
       sockGuessPhotoInput?.click();
     }
 
@@ -5040,12 +4957,11 @@
       if (!file) return;
       const reader = new FileReader();
       reader.onload = (ev) => {
-        syncSockGuessFieldsFromDom();
-        const { guessIdx, photoIdx } = activeSockPhoto;
+        const guessIdx = activeSockGuessIdx;
         if (!sockGuesses[guessIdx]) return;
-        sockGuesses[guessIdx].photos[photoIdx] = String(ev.target.result || '');
+        sockGuesses[guessIdx].photo = String(ev.target.result || '');
         renderSockGuessUI();
-        showToast(`Sock ${guessIdx + 1} photo ${photoIdx + 1}/3 uploaded`, 'success');
+        showToast(`Sock ${guessIdx + 1} photo uploaded`, 'success');
       };
       reader.onerror = () => showToast('Could not read sock photo', 'error');
       reader.readAsDataURL(file);
@@ -5059,7 +4975,7 @@
       const status = document.getElementById('sockGuessDrumStatus');
       if (stage) stage.classList.remove('is-drumrolling', 'is-revealed', 'is-flash');
       if (btn) { btn.disabled = false; btn.classList.remove('opacity-50', 'pointer-events-none'); }
-      if (status) status.textContent = 'Socks sealed — configure below, then reveal';
+      if (status) status.textContent = 'Socks sealed — upload 1 photo per sock, then reveal';
       renderSockGuessUI();
       if (!opts.silent) showToast('Sock guess seal reset');
     }
@@ -5070,7 +4986,6 @@
       const btn = document.getElementById('sockGuessRevealBtn');
       const status = document.getElementById('sockGuessDrumStatus');
       if (!stage) return;
-      syncSockGuessFieldsFromDom();
       renderSockGuessRevealCards();
       sockGuessRevealBusy = true;
       stage.classList.remove('is-revealed', 'is-flash');
@@ -5090,7 +5005,7 @@
         celebrateWin(3);
         setTimeout(() => triggerFestiveConfetti(3), 180);
         setTimeout(() => triggerFestiveConfetti(2), 700);
-        showToast('Sock guess answers revealed!', 'success');
+        showToast('Sock photos revealed!', 'success');
         setTimeout(() => stage.classList.remove('is-flash'), 600);
       } finally {
         bgmAudio.volume = prevVol;
@@ -5735,11 +5650,7 @@
       }
       const bakedGiftPhotos = { ...christmasGiftPhotos };
       const bakedGrandPhotos = { ...grandPrizePhotos };
-      syncSockGuessFieldsFromDom();
-      const bakedSockGuesses = normalizeSockGuesses(sockGuesses).map((g) => ({
-        ...g,
-        photos: g.photos.map((src) => (src && !String(src).startsWith('data:') ? src : src))
-      }));
+      const bakedSockGuesses = normalizeSockGuesses(sockGuesses);
       return {
         menuPhotos: bakedMenu,
         orderFormPhotoDataUrl: bakedOrder,
