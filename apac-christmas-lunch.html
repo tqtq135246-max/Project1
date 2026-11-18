@@ -273,21 +273,21 @@
       object-position: center;
       display: block;
     }
-    .slide[data-title="10. Game 2: Menu Board"] .stage-board {
+    .slide[data-title="12. Game 2: Menu Board"] .stage-board {
       max-width: min(96rem, 96vw);
     }
-    .slide[data-title="10. Game 2: Menu Board"] .menu-board-shell {
+    .slide[data-title="12. Game 2: Menu Board"] .menu-board-shell {
       padding: 0.55rem 0.55rem 0.7rem;
     }
-    .slide[data-title="10. Game 2: Menu Board"] .menu-board-chalk {
+    .slide[data-title="12. Game 2: Menu Board"] .menu-board-chalk {
       padding: 0.55rem 0.6rem 0.7rem;
     }
     /* Slide 8 — Team of 3: fit all role cards on landscape */
-    .slide[data-title="8. Game 2: Team Roles"] {
+    .slide[data-title="10. Game 2: Team Roles"] {
       padding-top: 3.5rem;
       padding-bottom: 4rem;
     }
-    .slide[data-title="8. Game 2: Team Roles"] .team-roles-board {
+    .slide[data-title="10. Game 2: Team Roles"] .team-roles-board {
       width: 100%;
       max-width: min(96rem, 96vw);
       max-height: 100%;
@@ -297,16 +297,16 @@
       flex-direction: column;
     }
     @media (min-width: 640px) {
-      .slide[data-title="8. Game 2: Team Roles"] .team-roles-board {
+      .slide[data-title="10. Game 2: Team Roles"] .team-roles-board {
         padding: 1rem 1.35rem 1.15rem;
       }
     }
-    .slide[data-title="8. Game 2: Team Roles"] .team-roles-header {
+    .slide[data-title="10. Game 2: Team Roles"] .team-roles-header {
       flex: 0 0 auto;
       text-align: center;
       margin-bottom: 0.65rem;
     }
-    .slide[data-title="8. Game 2: Team Roles"] .team-roles-grid {
+    .slide[data-title="10. Game 2: Team Roles"] .team-roles-grid {
       flex: 1 1 auto;
       min-height: 0;
       display: grid;
@@ -315,41 +315,41 @@
       align-items: stretch;
     }
     @media (max-width: 767px) {
-      .slide[data-title="8. Game 2: Team Roles"] .team-roles-grid {
+      .slide[data-title="10. Game 2: Team Roles"] .team-roles-grid {
         grid-template-columns: 1fr;
       }
     }
-    .slide[data-title="8. Game 2: Team Roles"] .team-role-card {
+    .slide[data-title="10. Game 2: Team Roles"] .team-role-card {
       padding: 0.75rem 0.85rem 0.9rem;
       min-height: 0;
       overflow: hidden;
     }
-    .slide[data-title="8. Game 2: Team Roles"] .team-role-card .role-avatar {
+    .slide[data-title="10. Game 2: Team Roles"] .team-role-card .role-avatar {
       width: clamp(4.5rem, 9vh, 6.5rem) !important;
       height: clamp(4.5rem, 9vh, 6.5rem) !important;
     }
-    .slide[data-title="8. Game 2: Team Roles"] .team-role-card .role-avatar svg {
+    .slide[data-title="10. Game 2: Team Roles"] .team-role-card .role-avatar svg {
       width: 78%;
       height: 78%;
     }
-    .slide[data-title="8. Game 2: Team Roles"] .team-role-card ul {
+    .slide[data-title="10. Game 2: Team Roles"] .team-role-card ul {
       font-size: clamp(0.68rem, 1.15vh, 0.85rem);
       line-height: 1.35;
     }
     /* Slide 10 — full-bleed landscape order sheet (fit entire form) */
-    .slide[data-title="11. Game 2: Sample Order Form"] {
+    .slide[data-title="13. Game 2: Sample Order Form"] {
       padding-top: 3.25rem;
       padding-bottom: 3.75rem;
       padding-left: 0.75rem;
       padding-right: 0.75rem;
     }
     @media (min-width: 1024px) {
-      .slide[data-title="11. Game 2: Sample Order Form"] {
+      .slide[data-title="13. Game 2: Sample Order Form"] {
         padding-left: 1.5rem;
         padding-right: 1.5rem;
       }
     }
-    .slide[data-title="11. Game 2: Sample Order Form"] .order-sheet-slide {
+    .slide[data-title="13. Game 2: Sample Order Form"] .order-sheet-slide {
       width: 100%;
       max-width: min(98rem, 98vw);
       flex: 1 1 auto;
@@ -363,7 +363,7 @@
       gap: 0.35rem;
       margin-inline: auto;
     }
-    .slide[data-title="11. Game 2: Sample Order Form"] .order-sheet-slide.stage-board-pad {
+    .slide[data-title="13. Game 2: Sample Order Form"] .order-sheet-slide.stage-board-pad {
       padding: 0.45rem 0.65rem 0.55rem;
     }
     .order-sheet-toolbar {
@@ -419,6 +419,164 @@
       text-transform: uppercase;
       transform: rotate(-6deg);
       opacity: 0.85;
+    }
+    /* Game 2 exam-paper cover (before Team of 3) */
+    .slide[data-title="9. Game 2: Exam Cover"] {
+      padding-top: 3.1rem;
+      padding-bottom: 3.6rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    .game2-exam-cover {
+      width: 100%;
+      max-width: min(72rem, 94vw);
+      margin-inline: auto;
+      text-align: left;
+      padding: 1rem 1.15rem 1.15rem;
+    }
+    .game2-exam-masthead {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.75rem 1.25rem;
+      border-bottom: 3px double #23486A;
+      padding-bottom: 0.65rem;
+      margin-bottom: 0.85rem;
+    }
+    .game2-exam-school {
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #23486A;
+    }
+    .game2-exam-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: clamp(1.55rem, 3.4vw, 2.35rem);
+      font-weight: 700;
+      color: #C8372D;
+      line-height: 1.1;
+      margin-top: 0.15rem;
+    }
+    .game2-exam-sub {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #1E6B3B;
+      margin-top: 0.15rem;
+    }
+    .game2-exam-meta {
+      text-align: right;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #475569;
+      line-height: 1.45;
+    }
+    .game2-exam-meta strong {
+      color: #23486A;
+      letter-spacing: 0.04em;
+    }
+    .game2-exam-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 0.85rem;
+    }
+    @media (max-width: 900px) {
+      .game2-exam-grid { grid-template-columns: 1fr; }
+      .game2-exam-meta { text-align: left; }
+    }
+    .game2-exam-block {
+      border: 2px solid rgba(35, 72, 106, 0.28);
+      border-radius: 0.85rem;
+      background: rgba(255, 255, 255, 0.72);
+      padding: 0.7rem 0.8rem 0.8rem;
+    }
+    .game2-exam-block h3 {
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #23486A;
+      margin-bottom: 0.45rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .game2-exam-block h3 .num {
+      width: 1.35rem;
+      height: 1.35rem;
+      border-radius: 999px;
+      background: #23486A;
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      letter-spacing: 0;
+    }
+    .game2-exam-block ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .game2-exam-block li {
+      position: relative;
+      padding-left: 1.15rem;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #1f2937;
+      line-height: 1.35;
+    }
+    .game2-exam-block li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.45rem;
+      width: 0.55rem;
+      height: 0.55rem;
+      border: 2px solid #C8372D;
+      border-radius: 2px;
+      background: #fff;
+    }
+    .game2-exam-block li span {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #64748b;
+      margin-top: 0.1rem;
+    }
+    .game2-exam-win {
+      border-color: #C8372D;
+      background:
+        linear-gradient(135deg, rgba(254, 243, 199, 0.65), rgba(255, 255, 255, 0.85)),
+        #fffef8;
+    }
+    .game2-exam-win h3 { color: #9f1239; }
+    .game2-exam-win h3 .num { background: #C8372D; }
+    .game2-exam-win .win-line {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #9f1239;
+      margin-top: 0.35rem;
+    }
+    .game2-exam-footer {
+      margin-top: 0.75rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      border-top: 2px dashed rgba(35, 72, 106, 0.25);
+      padding-top: 0.55rem;
+    }
+    .game2-exam-footer p {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #475569;
     }
     .lab-live-bar {
       background:
@@ -1507,6 +1665,247 @@
       to { height: 34px; }
     }
 
+    /* Sock Guess reveal — pre-lunch Game 1 answers */
+    .sock-reveal-stage {
+      position: relative;
+      overflow: hidden;
+      width: min(96rem, 96vw);
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(251, 113, 133, 0.22), transparent 55%),
+        linear-gradient(165deg, #1c1018 0%, #4a1528 42%, #1a1210 100%);
+      border-color: #fb7185 !important;
+      color: #fff1f2;
+      min-height: min(74vh, 680px);
+      padding: 1.1rem 1.15rem 1.25rem;
+    }
+    .sock-reveal-stage::before,
+    .sock-reveal-stage::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: 38%;
+      height: 100%;
+      z-index: 5;
+      pointer-events: none;
+      transition: transform 1.05s cubic-bezier(0.22, 1, 0.36, 1);
+      background: repeating-linear-gradient(90deg, #9f1239 0 14px, #be123c 14px 28px);
+      box-shadow: inset -18px 0 28px rgba(0,0,0,0.35);
+    }
+    .sock-reveal-stage::before {
+      left: 0;
+      transform-origin: left center;
+      border-right: 4px solid #fecdd3;
+    }
+    .sock-reveal-stage::after {
+      right: 0;
+      transform-origin: right center;
+      border-left: 4px solid #fecdd3;
+      box-shadow: inset 18px 0 28px rgba(0,0,0,0.35);
+    }
+    .sock-reveal-stage.is-drumrolling::before { transform: translateX(-16%) scaleX(0.92); }
+    .sock-reveal-stage.is-drumrolling::after { transform: translateX(16%) scaleX(0.92); }
+    .sock-reveal-stage.is-revealed::before { transform: translateX(-105%); }
+    .sock-reveal-stage.is-revealed::after { transform: translateX(105%); }
+    .sock-twinkle {
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 18% 28%, rgba(255,255,255,0.55) 0 1px, transparent 2px),
+        radial-gradient(circle at 72% 20%, rgba(253,224,71,0.7) 0 1px, transparent 2px),
+        radial-gradient(circle at 44% 74%, rgba(255,255,255,0.45) 0 1px, transparent 2px);
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 1;
+      animation: catwalkTwinkle 2.6s ease-in-out infinite;
+    }
+    .sock-flash {
+      position: absolute;
+      inset: 0;
+      background: #fff1f2;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 8;
+    }
+    .sock-reveal-stage.is-flash .sock-flash { animation: bdFlash 0.55s ease-out forwards; }
+    .sock-sealed {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      min-height: 200px;
+      position: relative;
+      z-index: 6;
+    }
+    .sock-icon-badge {
+      width: 5rem;
+      height: 5rem;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      font-size: 2.1rem;
+      color: #fff1f2;
+      background: linear-gradient(145deg, #fb7185, #C8372D);
+      border: 4px solid #fecdd3;
+      box-shadow: 0 0 0 4px rgba(190, 18, 60, 0.35), 0 16px 36px rgba(0,0,0,0.4);
+    }
+    .sock-reveal-stage.is-drumrolling .sock-icon-badge { animation: bdShake 0.22s ease-in-out infinite; }
+    .sock-reveal-stage.is-drumrolling .bd-drum-bars { opacity: 1; }
+    .sock-reveal-stage.is-revealed .sock-sealed { display: none; }
+    .sock-results {
+      display: none;
+      opacity: 0;
+      transform: scale(0.92) translateY(18px);
+      transition: opacity 0.55s ease, transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      z-index: 6;
+      width: 100%;
+    }
+    .sock-reveal-stage.is-revealed .sock-results {
+      display: block;
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+    .sock-setup {
+      position: relative;
+      z-index: 6;
+      width: 100%;
+      margin-top: 0.75rem;
+    }
+    .sock-reveal-stage.is-revealed .sock-setup { display: none; }
+    .sock-guess-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+      width: 100%;
+    }
+    @media (max-width: 900px) {
+      .sock-guess-grid { grid-template-columns: 1fr; }
+    }
+    .sock-card {
+      text-align: left;
+      border-radius: 1.15rem;
+      padding: 0.85rem 0.9rem 0.95rem;
+      background: linear-gradient(160deg, #fff1f2 0%, #ffe4e6 55%, #fecdd3 100%);
+      border: 3px solid #be123c;
+      box-shadow: 0 14px 28px -14px rgba(0,0,0,0.45);
+      color: #1f2937;
+      animation: sockCardIn 0.55s ease both;
+    }
+    .sock-card:nth-child(2) { animation-delay: 0.12s; }
+    .sock-card:nth-child(3) { animation-delay: 0.24s; }
+    @keyframes sockCardIn {
+      from { opacity: 0; transform: translateY(18px) scale(0.94); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .sock-card-kicker {
+      font-size: 0.68rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #9f1239;
+      margin-bottom: 0.2rem;
+    }
+    .sock-card h3 {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #7f1d1d;
+      margin-bottom: 0.45rem;
+    }
+    .sock-field-label {
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #9f1239;
+      margin: 0.35rem 0 0.15rem;
+    }
+    .sock-field-input {
+      width: 100%;
+      border: 2px solid #fda4af;
+      border-radius: 0.55rem;
+      padding: 0.4rem 0.55rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #1f2937;
+      background: rgba(255,255,255,0.85);
+    }
+    .sock-field-input:focus {
+      outline: none;
+      border-color: #C8372D;
+      box-shadow: 0 0 0 3px rgba(200, 55, 45, 0.18);
+    }
+    .sock-photo-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.35rem;
+      margin-top: 0.45rem;
+    }
+    .sock-photo-slot {
+      aspect-ratio: 1;
+      border-radius: 0.65rem;
+      border: 2px dashed #fb7185;
+      background: rgba(255,255,255,0.55);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.15rem;
+      cursor: pointer;
+      overflow: hidden;
+      position: relative;
+      transition: border-color 0.2s ease, transform 0.15s ease;
+    }
+    .sock-photo-slot:hover {
+      border-color: #C8372D;
+      transform: translateY(-1px);
+    }
+    .sock-photo-slot.has-photo {
+      border-style: solid;
+      border-color: #1E6B3B;
+    }
+    .sock-photo-slot img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .sock-photo-slot span {
+      font-size: 0.58rem;
+      font-weight: 800;
+      color: #9f1239;
+      text-align: center;
+      line-height: 1.15;
+      padding: 0 0.2rem;
+      z-index: 1;
+    }
+    .sock-photo-slot.has-photo span { display: none; }
+    .sock-photo-slot i { color: #be123c; font-size: 0.85rem; z-index: 1; }
+    .sock-photo-slot.has-photo i { display: none; }
+    .sock-answer-display {
+      margin-top: 0.35rem;
+      padding: 0.45rem 0.55rem;
+      border-radius: 0.65rem;
+      background: linear-gradient(135deg, #fffbeb, #fde68a);
+      border: 2px solid #b45309;
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: #7c2d12;
+    }
+    .sock-winner-display {
+      margin-top: 0.35rem;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #14532D;
+    }
+    .sock-setup .sock-card {
+      background: linear-gradient(160deg, rgba(255,241,242,0.95), rgba(254,205,211,0.92));
+      animation: none;
+    }
+
     #festiveScatter {
       position: fixed;
       inset: 0;
@@ -2082,13 +2481,57 @@
          class="w-full max-w-lg py-5 px-8 rounded-2xl bg-gradient-to-r from-[#1E6B3B] to-[#23486A] hover:from-[#14532D] hover:to-[#1a3650] text-white font-black text-xl sm:text-2xl tracking-wide shadow-xl flex items-center justify-center gap-3 cursor-pointer transition transform hover:scale-105 active:scale-95">
         <i class="fa-solid fa-rocket text-amber-200"></i> OPEN AHASLIDES
       </a>
+      <p class="text-xs text-slate-500 font-semibold mt-4" contenteditable="true">Next: sock-guess reveal · 下一頁揭曉襪子猜獎</p>
     </div>
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 7: GAME 2 SESSION INTRO (BILINGUAL)                             -->
+  <!-- SLIDE 7: GAME 1 — SOCK GUESS REVEAL (PRE-LUNCH)                       -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center" data-title="7. Game 2: The Culinary Fanatic — Intro">
+  <section class="slide flex-col items-center justify-center text-center" data-title="7. Game 1: Sock Guess Reveal">
+    <div id="sockGuessRevealStage" class="sock-reveal-stage stage-board stage-board-pad rounded-3xl border-4 relative shadow-2xl">
+      <div class="sock-twinkle" aria-hidden="true"></div>
+      <div class="sock-flash" aria-hidden="true"></div>
+
+      <span class="relative z-10 px-4 py-1.5 rounded-full bg-rose-200/20 border border-rose-100/50 text-rose-50 text-xs font-extrabold uppercase tracking-widest backdrop-blur-sm">
+        Pre-lunch Sock Guess · 午餐前襪子猜謎
+      </span>
+
+      <div class="sock-sealed mt-4">
+        <div class="sock-icon-badge" aria-hidden="true"><i class="fa-solid fa-socks"></i></div>
+        <div class="bd-drum-bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <p id="sockGuessDrumStatus" class="text-sm font-bold text-rose-50/90">Socks sealed — configure below, then reveal</p>
+        <button type="button" id="sockGuessRevealBtn" onclick="startSockGuessReveal()" class="mt-1 inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#C8372D] to-[#D97724] hover:from-[#b91c1c] hover:to-[#b45309] text-white font-black text-base sm:text-lg tracking-wide shadow-xl transition transform hover:scale-105 active:scale-95 cursor-pointer border-2 border-amber-200">
+          <i class="fa-solid fa-drum"></i> Drumroll &amp; Reveal Socks
+        </button>
+        <p class="text-[11px] font-semibold text-rose-50/60 mt-1">or press <kbd class="px-1.5 py-0.5 rounded bg-black/30 border border-rose-100/40 font-mono">SPACE</kbd></p>
+      </div>
+
+      <div class="sock-setup">
+        <p class="text-[11px] font-extrabold uppercase tracking-widest text-rose-100/80 mb-2">
+          Presenter setup · 3 socks · 3 photos each · answers &amp; winners (saved with Save HTML)
+        </p>
+        <div id="sockGuessSetupGrid" class="sock-guess-grid"></div>
+      </div>
+
+      <div class="sock-results mt-2">
+        <h1 class="font-festive-display text-3xl sm:text-5xl font-bold tracking-tight text-amber-100 mb-1 drop-shadow" contenteditable="true">
+          SOCK GUESS RESULTS
+        </h1>
+        <p class="text-sm font-bold text-rose-50/85 mb-3" contenteditable="true">What’s inside · who guessed it · 答案與得獎者</p>
+        <div id="sockGuessRevealGrid" class="sock-guess-grid"></div>
+        <button type="button" onclick="resetSockGuessReveal()" class="mt-4 text-xs font-bold text-rose-50/70 hover:text-rose-50 underline cursor-pointer">
+          Reset seal (rehearsal)
+        </button>
+      </div>
+    </div>
+    <input type="file" id="sockGuessPhotoInput" accept="image/*" class="hidden" />
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SLIDE 8: GAME 2 SESSION INTRO (BILINGUAL)                             -->
+  <!-- ===================================================================== -->
+  <section class="slide flex-col items-center justify-center text-center" data-title="8. Game 2: The Culinary Fanatic — Intro">
     <div class="festive-card canteen-frame theme-rail stage-card rounded-3xl border-4 border-[#23486A]">
       <div class="theme-icon-tile w-24 h-24 mx-auto mb-5 rounded-3xl bg-[#23486A] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
         <i class="fa-solid fa-people-group"></i>
@@ -2108,13 +2551,69 @@
       <p class="text-sm text-slate-600 font-semibold mt-2" contenteditable="true">
         學校食堂小組專題：落單 · 煮餐 · 上菜核對 · 最快且正確勝出！
       </p>
+      <p class="text-xs text-slate-500 font-semibold mt-3" contenteditable="true">Next: exam cover rules · 下一頁考試卷封面規則</p>
     </div>
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 8: GAME 2: TEAM ROLES (ORDER TAKER, CHEF, SERVER) — BILINGUAL    -->
+  <!-- SLIDE 9: GAME 2 — EXAM / ORDER-FORM COVER (RULES + WIN)                -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-stretch justify-center" data-title="8. Game 2: Team Roles">
+  <section class="slide flex-col items-center justify-center" data-title="9. Game 2: Exam Cover">
+    <div class="festive-card homework-sheet theme-rail rounded-3xl game2-exam-cover">
+      <div class="game2-exam-masthead">
+        <div>
+          <div class="game2-exam-school" contenteditable="true">SSOB · Home Economics · Christmas Cafeteria Exam</div>
+          <h1 class="game2-exam-title" contenteditable="true">GAME 2 COVER SHEET</h1>
+          <p class="game2-exam-sub" contenteditable="true">料理狂熱者 · 考試卷封面 · How to play &amp; how to win</p>
+        </div>
+        <div class="game2-exam-meta" contenteditable="true">
+          <strong>Paper:</strong> Culinary Fanatic<br />
+          <strong>Sheets:</strong> 6 order forms<br />
+          <strong>Pass mark:</strong> 2 approved tickets<br />
+          <strong>Serve order:</strong> Head table 1st
+        </div>
+      </div>
+
+      <div class="game2-exam-grid">
+        <div class="game2-exam-block">
+          <h3><span class="num">1</span> Setup · 賽前佈置</h3>
+          <ul contenteditable="true">
+            <li>6 order sheets in total<span>共 6 張訂單表</span></li>
+            <li>3 on the head table<span>主桌放 3 張</span></li>
+            <li>1 on each guest table × 3<span>其餘三桌各放 1 張</span></li>
+            <li>Pre-fill orders from head table + target table before start<span>開賽前預先填好主桌與目標桌訂單</span></li>
+          </ul>
+        </div>
+        <div class="game2-exam-block">
+          <h3><span class="num">2</span> Play · 開賽怎麼玩</h3>
+          <ul contenteditable="true">
+            <li>Game start!<span>哨響／宣布開始！</span></li>
+            <li>Order Taker takes order from head table and target table<span>落單員向主桌與目標桌取單</span></li>
+            <li>Head table must be served 1st<span>必須先服務主桌</span></li>
+            <li>Team of 3 runs Order Taker → Chef → Server<span>三人小組依角色接力完成</span></li>
+          </ul>
+        </div>
+        <div class="game2-exam-block game2-exam-win" style="grid-column: 1 / -1;">
+          <h3><span class="num">3</span> Winning criteria · 過關條件</h3>
+          <ul contenteditable="true">
+            <li>Collect <strong>2 approved tickets</strong> to win<span>取得 2 張核可票券即可勝出</span></li>
+            <li>Correct serve + check at head table first, then continue<span>主桌核對正確後再衝下一桌</span></li>
+          </ul>
+          <p class="win-line" contenteditable="true">2 APPROVED TICKETS = WIN · 兩張核可票 = 勝出</p>
+        </div>
+      </div>
+
+      <div class="game2-exam-footer">
+        <p contenteditable="true">Next page: Team of 3 roles · 下一頁三人角色分工</p>
+        <span class="homework-stamp" contenteditable="true">READ BEFORE PLAY</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SLIDE 10: GAME 2: TEAM ROLES (ORDER TAKER, CHEF, SERVER) — BILINGUAL   -->
+  <!-- ===================================================================== -->
+  <section class="slide flex-col items-stretch justify-center" data-title="10. Game 2: Team Roles">
     <div class="stage-board festive-card canteen-frame theme-rail rounded-3xl team-roles-board">
       <div class="team-roles-header">
         <span class="px-3 py-0.5 rounded-full bg-sky-100 border border-sky-300 text-sky-900 text-[10px] sm:text-xs font-extrabold uppercase tracking-widest">
@@ -2216,7 +2715,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 9: GAME 2: LIVE DEMO PROCESS FLOW                                -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center" data-title="9. Game 2: Demo Process Flow">
+  <section class="slide flex-col items-center justify-center" data-title="11. Game 2: Demo Process Flow">
     <div class="stage-board stage-board-pad festive-card canteen-frame theme-rail rounded-3xl">
       <div class="text-center mb-6">
         <span class="px-4 py-1.5 rounded-full bg-blue-100 border border-blue-300 text-blue-800 text-xs font-extrabold uppercase tracking-widest">
@@ -2278,7 +2777,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 10: GAME 2: 6-SET MENU BOARD                                     -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center" data-title="10. Game 2: Menu Board">
+  <section class="slide flex-col items-center justify-center" data-title="12. Game 2: Menu Board">
     <div class="stage-board flex flex-col h-full justify-center">
       <div class="menu-board-shell">
       <div class="menu-board-chalk">
@@ -2344,7 +2843,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 11: GAME 2: SAMPLE ORDER FORM                                    -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-stretch justify-stretch" data-title="11. Game 2: Sample Order Form">
+  <section class="slide flex-col items-stretch justify-stretch" data-title="13. Game 2: Sample Order Form">
     <div class="stage-board festive-card homework-sheet theme-rail rounded-3xl order-sheet-slide">
       <div class="order-sheet-toolbar">
         <div class="flex flex-wrap items-center gap-2 min-w-0">
@@ -2368,7 +2867,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 12: GAME 2: TIMER & LIVESTREAM                                   -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center" style="padding-top: 1.25rem; padding-bottom: 4.5rem; padding-left: 1.5rem; padding-right: 1.5rem;" data-title="12. Game 2: Cook — Timer & Livestream">
+  <section class="slide flex-col items-center justify-center" style="padding-top: 1.25rem; padding-bottom: 4.5rem; padding-left: 1.5rem; padding-right: 1.5rem;" data-title="14. Game 2: Cook — Timer & Livestream">
     <div class="max-w-[1520px] w-full h-full flex flex-col gap-2.5 justify-center">
 
       <div class="festive-card lab-live-bar theme-rail rounded-2xl px-5 py-3 flex flex-wrap items-center justify-between gap-3 border-2 border-[#C8372D]/40">
@@ -2463,7 +2962,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 12: DESSERT & COFFEE BREAK (TUCK SHOP RECESS)                   -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center" data-title="13. Dessert & Coffee Break">
+  <section class="slide flex-col items-center justify-center text-center" data-title="15. Dessert & Coffee Break">
     <div class="festive-card canteen-frame theme-rail stage-card rounded-3xl border-4 border-[#1E6B3B]">
       <div class="w-24 h-24 mx-auto mb-4 rounded-3xl bg-gradient-to-tr from-[#1E6B3B] to-[#23486A] flex items-center justify-center text-white text-4xl shadow-lg animate-float">
         <i class="fa-solid fa-cookie-bite"></i>
@@ -2497,7 +2996,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 13: LUCKY DRAW PHASE 1 (PRINCIPAL'S HONOR ROLL SPINNER)         -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col overflow-hidden" style="padding-top: 3.1rem; padding-bottom: 4rem;" data-title="14. Christmas Gifts Spinner">
+  <section class="slide flex-col overflow-hidden" style="padding-top: 3.1rem; padding-bottom: 4rem;" data-title="16. Christmas Gifts Spinner">
     <div class="flex-1 max-w-[1600px] w-full mx-auto flex flex-col justify-center">
       <div class="flex flex-wrap items-center justify-between gap-2 mb-1 px-1">
         <div class="flex items-center gap-3 flex-wrap">
@@ -2602,7 +3101,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 15: BEST DRESSED — AWARD INTRO                                  -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center" data-title="15. Best Dressed — Intro">
+  <section class="slide flex-col items-center justify-center text-center" data-title="17. Best Dressed — Intro">
     <div class="stage-card festive-card yearbook-card theme-rail rounded-3xl border-4 border-[#C8372D]">
       <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-tr from-[#C8372D] via-amber-500 to-yellow-300 flex items-center justify-center text-white text-4xl shadow-xl animate-float">
         <i class="fa-solid fa-camera-retro"></i>
@@ -2646,7 +3145,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 16: BEST DRESSED — CATWALK REVEAL                               -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center" data-title="16. Best Dressed — Catwalk">
+  <section class="slide flex-col items-center justify-center text-center" data-title="18. Best Dressed — Catwalk">
     <div id="bestDressedRevealStage" class="bd-reveal-stage catwalk-stage stage-board stage-board-pad rounded-3xl border-4 relative shadow-2xl">
       <div class="catwalk-floor" aria-hidden="true"></div>
       <div class="catwalk-lights" aria-hidden="true">
@@ -2711,7 +3210,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 17: GRAND PRIZES INTRO                                          -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center" data-title="17. Grand Prizes Intro">
+  <section class="slide flex-col items-center justify-center text-center" data-title="19. Grand Prizes Intro">
     <div class="festive-card finale-card theme-rail stage-card rounded-3xl border-4 border-[#D97724]">
       <div class="w-24 h-24 mx-auto mb-5 rounded-3xl bg-gradient-to-tr from-[#C8372D] to-[#D97724] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
         <i class="fa-solid fa-gift"></i>
@@ -2737,7 +3236,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 19: GRAND PRIZES SPINNER (DEDICATED SHARED-POOL WHEEL)           -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col overflow-hidden" style="padding-top: 3.1rem; padding-bottom: 4rem;" data-title="18. Grand Prizes Spinner">
+  <section class="slide flex-col overflow-hidden" style="padding-top: 3.1rem; padding-bottom: 4rem;" data-title="20. Grand Prizes Spinner">
     <div class="flex-1 max-w-[1600px] w-full mx-auto flex flex-col justify-center">
       <div class="flex flex-wrap items-center justify-between gap-2 mb-1 px-1">
         <div class="flex items-center gap-3 flex-wrap">
@@ -2823,7 +3322,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 19: GROUP PHOTO BACKDROP                                        -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-between text-center" data-title="19. Group Photo Backdrop">
+  <section class="slide flex-col items-center justify-between text-center" data-title="21. Group Photo Backdrop">
     <div class="w-full max-w-5xl mx-auto pt-2">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#C8372D] text-white text-xs font-black uppercase tracking-widest shadow mb-2">
         <i class="fa-solid fa-camera"></i> Group Photo • 畢業大合照
@@ -2973,13 +3472,17 @@
     let orderFormPhotoDataUrl = ''; // #SAVE:orderFormPhotoDataUrl
     let menuPhotos = {}; // #SAVE:menuPhotos
     // Stable slide indices (0-based) after dedicated Grand spinner insert
-    // After removing Christmas/Grand walls: 19 slides (0..18)
-    const SLIDE_XMAS_SPIN = 13;
-    const SLIDE_BEST_INTRO = 14;
-    const SLIDE_BEST_REVEAL = 15;
-    const SLIDE_GRAND_INTRO = 16;
-    const SLIDE_GRAND_SPIN = 17;
-    const SLIDE_GROUP = 18;
+    // 21 slides (0..20) after sock-guess + Game 2 exam cover + wall removals
+    const SLIDE_SOCK_GUESS = 6;
+    const SLIDE_COOK = 13;
+    const SLIDE_XMAS_SPIN = 15;
+    const SLIDE_BEST_INTRO = 16;
+    const SLIDE_BEST_REVEAL = 17;
+    const SLIDE_GRAND_INTRO = 18;
+    const SLIDE_GRAND_SPIN = 19;
+    const SLIDE_GROUP = 20;
+    const SOCK_GUESS_COUNT = 3;
+    const SOCK_PHOTOS_PER = 3;
     const CHRISTMAS_SLOTS = 14; // 3+3+4+3+1
     const GRAND_SLOTS = 6;
     let winnerModalHoldTimer = null;
@@ -3009,6 +3512,13 @@
     let customBellDataUrl = 'audio/Bell.mp3'; // #SAVE:customBellDataUrl
     let customBellFileName = 'Bell.mp3'; // #SAVE:customBellFileName
     let bestDressedWinnerData = null; // #SAVE:bestDressedWinnerData
+    let sockGuesses = Array.from({ length: SOCK_GUESS_COUNT }, (_, i) => ({
+      id: `sock${i + 1}`,
+      label: `Sock ${i + 1}`,
+      answer: '',
+      winner: '',
+      photos: Array.from({ length: SOCK_PHOTOS_PER }, () => '')
+    })); // #SAVE:sockGuesses
 
     function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
 
@@ -4090,13 +4600,13 @@
       { id: 'mcs', label: 'MCs Intro', slides: [1], trackKey: 'maruko' },
       { id: 'headmaster', label: 'Headmaster Intro', slides: [2], trackKey: 'dumbledore' },
       { id: 'buffet', label: 'Buffet', slides: [3], trackKey: 'buffet' },
-      { id: 'game1', label: 'Game 1 Make a Guess', slides: [4, 5], trackKey: 'game1' },
-      { id: 'game2', label: 'Game 2 Culinary Fanatic', slides: [6, 7, 8, 9, 10, 11], trackKey: 'game2' },
-      { id: 'recess', label: 'Recess', slides: [12], trackKey: 'recess' },
-      { id: 'christmasGifts', label: 'Christmas Gifts', slides: [13], trackKey: 'luckyDraw' },
-      { id: 'bestDressed', label: 'Best Dressed', slides: [14, 15], trackKey: 'buffet' },
-      { id: 'grandPrizes', label: 'Grand Prizes', slides: [16, 17], trackKey: 'luckyDraw' },
-      { id: 'finale', label: 'Finale', slides: [18], trackKey: 'finale' }
+      { id: 'game1', label: 'Game 1 Make a Guess', slides: [4, 5, 6], trackKey: 'game1' },
+      { id: 'game2', label: 'Game 2 Culinary Fanatic', slides: [7, 8, 9, 10, 11, 12, 13], trackKey: 'game2' },
+      { id: 'recess', label: 'Recess', slides: [14], trackKey: 'recess' },
+      { id: 'christmasGifts', label: 'Christmas Gifts', slides: [15], trackKey: 'luckyDraw' },
+      { id: 'bestDressed', label: 'Best Dressed', slides: [16, 17], trackKey: 'buffet' },
+      { id: 'grandPrizes', label: 'Grand Prizes', slides: [18, 19], trackKey: 'luckyDraw' },
+      { id: 'finale', label: 'Finale', slides: [20], trackKey: 'finale' }
     ];
 
     function getPhaseForSlide(slideIdx) {
@@ -4301,8 +4811,9 @@
         }
       }
       if (currentSlideIdx === SLIDE_BEST_REVEAL && prevIdx !== SLIDE_BEST_REVEAL) resetBestDressedReveal({ silent: true });
+      if (currentSlideIdx === SLIDE_SOCK_GUESS && prevIdx !== SLIDE_SOCK_GUESS) resetSockGuessReveal({ silent: true });
       // Always sync VDO room + viewer when entering the cook slide (room may already exist from boot)
-      if (currentSlideIdx === 11) startVdoNinjaRoom(false, { silent: true });
+      if (currentSlideIdx === SLIDE_COOK) startVdoNinjaRoom(false, { silent: true });
     }
 
     let bestDressedRevealBusy = false;
@@ -4428,6 +4939,166 @@
       }
     }
 
+    let sockGuessRevealBusy = false;
+    let activeSockPhoto = { guessIdx: 0, photoIdx: 0 };
+    const sockGuessPhotoInput = document.getElementById('sockGuessPhotoInput');
+
+    function normalizeSockGuesses(raw) {
+      const list = Array.isArray(raw) ? raw : [];
+      return Array.from({ length: SOCK_GUESS_COUNT }, (_, i) => {
+        const src = list[i] || {};
+        const photosRaw = Array.isArray(src.photos) ? src.photos : [];
+        return {
+          id: src.id || `sock${i + 1}`,
+          label: String(src.label || `Sock ${i + 1}`).trim() || `Sock ${i + 1}`,
+          answer: String(src.answer || '').trim(),
+          winner: String(src.winner || '').trim(),
+          photos: Array.from({ length: SOCK_PHOTOS_PER }, (_, p) => String(photosRaw[p] || ''))
+        };
+      });
+    }
+
+    function syncSockGuessFieldsFromDom() {
+      for (let i = 0; i < SOCK_GUESS_COUNT; i++) {
+        const labelEl = document.getElementById(`sockLabel${i}`);
+        const answerEl = document.getElementById(`sockAnswer${i}`);
+        const winnerEl = document.getElementById(`sockWinner${i}`);
+        if (!sockGuesses[i]) continue;
+        if (labelEl) sockGuesses[i].label = labelEl.value.trim() || `Sock ${i + 1}`;
+        if (answerEl) sockGuesses[i].answer = answerEl.value.trim();
+        if (winnerEl) sockGuesses[i].winner = winnerEl.value.trim();
+      }
+    }
+
+    function renderSockGuessSetup() {
+      const grid = document.getElementById('sockGuessSetupGrid');
+      if (!grid) return;
+      sockGuesses = normalizeSockGuesses(sockGuesses);
+      grid.innerHTML = sockGuesses.map((g, i) => {
+        const photos = g.photos.map((src, p) => {
+          const has = !!src;
+          return `<button type="button" class="sock-photo-slot${has ? ' has-photo' : ''}" onclick="triggerSockGuessPhotoUpload(${i}, ${p})" title="Upload photo ${p + 1} of 3 for ${escapeHTML(g.label)}">
+            ${has ? `<img src="${escapeHTML(src)}" alt="${escapeHTML(g.label)} photo ${p + 1}" />` : ''}
+            <i class="fa-solid fa-camera"></i>
+            <span>Photo ${p + 1}/3<br/>click to upload</span>
+          </button>`;
+        }).join('');
+        return `<article class="sock-card" data-sock-idx="${i}">
+          <div class="sock-card-kicker">Guess ${i + 1} of ${SOCK_GUESS_COUNT}</div>
+          <label class="sock-field-label" for="sockLabel${i}">Sock label</label>
+          <input id="sockLabel${i}" class="sock-field-input" type="text" value="${escapeHTML(g.label)}" oninput="syncSockGuessFieldsFromDom()" />
+          <label class="sock-field-label" for="sockAnswer${i}">Answer (what’s inside)</label>
+          <input id="sockAnswer${i}" class="sock-field-input" type="text" placeholder="e.g. candy cane" value="${escapeHTML(g.answer)}" oninput="syncSockGuessFieldsFromDom()" />
+          <label class="sock-field-label" for="sockWinner${i}">Winner / best guess</label>
+          <input id="sockWinner${i}" class="sock-field-input" type="text" placeholder="Name or team" value="${escapeHTML(g.winner)}" oninput="syncSockGuessFieldsFromDom()" />
+          <div class="sock-field-label">Photos (3 slots)</div>
+          <div class="sock-photo-row">${photos}</div>
+        </article>`;
+      }).join('');
+    }
+
+    function renderSockGuessRevealCards() {
+      const grid = document.getElementById('sockGuessRevealGrid');
+      if (!grid) return;
+      syncSockGuessFieldsFromDom();
+      sockGuesses = normalizeSockGuesses(sockGuesses);
+      grid.innerHTML = sockGuesses.map((g, i) => {
+        const photos = g.photos.map((src, p) => {
+          const has = !!src;
+          return `<button type="button" class="sock-photo-slot${has ? ' has-photo' : ''}" onclick="triggerSockGuessPhotoUpload(${i}, ${p})" title="Replace photo ${p + 1}">
+            ${has ? `<img src="${escapeHTML(src)}" alt="${escapeHTML(g.label)} photo ${p + 1}" />` : ''}
+            <i class="fa-solid fa-camera"></i>
+            <span>Photo ${p + 1}/3</span>
+          </button>`;
+        }).join('');
+        const answer = escapeHTML(g.answer || '(answer TBA)');
+        const winner = escapeHTML(g.winner || '(winner TBA)');
+        return `<article class="sock-card" data-sock-idx="${i}">
+          <div class="sock-card-kicker">Guess ${i + 1}</div>
+          <h3>${escapeHTML(g.label)}</h3>
+          <div class="sock-field-label">What’s inside</div>
+          <div class="sock-answer-display">${answer}</div>
+          <div class="sock-winner-display"><i class="fa-solid fa-trophy text-amber-600"></i> ${winner}</div>
+          <div class="sock-field-label">Photos</div>
+          <div class="sock-photo-row">${photos}</div>
+        </article>`;
+      }).join('');
+    }
+
+    function renderSockGuessUI() {
+      renderSockGuessSetup();
+      renderSockGuessRevealCards();
+    }
+
+    function triggerSockGuessPhotoUpload(guessIdx, photoIdx) {
+      activeSockPhoto = { guessIdx, photoIdx };
+      sockGuessPhotoInput?.click();
+    }
+
+    sockGuessPhotoInput?.addEventListener('change', (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        syncSockGuessFieldsFromDom();
+        const { guessIdx, photoIdx } = activeSockPhoto;
+        if (!sockGuesses[guessIdx]) return;
+        sockGuesses[guessIdx].photos[photoIdx] = String(ev.target.result || '');
+        renderSockGuessUI();
+        showToast(`Sock ${guessIdx + 1} photo ${photoIdx + 1}/3 uploaded`, 'success');
+      };
+      reader.onerror = () => showToast('Could not read sock photo', 'error');
+      reader.readAsDataURL(file);
+      sockGuessPhotoInput.value = '';
+    });
+
+    function resetSockGuessReveal(opts = {}) {
+      sockGuessRevealBusy = false;
+      const stage = document.getElementById('sockGuessRevealStage');
+      const btn = document.getElementById('sockGuessRevealBtn');
+      const status = document.getElementById('sockGuessDrumStatus');
+      if (stage) stage.classList.remove('is-drumrolling', 'is-revealed', 'is-flash');
+      if (btn) { btn.disabled = false; btn.classList.remove('opacity-50', 'pointer-events-none'); }
+      if (status) status.textContent = 'Socks sealed — configure below, then reveal';
+      renderSockGuessUI();
+      if (!opts.silent) showToast('Sock guess seal reset');
+    }
+
+    async function startSockGuessReveal() {
+      if (sockGuessRevealBusy) return;
+      const stage = document.getElementById('sockGuessRevealStage');
+      const btn = document.getElementById('sockGuessRevealBtn');
+      const status = document.getElementById('sockGuessDrumStatus');
+      if (!stage) return;
+      syncSockGuessFieldsFromDom();
+      renderSockGuessRevealCards();
+      sockGuessRevealBusy = true;
+      stage.classList.remove('is-revealed', 'is-flash');
+      stage.classList.add('is-drumrolling');
+      if (btn) { btn.disabled = true; btn.classList.add('opacity-50', 'pointer-events-none'); }
+      if (status) status.textContent = 'Drumroll… peeling the socks…';
+      const prevVol = bgmVolume;
+      try {
+        bgmAudio.volume = Math.min(bgmVolume, 0.12);
+        const duck = Math.min(bgmVolume, 0.12);
+        postYtCommand('setVolume', [Math.round(duck * 100)]);
+        await AudioEngine.playDrumroll(4600);
+        stage.classList.add('is-flash');
+        stage.classList.remove('is-drumrolling');
+        stage.classList.add('is-revealed');
+        if (status) status.textContent = 'Revealed!';
+        celebrateWin(3);
+        setTimeout(() => triggerFestiveConfetti(3), 180);
+        setTimeout(() => triggerFestiveConfetti(2), 700);
+        showToast('Sock guess answers revealed!', 'success');
+        setTimeout(() => stage.classList.remove('is-flash'), 600);
+      } finally {
+        bgmAudio.volume = prevVol;
+        applyYtVolume();
+        sockGuessRevealBusy = false;
+      }
+    }
+
     function nextSlide() { if (currentSlideIdx < slides.length - 1) goToSlide(currentSlideIdx + 1); }
     function prevSlide() { if (currentSlideIdx > 0) goToSlide(currentSlideIdx - 1); }
 
@@ -4526,6 +5197,9 @@
       } else if (e.code === 'Space' && currentSlideIdx === SLIDE_BEST_REVEAL) {
         e.preventDefault();
         startBestDressedReveal();
+      } else if (e.code === 'Space' && currentSlideIdx === SLIDE_SOCK_GUESS) {
+        e.preventDefault();
+        startSockGuessReveal();
       }
     });
 
@@ -4885,7 +5559,7 @@
       toast.classList.remove('translate-y-20', 'opacity-0'); setTimeout(() => { toast.classList.add('translate-y-20', 'opacity-0'); }, 3200);
     }
 
-    function escapeHTML(str) { return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)); }
+    function escapeHTML(str) { return String(str ?? '').replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)); }
 
     entriesInput.addEventListener('input', syncItemsFromInput);
     spinBtn.addEventListener('click', () => {
@@ -5061,13 +5735,19 @@
       }
       const bakedGiftPhotos = { ...christmasGiftPhotos };
       const bakedGrandPhotos = { ...grandPrizePhotos };
+      syncSockGuessFieldsFromDom();
+      const bakedSockGuesses = normalizeSockGuesses(sockGuesses).map((g) => ({
+        ...g,
+        photos: g.photos.map((src) => (src && !String(src).startsWith('data:') ? src : src))
+      }));
       return {
         menuPhotos: bakedMenu,
         orderFormPhotoDataUrl: bakedOrder,
         customBellDataUrl: bakedBell,
         customPhaseMp3s: bakedPhase,
         christmasGiftPhotos: bakedGiftPhotos,
-        grandPrizePhotos: bakedGrandPhotos
+        grandPrizePhotos: bakedGrandPhotos,
+        sockGuesses: bakedSockGuesses
       };
     }
 
@@ -5085,7 +5765,8 @@
           customBellDataUrl,
           customPhaseMp3s,
           christmasGiftPhotos,
-          grandPrizePhotos
+          grandPrizePhotos,
+          sockGuesses
         };
       }
       const cloneDoc = document.documentElement.cloneNode(true);
@@ -5135,7 +5816,8 @@
         grandPrizePhotos: baked.grandPrizePhotos,
         christmasGiftNames,
         grandPrizeNames,
-        bestDressedWinnerData
+        bestDressedWinnerData,
+        sockGuesses: baked.sockGuesses || sockGuesses
       };
       Object.keys(bindings).forEach((name) => {
         serializedHTML = replaceSaveBinding(serializedHTML, name, bindings[name]);
@@ -5195,6 +5877,8 @@
     } else {
       restoreBestDressedWinnerFromStorage();
     }
+    sockGuesses = normalizeSockGuesses(sockGuesses);
+    renderSockGuessUI();
     buildFestiveScatter();
     window.addEventListener('resize', () => buildFestiveScatter());
     // Prepare VDO room + QR quietly; viewer attaches when entering the cook slide
