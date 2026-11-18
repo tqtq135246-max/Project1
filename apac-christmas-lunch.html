@@ -3061,6 +3061,12 @@
           <div class="w-full text-left space-y-1.5">
             <div class="text-[10px] font-black uppercase tracking-wider text-slate-500">Room</div>
             <div id="vdoRoomIdLabel" class="font-mono text-xs font-bold text-[#23486A] break-all bg-slate-50 border border-slate-200 rounded-lg px-2 py-1.5">—</div>
+            <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500" for="vdoPasswordInput">Stream password (this session only)</label>
+            <div class="flex gap-2">
+              <input id="vdoPasswordInput" type="password" autocomplete="off" spellcheck="false" placeholder="Enter room password" class="flex-1 min-w-0 font-mono text-xs font-bold text-[#23486A] bg-slate-50 border border-slate-200 rounded-lg px-2 py-1.5" />
+              <button type="button" onclick="applyVdoPasswordFromUi()" class="shrink-0 px-3 py-1.5 rounded-lg bg-[#23486A] hover:bg-[#1a3650] text-white text-[11px] font-black cursor-pointer">Apply</button>
+            </div>
+            <p class="text-[10px] text-slate-500 font-semibold leading-snug">Not saved in the app or exported HTML. Rotate on VDO.ninja if it was shared before.</p>
             <a id="vdoPushLink" href="#" target="_blank" rel="noopener" class="block text-[11px] font-bold text-[#C8372D] hover:underline break-all">Open push link</a>
           </div>
           <div class="flex flex-wrap gap-2 justify-center w-full">
@@ -3525,9 +3531,12 @@
     let soundEnabled = true;
     let currentWinningItem = null;
     let activeProductSetIdx = 1;
+    const DEFAULT_VDO_STREAM_ID = 'ssp_christmas_2026';
     const DEFAULT_VDO_ROOM_ID = 'SSP_Christmas_Party_2026';
-    const DEFAULT_VDO_VIEW_URL = 'https://vdo.ninja/?view=ssp_christmas_2026&p=ssp2026&room=SSP_Christmas_Party_2026&solo';
-    const DEFAULT_VDO_PUSH_URL = 'https://vdo.ninja/?push=ssp_christmas_2026&p=ssp2026&room=SSP_Christmas_Party_2026&webcam&autostart&label=FloorCam&quality=0';
+    // No room password in shipped defaults — enter at event time (sessionStorage only).
+    const DEFAULT_VDO_VIEW_URL = `https://vdo.ninja/?view=${DEFAULT_VDO_STREAM_ID}&room=${DEFAULT_VDO_ROOM_ID}&solo`;
+    const DEFAULT_VDO_PUSH_URL = `https://vdo.ninja/?push=${DEFAULT_VDO_STREAM_ID}&room=${DEFAULT_VDO_ROOM_ID}&webcam&autostart&label=${encodeURIComponent('FloorCam')}&quality=0`;
+    const VDO_PASSWORD_SESSION_KEY = 'apacVdoStreamPassword';
     let customVdoNinjaUrl = DEFAULT_VDO_VIEW_URL; // #SAVE:customVdoNinjaUrl
     let companyLogoDataUrl = ''; // #SAVE:companyLogoDataUrl
     // Phase BGM: { name, url?, dataUrl?, youtubeId? }. YouTube preferred when set (no dataUrl override).
@@ -3550,6 +3559,7 @@
     let customPhaseMp3s = { ...DEFAULT_PHASE_MP3S }; // #SAVE:customPhaseMp3s
     let vdoRoomId = DEFAULT_VDO_ROOM_ID; // #SAVE:vdoRoomId
     let vdoPushUrl = DEFAULT_VDO_PUSH_URL;
+    let vdoStreamPassword = ''; // session only — never #SAVE / never baked into HTML
     let christmasBatchIndex = 0; // #SAVE:christmasBatchIndex
     let grandPrizeIndex = 5; // #SAVE:grandPrizeIndex
     let preferGrandOnSpinner = false; // armed by Grand intro CTA
@@ -3858,11 +3868,34 @@
 
     const DEFAULT_ORDER_SHEET_SRC = 'media/order-sheet/order-sheet.png';
 
+    function setElementImage(el, src, alt, imgClassName) {
+      if (!el) return;
+      while (el.firstChild) el.removeChild(el.firstChild);
+      if (!src) return;
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = alt || '';
+      if (imgClassName) img.className = imgClassName;
+      el.appendChild(img);
+    }
+
+    function setPrizePhotoPlaceholder(el, { iconClass, label }) {
+      if (!el) return;
+      while (el.firstChild) el.removeChild(el.firstChild);
+      const icon = document.createElement('i');
+      icon.className = iconClass;
+      const span = document.createElement('span');
+      span.className = 'text-[10px] font-bold';
+      span.textContent = label || '';
+      el.appendChild(icon);
+      el.appendChild(span);
+    }
+
     function applyOrderFormPhoto() {
       const box = document.getElementById('orderFormPhotoBox');
       if (!box) return;
       const src = orderFormPhotoDataUrl || DEFAULT_ORDER_SHEET_SRC;
-      box.innerHTML = `<img src="${src}" alt="Christmas cafeteria order sheet" class="order-sheet-img" />`;
+      setElementImage(box, src, 'Christmas cafeteria order sheet', 'order-sheet-img');
       box.classList.remove('border-dashed');
       box.classList.add('border-solid', 'border-[#23486A]');
     }
@@ -3874,7 +3907,7 @@
         if (!src || !idx) return;
         const box = document.getElementById(`setPhotoBox${idx}`);
         if (!box) return;
-        box.innerHTML = `<img src="${src}" alt="Order ${String.fromCharCode(64 + idx)}" />`;
+        setElementImage(box, src, `Order ${String.fromCharCode(64 + idx)}`);
         box.classList.add('border-[#C8372D]');
       });
     }
@@ -3920,15 +3953,71 @@
       return 'apac' + Math.random().toString(36).slice(2, 10);
     }
 
+    function stripVdoPassword(url) {
+      if (!url) return '';
+      try {
+        const u = new URL(url, 'https://vdo.ninja');
+        u.searchParams.delete('p');
+        u.searchParams.delete('password');
+        return u.toString();
+      } catch (_) {
+        return String(url).replace(/([?&])p=[^&]*/gi, '$1').replace(/[?&]$/, '');
+      }
+    }
+
+    function withVdoPassword(url, password = vdoStreamPassword) {
+      const clean = stripVdoPassword(url);
+      if (!clean) return '';
+      if (!password) return clean;
+      try {
+        const u = new URL(clean, 'https://vdo.ninja');
+        u.searchParams.set('p', password);
+        return u.toString();
+      } catch (_) {
+        return clean;
+      }
+    }
+
+    function readVdoPasswordFromSession() {
+      try {
+        return sessionStorage.getItem(VDO_PASSWORD_SESSION_KEY) || '';
+      } catch (_) {
+        return '';
+      }
+    }
+
+    function writeVdoPasswordToSession(password) {
+      vdoStreamPassword = String(password || '');
+      try {
+        if (vdoStreamPassword) sessionStorage.setItem(VDO_PASSWORD_SESSION_KEY, vdoStreamPassword);
+        else sessionStorage.removeItem(VDO_PASSWORD_SESSION_KEY);
+      } catch (_) { /* private mode */ }
+    }
+
+    function syncVdoPasswordInput() {
+      const input = document.getElementById('vdoPasswordInput');
+      if (input && input.value !== vdoStreamPassword) input.value = vdoStreamPassword;
+    }
+
+    function applyVdoPasswordFromUi() {
+      const input = document.getElementById('vdoPasswordInput');
+      writeVdoPasswordToSession(input ? input.value.trim() : '');
+      refreshVdoLinksWithPassword({ forceReload: true, showQr: true });
+      showToast(vdoStreamPassword ? 'Password applied for this session' : 'Password cleared — open room works without p=');
+    }
+
     function buildVdoUrls(roomId) {
-      // Party default stream (Tony): fixed view + matching push for phone QR
+      // Party stream IDs without password; password applied at runtime if entered
       if (!roomId || roomId === DEFAULT_VDO_ROOM_ID) {
-        return { push: DEFAULT_VDO_PUSH_URL, view: DEFAULT_VDO_VIEW_URL };
+        return {
+          push: withVdoPassword(DEFAULT_VDO_PUSH_URL),
+          view: withVdoPassword(DEFAULT_VDO_VIEW_URL)
+        };
       }
       const id = encodeURIComponent(roomId);
       const push = `https://vdo.ninja/?push=${id}&webcam&autostart&label=${encodeURIComponent('FloorCam')}&quality=0`;
       const view = `https://vdo.ninja/?view=${id}&scene&cleanoutput&solidbg&bgcolor=000000`;
-      return { push, view };
+      return { push: withVdoPassword(push), view: withVdoPassword(view) };
     }
 
     function isAllowedVdoUrl(url) {
@@ -3944,15 +4033,32 @@
     function syncVdoRoomUi() {
       const roomLabel = document.getElementById('vdoRoomIdLabel');
       const pushLink = document.getElementById('vdoPushLink');
+      syncVdoPasswordInput();
       if (roomLabel) roomLabel.textContent = vdoRoomId || '—';
       if (pushLink) {
         if (vdoPushUrl) {
           pushLink.href = vdoPushUrl;
-          pushLink.textContent = vdoPushUrl;
+          pushLink.textContent = stripVdoPassword(vdoPushUrl) + (vdoStreamPassword ? ' (+ session password)' : '');
         } else {
           pushLink.href = '#';
           pushLink.textContent = 'Open push link';
         }
+      }
+    }
+
+    function refreshVdoLinksWithPassword(opts = {}) {
+      const baseView = stripVdoPassword(customVdoNinjaUrl) || DEFAULT_VDO_VIEW_URL;
+      const basePush = stripVdoPassword(vdoPushUrl) || (
+        (!vdoRoomId || vdoRoomId === DEFAULT_VDO_ROOM_ID)
+          ? DEFAULT_VDO_PUSH_URL
+          : `https://vdo.ninja/?push=${encodeURIComponent(vdoRoomId)}&webcam&autostart&label=${encodeURIComponent('FloorCam')}&quality=0`
+      );
+      customVdoNinjaUrl = withVdoPassword(baseView);
+      vdoPushUrl = withVdoPassword(basePush);
+      syncVdoRoomUi();
+      renderVdoQr(vdoPushUrl);
+      if (opts.forceReload) {
+        loadVdoNinjaStream(customVdoNinjaUrl, { forceReload: true, showQr: opts.showQr });
       }
     }
 
@@ -3964,28 +4070,34 @@
       customVdoNinjaUrl = urls.view;
       syncVdoRoomUi();
       renderVdoQr(vdoPushUrl);
-      // Always (re)attach the viewer so the stage is ready when the phone joins
       loadVdoNinjaStream(customVdoNinjaUrl, { forceReload: true, showQr: opts.showQr });
       if (!opts.silent) {
-        showToast(forceNew ? 'New room ready — scan QR, then Full Stage' : 'Party livestream ready — Show QR if needed');
+        showToast(forceNew ? 'New room ready — scan QR, then Full Stage' : 'Party livestream ready — enter password if the room needs one');
       }
     }
 
     function regenerateVdoRoom() {
-      // Restore the fixed Christmas party stream (Tony’s link)
       vdoRoomId = DEFAULT_VDO_ROOM_ID;
       startVdoNinjaRoom(false, { silent: true, showQr: true });
       setQrVisible(true);
-      showToast('Restored party livestream — SSP Christmas 2026');
+      showToast(vdoStreamPassword
+        ? 'Restored party livestream (session password applied)'
+        : 'Restored party livestream — enter stream password if required');
     }
 
     function renderVdoQr(url) {
       const box = document.getElementById('vdoQrBox');
       if (!box) return;
-      box.innerHTML = '';
+      while (box.firstChild) box.removeChild(box.firstChild);
+      if (!url) {
+        const miss = document.createElement('p');
+        miss.className = 'text-[11px] font-bold text-slate-500 px-2';
+        miss.textContent = 'No push link yet';
+        box.appendChild(miss);
+        return;
+      }
       if (typeof QRCode !== 'undefined') {
         try {
-          // qrcodejs API
           new QRCode(box, {
             text: url,
             width: 176,
@@ -3999,12 +4111,11 @@
           console.warn('QRCode render failed', err);
         }
       }
-      // Fallback: remote QR image
-      const img = document.createElement('img');
-      img.alt = 'VDO.ninja QR';
-      img.width = 176; img.height = 176;
-      img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=176x176&data=' + encodeURIComponent(url);
-      box.appendChild(img);
+      // Same-origin only — never send the push URL (may include session password) to a third-party QR API
+      const miss = document.createElement('p');
+      miss.className = 'text-[11px] font-bold text-slate-600 px-3 leading-snug';
+      miss.textContent = 'QR library unavailable — use Copy Link instead';
+      box.appendChild(miss);
     }
 
     function copyVdoPushLink() {
@@ -4051,8 +4162,10 @@
     }
 
     function loadVdoNinjaStream(url, opts = {}) {
-      const viewUrl = url || customVdoNinjaUrl;
+      let viewUrl = url || customVdoNinjaUrl;
       if (!viewUrl) { showToast('Start a VDO room first', 'error'); return; }
+      // Never persist password into the saved default; only attach session password at load time
+      viewUrl = withVdoPassword(stripVdoPassword(viewUrl));
       if (!isAllowedVdoUrl(viewUrl)) {
         showToast('Livestream URL must be on vdo.ninja', 'error');
         return;
@@ -4103,12 +4216,9 @@
           const w = winnersForGift[slotIdx];
           return `<div class="winner-slot ${w ? 'filled' : ''}">${w ? escapeHTML(w.name) : `Winner ${slotIdx + 1}`}</div>`;
         }).join('');
-        const photo = christmasGiftPhotos[idx];
         return `<article class="notice-flyer">
           <span class="notice-tape" aria-hidden="true"></span>
-          <div id="phase1PhotoBox${idx}" onclick="triggerPhase1PhotoUpload(${idx})" class="prize-card-photo">
-            ${photo ? `<img src="${photo}" alt="Gift ${idx + 1}" />` : `<i class="fa-solid fa-camera text-xl mb-1"></i><span class="text-[10px] font-bold">Pin a photo</span>`}
-          </div>
+          <div id="phase1PhotoBox${idx}" onclick="triggerPhase1PhotoUpload(${idx})" class="prize-card-photo"></div>
           <div class="flex items-center justify-between gap-2 mb-1">
             <span class="px-2 py-0.5 rounded text-white font-black text-[10px] uppercase tracking-wide" style="background:${gift.color}">Gift ${idx + 1} · ×${gift.qty}</span>
             <button type="button" onclick="triggerPhase1PhotoUpload(${idx})" class="text-[10px] font-bold text-[#6b3e1f] hover:underline cursor-pointer"><i class="fa-solid fa-thumbtack"></i> Photo</button>
@@ -4117,6 +4227,12 @@
           <div class="winner-list-stack">${slots}</div>
         </article>`;
       }).join('');
+      CHRISTMAS_BATCHES.forEach((_, idx) => {
+        const el = document.getElementById(`phase1PhotoBox${idx}`);
+        const photo = christmasGiftPhotos[idx];
+        if (photo) setElementImage(el, photo, `Gift ${idx + 1}`);
+        else setPrizePhotoPlaceholder(el, { iconClass: 'fa-solid fa-camera text-xl mb-1', label: 'Pin a photo' });
+      });
     }
 
     function buildGrandPrizesWall() {
@@ -4125,16 +4241,13 @@
       const medalFor = (rank) => String(rank);
       const cardHtml = (prize, idx) => {
         const w = winnersPhase2.find(x => x.rankIndex === idx);
-        const photo = grandPrizePhotos[idx];
         const title = w ? (grandPrizeNames[idx] || prize.name) : `Mystery Prize #${prize.rank}`;
         const stateClass = w ? ' is-won' : ' is-locked';
         const champClass = prize.rank === 1 ? ' is-champ' : '';
         return `<article class="award-card${champClass}${stateClass}" style="--award-accent:${prize.color}">
           ${w ? '<span class="award-stamp">Awarded</span>' : ''}
           <div class="award-medal" title="Rank ${prize.rank}">${medalFor(prize.rank)}</div>
-          <div id="phase2PhotoBox${idx}" onclick="triggerPhase2PhotoUpload(${idx})" class="prize-card-photo">
-            ${photo ? `<img src="${photo}" alt="Grand ${idx + 1}" />` : `<i class="fa-solid fa-gift text-lg mb-0.5"></i><span class="text-[9px] font-bold">${w ? 'Photo' : '???'}</span>`}
-          </div>
+          <div id="phase2PhotoBox${idx}" onclick="triggerPhase2PhotoUpload(${idx})" class="prize-card-photo"></div>
           <input type="text" value="${escapeHTML(title)}" onchange="grandPrizeNames[${idx}]=this.value; updateBatchLabels();" />
           <div class="award-winner">${w ? escapeHTML(w.name) : 'TBA — awaiting draw'}</div>
           <button type="button" onclick="triggerPhase2PhotoUpload(${idx})" class="mt-1.5 text-[9px] font-bold text-[#23486A] hover:underline cursor-pointer"><i class="fa-solid fa-image"></i> Photo</button>
@@ -4151,6 +4264,16 @@
         <div class="school-awards-rest">
           ${restOrder.map(idx => cardHtml(GRAND_PRIZES[idx], idx)).join('')}
         </div>`;
+      GRAND_PRIZES.forEach((_, idx) => {
+        const el = document.getElementById(`phase2PhotoBox${idx}`);
+        const photo = grandPrizePhotos[idx];
+        const w = winnersPhase2.find(x => x.rankIndex === idx);
+        if (photo) setElementImage(el, photo, `Grand ${idx + 1}`);
+        else setPrizePhotoPlaceholder(el, {
+          iconClass: 'fa-solid fa-gift text-lg mb-0.5',
+          label: w ? 'Photo' : '???'
+        });
+      });
     }
 
     function showWinnerModal(name, opts = {}) {
@@ -4188,11 +4311,14 @@
         if (showPhoto) {
           const photo = opts.photo || getPrizePhotoForWinner(last);
           if (photo) {
-            photoEl.innerHTML = `<img src="${photo}" alt="Prize" class="w-full h-full object-cover" />`;
+            setElementImage(photoEl, photo, 'Prize', 'w-full h-full object-cover');
             photoEl.classList.remove('border-dashed');
             photoEl.classList.add('border-solid', 'border-[#C8372D]');
           } else {
-            photoEl.innerHTML = `<i class="fa-solid fa-gift text-3xl mb-1"></i><span class="text-[10px] font-bold">${escapeHTML(opts.label || last?.prizeName || 'Prize')}</span>`;
+            setPrizePhotoPlaceholder(photoEl, {
+              iconClass: 'fa-solid fa-gift text-3xl mb-1',
+              label: opts.label || last?.prizeName || 'Prize'
+            });
             photoEl.classList.add('border-dashed');
             photoEl.classList.remove('border-solid', 'border-[#C8372D]');
           }
@@ -5058,12 +5184,30 @@
     }
 
     function sockPhotoButton(g, i) {
-      const has = !!g.photo;
-      return `<button type="button" class="sock-photo-slot${has ? ' has-photo' : ''}" onclick="triggerSockGuessPhotoUpload(${i})" title="Upload photo for ${escapeHTML(g.label)} — put all details in the image">
-        ${has ? `<img src="${escapeHTML(g.photo)}" alt="${escapeHTML(g.label)}" />` : ''}
+      return `<button type="button" class="sock-photo-slot" data-sock-photo="${i}" onclick="triggerSockGuessPhotoUpload(${i})" title="Upload photo for ${escapeHTML(g.label)} — put all details in the image">
         <i class="fa-solid fa-camera"></i>
         <span>Click to upload<br/>1 photo · details in image</span>
       </button>`;
+    }
+
+    function hydrateSockPhotoButtons(root) {
+      if (!root) return;
+      root.querySelectorAll('[data-sock-photo]').forEach((btn) => {
+        const i = Number(btn.getAttribute('data-sock-photo'));
+        const g = sockGuesses[i];
+        if (!g?.photo) {
+          btn.classList.remove('has-photo');
+          return;
+        }
+        btn.classList.add('has-photo');
+        let img = btn.querySelector('img');
+        if (!img) {
+          img = document.createElement('img');
+          btn.insertBefore(img, btn.firstChild);
+        }
+        img.src = g.photo;
+        img.alt = g.label || `Sock ${i + 1}`;
+      });
     }
 
     function renderSockGuessSetup() {
@@ -5075,6 +5219,7 @@
           <h3>${escapeHTML(g.label)}</h3>
           ${sockPhotoButton(g, i)}
         </article>`).join('');
+      hydrateSockPhotoButtons(grid);
     }
 
     function renderSockGuessRevealCards() {
@@ -5086,6 +5231,7 @@
           <h3>${escapeHTML(g.label)}</h3>
           ${sockPhotoButton(g, i)}
         </article>`).join('');
+      hydrateSockPhotoButtons(grid);
     }
 
     function renderSockGuessUI() {
@@ -5843,11 +5989,11 @@
       Object.keys(baked.menuPhotos || {}).forEach((key) => {
         const box = cloneDoc.querySelector(`#setPhotoBox${key}`);
         if (!box || !baked.menuPhotos[key]) return;
-        box.innerHTML = `<img src="${baked.menuPhotos[key]}" alt="Order ${String.fromCharCode(64 + Number(key))}" />`;
+        setElementImage(box, baked.menuPhotos[key], `Order ${String.fromCharCode(64 + Number(key))}`);
       });
       const orderBox = cloneDoc.querySelector('#orderFormPhotoBox');
       if (orderBox && baked.orderFormPhotoDataUrl) {
-        orderBox.innerHTML = `<img src="${baked.orderFormPhotoDataUrl}" alt="Christmas cafeteria order sheet" class="order-sheet-img" />`;
+        setElementImage(orderBox, baked.orderFormPhotoDataUrl, 'Christmas cafeteria order sheet', 'order-sheet-img');
       }
       try { await embedRelativeMediaInClone(cloneDoc); } catch (_) { /* best-effort */ }
       let serializedHTML = '<!DOCTYPE html>\n' + cloneDoc.outerHTML;
@@ -5859,7 +6005,8 @@
         customPhaseMp3s: baked.customPhaseMp3s,
         customBellDataUrl: baked.customBellDataUrl,
         customBellFileName,
-        customVdoNinjaUrl,
+        // Never bake stream password into exported HTML
+        customVdoNinjaUrl: stripVdoPassword(customVdoNinjaUrl) || DEFAULT_VDO_VIEW_URL,
         companyLogoDataUrl,
         vdoRoomId,
         christmasBatchIndex,
@@ -5935,14 +6082,17 @@
     renderSockGuessUI();
     buildFestiveScatter();
     window.addEventListener('resize', () => buildFestiveScatter());
-    // Party livestream defaults (Tony); viewer attaches when entering the cook slide
+    // Party livestream room/view IDs only — password is session-entered, never shipped
+    writeVdoPasswordToSession(readVdoPasswordFromSession());
     if (!vdoRoomId) vdoRoomId = DEFAULT_VDO_ROOM_ID;
-    if (!customVdoNinjaUrl) customVdoNinjaUrl = DEFAULT_VDO_VIEW_URL;
-    if (!vdoPushUrl) {
-      const urls = buildVdoUrls(vdoRoomId);
-      vdoPushUrl = urls.push;
-      if (!customVdoNinjaUrl) customVdoNinjaUrl = urls.view;
-    }
+    customVdoNinjaUrl = withVdoPassword(stripVdoPassword(customVdoNinjaUrl) || DEFAULT_VDO_VIEW_URL);
+    vdoPushUrl = withVdoPassword(
+      stripVdoPassword(vdoPushUrl) || (
+        vdoRoomId === DEFAULT_VDO_ROOM_ID
+          ? DEFAULT_VDO_PUSH_URL
+          : `https://vdo.ninja/?push=${encodeURIComponent(vdoRoomId)}&webcam&autostart&label=${encodeURIComponent('FloorCam')}&quality=0`
+      )
+    );
     syncVdoRoomUi();
     renderVdoQr(vdoPushUrl);
   </script>
