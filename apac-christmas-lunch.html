@@ -3565,18 +3565,18 @@
     const DEFAULT_PHASE_MP3S = {
       // volumeGain: quieter YouTube masters get a boost; louder ones get attenuated
       opening: { name: 'Opening (YouTube)', youtubeId: 'aAkMkVFwAoo', url: 'audio/Opening.mp3', volumeGain: 0.95 },
-      mcs: { name: 'MC (YouTube)', youtubeId: 'ibEOS9i77R4', url: 'audio/MC.mp3', volumeGain: 1.05 },
+      mcs: { name: 'MC (YouTube)', youtubeId: 'ibEOS9i77R4', url: 'audio/MC.mp3', volumeGain: 1.0 },
       headmaster: { name: 'Headmaster (YouTube)', youtubeId: '7gswtbX8G7Q', url: 'audio/headmaster.mp3', volumeGain: 1.0 },
-      buffet: { name: 'Buffet (YouTube)', youtubeId: 'E8gmARGvPlI', url: 'audio/buffet.mp3', volumeGain: 0.62 },
-      sockGuess: { name: 'Sock Guess Reveal (YouTube)', youtubeId: 'lAwiWIBOz24', url: 'audio/LuckyDraw.mp3', volumeGain: 1.15 },
-      game1: { name: 'Game 1 (YouTube)', youtubeId: 'Y11gGuD9WUI', url: 'audio/Game1.mp3', volumeGain: 0.95 },
-      game2Prelude: { name: 'Game 2 prelude (YouTube)', youtubeId: 'o0QK_V9ZsgM', url: 'audio/Game1.mp3', volumeGain: 0.95 },
-      game2: { name: 'Game 2 (YouTube)', youtubeId: 'r_3RN7688rE', url: 'audio/Game2.mp3', volumeGain: 0.9 },
-      recess: { name: 'Recess (YouTube)', youtubeId: 'E8gmARGvPlI', url: 'audio/buffet.mp3', volumeGain: 0.62 },
+      buffet: { name: 'Buffet (YouTube)', youtubeId: 'E8gmARGvPlI', url: 'audio/buffet.mp3', volumeGain: 0.95 },
+      sockGuess: { name: 'Sock Guess Reveal (YouTube)', youtubeId: 'lAwiWIBOz24', url: 'audio/LuckyDraw.mp3', volumeGain: 0.95 },
+      game1: { name: 'Game 1 (YouTube)', youtubeId: 'Y11gGuD9WUI', url: 'audio/Game1.mp3', volumeGain: 0.82 },
+      game2Prelude: { name: 'Game 2 prelude (YouTube)', youtubeId: 'o0QK_V9ZsgM', url: 'audio/Game1.mp3', volumeGain: 0.88 },
+      game2: { name: 'Game 2 (YouTube)', youtubeId: 'r_3RN7688rE', url: 'audio/Game2.mp3', volumeGain: 0.92 },
+      recess: { name: 'Recess (YouTube)', youtubeId: 'E8gmARGvPlI', url: 'audio/buffet.mp3', volumeGain: 0.95 },
       // Prize draws keep Inkpot; local LuckyDraw.mp3 if embed is blocked / offline
-      christmasGifts: { name: 'Shocking Blue — Inkpot (YouTube)', youtubeId: 'lAwiWIBOz24', url: 'audio/LuckyDraw.mp3', volumeGain: 1.28 },
-      bestDressed: { name: 'Best Dressed Catwalk (YouTube)', youtubeId: 'Ll6kYJPLNxg', url: 'audio/buffet.mp3', volumeGain: 0.85 },
-      grandPrizes: { name: 'Shocking Blue — Inkpot (YouTube)', youtubeId: 'lAwiWIBOz24', url: 'audio/LuckyDraw.mp3', volumeGain: 1.28 },
+      christmasGifts: { name: 'Shocking Blue — Inkpot (YouTube)', youtubeId: 'lAwiWIBOz24', url: 'audio/LuckyDraw.mp3', volumeGain: 0.95 },
+      bestDressed: { name: 'Best Dressed Catwalk (YouTube)', youtubeId: 'Ll6kYJPLNxg', url: 'audio/buffet.mp3', volumeGain: 1.08 },
+      grandPrizes: { name: 'Shocking Blue — Inkpot (YouTube)', youtubeId: 'lAwiWIBOz24', url: 'audio/LuckyDraw.mp3', volumeGain: 0.95 },
       finale: { name: 'finale.mp3', url: 'audio/finale.mp3', volumeGain: 1.0 }
     };
     let customPhaseMp3s = { ...DEFAULT_PHASE_MP3S }; // #SAVE:customPhaseMp3s
@@ -4526,6 +4526,8 @@
     let ytEmbedGen = 0;
     let ytLoopHooked = false;
     let forceLocalBgm = false; // top-left bulb: off = Local MP3, on = YouTube
+    let musicStartDelayTimer = null;
+    const MUSIC_START_DELAY_MS = 1000; // let slide motion settle while YouTube boots
 
     function syncBgmSourceSwitchUI() {
       const mode = forceLocalBgm ? 'local' : 'youtube';
@@ -4557,11 +4559,13 @@
       return document.getElementById('ytBgmFrame');
     }
 
-    function ytEmbedSrc(videoId) {
+    function ytEmbedSrc(videoId, opts = {}) {
       const id = encodeURIComponent(videoId);
+      const mute = opts.mute ? 1 : 0;
       // Single-video repeat only: loop=1 + playlist=<same id>. Never pass list=/RD radio mixes.
       // Omit origin on file:// — YouTube rejects file origins and breaks saved HTML playback.
-      let src = `https://www.youtube.com/embed/${id}?autoplay=1&mute=0&controls=1&modestbranding=1&rel=0&fs=0&playsinline=1&loop=1&playlist=${id}&enablejsapi=1`;
+      // Start muted so loudness can be applied before audible play (avoids blast before API volume).
+      let src = `https://www.youtube.com/embed/${id}?autoplay=1&mute=${mute}&controls=1&modestbranding=1&rel=0&fs=0&playsinline=1&loop=1&playlist=${id}&enablejsapi=1`;
       if (location.protocol === 'http:' || location.protocol === 'https:') {
         src += `&origin=${encodeURIComponent(location.origin)}`;
       }
@@ -4695,13 +4699,20 @@
         else showToast('YouTube player missing — flip bulb to Local MP3', 'error');
         return;
       }
-      frame.src = ytEmbedSrc(videoId);
+      // Preload muted immediately so YouTube boots during the slide lead-in delay
+      frame.src = ytEmbedSrc(videoId, { mute: true });
+      clearTimeout(musicStartDelayTimer);
       const arm = () => {
         if (!ytWantPlaying || playGen !== ytEmbedGen) return;
         armYtApiListening();
       };
-      setTimeout(arm, 600);
-      setTimeout(arm, 1600);
+      musicStartDelayTimer = setTimeout(() => {
+        musicStartDelayTimer = null;
+        if (!ytWantPlaying || playGen !== ytEmbedGen) return;
+        arm();
+        setTimeout(arm, 500);
+        setTimeout(arm, 1400);
+      }, MUSIC_START_DELAY_MS);
       // If embed fails silently on restricted hosts, fall back after a beat
       if (localSrc) {
         setTimeout(() => {
@@ -4712,7 +4723,7 @@
           } catch (_) {
             if (isFileProtocol()) playLocalPhaseMp3({ reason: 'YouTube blocked offline — using saved MP3' });
           }
-        }, 3500);
+        }, 3500 + MUSIC_START_DELAY_MS);
       }
       showToast(`${label || 'YouTube BGM'} — looping this track`);
     }
@@ -4932,6 +4943,8 @@
 
     function stopCurrentAudio() {
       clearTimeout(musicLoopTimer);
+      clearTimeout(musicStartDelayTimer);
+      musicStartDelayTimer = null;
       stopYouTubeBgm({ silent: true });
       bgmAudio.pause();
       try { bgmAudio.removeAttribute('src'); bgmAudio.load(); } catch (_) {}
@@ -4980,14 +4993,25 @@
       if (!useLocal && ytId) {
         playYouTubeBgm(ytId, customTrack?.name || phase.label);
       } else if (trackSrc) {
-        bgmAudio.src = trackSrc;
-        bgmAudio.volume = effectiveBgmVolume(customTrack);
-        bgmAudio.loop = true;
-        bgmAudio.play().catch(() => showToast(`Could not play ${customTrack?.name || phase.label}`, 'error'));
+        // Match YouTube lead-in: brief silence so slide animation starts first
+        clearTimeout(musicStartDelayTimer);
+        musicStartDelayTimer = setTimeout(() => {
+          musicStartDelayTimer = null;
+          if (!isMusicActive || currentPlayingTrackKey !== desiredKey) return;
+          bgmAudio.src = trackSrc;
+          bgmAudio.volume = effectiveBgmVolume(customTrack);
+          bgmAudio.loop = true;
+          bgmAudio.play().catch(() => showToast(`Could not play ${customTrack?.name || phase.label}`, 'error'));
+        }, MUSIC_START_DELAY_MS);
         if (isFileProtocol() && ytId) showToast('Local BGM (YouTube needs https — using saved MP3)');
       } else {
-        barIndex = 0;
-        scheduleNextBar();
+        clearTimeout(musicStartDelayTimer);
+        musicStartDelayTimer = setTimeout(() => {
+          musicStartDelayTimer = null;
+          if (!isMusicActive || currentPlayingTrackKey !== desiredKey) return;
+          barIndex = 0;
+          scheduleNextBar();
+        }, MUSIC_START_DELAY_MS);
       }
     }
 
