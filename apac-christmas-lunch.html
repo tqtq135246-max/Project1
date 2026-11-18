@@ -1201,6 +1201,107 @@
       color: #fff7ed;
       min-height: min(72vh, 640px);
     }
+    /* Animated Christmas catwalk / runway backdrop */
+    .catwalk-stage {
+      background:
+        radial-gradient(ellipse at 50% 18%, rgba(253, 224, 71, 0.28), transparent 42%),
+        linear-gradient(180deg, #0b1220 0%, #1a1208 42%, #2a1810 100%);
+    }
+    .catwalk-floor {
+      position: absolute;
+      left: 50%;
+      bottom: -8%;
+      width: 128%;
+      height: 58%;
+      transform: translateX(-50%) perspective(700px) rotateX(58deg);
+      transform-origin: center bottom;
+      background:
+        repeating-linear-gradient(90deg, rgba(253,224,71,0.18) 0 2px, transparent 2px 46px),
+        linear-gradient(180deg, rgba(255,255,255,0.12), rgba(120,53,15,0.55) 40%, #1c1917 100%);
+      border: 2px solid rgba(253, 224, 71, 0.35);
+      box-shadow: 0 0 60px rgba(245, 158, 11, 0.25);
+      z-index: 1;
+      pointer-events: none;
+      animation: catwalkFloorPulse 3.6s ease-in-out infinite;
+    }
+    @keyframes catwalkFloorPulse {
+      0%, 100% { filter: brightness(1); }
+      50% { filter: brightness(1.18); }
+    }
+    .catwalk-lights {
+      position: absolute;
+      inset: 12% 8% 18%;
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .catwalk-lights span {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #fde68a;
+      box-shadow: 0 0 10px #f59e0b, 0 0 18px #C8372D;
+      align-self: flex-end;
+      animation: catwalkBulb 1.1s ease-in-out infinite;
+    }
+    .catwalk-lights span:nth-child(odd) { align-self: flex-start; animation-delay: 0.35s; }
+    .catwalk-lights span:nth-child(3n) { animation-delay: 0.55s; }
+    @keyframes catwalkBulb {
+      0%, 100% { opacity: 0.35; transform: scale(0.85); }
+      50% { opacity: 1; transform: scale(1.25); }
+    }
+    .catwalk-beams {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(108deg, transparent 40%, rgba(253,224,71,0.08) 50%, transparent 60%),
+        linear-gradient(72deg, transparent 42%, rgba(200,55,45,0.1) 52%, transparent 62%);
+      background-size: 220% 100%;
+      animation: catwalkSweep 6s linear infinite;
+      pointer-events: none;
+      z-index: 2;
+      mix-blend-mode: screen;
+    }
+    @keyframes catwalkSweep {
+      0% { background-position: 0% 0%, 100% 0%; }
+      100% { background-position: 100% 0%, 0% 0%; }
+    }
+    .catwalk-sparkles {
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,0.7) 0 1px, transparent 2px),
+        radial-gradient(circle at 70% 22%, rgba(253,224,71,0.8) 0 1px, transparent 2px),
+        radial-gradient(circle at 40% 70%, rgba(255,255,255,0.55) 0 1px, transparent 2px),
+        radial-gradient(circle at 82% 60%, rgba(253,224,71,0.7) 0 1px, transparent 2px);
+      animation: catwalkTwinkle 2.4s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 3;
+      opacity: 0.55;
+    }
+    @keyframes catwalkTwinkle {
+      0%, 100% { opacity: 0.35; }
+      50% { opacity: 0.85; }
+    }
+    .catwalk-silhouette {
+      width: 4.5rem;
+      height: 4.5rem;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(145deg, #f59e0b, #C8372D);
+      color: #fff7ed;
+      font-size: 1.75rem;
+      box-shadow: 0 0 0 4px rgba(253,224,71,0.35), 0 12px 30px rgba(0,0,0,0.35);
+      animation: catwalkWalk 1.8s ease-in-out infinite;
+    }
+    @keyframes catwalkWalk {
+      0%, 100% { transform: translateX(-10px) scale(1); }
+      50% { transform: translateX(10px) scale(1.06); }
+    }
+    .catwalk-stage.is-drumrolling .catwalk-silhouette { animation-duration: 0.55s; }
+    .catwalk-stage.is-revealed .catwalk-floor { animation: none; filter: brightness(1.25); }
     .bd-reveal-stage::before,
     .bd-reveal-stage::after {
       content: '';
@@ -2499,31 +2600,9 @@
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 14: CHRISTMAS GIFTS WALL (SCHOOL NOTICE BOARD)                  -->
-  <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center" data-title="15. Christmas Gifts Wall">
-    <div class="stage-board">
-      <input type="file" id="phase1PrizePhotoInput" accept="image/*" class="hidden" />
-      <div class="school-notice-board">
-        <div class="notice-deco sticky-yellow">Don't peel!<br/>老師留步</div>
-        <div class="notice-deco sticky-pink">Winners up!<br/>得獎名單</div>
-        <div class="school-notice-header">
-          <div class="school-notice-plaque" contenteditable="true">📌 School Notice Board · 聖誕禮物公佈欄</div>
-        </div>
-        <p class="text-center text-[11px] font-bold text-[#5b3a1a]/90 mb-2">
-          Pin-up style · batches 3 → 3 → 4 → 3 → 1 · tap flyer to add photo
-        </p>
-        <div id="christmasGiftsWall" class="notice-board-grid">
-          <!-- filled by JS: pinned notice flyers -->
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================================================================== -->
   <!-- SLIDE 15: BEST DRESSED — AWARD INTRO                                  -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center" data-title="16. Best Dressed — Intro">
+  <section class="slide flex-col items-center justify-center text-center" data-title="15. Best Dressed — Intro">
     <div class="stage-card festive-card yearbook-card theme-rail rounded-3xl border-4 border-[#C8372D]">
       <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-tr from-[#C8372D] via-amber-500 to-yellow-300 flex items-center justify-center text-white text-4xl shadow-xl animate-float">
         <i class="fa-solid fa-camera-retro"></i>
@@ -2559,28 +2638,35 @@
       </div>
 
       <p class="text-sm sm:text-base text-slate-600 font-semibold" contenteditable="true">
-        The yearbook judges have chosen… Christmas drumroll on the next slide! · 年刊評判已選定——下一頁聖誕揭曉！
+        The yearbook judges have chosen… Christmas catwalk reveal on the next slide! · 年刊評判已選定——下一頁伸展台揭曉！
       </p>
     </div>
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 16: BEST DRESSED — WINNER REVEAL (DRUMROLL)                     -->
+  <!-- SLIDE 16: BEST DRESSED — CATWALK REVEAL                               -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center" data-title="17. Best Dressed — Reveal">
-    <div id="bestDressedRevealStage" class="bd-reveal-stage stage-board stage-board-pad rounded-3xl border-4 relative shadow-2xl">
+  <section class="slide flex-col items-center justify-center text-center" data-title="16. Best Dressed — Catwalk">
+    <div id="bestDressedRevealStage" class="bd-reveal-stage catwalk-stage stage-board stage-board-pad rounded-3xl border-4 relative shadow-2xl">
+      <div class="catwalk-floor" aria-hidden="true"></div>
+      <div class="catwalk-lights" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="catwalk-beams" aria-hidden="true"></div>
       <div class="bd-rays" aria-hidden="true"></div>
       <div class="bd-spotlight" aria-hidden="true"></div>
       <div class="bd-flash" aria-hidden="true"></div>
+      <div class="catwalk-sparkles" aria-hidden="true"></div>
 
       <span class="relative z-10 px-4 py-1.5 rounded-full bg-amber-300/20 border border-amber-200/70 text-amber-100 text-xs font-extrabold uppercase tracking-widest backdrop-blur-sm">
-        🥁 School Assembly Reveal • 全校公佈得獎隊伍
+        ✨ Christmas Catwalk • 聖誕伸展台揭曉
       </span>
 
-      <div class="bd-sealed mt-7">
-        <div class="bd-envelope" aria-hidden="true"><i class="fa-solid fa-scroll"></i></div>
+      <div class="bd-sealed mt-6">
+        <div class="catwalk-silhouette" aria-hidden="true"><i class="fa-solid fa-person-walking"></i></div>
         <div class="bd-drum-bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
-        <p id="bestDressedDrumStatus" class="text-sm font-bold text-amber-100/90">Lights down — press for the drumroll</p>
+        <p id="bestDressedDrumStatus" class="text-sm font-bold text-amber-100/90">Runway dark — press for the catwalk reveal</p>
         <p id="bestDressedSealedHint" class="text-[11px] font-semibold text-amber-100/55 mb-2">Winner list: not loaded yet · use HUD “Best Dressed” or button below</p>
         <div class="flex flex-wrap items-center justify-center gap-2 mb-2">
           <button type="button" onclick="document.getElementById('bestDressedWinnerFileInput').click()" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-black/35 hover:bg-black/50 text-amber-50 font-bold text-xs tracking-wide border border-amber-200/35 cursor-pointer transition">
@@ -2588,7 +2674,7 @@
           </button>
         </div>
         <button type="button" id="bestDressedRevealBtn" onclick="startBestDressedReveal()" class="mt-1 inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#C8372D] to-[#D97724] hover:from-[#b91c1c] hover:to-[#b45309] text-white font-black text-base sm:text-lg tracking-wide shadow-xl transition transform hover:scale-105 active:scale-95 cursor-pointer border-2 border-amber-200">
-          <i class="fa-solid fa-drum"></i> Drumroll &amp; Reveal
+          <i class="fa-solid fa-shoe-prints"></i> Lights · Catwalk · Reveal
         </button>
         <p class="text-[11px] font-semibold text-amber-100/60">or press <kbd class="px-1.5 py-0.5 rounded bg-black/30 border border-amber-200/40 font-mono">SPACE</kbd></p>
       </div>
@@ -2598,7 +2684,7 @@
         <h1 class="font-festive-display text-4xl sm:text-6xl font-bold tracking-tight text-amber-200 mb-4 drop-shadow" contenteditable="true">
           BEST DRESSED TEAM
         </h1>
-        <p class="text-sm font-bold text-amber-100/85 mb-3" contenteditable="true">Christmas Yearbook Champions · 聖誕年刊造型冠軍</p>
+        <p class="text-sm font-bold text-amber-100/85 mb-3" contenteditable="true">Christmas Catwalk Champions · 聖誕伸展台冠軍</p>
         <div class="bd-winner-plaque space-y-3">
           <div>
             <div class="text-xs font-extrabold uppercase tracking-widest text-amber-800 mb-1">Winning Team • 得獎隊伍</div>
@@ -2616,16 +2702,16 @@
           </div>
         </div>
         <button type="button" onclick="resetBestDressedReveal()" class="mt-5 text-xs font-bold text-amber-100/70 hover:text-amber-100 underline cursor-pointer">
-          Reset seal (rehearsal)
+          Reset runway (rehearsal)
         </button>
       </div>
     </div>
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 17: LUCKY DRAW PHASE 2 (INTRO & WHEEL)                           -->
+  <!-- SLIDE 17: GRAND PRIZES INTRO                                          -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center" data-title="18. Grand Prizes Intro">
+  <section class="slide flex-col items-center justify-center text-center" data-title="17. Grand Prizes Intro">
     <div class="festive-card finale-card theme-rail stage-card rounded-3xl border-4 border-[#D97724]">
       <div class="w-24 h-24 mx-auto mb-5 rounded-3xl bg-gradient-to-tr from-[#C8372D] to-[#D97724] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
         <i class="fa-solid fa-gift"></i>
@@ -2651,7 +2737,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 19: GRAND PRIZES SPINNER (DEDICATED SHARED-POOL WHEEL)           -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col overflow-hidden" style="padding-top: 3.1rem; padding-bottom: 4rem;" data-title="19. Grand Prizes Spinner">
+  <section class="slide flex-col overflow-hidden" style="padding-top: 3.1rem; padding-bottom: 4rem;" data-title="18. Grand Prizes Spinner">
     <div class="flex-1 max-w-[1600px] w-full mx-auto flex flex-col justify-center">
       <div class="flex flex-wrap items-center justify-between gap-2 mb-1 px-1">
         <div class="flex items-center gap-3 flex-wrap">
@@ -2735,27 +2821,9 @@
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 20: GRAND PRIZES WALL (SCHOOL LEADERBOARD)                       -->
-  <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center" data-title="20. Grand Prizes Wall">
-    <div class="stage-board w-full">
-      <input type="file" id="phase2PrizePhotoInput" accept="image/*" class="hidden" />
-      <div class="school-awards-hall">
-        <div class="school-awards-header">
-          <div class="school-awards-plaque" contenteditable="true">🎓 Annual Awards Assembly · 聖誕學期頒獎禮</div>
-          <div class="school-awards-sub">Six grand prizes · yearbook honor board · #1 takes center stage</div>
-        </div>
-        <div id="grandPrizesWall">
-          <!-- filled by JS: podium + yearbook cards -->
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================================================================== -->
   <!-- SLIDE 19: GROUP PHOTO BACKDROP                                        -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-between text-center" data-title="21. Group Photo Backdrop">
+  <section class="slide flex-col items-center justify-between text-center" data-title="19. Group Photo Backdrop">
     <div class="w-full max-w-5xl mx-auto pt-2">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#C8372D] text-white text-xs font-black uppercase tracking-widest shadow mb-2">
         <i class="fa-solid fa-camera"></i> Group Photo • 畢業大合照
@@ -2783,6 +2851,11 @@
 
   <input type="file" id="orderFormPhotoInput" accept="image/*" class="hidden" />
   <input type="file" id="bestDressedWinnerFileInput" accept="application/json,.json" class="hidden" />
+  <input type="file" id="phase1PrizePhotoInput" accept="image/*" class="hidden" />
+  <input type="file" id="phase2PrizePhotoInput" accept="image/*" class="hidden" />
+  <!-- Hidden hosts keep prize-photo builders safe after wall slides were removed -->
+  <div id="christmasGiftsWall" class="hidden" aria-hidden="true"></div>
+  <div id="grandPrizesWall" class="hidden" aria-hidden="true"></div>
 
   <!-- Modals & Toast -->
   <div id="winnerModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/70 backdrop-blur-md p-4 opacity-0 pointer-events-none transition-all duration-300">
@@ -2835,7 +2908,7 @@
         <button type="button" onclick="document.getElementById('schoolBellFileInput').click()" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold flex items-center gap-1 transition cursor-pointer" title="Upload Bell Sound"><i class="fa-solid fa-bell"></i><span id="bellMp3Label" class="hidden xl:inline max-w-[80px] truncate">Bell</span></button>
         <button type="button" onclick="document.getElementById('logoFileInput').click()" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-sky-300 font-bold flex items-center gap-1 transition cursor-pointer" title="Upload company logo"><i class="fa-solid fa-image"></i><span class="hidden md:inline">Logo</span></button>
 
-        <input type="range" id="bgmVolumeSlider" min="0" max="1" step="0.05" value="0.32" oninput="setBGMVolume(this.value)" class="w-12 sm:w-16 accent-[#C8372D] cursor-pointer hidden lg:block" title="Background BGM volume" />
+        <input type="range" id="bgmVolumeSlider" min="0" max="1" step="0.05" value="0.4" oninput="setBGMVolume(this.value)" class="w-12 sm:w-16 accent-[#C8372D] cursor-pointer hidden lg:block" title="Background BGM volume" />
 
         <div class="h-5 w-px bg-slate-700 mx-0.5"></div>
         <button type="button" onclick="document.getElementById('bestDressedWinnerFileInput').click()" class="px-2.5 py-1.5 rounded-xl bg-amber-700/90 hover:bg-amber-600 text-amber-50 font-bold flex items-center gap-1 transition cursor-pointer border border-amber-300/40" title="Upload Best Dressed winner JSON (prepare offline, load anytime)">
@@ -2877,18 +2950,19 @@
     let companyLogoDataUrl = ''; // #SAVE:companyLogoDataUrl
     // Phase BGM: { name, url?, dataUrl?, youtubeId? }. YouTube preferred when set (no dataUrl override).
     const DEFAULT_PHASE_MP3S = {
-      opening: { name: 'Opening (YouTube)', youtubeId: 'aAkMkVFwAoo', url: 'audio/Opening.mp3' },
-      mcs: { name: 'MC (YouTube)', youtubeId: 'ibEOS9i77R4', url: 'audio/MC.mp3' },
-      headmaster: { name: 'Headmaster (YouTube)', youtubeId: '7gswtbX8G7Q', url: 'audio/headmaster.mp3' },
-      buffet: { name: 'Buffet (YouTube)', youtubeId: 'E8gmARGvPlI', url: 'audio/buffet.mp3' },
-      game1: { name: 'Game 1 (YouTube)', youtubeId: 'o0QK_V9ZsgM', url: 'audio/Game1.mp3' },
-      game2: { name: 'Game 2 (YouTube)', youtubeId: 'r_3RN7688rE', url: 'audio/Game2.mp3' },
-      recess: { name: 'Recess (YouTube)', youtubeId: 'E8gmARGvPlI', url: 'audio/buffet.mp3' },
+      // volumeGain: quieter YouTube masters get a boost; louder ones get attenuated
+      opening: { name: 'Opening (YouTube)', youtubeId: 'aAkMkVFwAoo', url: 'audio/Opening.mp3', volumeGain: 0.95 },
+      mcs: { name: 'MC (YouTube)', youtubeId: 'ibEOS9i77R4', url: 'audio/MC.mp3', volumeGain: 1.05 },
+      headmaster: { name: 'Headmaster (YouTube)', youtubeId: '7gswtbX8G7Q', url: 'audio/headmaster.mp3', volumeGain: 1.0 },
+      buffet: { name: 'Buffet (YouTube)', youtubeId: 'E8gmARGvPlI', url: 'audio/buffet.mp3', volumeGain: 0.62 },
+      game1: { name: 'Game 1 (YouTube)', youtubeId: 'o0QK_V9ZsgM', url: 'audio/Game1.mp3', volumeGain: 0.95 },
+      game2: { name: 'Game 2 (YouTube)', youtubeId: 'r_3RN7688rE', url: 'audio/Game2.mp3', volumeGain: 0.9 },
+      recess: { name: 'Recess (YouTube)', youtubeId: 'E8gmARGvPlI', url: 'audio/buffet.mp3', volumeGain: 0.62 },
       // Prize draws keep Inkpot; local LuckyDraw.mp3 if embed is blocked / offline
-      christmasGifts: { name: 'Shocking Blue — Inkpot (YouTube)', youtubeId: 'lAwiWIBOz24', url: 'audio/LuckyDraw.mp3' },
-      bestDressed: { name: 'Buffet (YouTube)', youtubeId: 'E8gmARGvPlI', url: 'audio/buffet.mp3' },
-      grandPrizes: { name: 'Shocking Blue — Inkpot (YouTube)', youtubeId: 'lAwiWIBOz24', url: 'audio/LuckyDraw.mp3' },
-      finale: { name: 'finale.mp3', url: 'audio/finale.mp3' }
+      christmasGifts: { name: 'Shocking Blue — Inkpot (YouTube)', youtubeId: 'lAwiWIBOz24', url: 'audio/LuckyDraw.mp3', volumeGain: 1.28 },
+      bestDressed: { name: 'Buffet (YouTube)', youtubeId: 'E8gmARGvPlI', url: 'audio/buffet.mp3', volumeGain: 0.62 },
+      grandPrizes: { name: 'Shocking Blue — Inkpot (YouTube)', youtubeId: 'lAwiWIBOz24', url: 'audio/LuckyDraw.mp3', volumeGain: 1.28 },
+      finale: { name: 'finale.mp3', url: 'audio/finale.mp3', volumeGain: 1.0 }
     };
     let customPhaseMp3s = { ...DEFAULT_PHASE_MP3S }; // #SAVE:customPhaseMp3s
     let vdoRoomId = ''; // #SAVE:vdoRoomId
@@ -2899,13 +2973,13 @@
     let orderFormPhotoDataUrl = ''; // #SAVE:orderFormPhotoDataUrl
     let menuPhotos = {}; // #SAVE:menuPhotos
     // Stable slide indices (0-based) after dedicated Grand spinner insert
+    // After removing Christmas/Grand walls: 19 slides (0..18)
     const SLIDE_XMAS_SPIN = 13;
-    const SLIDE_XMAS_WALL = 14;
-    const SLIDE_BEST_REVEAL = 16;
-    const SLIDE_GRAND_INTRO = 17;
-    const SLIDE_GRAND_SPIN = 18;
-    const SLIDE_GRAND_WALL = 19;
-    const SLIDE_GROUP = 20;
+    const SLIDE_BEST_INTRO = 14;
+    const SLIDE_BEST_REVEAL = 15;
+    const SLIDE_GRAND_INTRO = 16;
+    const SLIDE_GRAND_SPIN = 17;
+    const SLIDE_GROUP = 18;
     const CHRISTMAS_SLOTS = 14; // 3+3+4+3+1
     const GRAND_SLOTS = 6;
     let winnerModalHoldTimer = null;
@@ -3607,8 +3681,12 @@
     let isMusicActive = false;
     let musicLoopTimer = null;
     let barIndex = 0;
-    // Quiet default — BGM is underscore under MC talk / meal chatter
-    let bgmVolume = 0.32;
+    // Moderate default; per-track volumeGain keeps YouTube loudness more even
+    let bgmVolume = 0.4;
+
+    function isFileProtocol() {
+      return location.protocol === 'file:';
+    }
 
     function resolveTrackSrc(track) {
       if (!track) return '';
@@ -3616,9 +3694,19 @@
     }
     function resolveYoutubeId(track) {
       if (!track) return '';
-      // Local upload wins over YouTube
-      if (track.dataUrl) return '';
+      // Explicit local upload wins; baked dataUrl fallback must NOT block YouTube online
+      if (track.preferLocal) return '';
       return track.youtubeId || '';
+    }
+    function trackVolumeGain(track) {
+      const g = track && typeof track.volumeGain === 'number' ? track.volumeGain : 1;
+      return Math.min(1.6, Math.max(0.4, g));
+    }
+    function effectiveBgmVolume(track) {
+      return Math.min(1, Math.max(0, bgmVolume * trackVolumeGain(track)));
+    }
+    function currentPhaseTrack() {
+      return customPhaseMp3s[getPhaseForSlide(currentSlideIdx).id] || {};
     }
     function parseYouTubeId(input) {
       if (!input) return '';
@@ -3678,10 +3766,14 @@
     }
 
     function ytEmbedSrc(videoId) {
-      const origin = encodeURIComponent(window.location.origin || '');
       const id = encodeURIComponent(videoId);
       // Single-video repeat only: loop=1 + playlist=<same id>. Never pass list=/RD radio mixes.
-      return `https://www.youtube.com/embed/${id}?autoplay=1&mute=0&controls=1&modestbranding=1&rel=0&fs=0&playsinline=1&loop=1&playlist=${id}&enablejsapi=1&origin=${origin}`;
+      // Omit origin on file:// — YouTube rejects file origins and breaks saved HTML playback.
+      let src = `https://www.youtube.com/embed/${id}?autoplay=1&mute=0&controls=1&modestbranding=1&rel=0&fs=0&playsinline=1&loop=1&playlist=${id}&enablejsapi=1`;
+      if (location.protocol === 'http:' || location.protocol === 'https:') {
+        src += `&origin=${encodeURIComponent(location.origin)}`;
+      }
+      return src;
     }
 
     function postYtCommand(func, args = []) {
@@ -3732,9 +3824,11 @@
     }
 
     function applyYtVolume() {
-      const vol = Math.round(Math.min(1, Math.max(0, bgmVolume)) * 100);
+      const track = currentPhaseTrack();
+      const level = effectiveBgmVolume(track);
+      const vol = Math.round(level * 100);
       postYtCommand('setVolume', [vol]);
-      if (bgmVolume <= 0.001) postYtCommand('mute');
+      if (level <= 0.001) postYtCommand('mute');
       else postYtCommand('unMute');
     }
 
@@ -3765,7 +3859,7 @@
       return track.name || 'Local MP3';
     }
 
-    function playLocalPhaseMp3() {
+    function playLocalPhaseMp3(opts = {}) {
       const phase = getPhaseForSlide(currentSlideIdx);
       const track = customPhaseMp3s[phase.id];
       const fallback = track?.dataUrl || track?.url || '';
@@ -3776,17 +3870,26 @@
         return;
       }
       bgmAudio.src = fallback;
-      bgmAudio.volume = bgmVolume;
+      bgmAudio.volume = effectiveBgmVolume(track);
       bgmAudio.loop = true;
       bgmAudio.play().catch(() => showToast('Could not play local MP3', 'error'));
       currentPlayingTrackKey = `custom:${phase.id}:${localTrackLabel(track)}`;
       bgmLabel.textContent = `${phase.label}: ${localTrackLabel(track)}`;
       bgmIcon.className = 'fa-solid fa-pause';
+      if (opts.reason) showToast(opts.reason);
     }
 
     function playYouTubeBgm(videoId, label) {
       if (forceLocalBgm) {
         playLocalPhaseMp3();
+        return;
+      }
+      const phase = getPhaseForSlide(currentSlideIdx);
+      const track = customPhaseMp3s[phase.id] || {};
+      const localSrc = resolveTrackSrc(track);
+      // Saved HTML (file://) often cannot host YouTube embeds — use baked MP3 when available
+      if (isFileProtocol() && localSrc) {
+        playLocalPhaseMp3({ reason: 'Local BGM (YouTube needs https — using saved MP3)' });
         return;
       }
       const playGen = (ytEmbedGen += 1);
@@ -3796,7 +3899,8 @@
       setYtHostActive(true, `↻ ${label || 'YouTube BGM'}`);
       const frame = getYtFrame();
       if (!frame) {
-        showToast('YouTube player missing — flip bulb to Local MP3', 'error');
+        if (localSrc) playLocalPhaseMp3({ reason: 'YouTube player missing — using local MP3' });
+        else showToast('YouTube player missing — flip bulb to Local MP3', 'error');
         return;
       }
       frame.src = ytEmbedSrc(videoId);
@@ -3806,6 +3910,18 @@
       };
       setTimeout(arm, 600);
       setTimeout(arm, 1600);
+      // If embed fails silently on restricted hosts, fall back after a beat
+      if (localSrc) {
+        setTimeout(() => {
+          if (!ytWantPlaying || playGen !== ytEmbedGen) return;
+          try {
+            const active = frame.contentWindow && frame.src && !frame.src.startsWith('about:');
+            if (!active && isFileProtocol()) playLocalPhaseMp3({ reason: 'YouTube blocked offline — using saved MP3' });
+          } catch (_) {
+            if (isFileProtocol()) playLocalPhaseMp3({ reason: 'YouTube blocked offline — using saved MP3' });
+          }
+        }, 3500);
+      }
       showToast(`${label || 'YouTube BGM'} — looping this track`);
     }
 
@@ -3913,16 +4029,22 @@
       },
       playSchoolBellSynth() {
         this.init(); if (!this.ctx) return; const now = this.ctx.currentTime;
+        const bellBoost = 1.0; // independent of quiet BGM underscore
         const chimeNotes = [[F.E5, 0.00, 0.5], [F.C5, 0.4, 0.5], [F.D5, 0.8, 0.5], [F.G4, 1.2, 1.0]];
-        chimeNotes.forEach(([freq, offset, dur]) => { this.playRichVoice(freq, now + offset, dur, 0.35, 'sine'); });
+        chimeNotes.forEach(([freq, offset, dur]) => { this.playRichVoice(freq, now + offset, dur, 0.72 * bellBoost, 'sine'); });
         for (let i = 0; i < 20; i++) {
           const t = now + 2.2 + i * 0.05; const osc = this.ctx.createOscillator(); const gain = this.ctx.createGain();
           osc.type = 'triangle'; osc.frequency.setValueAtTime(i % 2 === 0 ? 1568 : 1975, t);
-          gain.gain.setValueAtTime(0.15 * Math.max(0.4, bgmVolume), t); gain.gain.exponentialRampToValueAtTime(0.001, t + 0.045);
+          gain.gain.setValueAtTime(0.42 * bellBoost, t); gain.gain.exponentialRampToValueAtTime(0.001, t + 0.045);
           osc.connect(gain); gain.connect(this.ctx.destination); osc.start(t); osc.stop(t + 0.045);
         }
       }
     };
+
+    function bellPlaybackVolume() {
+      // Always loud enough to cut through room noise; not tied to quiet BGM underscore
+      return Math.min(1, Math.max(0.92, bgmVolume * 2.4));
+    }
 
     function ringSchoolBell(btnEl) {
       if (btnEl) {
@@ -3930,9 +4052,8 @@
         if (icon) { icon.classList.remove('animate-wiggle'); void icon.offsetWidth; icon.classList.add('animate-wiggle'); }
       }
       if (customBellDataUrl) {
-        // Bell mastered slightly hotter than BGM; follow the same slider (no 0.2 floor).
         schoolBellAudio.src = customBellDataUrl;
-        schoolBellAudio.volume = Math.min(1, Math.max(0, bgmVolume));
+        schoolBellAudio.volume = bellPlaybackVolume();
         schoolBellAudio.currentTime = 0; schoolBellAudio.play().catch(() => StudioSynth.playSchoolBellSynth());
         showToast(`🔔 Ringing "${customBellFileName || 'School Bell'}"`);
       } else {
@@ -3972,10 +4093,10 @@
       { id: 'game1', label: 'Game 1 Make a Guess', slides: [4, 5], trackKey: 'game1' },
       { id: 'game2', label: 'Game 2 Culinary Fanatic', slides: [6, 7, 8, 9, 10, 11], trackKey: 'game2' },
       { id: 'recess', label: 'Recess', slides: [12], trackKey: 'recess' },
-      { id: 'christmasGifts', label: 'Christmas Gifts', slides: [13, 14], trackKey: 'luckyDraw' },
-      { id: 'bestDressed', label: 'Best Dressed', slides: [15, 16], trackKey: 'buffet' },
-      { id: 'grandPrizes', label: 'Grand Prizes', slides: [17, 18, 19], trackKey: 'luckyDraw' },
-      { id: 'finale', label: 'Finale', slides: [20], trackKey: 'finale' }
+      { id: 'christmasGifts', label: 'Christmas Gifts', slides: [13], trackKey: 'luckyDraw' },
+      { id: 'bestDressed', label: 'Best Dressed', slides: [14, 15], trackKey: 'buffet' },
+      { id: 'grandPrizes', label: 'Grand Prizes', slides: [16, 17], trackKey: 'luckyDraw' },
+      { id: 'finale', label: 'Finale', slides: [18], trackKey: 'finale' }
     ];
 
     function getPhaseForSlide(slideIdx) {
@@ -4042,13 +4163,17 @@
       const phase = getPhaseForSlide(slideIdx);
       const customTrack = customPhaseMp3s[phase.id];
       const ytId = resolveYoutubeId(customTrack);
-      const useLocal = forceLocalBgm || !ytId;
-      const trackSrc = useLocal ? resolveTrackSrc(customTrack) : '';
+      const localSrc = resolveTrackSrc(customTrack);
+      // file:// + YouTube is unreliable; prefer baked/local MP3 when present
+      const useLocal = forceLocalBgm || !ytId || (isFileProtocol() && !!localSrc);
+      const trackSrc = useLocal ? localSrc : '';
       const desiredKey = (!useLocal && ytId)
         ? `yt:embed:${ytId}`
         : (trackSrc ? `custom:${phase.id}:${localTrackLabel(customTrack)}` : phase.id);
       // Keep playing continuously when staying in the same phase / same track
       if (isMusicActive && currentPlayingTrackKey === desiredKey && (useLocal || ytWantPlaying)) {
+        if (useLocal && bgmAudio && !bgmAudio.paused) bgmAudio.volume = effectiveBgmVolume(customTrack);
+        else if (!useLocal) applyYtVolume();
         updateMusicHudUI();
         return;
       }
@@ -4062,9 +4187,10 @@
         playYouTubeBgm(ytId, customTrack?.name || phase.label);
       } else if (trackSrc) {
         bgmAudio.src = trackSrc;
-        bgmAudio.volume = bgmVolume;
+        bgmAudio.volume = effectiveBgmVolume(customTrack);
         bgmAudio.loop = true;
         bgmAudio.play().catch(() => showToast(`Could not play ${customTrack?.name || phase.label}`, 'error'));
+        if (isFileProtocol() && ytId) showToast('Local BGM (YouTube needs https — using saved MP3)');
       } else {
         barIndex = 0;
         scheduleNextBar();
@@ -4085,9 +4211,9 @@
 
     function setBGMVolume(val) {
       bgmVolume = Math.min(1, Math.max(0, parseFloat(val) || 0));
-      bgmAudio.volume = bgmVolume;
+      bgmAudio.volume = effectiveBgmVolume(currentPhaseTrack());
       applyYtVolume();
-      if (schoolBellAudio && !schoolBellAudio.paused) schoolBellAudio.volume = bgmVolume;
+      if (schoolBellAudio && !schoolBellAudio.paused) schoolBellAudio.volume = bellPlaybackVolume();
     }
 
     bgmFileInput.addEventListener('change', (e) => {
@@ -4095,7 +4221,14 @@
       const phaseId = document.getElementById('bgmPhaseSelect')?.value || getPhaseForSlide(currentSlideIdx).id;
       const reader = new FileReader();
       reader.onload = function (ev) {
-        customPhaseMp3s[phaseId] = { name: file.name, dataUrl: ev.target.result };
+        const prev = customPhaseMp3s[phaseId] || {};
+        customPhaseMp3s[phaseId] = {
+          ...prev,
+          name: file.name,
+          dataUrl: ev.target.result,
+          preferLocal: true,
+          volumeGain: typeof prev.volumeGain === 'number' ? prev.volumeGain : 1
+        };
         const phase = MUSIC_PHASES.find(p => p.id === phaseId);
         showToast(`BGM for ${phase?.label || phaseId}: "${file.name}"`);
         if (getPhaseForSlide(currentSlideIdx).id === phaseId) {
@@ -4151,12 +4284,12 @@
       if (phaseSel) phaseSel.value = getPhaseForSlide(currentSlideIdx).id;
       startSlideMusic(currentSlideIdx);
       // Dedicated spinners: Christmas stays phase 1; Grand stays phase 2
-      if (currentSlideIdx === SLIDE_XMAS_SPIN || currentSlideIdx === SLIDE_XMAS_WALL) {
+      if (currentSlideIdx === SLIDE_XMAS_SPIN) {
         preferGrandOnSpinner = false;
         setDrawPhase(1, { silent: true });
-        if (currentSlideIdx === SLIDE_XMAS_SPIN) resizeCanvas();
+        resizeCanvas();
       }
-      if (currentSlideIdx === SLIDE_GRAND_INTRO || currentSlideIdx === SLIDE_GRAND_SPIN || currentSlideIdx === SLIDE_GRAND_WALL) {
+      if (currentSlideIdx === SLIDE_GRAND_INTRO || currentSlideIdx === SLIDE_GRAND_SPIN) {
         preferGrandOnSpinner = true;
         if (currentSlideIdx === SLIDE_GRAND_SPIN) {
           prepareSharedPoolForGrand();
@@ -4167,8 +4300,6 @@
           updateSharedPoolHud();
         }
       }
-      if (currentSlideIdx === SLIDE_XMAS_WALL) syncPrizeWinnersGrid1();
-      if (currentSlideIdx === SLIDE_GRAND_WALL) syncPrizeWinnersGrid2();
       if (currentSlideIdx === SLIDE_BEST_REVEAL && prevIdx !== SLIDE_BEST_REVEAL) resetBestDressedReveal({ silent: true });
       // Always sync VDO room + viewer when entering the cook slide (room may already exist from boot)
       if (currentSlideIdx === 11) startVdoNinjaRoom(false, { silent: true });
@@ -4313,10 +4444,10 @@
     const phase1PrizePhotoInput = document.getElementById('phase1PrizePhotoInput');
     const phase2PrizePhotoInput = document.getElementById('phase2PrizePhotoInput');
 
-    function triggerPhase1PhotoUpload(idx) { activePrizeIdx = idx; phase1PrizePhotoInput.click(); }
-    function triggerPhase2PhotoUpload(idx) { activePrizeIdx = idx; phase2PrizePhotoInput.click(); }
+    function triggerPhase1PhotoUpload(idx) { activePrizeIdx = idx; phase1PrizePhotoInput?.click(); }
+    function triggerPhase2PhotoUpload(idx) { activePrizeIdx = idx; phase2PrizePhotoInput?.click(); }
 
-    phase1PrizePhotoInput.addEventListener('change', (e) => {
+    phase1PrizePhotoInput?.addEventListener('change', (e) => {
       const file = e.target.files[0]; if (!file) return;
       const reader = new FileReader();
       reader.onload = function (ev) {
@@ -4327,7 +4458,7 @@
       reader.readAsDataURL(file); phase1PrizePhotoInput.value = '';
     });
 
-    phase2PrizePhotoInput.addEventListener('change', (e) => {
+    phase2PrizePhotoInput?.addEventListener('change', (e) => {
       const file = e.target.files[0]; if (!file) return;
       const reader = new FileReader();
       reader.onload = function (ev) {
@@ -4918,11 +5049,12 @@
         const copy = { ...(track || {}) };
         if (copy.dataUrl && !String(copy.dataUrl).startsWith('data:')) {
           copy.dataUrl = await resourceToDataUrl(copy.dataUrl);
-        } else if (!copy.dataUrl && copy.url && !copy.youtubeId) {
+        } else if (!copy.dataUrl && copy.url) {
+          // Bake local MP3 even when youtubeId is set — file:// fallback after Save HTML
           const dataUrl = await resourceToDataUrl(copy.url);
           if (dataUrl && String(dataUrl).startsWith('data:')) {
             copy.dataUrl = dataUrl;
-            delete copy.url;
+            // keep url + youtubeId for online / re-save
           }
         }
         bakedPhase[phaseId] = copy;
