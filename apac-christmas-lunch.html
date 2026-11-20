@@ -282,17 +282,18 @@
     .slide[data-title="11. Game 2: Order & Prepare"] .menu-board-chalk {
       padding: 0.55rem 0.6rem 0.7rem;
     }
-    /* Game 2 — How to Play (roles + flow chart) */
+    /* Game 2 — How to Play (roles + flow chart) — exam sheet on Xmas stage */
     .slide[data-title="10. Game 2: How to Play"] {
-      padding-top: 3.25rem;
-      padding-bottom: 3.75rem;
+      padding-top: 3.1rem;
+      padding-bottom: 3.6rem;
+      background: transparent;
     }
     .slide[data-title="10. Game 2: How to Play"] .how-play-board {
       width: 100%;
       max-width: min(96rem, 96vw);
       max-height: 100%;
       min-height: 0;
-      padding: 0.85rem 1rem 1rem;
+      padding: 1.15rem 1rem 1rem;
       display: flex;
       flex-direction: column;
       gap: 0.65rem;
@@ -308,11 +309,26 @@
       }
     }
     .how-play-guest {
-      border-radius: 1rem;
-      border: 2px solid rgba(35, 72, 106, 0.28);
-      background: rgba(255, 255, 255, 0.92);
-      padding: 0.65rem 0.85rem;
+      border-radius: 0;
+      border: 1.5px solid #111;
+      background: #fffef8;
+      padding: 0.55rem 0.75rem;
       text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    .how-play-guest .role-avatar {
+      width: 3.35rem;
+      height: 3.35rem;
+      flex-shrink: 0;
+    }
+    .how-play-guest .role-avatar-badge {
+      width: 1.35rem;
+      height: 1.35rem;
+      font-size: 0.7rem;
+      top: -0.25rem;
+      right: -0.25rem;
     }
     .how-play-flow {
       display: flex;
@@ -329,25 +345,39 @@
     .how-play-step {
       flex: 1 1 0;
       min-width: 0;
-      border-radius: 1.1rem;
-      padding: 0.7rem 0.75rem 0.8rem;
+      border-radius: 0;
+      padding: 0.55rem 0.55rem 0.7rem;
       text-align: center;
-      border: 2px solid transparent;
+      border: 1.5px solid #111;
+      background: #fff;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      gap: 0.25rem;
+      gap: 0.2rem;
+    }
+    .how-play-step .role-avatar-wrap {
+      margin-bottom: 0.15rem;
+    }
+    .how-play-step .role-avatar {
+      width: clamp(3.5rem, 7.2vh, 5.1rem);
+      height: clamp(3.5rem, 7.2vh, 5.1rem);
+    }
+    .how-play-step .role-avatar-badge {
+      width: 1.4rem;
+      height: 1.4rem;
+      font-size: 0.72rem;
     }
     .how-play-step .step-num {
-      width: 2rem;
-      height: 2rem;
-      border-radius: 999px;
+      width: 1.65rem;
+      height: 1.65rem;
+      border-radius: 0;
       display: grid;
       place-items: center;
       color: #fff;
       font-weight: 900;
-      font-size: 0.95rem;
+      font-size: 0.85rem;
+      font-family: Arial, Helvetica, sans-serif;
     }
     .how-play-arrow {
       display: none;
@@ -369,12 +399,13 @@
       .how-play-arrow-mobile { display: none; }
     }
 
-    /* Game 2 — Order & Prepare (menu + form) */
+    /* Game 2 — Order & Prepare (menu + form) — exam sheet on Xmas stage */
     .slide[data-title="11. Game 2: Order & Prepare"] {
-      padding-top: 3.1rem;
-      padding-bottom: 3.6rem;
+      padding-top: 3.0rem;
+      padding-bottom: 3.5rem;
       padding-left: 0.75rem;
       padding-right: 0.75rem;
+      background: transparent;
     }
     .slide[data-title="11. Game 2: Order & Prepare"] .order-prep-board {
       width: 100%;
@@ -385,8 +416,20 @@
       display: flex;
       flex-direction: column;
       gap: 0.55rem;
-      padding: 0.55rem 0.75rem 0.65rem;
+      padding: 1.15rem 0.75rem 0.75rem;
       margin-inline: auto;
+    }
+    .slide[data-title="11. Game 2: Order & Prepare"] .menu-set-card {
+      border-radius: 0;
+      border: 1.5px solid #111 !important;
+      background: #fffef8;
+      box-shadow: none;
+    }
+    .slide[data-title="11. Game 2: Order & Prepare"] .order-prep-form {
+      border-radius: 0;
+      border: 1.5px solid #111 !important;
+      background: #fff;
+      box-shadow: none;
     }
     .order-prep-grid {
       flex: 1 1 auto;
@@ -486,14 +529,62 @@
       transform: rotate(-6deg);
       opacity: 0.85;
     }
-    /* Game 2 exam-paper cover (before Team of 3) */
+    /* Game 2 exam-paper cover — sits on shared Christmas stage (no gray wash) */
     .slide[data-title="9. Game 2: Exam Cover"] {
       padding-top: 2.6rem;
       padding-bottom: 3.2rem;
       padding-left: 0.75rem;
       padding-right: 0.75rem;
-      background:
-        linear-gradient(180deg, #e8e8e8 0%, #f4f4f4 40%, #dedede 100%);
+      background: transparent;
+    }
+    /* Shared Game 2 exam-sheet language (matches slide 9 paper) */
+    .g2-exam-sheet {
+      width: 100%;
+      margin-inline: auto;
+      background: #fff;
+      color: #111;
+      border: 1.5px solid #111;
+      box-shadow:
+        0 0 0 4px rgba(255, 255, 255, 0.55),
+        0 18px 40px -22px rgba(0, 0, 0, 0.45);
+      font-family: 'Libre Baskerville', 'Times New Roman', Times, serif;
+      position: relative;
+    }
+    .g2-exam-sheet::before {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 8px;
+      background: repeating-linear-gradient(
+        90deg,
+        #C8372D 0 16px,
+        #1E6B3B 16px 32px,
+        #D97724 32px 48px,
+        #23486A 48px 64px
+      );
+      pointer-events: none;
+      z-index: 2;
+    }
+    .g2-exam-kicker {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #111;
+    }
+    .g2-exam-title {
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #111;
+      line-height: 1.15;
+    }
+    .g2-exam-sub {
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 700;
+      color: #222;
     }
     .hkcee-cover {
       width: 100%;
@@ -502,18 +593,36 @@
       background: #fff;
       color: #111;
       border: 1.5px solid #111;
-      box-shadow: 0 18px 40px -22px rgba(0,0,0,0.45);
+      box-shadow:
+        0 0 0 4px rgba(255, 255, 255, 0.55),
+        0 18px 40px -22px rgba(0,0,0,0.45);
       display: grid;
       grid-template-columns: minmax(0, 1.55fr) minmax(12rem, 0.72fr);
       min-height: min(78vh, 44rem);
       font-family: 'Libre Baskerville', 'Times New Roman', Times, serif;
+      position: relative;
+    }
+    .hkcee-cover::before {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 8px;
+      background: repeating-linear-gradient(
+        90deg,
+        #C8372D 0 16px,
+        #1E6B3B 16px 32px,
+        #D97724 32px 48px,
+        #23486A 48px 64px
+      );
+      pointer-events: none;
+      z-index: 3;
     }
     @media (max-width: 900px) {
       .hkcee-cover { grid-template-columns: 1fr; }
       .hkcee-side { border-left: 0; border-top: 1.5px solid #111; }
     }
     .hkcee-main {
-      padding: 0.85rem 1.05rem 0.9rem 1.15rem;
+      padding: 1.15rem 1.05rem 0.9rem 1.15rem;
       border-right: 0;
       display: flex;
       flex-direction: column;
@@ -596,7 +705,7 @@
       line-height: 1.4;
     }
     .hkcee-side {
-      padding: 0.7rem 0.65rem 0.75rem;
+      padding: 1.15rem 0.65rem 0.75rem;
       border-left: 1.5px solid #111;
       display: flex;
       flex-direction: column;
@@ -2788,19 +2897,20 @@
   <!-- SLIDE 8: GAME 2 SESSION INTRO (BILINGUAL)                             -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center text-center" data-title="8. Game 2: The Culinary Fanatic — Intro">
-    <div class="festive-card canteen-frame theme-rail stage-card rounded-3xl border-4 border-[#23486A]">
-      <div class="theme-icon-tile w-24 h-24 mx-auto mb-5 rounded-3xl bg-[#23486A] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
+    <div class="g2-exam-sheet stage-card px-8 py-10 sm:px-12 sm:py-12">
+      <div class="w-20 h-20 mx-auto mb-5 bg-[#23486A] text-white flex items-center justify-center text-3xl shadow animate-float" style="border: 2px solid #111;">
         <i class="fa-solid fa-people-group"></i>
       </div>
-      <span class="px-4 py-1.5 rounded-full bg-green-100 border border-green-300 text-green-800 text-xs font-extrabold uppercase tracking-widest">
-        Home Ec · 家政課
-      </span>
-      <h1 class="font-festive-display text-4xl sm:text-6xl font-bold text-[#23486A] tracking-tight mt-4 mb-2" contenteditable="true">
-        GAME 2: THE CULINARY FANATIC
+      <p class="g2-exam-kicker mb-3" contenteditable="true">Home Ec · 家政課 · 2026-XMAS GAME 2</p>
+      <h1 class="g2-exam-title text-3xl sm:text-5xl md:text-6xl" contenteditable="true">
+        THE CULINARY FANATIC
       </h1>
-      <h2 class="text-2xl sm:text-3xl font-black text-[#1E6B3B]" contenteditable="true">
+      <h2 class="g2-exam-sub text-xl sm:text-2xl mt-3" contenteditable="true">
         遊戲二：料理狂熱者
       </h2>
+      <p class="mt-4 text-sm sm:text-base text-slate-700 font-semibold" style="font-family: Arial, Helvetica, sans-serif;" contenteditable="true">
+        Question-Answer Book · Team of 3 · 十分鐘挑戰
+      </p>
     </div>
   </section>
 
@@ -2871,18 +2981,16 @@
   <!-- SLIDE 10: GAME 2: HOW TO PLAY (ROLES + PROCESS CHART)                  -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-stretch justify-center" data-title="10. Game 2: How to Play">
-    <div class="stage-board festive-card canteen-frame theme-rail rounded-3xl how-play-board">
-      <div class="shrink-0 text-center">
-        <span class="px-3 py-0.5 rounded-full bg-sky-100 border border-sky-300 text-sky-900 text-[10px] sm:text-xs font-extrabold uppercase tracking-widest">
-          How the Game Is Played · 遊戲玩法
-        </span>
-        <h1 class="font-festive-display text-2xl sm:text-4xl font-bold text-[#23486A] tracking-tight mt-1" contenteditable="true">
+    <div class="stage-board g2-exam-sheet how-play-board">
+      <div class="shrink-0 text-center pt-1">
+        <p class="g2-exam-kicker mb-1" contenteditable="true">2026-XMAS GAME 2 · PAPER 2 · How the Game Is Played</p>
+        <h1 class="g2-exam-title text-xl sm:text-3xl md:text-4xl" contenteditable="true">
           EVERYONE ORDERS · TEAM OF 3 SERVES
         </h1>
-        <h2 class="text-base sm:text-xl font-black text-[#1E6B3B] mt-0.5" contenteditable="true">
+        <h2 class="g2-exam-sub text-sm sm:text-lg mt-1" contenteditable="true">
           全員落單 · 三人小組走單
         </h2>
-        <p class="text-[11px] sm:text-sm text-slate-700 font-bold mt-1" contenteditable="true">
+        <p class="text-[11px] sm:text-sm text-slate-700 font-semibold mt-1" style="font-family: Arial, Helvetica, sans-serif;" contenteditable="true">
           Roles &amp; process in one chart · 角色與流程合併一圖
         </p>
       </div>
@@ -2890,59 +2998,161 @@
       <!-- Guests place orders: head table + rest of table -->
       <div class="how-play-guests shrink-0">
         <div class="how-play-guest">
-          <p class="font-black text-sm sm:text-base text-[#23486A] leading-tight" contenteditable="true">
-            <i class="fa-solid fa-crown text-[#C8372D] mr-1.5"></i>Head Table — place orders
-          </p>
-          <p class="text-xs sm:text-sm font-bold text-[#1E6B3B] mt-0.5" contenteditable="true">主桌賓客也要落單</p>
-          <p class="text-[11px] sm:text-xs text-slate-600 font-semibold mt-1" contenteditable="true">
-            Fill the order form for the serving teams · 為上場隊伍填寫落單紙
-          </p>
+          <div class="role-avatar-wrap pointer-events-none shrink-0">
+            <span class="role-avatar-badge" aria-hidden="true">👑</span>
+            <div class="role-avatar border-4 border-[#C8372D]">
+              <svg viewBox="0 0 120 120" aria-hidden="true">
+                <circle cx="60" cy="60" r="56" fill="#FFF1F2"/>
+                <circle cx="60" cy="52" r="22" fill="#FDE2C4"/>
+                <path d="M34,48 C36,28 48,20 60,20 C72,20 84,28 86,48" fill="#1E293B"/>
+                <circle cx="50" cy="50" r="2.8" fill="#1E293B"/>
+                <circle cx="70" cy="50" r="2.8" fill="#1E293B"/>
+                <path d="M50,64 Q60,72 70,64" stroke="#C8372D" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <path d="M32,88 L88,88 L94,112 L26,112 Z" fill="#C8372D"/>
+                <polygon points="40,28 48,14 56,28 64,12 72,28 80,16 88,30 32,30" fill="#F59E0B" stroke="#B45309" stroke-width="2"/>
+              </svg>
+            </div>
+          </div>
+          <div class="min-w-0">
+            <p class="font-black text-sm sm:text-base text-[#111] leading-tight" style="font-family: Arial, Helvetica, sans-serif;" contenteditable="true">
+              Head Table — place orders
+            </p>
+            <p class="text-xs sm:text-sm font-bold text-[#1E6B3B] mt-0.5" contenteditable="true">主桌賓客也要落單</p>
+            <p class="text-[11px] sm:text-xs text-slate-600 font-semibold mt-1" contenteditable="true">
+              Fill the order form for the serving teams · 為上場隊伍填寫落單紙
+            </p>
+          </div>
         </div>
         <div class="how-play-guest">
-          <p class="font-black text-sm sm:text-base text-[#23486A] leading-tight" contenteditable="true">
-            <i class="fa-solid fa-users text-[#1E6B3B] mr-1.5"></i>Rest of the table — place orders too
-          </p>
-          <p class="text-xs sm:text-sm font-bold text-[#1E6B3B] mt-0.5" contenteditable="true">同枱其餘同事同樣落單</p>
-          <p class="text-[11px] sm:text-xs text-slate-600 font-semibold mt-1" contenteditable="true">
-            Not only the Team of 3 — guests at each table order · 不只三人小組，每桌客人也要落單
-          </p>
+          <div class="role-avatar-wrap pointer-events-none shrink-0">
+            <span class="role-avatar-badge" aria-hidden="true">🪑</span>
+            <div class="role-avatar border-4 border-[#23486A]">
+              <svg viewBox="0 0 120 120" aria-hidden="true">
+                <circle cx="60" cy="60" r="56" fill="#E8F0F8"/>
+                <circle cx="42" cy="54" r="16" fill="#FDE2C4"/>
+                <circle cx="78" cy="54" r="16" fill="#FDE2C4"/>
+                <circle cx="60" cy="62" r="18" fill="#FDE2C4"/>
+                <path d="M30,48 C32,34 38,30 42,30 C48,30 52,36 54,46" fill="#92400E"/>
+                <path d="M66,48 C68,34 74,30 78,30 C84,30 88,36 90,46" fill="#1E293B"/>
+                <path d="M48,50 C50,38 56,34 60,34 C64,34 70,38 72,50" fill="#78350F"/>
+                <circle cx="38" cy="52" r="2" fill="#1E293B"/>
+                <circle cx="46" cy="52" r="2" fill="#1E293B"/>
+                <circle cx="74" cy="52" r="2" fill="#1E293B"/>
+                <circle cx="82" cy="52" r="2" fill="#1E293B"/>
+                <circle cx="54" cy="60" r="2.2" fill="#1E293B"/>
+                <circle cx="66" cy="60" r="2.2" fill="#1E293B"/>
+                <path d="M28,92 L92,92 L96,112 L24,112 Z" fill="#23486A"/>
+              </svg>
+            </div>
+          </div>
+          <div class="min-w-0">
+            <p class="font-black text-sm sm:text-base text-[#111] leading-tight" style="font-family: Arial, Helvetica, sans-serif;" contenteditable="true">
+              Rest of the table — place orders too
+            </p>
+            <p class="text-xs sm:text-sm font-bold text-[#1E6B3B] mt-0.5" contenteditable="true">同枱其餘同事同樣落單</p>
+            <p class="text-[11px] sm:text-xs text-slate-600 font-semibold mt-1" contenteditable="true">
+              Not only the Team of 3 — guests at each table order · 不只三人小組，每桌客人也要落單
+            </p>
+          </div>
         </div>
       </div>
 
       <div class="how-play-arrow-mobile shrink-0" aria-hidden="true"><i class="fa-solid fa-arrow-down"></i></div>
 
-      <!-- Team pipeline -->
+      <!-- Team pipeline with avatars -->
       <div class="how-play-flow flex-1 min-h-0">
-        <div class="how-play-step bg-amber-50/95" style="border-color: rgba(245,158,11,0.55);">
+        <div class="how-play-step" style="background:#FFFBEB;">
           <span class="step-num" style="background:#F59E0B;">1</span>
-          <p class="font-black text-sm sm:text-base text-amber-900 leading-tight" contenteditable="true">Order Taker</p>
+          <div class="role-avatar-wrap pointer-events-none">
+            <span class="role-avatar-badge" aria-hidden="true">📋</span>
+            <div class="role-avatar border-4 border-amber-400">
+              <svg viewBox="0 0 120 120" aria-hidden="true">
+                <circle cx="60" cy="58" r="28" fill="#FDE2C4"/>
+                <path d="M28,58 C26,30 44,18 60,18 C76,18 94,30 92,58 Z" fill="#92400E"/>
+                <circle cx="48" cy="56" r="3.2" fill="#1E293B"/>
+                <circle cx="72" cy="56" r="3.2" fill="#1E293B"/>
+                <path d="M50,70 Q60,78 70,70" stroke="#B45309" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <rect x="34" y="88" width="52" height="24" rx="6" fill="#F59E0B"/>
+                <rect x="44" y="78" width="32" height="18" rx="3" fill="#FEF3C7" stroke="#D97724" stroke-width="2"/>
+                <line x1="50" y1="84" x2="70" y2="84" stroke="#D97724" stroke-width="2"/>
+                <line x1="50" y1="90" x2="66" y2="90" stroke="#D97724" stroke-width="2"/>
+              </svg>
+            </div>
+          </div>
+          <p class="font-black text-sm sm:text-base text-amber-900 leading-tight" style="font-family: Arial, Helvetica, sans-serif;" contenteditable="true">Order Taker</p>
           <p class="text-[11px] sm:text-xs font-black text-amber-800" contenteditable="true">落單員</p>
           <p class="text-[11px] sm:text-xs text-slate-600 font-semibold mt-1 leading-snug" contenteditable="true">Collect form · explain order to Chef</p>
           <p class="text-[10px] sm:text-[11px] font-bold text-amber-900/80" contenteditable="true">收單 · 向大廚解釋</p>
         </div>
         <div class="how-play-arrow" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></div>
         <div class="how-play-arrow-mobile" aria-hidden="true"><i class="fa-solid fa-arrow-down"></i></div>
-        <div class="how-play-step bg-red-50/95" style="border-color: rgba(200,55,45,0.5);">
+        <div class="how-play-step" style="background:#FFF1F2;">
           <span class="step-num" style="background:#C8372D;">2</span>
-          <p class="font-black text-sm sm:text-base text-[#C8372D] leading-tight" contenteditable="true">Chef</p>
+          <div class="role-avatar-wrap pointer-events-none">
+            <span class="role-avatar-badge" aria-hidden="true">👨‍🍳</span>
+            <div class="role-avatar border-4 border-[#C8372D]">
+              <svg viewBox="0 0 120 120" aria-hidden="true">
+                <ellipse cx="60" cy="28" rx="28" ry="14" fill="#F8FAFC"/>
+                <rect x="40" y="28" width="40" height="12" fill="#E2E8F0"/>
+                <circle cx="60" cy="62" r="26" fill="#FDE2C4"/>
+                <circle cx="50" cy="60" r="3" fill="#1E293B"/>
+                <circle cx="70" cy="60" r="3" fill="#1E293B"/>
+                <path d="M50,72 Q60,80 70,72" stroke="#C8372D" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <path d="M34,90 L86,90 L92,114 L28,114 Z" fill="#C8372D"/>
+                <rect x="52" y="96" width="16" height="10" rx="2" fill="#FEF3C7"/>
+              </svg>
+            </div>
+          </div>
+          <p class="font-black text-sm sm:text-base text-[#C8372D] leading-tight" style="font-family: Arial, Helvetica, sans-serif;" contenteditable="true">Chef</p>
           <p class="text-[11px] sm:text-xs font-black text-red-800" contenteditable="true">大廚</p>
           <p class="text-[11px] sm:text-xs text-slate-600 font-semibold mt-1 leading-snug" contenteditable="true">Assemble meal from the food pool</p>
           <p class="text-[10px] sm:text-[11px] font-bold text-red-800/80" contenteditable="true">從食材池組裝餐點</p>
         </div>
         <div class="how-play-arrow" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></div>
         <div class="how-play-arrow-mobile" aria-hidden="true"><i class="fa-solid fa-arrow-down"></i></div>
-        <div class="how-play-step bg-green-50/95" style="border-color: rgba(30,107,59,0.5);">
+        <div class="how-play-step" style="background:#ECFDF5;">
           <span class="step-num" style="background:#1E6B3B;">3</span>
-          <p class="font-black text-sm sm:text-base text-[#1E6B3B] leading-tight" contenteditable="true">Server</p>
+          <div class="role-avatar-wrap pointer-events-none">
+            <span class="role-avatar-badge" aria-hidden="true">🍽️</span>
+            <div class="role-avatar border-4 border-[#1E6B3B]">
+              <svg viewBox="0 0 120 120" aria-hidden="true">
+                <circle cx="60" cy="56" r="28" fill="#FDE2C4"/>
+                <path d="M30,52 C28,28 46,16 60,16 C74,16 92,28 90,52 Z" fill="#14532D"/>
+                <circle cx="48" cy="54" r="3" fill="#1E293B"/>
+                <circle cx="72" cy="54" r="3" fill="#1E293B"/>
+                <path d="M50,68 Q60,76 70,68" stroke="#1E6B3B" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <ellipse cx="60" cy="96" rx="30" ry="10" fill="#FEF3C7" stroke="#D97724" stroke-width="2"/>
+                <circle cx="60" cy="92" r="8" fill="#FCA5A5"/>
+                <path d="M34,90 L86,90 L90,112 L30,112 Z" fill="#1E6B3B"/>
+              </svg>
+            </div>
+          </div>
+          <p class="font-black text-sm sm:text-base text-[#1E6B3B] leading-tight" style="font-family: Arial, Helvetica, sans-serif;" contenteditable="true">Server</p>
           <p class="text-[11px] sm:text-xs font-black text-green-800" contenteditable="true">樓面侍應</p>
           <p class="text-[11px] sm:text-xs text-slate-600 font-semibold mt-1 leading-snug" contenteditable="true">Deliver with form · wait for check</p>
           <p class="text-[10px] sm:text-[11px] font-bold text-green-800/80" contenteditable="true">連同表格上菜 · 等候核對</p>
         </div>
         <div class="how-play-arrow" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></div>
         <div class="how-play-arrow-mobile" aria-hidden="true"><i class="fa-solid fa-arrow-down"></i></div>
-        <div class="how-play-step bg-amber-50/90" style="border-color: rgba(217,119,36,0.55);">
+        <div class="how-play-step" style="background:#FFF7ED;">
           <span class="step-num" style="background:#D97724;">✓</span>
-          <p class="font-black text-sm sm:text-base text-[#92400E] leading-tight" contenteditable="true">Correctness Check</p>
+          <div class="role-avatar-wrap pointer-events-none">
+            <span class="role-avatar-badge" aria-hidden="true">✅</span>
+            <div class="role-avatar border-4 border-[#D97724]">
+              <svg viewBox="0 0 120 120" aria-hidden="true">
+                <circle cx="60" cy="60" r="56" fill="#FEF3C7"/>
+                <circle cx="60" cy="50" r="22" fill="#FDE2C4"/>
+                <path d="M38,46 C40,28 50,22 60,22 C70,22 80,28 82,46" fill="#78350F"/>
+                <rect x="34" y="28" width="52" height="10" rx="2" fill="#1E293B"/>
+                <circle cx="50" cy="48" r="2.6" fill="#1E293B"/>
+                <circle cx="70" cy="48" r="2.6" fill="#1E293B"/>
+                <path d="M50,62 Q60,70 70,62" stroke="#B45309" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <rect x="40" y="78" width="40" height="28" rx="3" fill="#FFF7ED" stroke="#D97724" stroke-width="3"/>
+                <path d="M48,92 l8 8 16-18" fill="none" stroke="#1E6B3B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+          <p class="font-black text-sm sm:text-base text-[#92400E] leading-tight" style="font-family: Arial, Helvetica, sans-serif;" contenteditable="true">Correctness Check</p>
           <p class="text-[11px] sm:text-xs font-black text-amber-900" contenteditable="true">核對正確</p>
           <p class="text-[11px] sm:text-xs text-slate-600 font-semibold mt-1 leading-snug" contenteditable="true">Must match the written order</p>
           <p class="text-[10px] sm:text-[11px] font-bold text-[#92400E]/80" contenteditable="true">必須與訂單一致 · 錯則重做</p>
@@ -2955,18 +3165,16 @@
   <!-- SLIDE 11: GAME 2: ORDER & PREPARE (MENUS + FORM)                       -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-stretch justify-center" data-title="11. Game 2: Order & Prepare">
-    <div class="stage-board festive-card canteen-frame theme-rail rounded-3xl order-prep-board">
-      <div class="shrink-0 text-center">
-        <span class="px-3 py-0.5 rounded-full bg-blue-100 border border-blue-300 text-blue-800 text-[10px] sm:text-xs font-extrabold uppercase tracking-widest">
-          What to Order &amp; Prepare · 落單與備餐
-        </span>
-        <h1 class="font-festive-display text-2xl sm:text-3xl md:text-4xl font-bold text-[#23486A] tracking-tight mt-1" contenteditable="true">
+    <div class="stage-board g2-exam-sheet order-prep-board">
+      <div class="shrink-0 text-center pt-1">
+        <p class="g2-exam-kicker mb-1" contenteditable="true">2026-XMAS GAME 2 · PAPER 3 · What to Order &amp; Prepare</p>
+        <h1 class="g2-exam-title text-xl sm:text-3xl md:text-4xl" contenteditable="true">
           MENUS + ORDER FORM
         </h1>
-        <h2 class="text-base sm:text-xl font-black text-[#1E6B3B] mt-0.5" contenteditable="true">
+        <h2 class="g2-exam-sub text-sm sm:text-lg mt-1" contenteditable="true">
           餐牌 + 落單紙
         </h2>
-        <p class="text-[11px] sm:text-sm text-slate-600 font-semibold mt-1" contenteditable="true">
+        <p class="text-[11px] sm:text-sm text-slate-600 font-semibold mt-1" style="font-family: Arial, Helvetica, sans-serif;" contenteditable="true">
           Pick a set · fill the form · pass to Order Taker · 選套餐 · 填表格 · 交接單員
         </p>
       </div>
@@ -2977,7 +3185,7 @@
         <div class="order-prep-menus min-h-0">
           <div class="festive-card menu-set-card rounded-2xl border-2 border-[#C8372D]/40 flex flex-col bg-white/90">
             <div class="flex items-center justify-between mb-1 gap-1">
-              <span class="px-2 py-0.5 rounded-md bg-[#C8372D] text-white font-black text-[10px] sm:text-xs uppercase tracking-wide">Order A</span>
+              <span class="px-2 py-0.5 bg-[#C8372D] text-white font-black text-[10px] sm:text-xs uppercase tracking-wide" style="font-family:Arial,Helvetica,sans-serif;">Order A</span>
               <button type="button" onclick="triggerProductPhotoUpload(1)" class="text-[10px] sm:text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer shrink-0"><i class="fa-solid fa-image"></i></button>
             </div>
             <div id="setPhotoBox1" onclick="triggerProductPhotoUpload(1)" class="menu-photo-box hover:border-[#C8372D]" title="Replace Order A photo">
@@ -2989,7 +3197,7 @@
 
           <div class="festive-card menu-set-card rounded-2xl border-2 border-[#1E6B3B]/40 flex flex-col bg-white/90">
             <div class="flex items-center justify-between mb-1 gap-1">
-              <span class="px-2 py-0.5 rounded-md bg-[#1E6B3B] text-white font-black text-[10px] sm:text-xs uppercase tracking-wide">Order B</span>
+              <span class="px-2 py-0.5 bg-[#1E6B3B] text-white font-black text-[10px] sm:text-xs uppercase tracking-wide" style="font-family:Arial,Helvetica,sans-serif;">Order B</span>
               <button type="button" onclick="triggerProductPhotoUpload(2)" class="text-[10px] sm:text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer shrink-0"><i class="fa-solid fa-image"></i></button>
             </div>
             <div id="setPhotoBox2" onclick="triggerProductPhotoUpload(2)" class="menu-photo-box hover:border-[#1E6B3B]" title="Replace Order B photo">
@@ -3001,7 +3209,7 @@
 
           <div class="festive-card menu-set-card rounded-2xl border-2 border-[#23486A]/40 flex flex-col bg-white/90">
             <div class="flex items-center justify-between mb-1 gap-1">
-              <span class="px-2 py-0.5 rounded-md bg-[#23486A] text-white font-black text-[10px] sm:text-xs uppercase tracking-wide">Order C</span>
+              <span class="px-2 py-0.5 bg-[#23486A] text-white font-black text-[10px] sm:text-xs uppercase tracking-wide" style="font-family:Arial,Helvetica,sans-serif;">Order C</span>
               <button type="button" onclick="triggerProductPhotoUpload(3)" class="text-[10px] sm:text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer shrink-0"><i class="fa-solid fa-image"></i></button>
             </div>
             <div id="setPhotoBox3" onclick="triggerProductPhotoUpload(3)" class="menu-photo-box hover:border-[#23486A]" title="Replace Order C photo">
@@ -3012,10 +3220,10 @@
           </div>
         </div>
 
-        <div class="order-prep-form festive-card rounded-2xl border-2 border-[#23486A]/35 bg-white/95 p-2 sm:p-3 flex flex-col min-h-0">
+        <div class="order-prep-form p-2 sm:p-3 flex flex-col min-h-0">
           <div class="flex items-center justify-between gap-2 mb-1 shrink-0">
-            <p class="font-black text-sm sm:text-base text-[#23486A] leading-tight" contenteditable="true">Sample Order Form · 範本落單紙</p>
-            <span class="text-[10px] sm:text-xs font-extrabold uppercase tracking-wide text-slate-500">Worksheet</span>
+            <p class="g2-exam-sub text-sm sm:text-base leading-tight" contenteditable="true">Sample Order Form · 範本落單紙</p>
+            <span class="g2-exam-kicker text-[10px] sm:text-xs">Worksheet</span>
           </div>
           <div id="orderFormPhotoBox" class="order-sheet-frame rounded-xl border-2 border-solid border-[#23486A]/40 overflow-hidden flex-1 min-h-0">
             <img src="media/order-sheet/order-sheet.png" alt="SSOB School Home Economics exam order sheet — Orders A–C" class="order-sheet-img" />
@@ -3035,13 +3243,13 @@
   <section class="slide flex-col items-center justify-center" style="padding-top: 1.25rem; padding-bottom: 4.5rem; padding-left: 1.5rem; padding-right: 1.5rem;" data-title="12. Game 2: Cook — Timer & Livestream">
     <div class="max-w-[1520px] w-full h-full flex flex-col gap-2.5 justify-center">
 
-      <div class="festive-card lab-live-bar theme-rail rounded-2xl px-5 py-3 flex flex-wrap items-center justify-between gap-3 border-2 border-[#C8372D]/40">
+      <div class="g2-exam-sheet lab-live-bar px-5 py-3 flex flex-wrap items-center justify-between gap-3" style="padding-top:1rem;">
         <div class="flex flex-col gap-1 min-w-0">
           <div class="flex items-center gap-3 flex-wrap">
-            <span class="px-3 py-1 rounded-lg bg-[#C8372D] text-white font-black text-xs uppercase animate-pulse">
+            <span class="px-3 py-1 bg-[#C8372D] text-white font-black text-xs uppercase animate-pulse" style="font-family:Arial,Helvetica,sans-serif;border:1px solid #111;">
               <i class="fa-solid fa-circle text-[9px] mr-1"></i> Home Ec Lab Live
             </span>
-            <h2 class="font-festive-display text-lg sm:text-2xl font-bold text-slate-800">
+            <h2 class="g2-exam-title text-lg sm:text-2xl">
               CHRISTMAS CAFETERIA CHALLENGE
             </h2>
           </div>
