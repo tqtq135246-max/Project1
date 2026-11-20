@@ -273,21 +273,21 @@
       object-position: center;
       display: block;
     }
-    .slide[data-title="12. Game 2: Menu Board"] .stage-board {
+    .slide[data-title="11. Game 2: Order & Prepare"] .stage-board {
       max-width: min(96rem, 96vw);
     }
-    .slide[data-title="12. Game 2: Menu Board"] .menu-board-shell {
+    .slide[data-title="11. Game 2: Order & Prepare"] .menu-board-shell {
       padding: 0.55rem 0.55rem 0.7rem;
     }
-    .slide[data-title="12. Game 2: Menu Board"] .menu-board-chalk {
+    .slide[data-title="11. Game 2: Order & Prepare"] .menu-board-chalk {
       padding: 0.55rem 0.6rem 0.7rem;
     }
-    /* Slide 8 — Team of 3: fit all role cards on landscape */
-    .slide[data-title="10. Game 2: Team Roles"] {
-      padding-top: 3.5rem;
-      padding-bottom: 4rem;
+    /* Game 2 — How to Play (roles + flow chart) */
+    .slide[data-title="10. Game 2: How to Play"] {
+      padding-top: 3.25rem;
+      padding-bottom: 3.75rem;
     }
-    .slide[data-title="10. Game 2: Team Roles"] .team-roles-board {
+    .slide[data-title="10. Game 2: How to Play"] .how-play-board {
       width: 100%;
       max-width: min(96rem, 96vw);
       max-height: 100%;
@@ -295,76 +295,142 @@
       padding: 0.85rem 1rem 1rem;
       display: flex;
       flex-direction: column;
+      gap: 0.65rem;
     }
-    @media (min-width: 640px) {
-      .slide[data-title="10. Game 2: Team Roles"] .team-roles-board {
-        padding: 1rem 1.35rem 1.15rem;
+    .how-play-guests {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.55rem;
+    }
+    @media (min-width: 768px) {
+      .how-play-guests {
+        grid-template-columns: 1fr 1fr;
       }
     }
-    .slide[data-title="10. Game 2: Team Roles"] .team-roles-header {
-      flex: 0 0 auto;
-      text-align: center;
-      margin-bottom: 0.65rem;
+    .how-play-guest {
+      border-radius: 1rem;
+      border: 2px solid rgba(35, 72, 106, 0.28);
+      background: rgba(255, 255, 255, 0.92);
+      padding: 0.65rem 0.85rem;
+      text-align: left;
     }
-    .slide[data-title="10. Game 2: Team Roles"] .team-roles-grid {
-      flex: 1 1 auto;
-      min-height: 0;
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 0.75rem;
+    .how-play-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
       align-items: stretch;
     }
-    @media (max-width: 767px) {
-      .slide[data-title="10. Game 2: Team Roles"] .team-roles-grid {
-        grid-template-columns: 1fr;
+    @media (min-width: 1024px) {
+      .how-play-flow {
+        flex-direction: row;
+        align-items: stretch;
       }
     }
-    .slide[data-title="10. Game 2: Team Roles"] .team-role-card {
-      padding: 0.75rem 0.85rem 0.9rem;
-      min-height: 0;
-      overflow: hidden;
+    .how-play-step {
+      flex: 1 1 0;
+      min-width: 0;
+      border-radius: 1.1rem;
+      padding: 0.7rem 0.75rem 0.8rem;
+      text-align: center;
+      border: 2px solid transparent;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0.25rem;
     }
-    .slide[data-title="10. Game 2: Team Roles"] .team-role-card .role-avatar {
-      width: clamp(4.5rem, 9vh, 6.5rem) !important;
-      height: clamp(4.5rem, 9vh, 6.5rem) !important;
+    .how-play-step .step-num {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-weight: 900;
+      font-size: 0.95rem;
     }
-    .slide[data-title="10. Game 2: Team Roles"] .team-role-card .role-avatar svg {
-      width: 78%;
-      height: 78%;
+    .how-play-arrow {
+      display: none;
+      color: #23486A;
+      font-size: 1.25rem;
+      align-items: center;
+      padding: 0 0.15rem;
     }
-    .slide[data-title="10. Game 2: Team Roles"] .team-role-card ul {
-      font-size: clamp(0.68rem, 1.15vh, 0.85rem);
-      line-height: 1.35;
+    @media (min-width: 1024px) {
+      .how-play-arrow { display: flex; }
     }
-    /* Slide 10 — full-bleed landscape order sheet (fit entire form) */
-    .slide[data-title="13. Game 2: Sample Order Form"] {
-      padding-top: 3.25rem;
-      padding-bottom: 3.75rem;
+    .how-play-arrow-mobile {
+      display: flex;
+      justify-content: center;
+      color: #23486A;
+      font-size: 1rem;
+    }
+    @media (min-width: 1024px) {
+      .how-play-arrow-mobile { display: none; }
+    }
+
+    /* Game 2 — Order & Prepare (menu + form) */
+    .slide[data-title="11. Game 2: Order & Prepare"] {
+      padding-top: 3.1rem;
+      padding-bottom: 3.6rem;
       padding-left: 0.75rem;
       padding-right: 0.75rem;
     }
-    @media (min-width: 1024px) {
-      .slide[data-title="13. Game 2: Sample Order Form"] {
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-      }
-    }
-    .slide[data-title="13. Game 2: Sample Order Form"] .order-sheet-slide {
+    .slide[data-title="11. Game 2: Order & Prepare"] .order-prep-board {
       width: 100%;
       max-width: min(98rem, 98vw);
       flex: 1 1 auto;
-      align-self: stretch;
-      height: auto;
+      min-height: 0;
       max-height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      padding: 0.55rem 0.75rem 0.65rem;
+      margin-inline: auto;
+    }
+    .order-prep-grid {
+      flex: 1 1 auto;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.65rem;
+      align-items: stretch;
+    }
+    @media (min-width: 1024px) {
+      .order-prep-grid {
+        grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      }
+    }
+    .order-prep-menus {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.5rem;
+      min-height: 0;
+    }
+    @media (max-width: 640px) {
+      .order-prep-menus {
+        grid-template-columns: 1fr;
+      }
+    }
+    .order-prep-menus .menu-set-card {
+      padding: 0.45rem 0.45rem 0.55rem;
+      min-width: 0;
+    }
+    .order-prep-menus .menu-photo-box {
+      width: 100%;
+      max-height: min(42vh, 320px);
+      margin-bottom: 0.3rem;
+    }
+    .order-prep-form {
       min-height: 0;
       display: flex;
       flex-direction: column;
-      padding: 0.45rem 0.65rem 0.55rem;
       gap: 0.35rem;
-      margin-inline: auto;
     }
-    .slide[data-title="13. Game 2: Sample Order Form"] .order-sheet-slide.stage-board-pad {
-      padding: 0.45rem 0.65rem 0.55rem;
+    .order-prep-form .order-sheet-frame {
+      flex: 1 1 auto;
+      min-height: 0;
+      max-height: min(58vh, 560px);
     }
     .order-sheet-toolbar {
       display: flex;
@@ -610,22 +676,22 @@
     .menu-board-grid-light {
       margin-top: 0.35rem;
     }
-    .slide[data-title="12. Game 2: Menu Board"] .menu-board-grid {
+    .slide[data-title="11. Game 2: Order & Prepare"] .menu-board-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 0.85rem;
     }
     @media (max-width: 900px) {
-      .slide[data-title="12. Game 2: Menu Board"] .menu-board-grid {
+      .slide[data-title="11. Game 2: Order & Prepare"] .menu-board-grid {
         grid-template-columns: 1fr;
       }
     }
-    .slide[data-title="13. Game 2: Sample Order Form"] .order-sheet-slide {
+    .slide[data-title="11. Game 2: Order & Prepare"] .order-sheet-slide {
       width: 100%;
       max-width: min(72rem, 96vw);
       margin-inline: auto;
     }
-    .slide[data-title="13. Game 2: Sample Order Form"] .order-sheet-frame {
+    .slide[data-title="11. Game 2: Order & Prepare"] .order-sheet-frame {
       max-height: min(58vh, 560px);
       margin-top: 0.35rem;
     }
@@ -2172,7 +2238,7 @@
     }
 
     /* Slide 20 — school awards assembly / yearbook honor board */
-    .slide[data-title="20. Grand Prizes Wall"] {
+    .slide[data-title="18. Grand Prizes Wall"] {
       padding-top: 3.25rem;
       padding-bottom: 3.75rem;
       padding-left: 1rem;
@@ -2763,8 +2829,8 @@
             <span class="zh">每桌組成三人小組。</span>
           </li>
           <li>
-            The team completes orders from the floor: 1 from the head table, and 1 from one of the other teams.
-            <span class="zh">小組完成場地訂單：主桌 1 張，其他隊伍其中一桌 1 張。</span>
+            Head table and the rest of each table also place orders. The Team of 3 completes 1 head-table order and 1 order from another table.
+            <span class="zh">主桌與同枱其餘人都要落單；三人小組完成主桌 1 張 + 其他桌 1 張訂單。</span>
           </li>
           <li>
             Within 10 minutes, the fastest team that completes both orders correctly wins.
@@ -2802,260 +2868,171 @@
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 10: GAME 2: TEAM ROLES (ORDER TAKER, CHEF, SERVER) — BILINGUAL   -->
+  <!-- SLIDE 10: GAME 2: HOW TO PLAY (ROLES + PROCESS CHART)                  -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-stretch justify-center" data-title="10. Game 2: Team Roles">
-    <div class="stage-board festive-card canteen-frame theme-rail rounded-3xl team-roles-board">
-      <div class="team-roles-header">
+  <section class="slide flex-col items-stretch justify-center" data-title="10. Game 2: How to Play">
+    <div class="stage-board festive-card canteen-frame theme-rail rounded-3xl how-play-board">
+      <div class="shrink-0 text-center">
         <span class="px-3 py-0.5 rounded-full bg-sky-100 border border-sky-300 text-sky-900 text-[10px] sm:text-xs font-extrabold uppercase tracking-widest">
-          Home Ec Group Project • 家政課小組專題
+          How the Game Is Played · 遊戲玩法
         </span>
         <h1 class="font-festive-display text-2xl sm:text-4xl font-bold text-[#23486A] tracking-tight mt-1" contenteditable="true">
-          TEAM OF 3
+          EVERYONE ORDERS · TEAM OF 3 SERVES
         </h1>
         <h2 class="text-base sm:text-xl font-black text-[#1E6B3B] mt-0.5" contenteditable="true">
-          三人聖誕小廚小組
+          全員落單 · 三人小組走單
         </h2>
         <p class="text-[11px] sm:text-sm text-slate-700 font-bold mt-1" contenteditable="true">
-          Everyone has a job — the canteen only wins together · 每人一個角色，合作才能過關
+          Roles &amp; process in one chart · 角色與流程合併一圖
         </p>
       </div>
 
-      <div class="team-roles-grid">
-        <!-- Role 1: Order Taker -->
-        <div class="team-role-card bg-amber-50/90 border-2 border-amber-400 rounded-3xl text-center flex flex-col items-center">
-          <div class="role-avatar-wrap mb-2 pointer-events-none">
-            <span class="role-avatar-badge" aria-hidden="true">📋</span>
-            <div class="role-avatar border-4 border-amber-400">
-              <svg viewBox="0 0 120 120">
-                <circle cx="60" cy="58" r="28" fill="#FDE2C4"/>
-                <path d="M28,58 C26,30 44,18 60,18 C76,18 94,30 92,58 Z" fill="#92400E"/>
-                <circle cx="48" cy="56" r="3.2" fill="#1E293B"/>
-                <circle cx="72" cy="56" r="3.2" fill="#1E293B"/>
-                <path d="M50,70 Q60,78 70,70" stroke="#B45309" stroke-width="3" fill="none" stroke-linecap="round"/>
-                <rect x="34" y="88" width="52" height="24" rx="6" fill="#F59E0B"/>
-                <rect x="44" y="78" width="32" height="18" rx="3" fill="#FEF3C7" stroke="#D97724" stroke-width="2"/>
-                <line x1="50" y1="84" x2="70" y2="84" stroke="#D97724" stroke-width="2"/>
-                <line x1="50" y1="90" x2="66" y2="90" stroke="#D97724" stroke-width="2"/>
-              </svg>
-            </div>
-          </div>
-          <h2 class="text-base sm:text-lg font-black text-amber-900 uppercase" contenteditable="true">1. Order Taker</h2>
-          <p class="text-xs sm:text-sm font-black text-amber-800 mb-1.5" contenteditable="true">1. 落單員</p>
-          <ul class="text-slate-700 font-semibold text-left list-disc pl-4 space-y-1" contenteditable="true">
-            <li>Collect Order form<br><span class="text-slate-500 font-medium">收取訂單表格</span></li>
-            <li>Explain the order to Chef<br><span class="text-slate-500 font-medium">向大廚解釋訂單</span></li>
-          </ul>
+      <!-- Guests place orders: head table + rest of table -->
+      <div class="how-play-guests shrink-0">
+        <div class="how-play-guest">
+          <p class="font-black text-sm sm:text-base text-[#23486A] leading-tight" contenteditable="true">
+            <i class="fa-solid fa-crown text-[#C8372D] mr-1.5"></i>Head Table — place orders
+          </p>
+          <p class="text-xs sm:text-sm font-bold text-[#1E6B3B] mt-0.5" contenteditable="true">主桌賓客也要落單</p>
+          <p class="text-[11px] sm:text-xs text-slate-600 font-semibold mt-1" contenteditable="true">
+            Fill the order form for the serving teams · 為上場隊伍填寫落單紙
+          </p>
         </div>
-
-        <!-- Role 2: Chef -->
-        <div class="team-role-card bg-red-50/90 border-2 border-[#C8372D] rounded-3xl text-center flex flex-col items-center">
-          <div class="role-avatar-wrap mb-2 pointer-events-none">
-            <span class="role-avatar-badge" aria-hidden="true">👨‍🍳</span>
-            <div class="role-avatar border-4 border-[#C8372D]">
-              <svg viewBox="0 0 120 120">
-                <ellipse cx="60" cy="28" rx="28" ry="14" fill="#F8FAFC"/>
-                <rect x="40" y="28" width="40" height="12" fill="#E2E8F0"/>
-                <circle cx="60" cy="62" r="26" fill="#FDE2C4"/>
-                <circle cx="50" cy="60" r="3" fill="#1E293B"/>
-                <circle cx="70" cy="60" r="3" fill="#1E293B"/>
-                <path d="M50,72 Q60,80 70,72" stroke="#C8372D" stroke-width="3" fill="none" stroke-linecap="round"/>
-                <path d="M34,90 L86,90 L92,114 L28,114 Z" fill="#C8372D"/>
-                <rect x="52" y="96" width="16" height="10" rx="2" fill="#FEF3C7"/>
-              </svg>
-            </div>
-          </div>
-          <h2 class="text-base sm:text-lg font-black text-[#C8372D] uppercase" contenteditable="true">2. Chef</h2>
-          <p class="text-xs sm:text-sm font-black text-red-800 mb-1.5" contenteditable="true">2. 大廚</p>
-          <ul class="text-slate-700 font-semibold text-left list-disc pl-4 space-y-1" contenteditable="true">
-            <li>Listen as Order Taker explains the order<br><span class="text-slate-500 font-medium">聆聽落單員解釋訂單</span></li>
-            <li>Assemble the meal from the food pool<br><span class="text-slate-500 font-medium">從食材池組裝餐點</span></li>
-            <li>Hand the finished order to the Server<br><span class="text-slate-500 font-medium">將完成的餐點交給侍應</span></li>
-          </ul>
+        <div class="how-play-guest">
+          <p class="font-black text-sm sm:text-base text-[#23486A] leading-tight" contenteditable="true">
+            <i class="fa-solid fa-users text-[#1E6B3B] mr-1.5"></i>Rest of the table — place orders too
+          </p>
+          <p class="text-xs sm:text-sm font-bold text-[#1E6B3B] mt-0.5" contenteditable="true">同枱其餘同事同樣落單</p>
+          <p class="text-[11px] sm:text-xs text-slate-600 font-semibold mt-1" contenteditable="true">
+            Not only the Team of 3 — guests at each table order · 不只三人小組，每桌客人也要落單
+          </p>
         </div>
+      </div>
 
-        <!-- Role 3: Server -->
-        <div class="team-role-card bg-green-50/90 border-2 border-[#1E6B3B] rounded-3xl text-center flex flex-col items-center">
-          <div class="role-avatar-wrap mb-2 pointer-events-none">
-            <span class="role-avatar-badge" aria-hidden="true">🍽️</span>
-            <div class="role-avatar border-4 border-[#1E6B3B]">
-              <svg viewBox="0 0 120 120">
-                <circle cx="60" cy="56" r="28" fill="#FDE2C4"/>
-                <path d="M30,52 C28,28 46,16 60,16 C74,16 92,28 90,52 Z" fill="#14532D"/>
-                <circle cx="48" cy="54" r="3" fill="#1E293B"/>
-                <circle cx="72" cy="54" r="3" fill="#1E293B"/>
-                <path d="M50,68 Q60,76 70,68" stroke="#1E6B3B" stroke-width="3" fill="none" stroke-linecap="round"/>
-                <ellipse cx="60" cy="96" rx="30" ry="10" fill="#FEF3C7" stroke="#D97724" stroke-width="2"/>
-                <circle cx="60" cy="92" r="8" fill="#FCA5A5"/>
-                <path d="M34,90 L86,90 L90,112 L30,112 Z" fill="#1E6B3B"/>
-              </svg>
-            </div>
-          </div>
-          <h2 class="text-base sm:text-lg font-black text-[#1E6B3B] uppercase" contenteditable="true">3. Server</h2>
-          <p class="text-xs sm:text-sm font-black text-green-800 mb-1.5" contenteditable="true">3. 樓面侍應</p>
-          <ul class="text-slate-700 font-semibold text-left list-disc pl-4 space-y-1" contenteditable="true">
-            <li>Receive the assembled meal from the Chef<br><span class="text-slate-500 font-medium">自大廚接收已組裝的餐點</span></li>
-            <li>Serve head table with the order form<br><span class="text-slate-500 font-medium">連同訂單表格一同上菜至主桌</span></li>
-            <li>Wait for the correctness check<br><span class="text-slate-500 font-medium">等候主桌核對是否正確</span></li>
-          </ul>
+      <div class="how-play-arrow-mobile shrink-0" aria-hidden="true"><i class="fa-solid fa-arrow-down"></i></div>
+
+      <!-- Team pipeline -->
+      <div class="how-play-flow flex-1 min-h-0">
+        <div class="how-play-step bg-amber-50/95" style="border-color: rgba(245,158,11,0.55);">
+          <span class="step-num" style="background:#F59E0B;">1</span>
+          <p class="font-black text-sm sm:text-base text-amber-900 leading-tight" contenteditable="true">Order Taker</p>
+          <p class="text-[11px] sm:text-xs font-black text-amber-800" contenteditable="true">落單員</p>
+          <p class="text-[11px] sm:text-xs text-slate-600 font-semibold mt-1 leading-snug" contenteditable="true">Collect form · explain order to Chef</p>
+          <p class="text-[10px] sm:text-[11px] font-bold text-amber-900/80" contenteditable="true">收單 · 向大廚解釋</p>
+        </div>
+        <div class="how-play-arrow" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></div>
+        <div class="how-play-arrow-mobile" aria-hidden="true"><i class="fa-solid fa-arrow-down"></i></div>
+        <div class="how-play-step bg-red-50/95" style="border-color: rgba(200,55,45,0.5);">
+          <span class="step-num" style="background:#C8372D;">2</span>
+          <p class="font-black text-sm sm:text-base text-[#C8372D] leading-tight" contenteditable="true">Chef</p>
+          <p class="text-[11px] sm:text-xs font-black text-red-800" contenteditable="true">大廚</p>
+          <p class="text-[11px] sm:text-xs text-slate-600 font-semibold mt-1 leading-snug" contenteditable="true">Assemble meal from the food pool</p>
+          <p class="text-[10px] sm:text-[11px] font-bold text-red-800/80" contenteditable="true">從食材池組裝餐點</p>
+        </div>
+        <div class="how-play-arrow" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></div>
+        <div class="how-play-arrow-mobile" aria-hidden="true"><i class="fa-solid fa-arrow-down"></i></div>
+        <div class="how-play-step bg-green-50/95" style="border-color: rgba(30,107,59,0.5);">
+          <span class="step-num" style="background:#1E6B3B;">3</span>
+          <p class="font-black text-sm sm:text-base text-[#1E6B3B] leading-tight" contenteditable="true">Server</p>
+          <p class="text-[11px] sm:text-xs font-black text-green-800" contenteditable="true">樓面侍應</p>
+          <p class="text-[11px] sm:text-xs text-slate-600 font-semibold mt-1 leading-snug" contenteditable="true">Deliver with form · wait for check</p>
+          <p class="text-[10px] sm:text-[11px] font-bold text-green-800/80" contenteditable="true">連同表格上菜 · 等候核對</p>
+        </div>
+        <div class="how-play-arrow" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></div>
+        <div class="how-play-arrow-mobile" aria-hidden="true"><i class="fa-solid fa-arrow-down"></i></div>
+        <div class="how-play-step bg-amber-50/90" style="border-color: rgba(217,119,36,0.55);">
+          <span class="step-num" style="background:#D97724;">✓</span>
+          <p class="font-black text-sm sm:text-base text-[#92400E] leading-tight" contenteditable="true">Correctness Check</p>
+          <p class="text-[11px] sm:text-xs font-black text-amber-900" contenteditable="true">核對正確</p>
+          <p class="text-[11px] sm:text-xs text-slate-600 font-semibold mt-1 leading-snug" contenteditable="true">Must match the written order</p>
+          <p class="text-[10px] sm:text-[11px] font-bold text-[#92400E]/80" contenteditable="true">必須與訂單一致 · 錯則重做</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 9: GAME 2: LIVE DEMO PROCESS FLOW                                -->
+  <!-- SLIDE 11: GAME 2: ORDER & PREPARE (MENUS + FORM)                       -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center" data-title="11. Game 2: Demo Process Flow">
-    <div class="stage-board stage-board-pad festive-card canteen-frame theme-rail rounded-3xl">
-      <div class="text-center mb-6">
-        <span class="px-4 py-1.5 rounded-full bg-blue-100 border border-blue-300 text-blue-800 text-xs font-extrabold uppercase tracking-widest">
-          Teacher Demo • 老師課堂示範
+  <section class="slide flex-col items-stretch justify-center" data-title="11. Game 2: Order & Prepare">
+    <div class="stage-board festive-card canteen-frame theme-rail rounded-3xl order-prep-board">
+      <div class="shrink-0 text-center">
+        <span class="px-3 py-0.5 rounded-full bg-blue-100 border border-blue-300 text-blue-800 text-[10px] sm:text-xs font-extrabold uppercase tracking-widest">
+          What to Order &amp; Prepare · 落單與備餐
         </span>
-        <h1 class="font-festive-display text-3xl sm:text-5xl font-bold text-[#23486A] tracking-tight mt-2" contenteditable="true">
-          PROCESS FLOW
+        <h1 class="font-festive-display text-2xl sm:text-3xl md:text-4xl font-bold text-[#23486A] tracking-tight mt-1" contenteditable="true">
+          MENUS + ORDER FORM
         </h1>
-        <h2 class="text-xl sm:text-2xl font-black text-[#1E6B3B] mt-1" contenteditable="true">
-          課堂示範流程
+        <h2 class="text-base sm:text-xl font-black text-[#1E6B3B] mt-0.5" contenteditable="true">
+          餐牌 + 落單紙
         </h2>
-        <p class="text-sm text-slate-600 font-semibold mt-2" contenteditable="true">
-          Watch the teacher’s Christmas canteen demo — then your class team tries it · 先看老師示範，再輪到你們
-        </p>
-      </div>
-
-      <div class="flex flex-col lg:flex-row items-stretch justify-center gap-3 lg:gap-2">
-        <div class="flow-step flex-1 rounded-3xl bg-amber-50 border-2 border-amber-400 p-5 text-center flex flex-col items-center justify-center min-h-[180px]">
-          <div class="w-16 h-16 rounded-full bg-amber-400 text-white font-festive-display text-3xl font-bold flex items-center justify-center shadow mb-3">1</div>
-          <div class="text-4xl mb-2" aria-hidden="true">📋</div>
-          <div class="text-base sm:text-lg font-black text-amber-900" contenteditable="true">Collect Form</div>
-          <div class="text-sm font-bold text-amber-800/80 mt-1" contenteditable="true">收取訂單表格</div>
-          <p class="text-xs font-semibold text-slate-600 mt-2" contenteditable="true">Order Taker picks up the order form</p>
-        </div>
-        <div class="hidden lg:flex items-center justify-center text-3xl text-[#23486A] px-1" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></div>
-        <div class="lg:hidden flex items-center justify-center text-2xl text-[#23486A] py-1" aria-hidden="true"><i class="fa-solid fa-arrow-down"></i></div>
-
-        <div class="flow-step flex-1 rounded-3xl bg-orange-50 border-2 border-orange-400 p-5 text-center flex flex-col items-center justify-center min-h-[180px]">
-          <div class="w-16 h-16 rounded-full bg-orange-500 text-white font-festive-display text-3xl font-bold flex items-center justify-center shadow mb-3">2</div>
-          <div class="text-4xl mb-2" aria-hidden="true">🗣️</div>
-          <div class="text-base sm:text-lg font-black text-orange-900" contenteditable="true">Explain to Chef</div>
-          <div class="text-sm font-bold text-orange-800/80 mt-1" contenteditable="true">向大廚解釋訂單</div>
-          <p class="text-xs font-semibold text-slate-600 mt-2" contenteditable="true">Verbal only — no silent pointing</p>
-        </div>
-        <div class="hidden lg:flex items-center justify-center text-3xl text-[#23486A] px-1" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></div>
-        <div class="lg:hidden flex items-center justify-center text-2xl text-[#23486A] py-1" aria-hidden="true"><i class="fa-solid fa-arrow-down"></i></div>
-
-        <div class="flow-step flex-1 rounded-3xl bg-red-50 border-2 border-[#C8372D] p-5 text-center flex flex-col items-center justify-center min-h-[180px]">
-          <div class="w-16 h-16 rounded-full bg-[#C8372D] text-white font-festive-display text-3xl font-bold flex items-center justify-center shadow mb-3">3</div>
-          <div class="text-4xl mb-2" aria-hidden="true">👨‍🍳</div>
-          <div class="text-base sm:text-lg font-black text-[#C8372D]" contenteditable="true">Assemble Meal</div>
-          <div class="text-sm font-bold text-red-800/80 mt-1" contenteditable="true">組裝餐點</div>
-          <p class="text-xs font-semibold text-slate-600 mt-2" contenteditable="true">Chef builds from the food pool</p>
-        </div>
-        <div class="hidden lg:flex items-center justify-center text-3xl text-[#23486A] px-1" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></div>
-        <div class="lg:hidden flex items-center justify-center text-2xl text-[#23486A] py-1" aria-hidden="true"><i class="fa-solid fa-arrow-down"></i></div>
-
-        <div class="flow-step flex-1 rounded-3xl bg-green-50 border-2 border-[#1E6B3B] p-5 text-center flex flex-col items-center justify-center min-h-[180px]">
-          <div class="w-16 h-16 rounded-full bg-[#1E6B3B] text-white font-festive-display text-3xl font-bold flex items-center justify-center shadow mb-3">4</div>
-          <div class="text-4xl mb-2" aria-hidden="true">🍽️</div>
-          <div class="text-base sm:text-lg font-black text-[#1E6B3B]" contenteditable="true">Serve &amp; Check</div>
-          <div class="text-sm font-bold text-green-800/80 mt-1" contenteditable="true">上菜＋核對</div>
-          <p class="text-xs font-semibold text-slate-600 mt-2" contenteditable="true">Server delivers · head table grades</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================================================================== -->
-  <!-- SLIDE 10: GAME 2: 6-SET MENU BOARD                                     -->
-  <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center" data-title="12. Game 2: Menu Board">
-    <div class="stage-board stage-board-pad festive-card canteen-frame theme-rail rounded-3xl">
-      <div class="text-center mb-4">
-        <span class="px-4 py-1.5 rounded-full bg-blue-100 border border-blue-300 text-blue-800 text-xs font-extrabold uppercase tracking-widest">
-          School Cafeteria · Orders A–C · 學校食堂
-        </span>
-        <h1 class="font-festive-display text-3xl sm:text-5xl font-bold text-[#23486A] tracking-tight mt-2" contenteditable="true">
-          CAFETERIA MENU BOARD
-        </h1>
-        <h2 class="text-xl sm:text-2xl font-black text-[#1E6B3B] mt-1" contenteditable="true">
-          食堂餐牌
-        </h2>
-        <p class="text-sm text-slate-600 font-semibold mt-2" contenteditable="true">
-          Today’s Christmas canteen specials · 今日聖誕食堂套餐
+        <p class="text-[11px] sm:text-sm text-slate-600 font-semibold mt-1" contenteditable="true">
+          Pick a set · fill the form · pass to Order Taker · 選套餐 · 填表格 · 交接單員
         </p>
       </div>
 
       <input type="file" id="productPhotoInput" accept="image/*" class="hidden" />
 
-      <div class="menu-board-grid menu-board-grid-light">
-        <div class="festive-card menu-set-card rounded-2xl border-2 border-[#C8372D]/40 flex flex-col bg-white/90">
-          <div class="flex items-center justify-between mb-1.5 gap-1">
-            <span class="px-2 py-0.5 rounded-md bg-[#C8372D] text-white font-black text-[10px] sm:text-xs uppercase tracking-wide">Order A</span>
-            <button type="button" onclick="triggerProductPhotoUpload(1)" class="text-[10px] sm:text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer shrink-0"><i class="fa-solid fa-image"></i></button>
+      <div class="order-prep-grid">
+        <div class="order-prep-menus min-h-0">
+          <div class="festive-card menu-set-card rounded-2xl border-2 border-[#C8372D]/40 flex flex-col bg-white/90">
+            <div class="flex items-center justify-between mb-1 gap-1">
+              <span class="px-2 py-0.5 rounded-md bg-[#C8372D] text-white font-black text-[10px] sm:text-xs uppercase tracking-wide">Order A</span>
+              <button type="button" onclick="triggerProductPhotoUpload(1)" class="text-[10px] sm:text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer shrink-0"><i class="fa-solid fa-image"></i></button>
+            </div>
+            <div id="setPhotoBox1" onclick="triggerProductPhotoUpload(1)" class="menu-photo-box hover:border-[#C8372D]" title="Replace Order A photo">
+              <img src="media/menus/order-a-classic-beef.jpg" alt="Order A Classic Beef" />
+            </div>
+            <h3 class="font-black text-slate-800 text-sm sm:text-base" contenteditable="true">Classic Beef</h3>
+            <p class="menu-set-sub text-slate-600 font-semibold text-[11px] sm:text-xs mt-0.5" contenteditable="true">Order A · 經典牛肉堡</p>
           </div>
-          <div id="setPhotoBox1" onclick="triggerProductPhotoUpload(1)" class="menu-photo-box hover:border-[#C8372D]" title="Replace Order A photo">
-            <img src="media/menus/order-a-classic-beef.jpg" alt="Order A Classic Beef" />
+
+          <div class="festive-card menu-set-card rounded-2xl border-2 border-[#1E6B3B]/40 flex flex-col bg-white/90">
+            <div class="flex items-center justify-between mb-1 gap-1">
+              <span class="px-2 py-0.5 rounded-md bg-[#1E6B3B] text-white font-black text-[10px] sm:text-xs uppercase tracking-wide">Order B</span>
+              <button type="button" onclick="triggerProductPhotoUpload(2)" class="text-[10px] sm:text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer shrink-0"><i class="fa-solid fa-image"></i></button>
+            </div>
+            <div id="setPhotoBox2" onclick="triggerProductPhotoUpload(2)" class="menu-photo-box hover:border-[#1E6B3B]" title="Replace Order B photo">
+              <img src="media/menus/order-b-fish.jpg" alt="Order B Fish" />
+            </div>
+            <h3 class="font-black text-slate-800 text-sm sm:text-base" contenteditable="true">Fish</h3>
+            <p class="menu-set-sub text-slate-600 font-semibold text-[11px] sm:text-xs mt-0.5" contenteditable="true">Order B · 魚柳堡</p>
           </div>
-          <h3 class="font-black text-slate-800" contenteditable="true">Classic Beef</h3>
-          <p class="menu-set-sub text-slate-600 font-semibold mt-0.5" contenteditable="true">Order A · 經典牛肉堡</p>
+
+          <div class="festive-card menu-set-card rounded-2xl border-2 border-[#23486A]/40 flex flex-col bg-white/90">
+            <div class="flex items-center justify-between mb-1 gap-1">
+              <span class="px-2 py-0.5 rounded-md bg-[#23486A] text-white font-black text-[10px] sm:text-xs uppercase tracking-wide">Order C</span>
+              <button type="button" onclick="triggerProductPhotoUpload(3)" class="text-[10px] sm:text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer shrink-0"><i class="fa-solid fa-image"></i></button>
+            </div>
+            <div id="setPhotoBox3" onclick="triggerProductPhotoUpload(3)" class="menu-photo-box hover:border-[#23486A]" title="Replace Order C photo">
+              <img src="media/menus/order-c-chicken.jpg" alt="Order C Chicken" />
+            </div>
+            <h3 class="font-black text-slate-800 text-sm sm:text-base" contenteditable="true">Chicken</h3>
+            <p class="menu-set-sub text-slate-600 font-semibold text-[11px] sm:text-xs mt-0.5" contenteditable="true">Order C · 雞肉堡</p>
+          </div>
         </div>
 
-        <div class="festive-card menu-set-card rounded-2xl border-2 border-[#1E6B3B]/40 flex flex-col bg-white/90">
-          <div class="flex items-center justify-between mb-1.5 gap-1">
-            <span class="px-2 py-0.5 rounded-md bg-[#1E6B3B] text-white font-black text-[10px] sm:text-xs uppercase tracking-wide">Order B</span>
-            <button type="button" onclick="triggerProductPhotoUpload(2)" class="text-[10px] sm:text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer shrink-0"><i class="fa-solid fa-image"></i></button>
+        <div class="order-prep-form festive-card rounded-2xl border-2 border-[#23486A]/35 bg-white/95 p-2 sm:p-3 flex flex-col min-h-0">
+          <div class="flex items-center justify-between gap-2 mb-1 shrink-0">
+            <p class="font-black text-sm sm:text-base text-[#23486A] leading-tight" contenteditable="true">Sample Order Form · 範本落單紙</p>
+            <span class="text-[10px] sm:text-xs font-extrabold uppercase tracking-wide text-slate-500">Worksheet</span>
           </div>
-          <div id="setPhotoBox2" onclick="triggerProductPhotoUpload(2)" class="menu-photo-box hover:border-[#1E6B3B]" title="Replace Order B photo">
-            <img src="media/menus/order-b-fish.jpg" alt="Order B Fish" />
+          <div id="orderFormPhotoBox" class="order-sheet-frame rounded-xl border-2 border-solid border-[#23486A]/40 overflow-hidden flex-1 min-h-0">
+            <img src="media/order-sheet/order-sheet.png" alt="SSOB School Home Economics exam order sheet — Orders A–C" class="order-sheet-img" />
           </div>
-          <h3 class="font-black text-slate-800" contenteditable="true">Fish</h3>
-          <p class="menu-set-sub text-slate-600 font-semibold mt-0.5" contenteditable="true">Order B · 魚柳堡</p>
-        </div>
-
-        <div class="festive-card menu-set-card rounded-2xl border-2 border-[#23486A]/40 flex flex-col bg-white/90">
-          <div class="flex items-center justify-between mb-1.5 gap-1">
-            <span class="px-2 py-0.5 rounded-md bg-[#23486A] text-white font-black text-[10px] sm:text-xs uppercase tracking-wide">Order C</span>
-            <button type="button" onclick="triggerProductPhotoUpload(3)" class="text-[10px] sm:text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer shrink-0"><i class="fa-solid fa-image"></i></button>
-          </div>
-          <div id="setPhotoBox3" onclick="triggerProductPhotoUpload(3)" class="menu-photo-box hover:border-[#23486A]" title="Replace Order C photo">
-            <img src="media/menus/order-c-chicken.jpg" alt="Order C Chicken" />
-          </div>
-          <h3 class="font-black text-slate-800" contenteditable="true">Chicken</h3>
-          <p class="menu-set-sub text-slate-600 font-semibold mt-0.5" contenteditable="true">Order C · 雞肉堡</p>
+          <p class="text-[10px] sm:text-xs text-slate-600 font-semibold mt-1 leading-snug shrink-0" contenteditable="true">
+            Tick your order · table guests fill this · pass to Order Taker · 每桌勾選訂單 · 交予落單員
+          </p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 13: GAME 2: SAMPLE ORDER FORM                                    -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center" data-title="13. Game 2: Sample Order Form">
-    <div class="stage-board stage-board-pad festive-card canteen-frame theme-rail rounded-3xl order-sheet-slide">
-      <div class="text-center mb-3">
-        <span class="px-4 py-1.5 rounded-full bg-blue-100 border border-blue-300 text-blue-800 text-xs font-extrabold uppercase tracking-widest">
-          Class Worksheet • 課堂習作單
-        </span>
-        <h1 class="font-festive-display text-3xl sm:text-5xl font-bold text-[#23486A] tracking-tight mt-2" contenteditable="true">
-          ORDER FORM
-        </h1>
-        <h2 class="text-xl sm:text-2xl font-black text-[#1E6B3B] mt-1" contenteditable="true">
-          訂單表格
-        </h2>
-        <p class="text-sm text-slate-600 font-semibold mt-2" contenteditable="true">
-          Tick your order · 每桌用這張訂單表
-        </p>
-      </div>
-      <div id="orderFormPhotoBox" class="order-sheet-frame rounded-xl border-2 border-solid border-[#23486A]/40 overflow-hidden">
-        <img src="media/order-sheet/order-sheet.png" alt="SSOB School Home Economics exam order sheet — Orders A–C" class="order-sheet-img" />
-      </div>
-    </div>
-  </section>
-
+  <!-- SLIDE 12: GAME 2: TIMER & LIVESTREAM (DEMO)                            -->
   <!-- ===================================================================== -->
-  <!-- SLIDE 12: GAME 2: TIMER & LIVESTREAM                                   -->
-  <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center" style="padding-top: 1.25rem; padding-bottom: 4.5rem; padding-left: 1.5rem; padding-right: 1.5rem;" data-title="14. Game 2: Cook — Timer & Livestream">
+  <section class="slide flex-col items-center justify-center" style="padding-top: 1.25rem; padding-bottom: 4.5rem; padding-left: 1.5rem; padding-right: 1.5rem;" data-title="12. Game 2: Cook — Timer & Livestream">
     <div class="max-w-[1520px] w-full h-full flex flex-col gap-2.5 justify-center">
 
       <div class="festive-card lab-live-bar theme-rail rounded-2xl px-5 py-3 flex flex-wrap items-center justify-between gap-3 border-2 border-[#C8372D]/40">
@@ -3148,7 +3125,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 12: DESSERT & COFFEE BREAK (TUCK SHOP RECESS)                   -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center" data-title="15. Dessert & Coffee Break">
+  <section class="slide flex-col items-center justify-center text-center" data-title="13. Dessert & Coffee Break">
     <div class="festive-card canteen-frame theme-rail stage-card rounded-3xl border-4 border-[#1E6B3B]">
       <div class="w-24 h-24 mx-auto mb-4 rounded-3xl bg-gradient-to-tr from-[#1E6B3B] to-[#23486A] flex items-center justify-center text-white text-4xl shadow-lg animate-float">
         <i class="fa-solid fa-cookie-bite"></i>
@@ -3182,7 +3159,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 13: LUCKY DRAW PHASE 1 (PRINCIPAL'S HONOR ROLL SPINNER)         -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col overflow-hidden" style="padding-top: 3.1rem; padding-bottom: 4rem;" data-title="16. Christmas Gifts Spinner">
+  <section class="slide flex-col overflow-hidden" style="padding-top: 3.1rem; padding-bottom: 4rem;" data-title="14. Christmas Gifts Spinner">
     <div class="flex-1 max-w-[1600px] w-full mx-auto flex flex-col justify-center">
       <div class="flex flex-wrap items-center justify-between gap-2 mb-1 px-1">
         <div class="flex items-center gap-3 flex-wrap">
@@ -3290,7 +3267,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 17: BEST DRESSED — CATWALK                                      -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center overflow-hidden" data-title="17. Best Dressed — Catwalk">
+  <section class="slide flex-col items-center justify-center text-center overflow-hidden" data-title="15. Best Dressed — Catwalk">
     <div class="stage-card festive-card yearbook-card theme-rail rounded-3xl border-4 border-[#C8372D] relative catwalk-yearbook" id="bestDressedRevealStage">
       <div class="cc-walkers cc-walkers-on-yearbook" aria-hidden="true">
         <i class="fa-solid fa-person-walking cc-w1"></i>
@@ -3318,7 +3295,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 18: GRAND PRIZES INTRO                                          -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center" data-title="18. Grand Prizes Intro">
+  <section class="slide flex-col items-center justify-center text-center" data-title="16. Grand Prizes Intro">
     <div class="festive-card finale-card theme-rail stage-card rounded-3xl border-4 border-[#D97724]">
       <div class="w-24 h-24 mx-auto mb-5 rounded-3xl bg-gradient-to-tr from-[#C8372D] to-[#D97724] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
         <i class="fa-solid fa-gift"></i>
@@ -3344,7 +3321,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 19: GRAND PRIZES SPINNER (DEDICATED SHARED-POOL WHEEL)           -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col overflow-hidden" style="padding-top: 3.1rem; padding-bottom: 4rem;" data-title="19. Grand Prizes Spinner">
+  <section class="slide flex-col overflow-hidden" style="padding-top: 3.1rem; padding-bottom: 4rem;" data-title="17. Grand Prizes Spinner">
     <div class="flex-1 max-w-[1600px] w-full mx-auto flex flex-col justify-center">
       <div class="flex flex-wrap items-center justify-between gap-2 mb-1 px-1">
         <div class="flex items-center gap-3 flex-wrap">
@@ -3430,7 +3407,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 19: GROUP PHOTO BACKDROP                                        -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-between text-center" data-title="20. Group Photo Backdrop">
+  <section class="slide flex-col items-center justify-between text-center" data-title="18. Group Photo Backdrop">
     <div class="w-full max-w-5xl mx-auto pt-2">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#C8372D] text-white text-xs font-black uppercase tracking-widest shadow mb-2">
         <i class="fa-solid fa-camera"></i> Group Photo • 畢業大合照
@@ -3591,12 +3568,12 @@
     // Stable slide indices (0-based)
     // 20 slides (0..19): Best Dressed intro removed; catwalk only
     const SLIDE_SOCK_GUESS = 4;
-    const SLIDE_COOK = 13;
-    const SLIDE_XMAS_SPIN = 15;
-    const SLIDE_BEST_REVEAL = 16; // catwalk yearbook backdrop
-    const SLIDE_GRAND_INTRO = 17;
-    const SLIDE_GRAND_SPIN = 18;
-    const SLIDE_GROUP = 19;
+    const SLIDE_COOK = 11;
+    const SLIDE_XMAS_SPIN = 13;
+    const SLIDE_BEST_REVEAL = 14; // catwalk yearbook backdrop
+    const SLIDE_GRAND_INTRO = 15;
+    const SLIDE_GRAND_SPIN = 16;
+    const SLIDE_GROUP = 17;
     const SOCK_GUESS_COUNT = 3;
     const CHRISTMAS_SLOTS = 14; // 3+3+4+3+1
     const GRAND_SLOTS = 6;
@@ -4896,12 +4873,12 @@
       { id: 'sockGuess', label: 'Sock Guess Reveal', slides: [4], trackKey: 'luckyDraw' },
       { id: 'game1', label: 'Game 1 Make a Guess', slides: [5, 6], trackKey: 'game1' },
       { id: 'game2Prelude', label: 'Game 2 prelude', slides: [7, 8], trackKey: 'game1' },
-      { id: 'game2', label: 'Game 2 Culinary Fanatic', slides: [9, 10, 11, 12, 13], trackKey: 'game2' },
-      { id: 'recess', label: 'Recess', slides: [14], trackKey: 'recess' },
-      { id: 'christmasGifts', label: 'Christmas Gifts', slides: [15], trackKey: 'luckyDraw' },
-      { id: 'bestDressed', label: 'Best Dressed Catwalk', slides: [16], trackKey: 'bestDressed' },
-      { id: 'grandPrizes', label: 'Grand Prizes', slides: [17, 18], trackKey: 'luckyDraw' },
-      { id: 'finale', label: 'Finale', slides: [19], trackKey: 'finale' }
+      { id: 'game2', label: 'Game 2 Culinary Fanatic', slides: [9, 10, 11], trackKey: 'game2' },
+      { id: 'recess', label: 'Recess', slides: [12], trackKey: 'recess' },
+      { id: 'christmasGifts', label: 'Christmas Gifts', slides: [13], trackKey: 'luckyDraw' },
+      { id: 'bestDressed', label: 'Best Dressed Catwalk', slides: [14], trackKey: 'bestDressed' },
+      { id: 'grandPrizes', label: 'Grand Prizes', slides: [15, 16], trackKey: 'luckyDraw' },
+      { id: 'finale', label: 'Finale', slides: [17], trackKey: 'finale' }
     ];
 
     function getPhaseForSlide(slideIdx) {
