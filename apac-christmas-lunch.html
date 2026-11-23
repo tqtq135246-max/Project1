@@ -961,6 +961,44 @@
       from { transform: scale(1); }
       to { transform: scale(1.03); }
     }
+    #winnerModal.winner-modal-voucher .festive-card {
+      max-width: min(92vw, 40rem);
+    }
+    #modalPrizePhoto.modal-prize-voucher {
+      width: min(100%, 34rem);
+      height: auto;
+      aspect-ratio: 4 / 3;
+      max-height: min(42vh, 22rem);
+    }
+    #modalPrizePhoto.modal-prize-voucher img {
+      object-fit: contain !important;
+      background: #fff;
+    }
+    .next-grand-preview {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      border-radius: 0.9rem;
+      overflow: hidden;
+      border: 2px solid rgba(217, 119, 36, 0.45);
+      background: linear-gradient(160deg, #fff7ed, #fef3c7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .next-grand-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .next-grand-preview.is-empty {
+      border-style: dashed;
+      color: #92400e;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
 
     /* Slide 2: MC Walk-Out Animations */
     @keyframes mcWalkLeft {
@@ -3518,10 +3556,13 @@
         豪華大獎 · 學期榮譽
       </h2>
       <p class="text-lg sm:text-2xl text-slate-600 font-bold max-w-2xl mx-auto" contenteditable="true">
-        Final school honor roll — premium individual Christmas prizes on the next spin!
+        Six top prizes · drawn #6 → #1 · gift vouchers reveal on each win
       </p>
       <p class="text-sm text-slate-500 font-semibold mt-3" id="grandIntroPoolHint">
         Shared class pool — Christmas gift winners stay out · advance to spin
+      </p>
+      <p class="text-[11px] sm:text-xs text-slate-500 font-semibold mt-4 max-w-3xl mx-auto leading-relaxed">
+        6th Garmin · 5th &amp; 4th HKDL tickets · 3rd Kobo Clara · 2nd PowerShot V10 · 1st iPhone 17e
       </p>
     </div>
   </section>
@@ -3564,10 +3605,11 @@
           <div class="festive-card rounded-2xl p-3.5 border-2 border-[#D97724]/40">
             <div class="space-y-2">
               <div class="flex items-center justify-between gap-2">
-                <label class="text-xs font-extrabold text-slate-700 flex items-center gap-1.5"><i class="fa-solid fa-crown text-amber-500"></i> Next rank</label>
-                <span id="nextGrandLabel" class="text-[11px] font-black text-[#D97724]">Grand Prize #6</span>
+                <label class="text-xs font-extrabold text-slate-700 flex items-center gap-1.5"><i class="fa-solid fa-crown text-amber-500"></i> Next prize</label>
+                <span id="nextGrandLabel" class="text-[11px] font-black text-[#D97724]">6th · Garmin</span>
               </div>
-              <p class="text-[10px] text-slate-500 font-semibold">Drawn #6 → #1 · #1 is the best · use center SPIN / Space</p>
+              <div id="nextGrandPreview" class="next-grand-preview is-empty" aria-live="polite">Up next</div>
+              <p id="nextGrandDetail" class="text-[10px] text-slate-600 font-semibold leading-snug">Drawn #6 → #1 · announce card shows next · voucher opens on win</p>
             </div>
           </div>
         </div>
@@ -3658,7 +3700,7 @@
       <div id="modalPrizeLabel" class="text-xs uppercase tracking-widest text-[#1E6B3B] font-black mb-2">Winner #1</div>
       <div id="modalPrizePhoto" class="mx-auto mb-3 w-40 h-40 sm:w-48 sm:h-48 rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 overflow-hidden flex flex-col items-center justify-center text-slate-400">
         <i class="fa-solid fa-gift text-3xl mb-1"></i>
-        <span class="text-[10px] font-bold">Prize photo</span>
+        <span class="text-[10px] font-bold">Gift voucher</span>
       </div>
       <h3 id="modalWinnerName" class="text-2xl sm:text-3xl font-black text-slate-900 break-words py-3.5 px-4 bg-red-50 rounded-2xl border-2 border-red-200 my-2">Winner Name</h3>
       <div id="modalWinnerList" class="hidden text-left max-h-40 overflow-y-auto my-2 px-1 space-y-1"></div>
@@ -3798,15 +3840,31 @@
       { id: 'giftE', qty: 1, name: 'Christmas Gift E', color: '#991B1B' }
     ];
     const GRAND_PRIZES = [
-      { id: 'gp1', rank: 1, name: 'Grand Prize #1', color: '#C8372D' },
-      { id: 'gp2', rank: 2, name: 'Grand Prize #2', color: '#D97724' },
-      { id: 'gp3', rank: 3, name: 'Grand Prize #3', color: '#1E6B3B' },
-      { id: 'gp4', rank: 4, name: 'Grand Prize #4', color: '#23486A' },
-      { id: 'gp5', rank: 5, name: 'Grand Prize #5', color: '#991B1B' },
-      { id: 'gp6', rank: 6, name: 'Grand Prize #6', color: '#14532D' }
+      { id: 'gp1', rank: 1, name: '1st · iPhone 17e 256GB', color: '#C8372D', short: 'iPhone 17e' },
+      { id: 'gp2', rank: 2, name: '2nd · Canon PowerShot V10', color: '#D97724', short: 'PowerShot V10' },
+      { id: 'gp3', rank: 3, name: '3rd · Kobo Clara Colour', color: '#1E6B3B', short: 'Kobo Clara' },
+      { id: 'gp4', rank: 4, name: '4th · HK Disneyland ×2', color: '#23486A', short: 'HKDL tickets' },
+      { id: 'gp5', rank: 5, name: '5th · HK Disneyland ×2', color: '#991B1B', short: 'HKDL tickets' },
+      { id: 'gp6', rank: 6, name: '6th · Garmin Forerunner 165', color: '#14532D', short: 'Garmin 165' }
     ];
+    const DEFAULT_GRAND_PRIZE_PHOTOS = {
+      0: 'media/grand-prizes/voucher-1st.jpg',
+      1: 'media/grand-prizes/voucher-2nd.jpg',
+      2: 'media/grand-prizes/voucher-3rd.jpg',
+      3: 'media/grand-prizes/voucher-4th.jpg',
+      4: 'media/grand-prizes/voucher-5th.jpg',
+      5: 'media/grand-prizes/voucher-6th.jpg'
+    };
+    const DEFAULT_GRAND_ANNOUNCE_PHOTOS = {
+      0: 'media/grand-prizes/announce-1st.jpg',
+      1: 'media/grand-prizes/announce-2nd.jpg',
+      2: 'media/grand-prizes/announce-3rd.jpg',
+      3: 'media/grand-prizes/announce-4th.jpg',
+      4: 'media/grand-prizes/announce-5th.jpg',
+      5: 'media/grand-prizes/announce-6th.jpg'
+    };
     let christmasGiftPhotos = {}; // #SAVE:christmasGiftPhotos
-    let grandPrizePhotos = {}; // #SAVE:grandPrizePhotos
+    let grandPrizePhotos = { ...DEFAULT_GRAND_PRIZE_PHOTOS }; // #SAVE:grandPrizePhotos
     let christmasGiftNames = CHRISTMAS_BATCHES.map(g => g.name); // #SAVE:christmasGiftNames
     let grandPrizeNames = GRAND_PRIZES.map(g => g.name); // #SAVE:grandPrizeNames
     let customBellDataUrl = 'audio/Bell.mp3'; // #SAVE:customBellDataUrl
@@ -4068,9 +4126,36 @@
           ? (grandPrizeNames[grandPrizeIndex] || nextGrand.name)
           : 'All Grand Prizes drawn';
       }
+      updateNextGrandPreview();
       const batchInput = document.getElementById('batchCountInput');
       if (batchInput && nextBatch) batchInput.value = String(nextBatch.qty);
       updateSharedPoolHud();
+    }
+
+    function updateNextGrandPreview() {
+      const preview = document.getElementById('nextGrandPreview');
+      const detail = document.getElementById('nextGrandDetail');
+      if (!preview) return;
+      const idx = grandPrizeIndex;
+      const prize = idx >= 0 ? GRAND_PRIZES[idx] : null;
+      const announce = idx >= 0
+        ? (DEFAULT_GRAND_ANNOUNCE_PHOTOS[idx] || '')
+        : '';
+      while (preview.firstChild) preview.removeChild(preview.firstChild);
+      if (announce && prize) {
+        preview.classList.remove('is-empty');
+        const img = document.createElement('img');
+        img.src = announce;
+        img.alt = `${prize.rank}${prize.rank === 1 ? 'st' : prize.rank === 2 ? 'nd' : prize.rank === 3 ? 'rd' : 'th'} prize announce`;
+        preview.appendChild(img);
+        if (detail) {
+          detail.textContent = `${grandPrizeNames[idx] || prize.name} · drawn #6 → #1 · voucher opens on win`;
+        }
+      } else {
+        preview.classList.add('is-empty');
+        preview.textContent = 'All six drawn';
+        if (detail) detail.textContent = 'Honor roll complete — continue to group photo';
+      }
     }
 
     const DEFAULT_ORDER_SHEET_SRC = 'media/order-sheet/order-sheet.png';
@@ -4121,7 +4206,11 @@
 
     function getPrizePhotoForWinner(entry) {
       if (!entry) return '';
-      if (entry.rankIndex != null) return grandPrizePhotos[entry.rankIndex] || '';
+      if (entry.rankIndex != null) {
+        return grandPrizePhotos[entry.rankIndex]
+          || DEFAULT_GRAND_PRIZE_PHOTOS[entry.rankIndex]
+          || '';
+      }
       if (entry.giftIndex != null) return christmasGiftPhotos[entry.giftIndex] || '';
       return '';
     }
@@ -4549,10 +4638,18 @@
       }
       if (photoEl) {
         photoEl.classList.toggle('hidden', !showPhoto);
+        const isGrandVoucher = showPhoto && last && last.rankIndex != null;
+        photoEl.classList.toggle('modal-prize-voucher', !!isGrandVoucher);
+        modal.classList.toggle('winner-modal-voucher', !!isGrandVoucher);
         if (showPhoto) {
           const photo = opts.photo || getPrizePhotoForWinner(last);
           if (photo) {
-            setElementImage(photoEl, photo, 'Prize', 'w-full h-full object-cover');
+            setElementImage(
+              photoEl,
+              photo,
+              isGrandVoucher ? 'Gift voucher' : 'Prize',
+              isGrandVoucher ? 'w-full h-full object-contain' : 'w-full h-full object-cover'
+            );
             photoEl.classList.remove('border-dashed');
             photoEl.classList.add('border-solid', 'border-[#C8372D]');
           } else {
@@ -4563,6 +4660,9 @@
             photoEl.classList.add('border-dashed');
             photoEl.classList.remove('border-solid', 'border-[#C8372D]');
           }
+        } else {
+          modal.classList.remove('winner-modal-voucher');
+          photoEl.classList.remove('modal-prize-voucher');
         }
       }
       if (congratsEl) {
