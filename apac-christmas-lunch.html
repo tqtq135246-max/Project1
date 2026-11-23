@@ -274,6 +274,94 @@
       .stage-board-pad { padding: 2.5rem; }
     }
 
+    /* Slide 4 — buffet + sock-guess teaser */
+    .slide[data-title="4. 1st Round Buffet & Game Preview"] {
+      position: relative;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    .buffet-sock-teaser {
+      position: absolute;
+      left: max(0.75rem, 2vw);
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 4;
+      width: min(11.5rem, 22vw);
+      text-align: center;
+      padding: 0.85rem 0.7rem 1rem;
+      border-radius: 1.1rem;
+      border: 2.5px dashed rgba(200, 55, 45, 0.45);
+      background: linear-gradient(165deg, rgba(255, 241, 242, 0.96), rgba(255, 247, 237, 0.94));
+      box-shadow: 0 14px 28px -18px rgba(190, 18, 60, 0.35);
+      font-family: 'Fredoka', sans-serif;
+    }
+    .buffet-sock-teaser-icon {
+      width: 3rem;
+      height: 3rem;
+      margin: 0 auto 0.45rem;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(145deg, #C8372D, #D97724);
+      color: #fff;
+      font-size: 1.25rem;
+      box-shadow: 0 8px 16px -10px rgba(200, 55, 45, 0.55);
+    }
+    .buffet-sock-teaser-kicker {
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #9f1239;
+      margin-bottom: 0.2rem;
+    }
+    .buffet-sock-teaser-title {
+      font-size: clamp(1.05rem, 2.2vh, 1.35rem);
+      font-weight: 800;
+      color: #C8372D;
+      line-height: 1.1;
+    }
+    .buffet-sock-teaser-zh {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #1E6B3B;
+      margin-top: 0.1rem;
+    }
+    .buffet-sock-teaser-hint,
+    .buffet-sock-teaser-hint-zh {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-top: 0.35rem;
+    }
+    .buffet-sock-teaser-hint {
+      font-size: 0.68rem;
+      color: #44403c;
+    }
+    .buffet-sock-teaser-hint-zh {
+      font-size: 0.62rem;
+      color: #78716c;
+      margin-top: 0.15rem;
+    }
+    @media (min-width: 900px) {
+      .slide[data-title="4. 1st Round Buffet & Game Preview"] .stage-card {
+        margin-left: min(8rem, 14vw);
+      }
+    }
+    @media (max-width: 899px) {
+      .buffet-sock-teaser {
+        position: static;
+        transform: none;
+        width: min(20rem, 92%);
+        margin: 0 auto 0.85rem;
+        order: -1;
+      }
+      .buffet-preview-slide {
+        justify-content: flex-start;
+        padding-top: 3.2rem;
+        overflow: auto;
+      }
+    }
 
     .chalkboard-card {
       background: linear-gradient(145deg, #164e33 0%, #1E6B3B 55%, #14532D 100%);
@@ -3016,7 +3104,16 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 4: BUFFET SCREEN (PREVIEW ONLY)                                 -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center" data-title="4. 1st Round Buffet & Game Preview">
+  <section class="slide buffet-preview-slide flex-col items-center justify-center text-center" data-title="4. 1st Round Buffet & Game Preview">
+    <aside class="buffet-sock-teaser" aria-label="Sock guessing game teaser">
+      <div class="buffet-sock-teaser-icon animate-float" aria-hidden="true"><i class="fa-solid fa-socks"></i></div>
+      <p class="buffet-sock-teaser-kicker" contenteditable="true">Meanwhile… · 同時</p>
+      <h3 class="buffet-sock-teaser-title" contenteditable="true">Sock Guess</h3>
+      <p class="buffet-sock-teaser-zh" contenteditable="true">襪子猜謎</p>
+      <p class="buffet-sock-teaser-hint" contenteditable="true">Keep guessing during lunch — winners later!</p>
+      <p class="buffet-sock-teaser-hint-zh" contenteditable="true">午餐時繼續猜——得獎者稍後揭曉！</p>
+    </aside>
+
     <div class="festive-card canteen-frame theme-rail stage-card rounded-3xl border-4 border-[#1E6B3B]">
       <div class="w-24 h-24 mx-auto mb-4 rounded-3xl bg-gradient-to-tr from-[#1E6B3B] to-[#23486A] flex items-center justify-center text-white text-4xl shadow-lg animate-float">
         <i class="fa-solid fa-utensils"></i>
@@ -3032,13 +3129,13 @@
 
       <div class="max-w-xl mx-auto bg-sky-50 border-2 border-[#23486A]/35 rounded-2xl p-5 mb-6 text-center shadow-sm">
         <div class="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-[#23486A] text-white text-xs font-black uppercase tracking-wider mb-1.5">
-          <i class="fa-solid fa-clock"></i> Run order • 本日流程
+          <i class="fa-solid fa-gamepad"></i> Up Next • 緊接活動
         </div>
         <h3 class="text-base sm:text-lg font-black text-slate-800 leading-snug" contenteditable="true">
-          Games → 1st lucky draw → 2nd buffet → Best Dressed → Grand prizes → Sock reveal
+          Games coming up! • 遊戲即將登場！
         </h3>
         <p class="text-xs sm:text-sm font-bold text-slate-600 mt-1.5" contenteditable="true">
-          遊戲 → 第一次抽獎 → 第二輪自助 → 最佳服裝 → 豪華大獎 → 襪子揭曉
+          Enjoy the buffet — then play. · 先用餐，再玩遊戲。
         </p>
       </div>
 
