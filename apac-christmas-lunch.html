@@ -75,6 +75,264 @@
     .font-festive-script { font-family: 'Caveat', cursive; }
     .font-festive-display { font-family: 'Fredoka', sans-serif; }
 
+    /* ========== GAME 1 — HKCEE exam booklet family ========== */
+    .slide[data-title="6. Game 1: Make a Guess — Intro"],
+    .slide[data-title="7. Game 1: Open AhaSlides"] {
+      background:
+        linear-gradient(180deg, rgba(241,245,249,0.92), rgba(226,232,240,0.88)),
+        repeating-linear-gradient(0deg, transparent 0 27px, rgba(15,23,42,0.06) 27px 28px);
+    }
+    .g1-exam-book {
+      width: min(52rem, 96vw);
+      margin-inline: auto;
+      background: #fff;
+      color: #111;
+      border: 1.5px solid #111;
+      box-shadow: 0 0 0 6px #e2e8f0, 0 22px 44px -24px rgba(0,0,0,0.4);
+      font-family: 'Libre Baskerville', 'Times New Roman', Times, serif;
+      position: relative;
+      text-align: left;
+      padding: 1.25rem 1.4rem 1.5rem;
+    }
+    .g1-exam-book::before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border: 1px solid #94a3b8;
+      pointer-events: none;
+    }
+    .g1-exam-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: flex-start;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 0.85rem;
+      padding-bottom: 0.65rem;
+      border-bottom: 1.5px solid #111;
+    }
+    .g1-exam-code {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .g1-exam-authority {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1.35;
+    }
+    .g1-exam-sidebits {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.35rem;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .g1-barcode {
+      width: 7.5rem;
+      height: 2.1rem;
+      border: 1px solid #111;
+      background: repeating-linear-gradient(90deg, #111 0 2px, #fff 2px 4px, #111 4px 5px, #fff 5px 8px);
+      font-size: 0.45rem;
+      text-align: center;
+      line-height: 2.1rem;
+      color: transparent;
+    }
+    .g1-cand {
+      display: flex;
+      gap: 2px;
+    }
+    .g1-cand span {
+      width: 0.85rem;
+      height: 1.05rem;
+      border: 1px solid #111;
+      background: #f8fafc;
+    }
+    .g1-exam-title {
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 900;
+      font-size: clamp(1.6rem, 4vw, 2.75rem);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      text-align: center;
+      margin: 0.85rem 0 0.35rem;
+      position: relative;
+      z-index: 1;
+    }
+    .g1-exam-sub {
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 700;
+      text-align: center;
+      font-size: clamp(0.95rem, 2vw, 1.25rem);
+      margin-bottom: 0.75rem;
+      position: relative;
+      z-index: 1;
+    }
+    .g1-exam-meta {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-align: center;
+      border: 1px solid #111;
+      padding: 0.45rem 0.75rem;
+      margin: 0 auto 0.9rem;
+      max-width: 28rem;
+      background: #f1f5f9;
+      position: relative;
+      z-index: 1;
+    }
+    .g1-instructions-label {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 0.35rem;
+      position: relative;
+      z-index: 1;
+    }
+    .g1-instructions {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.86rem;
+      font-weight: 600;
+      margin: 0 0 1rem 1.1rem;
+      padding: 0;
+      position: relative;
+      z-index: 1;
+      line-height: 1.45;
+    }
+    .g1-instructions .zh {
+      display: block;
+      color: #475569;
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-top: 0.1rem;
+    }
+    .g1-exam-cta {
+      display: block;
+      width: 100%;
+      max-width: 28rem;
+      margin: 0.75rem auto 0;
+      padding: 0.9rem 1.25rem;
+      border: 2px solid #111;
+      background: #111;
+      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 900;
+      font-size: 1.05rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-align: center;
+      text-decoration: none;
+      position: relative;
+      z-index: 1;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .g1-exam-cta:hover { background: #fff; color: #111; }
+    .g1-exam-footer {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-align: center;
+      color: #64748b;
+      margin-top: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ========== GAME 2 — festive Overcooked kitchen ========== */
+    .slide[data-title^="8. Game 2"],
+    .slide[data-title^="9. Game 2"],
+    .slide[data-title^="10. Game 2"],
+    .slide[data-title^="11. Game 2"],
+    .slide[data-title^="12. Game 2"] {
+      background:
+        radial-gradient(ellipse at 20% 10%, rgba(251,191,36,0.28), transparent 42%),
+        radial-gradient(ellipse at 85% 20%, rgba(248,113,113,0.22), transparent 40%),
+        linear-gradient(165deg, #3f1d0b 0%, #7c2d12 38%, #9a3412 70%, #431407 100%);
+    }
+    .g2-kitchen-board {
+      width: 100%;
+      margin-inline: auto;
+      background:
+        linear-gradient(180deg, rgba(255,247,237,0.97), rgba(255,237,213,0.95));
+      color: #431407;
+      border: 4px solid #fbbf24;
+      border-radius: 1.25rem;
+      box-shadow:
+        0 0 0 6px rgba(127,29,29,0.35),
+        0 22px 48px -18px rgba(0,0,0,0.55),
+        inset 0 1px 0 rgba(255,255,255,0.7);
+      font-family: 'Fredoka', 'Plus Jakarta Sans', sans-serif;
+      position: relative;
+      overflow: hidden;
+    }
+    .g2-kitchen-board::before {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 14px;
+      background: repeating-linear-gradient(90deg,
+        #C8372D 0 18px, #1E6B3B 18px 36px, #F59E0B 36px 54px, #fff 54px 60px);
+      z-index: 2;
+    }
+    .g2-kitchen-board::after {
+      content: '🎄 🍳 🎄 🍲 🎄';
+      position: absolute;
+      right: 0.75rem;
+      bottom: 0.4rem;
+      font-size: 0.85rem;
+      opacity: 0.45;
+      pointer-events: none;
+      letter-spacing: 0.35em;
+    }
+    .g2-kitchen-kicker {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #9a3412;
+    }
+    .g2-kitchen-title {
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: #7f1d1d;
+      line-height: 1.1;
+      text-shadow: 0 2px 0 rgba(251,191,36,0.35);
+    }
+    .g2-kitchen-sub {
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
+      color: #9a3412;
+    }
+    .g2-ticket {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.28rem 0.7rem;
+      border-radius: 999px;
+      background: #7f1d1d;
+      color: #fef3c7;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: 0 4px 0 #450a0a;
+    }
+
+
     .slide {
       position: fixed;
       inset: 0;
@@ -282,155 +540,186 @@
     .slide[data-title="11. Game 2: Order & Prepare"] .menu-board-chalk {
       padding: 0.55rem 0.6rem 0.7rem;
     }
-    /* Game 2 — How to Play (roles + flow chart) — exam sheet on Xmas stage */
+    /* Game 2 — How to Play (kitchen process map) */
     .slide[data-title="10. Game 2: How to Play"] {
       padding-top: 3.1rem;
       padding-bottom: 3.6rem;
-      background: transparent;
+    }
+    .how-play-roles {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.35rem 0.45rem;
+    }
+    .how-play-role-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      border: 2px solid #9a3412;
+      background: #fff7ed;
+      border-radius: 999px;
+      padding: 0.2rem 0.55rem 0.2rem 0.2rem;
+      font-family: 'Fredoka', sans-serif;
+      box-shadow: 0 3px 0 rgba(127,29,29,0.25);
+    }
+    .how-play-role-chip .role-avatar {
+      width: 2.1rem;
+      height: 2.1rem;
+      flex-shrink: 0;
+    }
+    .how-play-role-chip .role-avatar-badge {
+      width: 1rem;
+      height: 1rem;
+      font-size: 0.55rem;
+      top: -0.15rem;
+      right: -0.15rem;
+    }
+    .how-play-role-chip strong {
+      display: block;
+      font-size: 0.68rem;
+      line-height: 1.05;
+      color: #7f1d1d;
+    }
+    .how-play-role-chip span {
+      display: block;
+      font-size: 0.58rem;
+      font-weight: 700;
+      color: #9a3412;
+      line-height: 1.05;
     }
     .slide[data-title="10. Game 2: How to Play"] .how-play-board {
       width: 100%;
       max-width: min(96rem, 96vw);
       max-height: 100%;
       min-height: 0;
-      padding: 1.15rem 1rem 1rem;
+      padding: 1.35rem 1rem 1.1rem;
       display: flex;
       flex-direction: column;
-      gap: 0.65rem;
-    }
-    .how-play-roles {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.4rem 0.55rem;
-    }
-    .how-play-role-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      border: 1.5px solid #111;
-      background: #fffef8;
-      padding: 0.28rem 0.55rem 0.28rem 0.28rem;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-    .how-play-role-chip .role-avatar {
-      width: 2.35rem;
-      height: 2.35rem;
-      flex-shrink: 0;
-    }
-    .how-play-role-chip .role-avatar-badge {
-      width: 1.1rem;
-      height: 1.1rem;
-      font-size: 0.58rem;
-      top: -0.2rem;
-      right: -0.2rem;
-    }
-    .how-play-role-chip strong {
-      display: block;
-      font-size: 0.72rem;
-      line-height: 1.1;
-      color: #111;
-    }
-    .how-play-role-chip span {
-      display: block;
-      font-size: 0.62rem;
-      font-weight: 700;
-      color: #1E6B3B;
-      line-height: 1.1;
+      gap: 0.55rem;
     }
     .how-play-flow {
-      display: flex;
-      flex-direction: column;
-      gap: 0.38rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.45rem;
       align-items: stretch;
       flex: 1 1 auto;
       min-height: 0;
-      overflow: auto;
+    }
+    @media (min-width: 900px) {
+      .how-play-flow {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 0.35rem;
+        align-items: stretch;
+      }
     }
     .how-play-step {
-      border-radius: 0;
-      padding: 0.4rem 0.55rem;
-      text-align: left;
-      border: 1.5px solid #111;
-      background: #fff;
-      display: grid;
-      grid-template-columns: auto auto 1fr;
+      position: relative;
+      border-radius: 1rem;
+      padding: 0.55rem 0.45rem 0.65rem;
+      text-align: center;
+      border: 2.5px solid #9a3412;
+      background: #fffbeb;
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 0.55rem 0.65rem;
+      justify-content: flex-start;
+      gap: 0.2rem;
+      box-shadow: 0 6px 0 rgba(127,29,29,0.18);
+      min-width: 0;
     }
-    .how-play-step .role-avatar-wrap {
-      margin: 0;
+    @media (min-width: 900px) {
+      .how-play-step:not(:last-child)::after {
+        content: '➜';
+        position: absolute;
+        right: -0.55rem;
+        top: 42%;
+        transform: translateY(-50%);
+        z-index: 3;
+        font-size: 1.05rem;
+        color: #fbbf24;
+        text-shadow: 0 2px 0 #7f1d1d;
+        pointer-events: none;
+      }
     }
+    .how-play-step .role-avatar-wrap { margin: 0; }
     .how-play-step .role-avatar {
-      width: clamp(2.6rem, 5.5vh, 3.4rem);
-      height: clamp(2.6rem, 5.5vh, 3.4rem);
+      width: clamp(2.4rem, 5vh, 3.2rem);
+      height: clamp(2.4rem, 5vh, 3.2rem);
     }
     .how-play-step .role-avatar-badge {
-      width: 1.15rem;
-      height: 1.15rem;
-      font-size: 0.6rem;
+      width: 1.05rem;
+      height: 1.05rem;
+      font-size: 0.55rem;
     }
     .how-play-step .step-num {
-      width: 1.55rem;
-      height: 1.55rem;
-      border-radius: 0;
+      width: 1.45rem;
+      height: 1.45rem;
+      border-radius: 999px;
       display: grid;
       place-items: center;
       color: #fff;
       font-weight: 900;
-      font-size: 0.85rem;
-      font-family: Arial, Helvetica, sans-serif;
-      flex-shrink: 0;
+      font-size: 0.78rem;
+      font-family: 'Fredoka', sans-serif;
+      box-shadow: 0 2px 0 rgba(0,0,0,0.2);
     }
-    .how-play-step .step-copy {
-      min-width: 0;
-    }
+    .how-play-step .step-copy { min-width: 0; width: 100%; }
     .how-play-step .step-copy .step-roles {
-      font-family: Arial, Helvetica, sans-serif;
-      font-weight: 900;
-      font-size: clamp(0.78rem, 1.5vh, 0.95rem);
-      color: #111;
-      line-height: 1.2;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      font-size: clamp(0.72rem, 1.35vh, 0.9rem);
+      color: #7f1d1d;
+      line-height: 1.15;
     }
     .how-play-step .step-copy .step-roles-zh {
-      font-family: Arial, Helvetica, sans-serif;
-      font-weight: 800;
-      font-size: clamp(0.68rem, 1.3vh, 0.82rem);
-      color: #1E6B3B;
-      margin-top: 0.1rem;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
+      font-size: clamp(0.62rem, 1.15vh, 0.78rem);
+      color: #9a3412;
+      margin-top: 0.05rem;
     }
     .how-play-step .step-copy .step-en {
-      font-family: Arial, Helvetica, sans-serif;
-      font-weight: 600;
-      font-size: clamp(0.68rem, 1.35vh, 0.84rem);
-      color: #334155;
-      margin-top: 0.15rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: clamp(0.58rem, 1.15vh, 0.72rem);
+      color: #57534e;
+      margin-top: 0.25rem;
       line-height: 1.25;
     }
     .how-play-step .step-copy .step-zh {
-      font-family: Arial, Helvetica, sans-serif;
-      font-weight: 700;
-      font-size: clamp(0.62rem, 1.2vh, 0.76rem);
-      color: #64748b;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 600;
+      font-size: clamp(0.55rem, 1.05vh, 0.68rem);
+      color: #78716c;
       line-height: 1.25;
     }
     .how-play-step .step-avatars {
       display: flex;
       align-items: center;
-      gap: 0.2rem;
+      justify-content: center;
+      gap: 0.12rem;
     }
     .how-play-step .step-avatars .role-avatar {
-      width: clamp(2.2rem, 4.8vh, 2.9rem);
-      height: clamp(2.2rem, 4.8vh, 2.9rem);
+      width: clamp(1.85rem, 4vh, 2.45rem);
+      height: clamp(1.85rem, 4vh, 2.45rem);
+    }
+    @media (max-width: 899px) {
+      .how-play-step {
+        display: grid;
+        grid-template-columns: auto auto 1fr;
+        text-align: left;
+        padding: 0.45rem 0.55rem;
+      }
+      .how-play-step .step-avatars { justify-content: flex-start; }
+      .how-play-step .step-copy { text-align: left; }
     }
 
-    /* Game 2 — Order & Prepare (menu + form) — exam sheet on Xmas stage */
+    /* Game 2 — Order & Prepare (kitchen pass) */
     .slide[data-title="11. Game 2: Order & Prepare"] {
       padding-top: 3.0rem;
       padding-bottom: 3.5rem;
       padding-left: 0.75rem;
       padding-right: 0.75rem;
-      background: transparent;
     }
     .slide[data-title="11. Game 2: Order & Prepare"] .order-prep-board {
       width: 100%;
@@ -554,62 +843,70 @@
       transform: rotate(-6deg);
       opacity: 0.85;
     }
-    /* Game 2 exam-paper cover — sits on shared Christmas stage (no gray wash) */
-    .slide[data-title="9. Game 2: Exam Cover"] {
+    /* Game 2 kitchen mission brief */
+    .slide[data-title="9. Game 2: Mission Brief"] {
       padding-top: 2.6rem;
       padding-bottom: 3.2rem;
       padding-left: 0.75rem;
       padding-right: 0.75rem;
-      background: transparent;
     }
-    /* Shared Game 2 exam-sheet language (matches slide 9 paper) */
-    .g2-exam-sheet {
+    /* Legacy class names map to kitchen board (Game 2 Overcooked look) */
+    .g2-exam-sheet { /* alias */ }
+    .g2-exam-sheet.g2-kitchen-board,
+    .g2-kitchen-board.g2-exam-sheet,
+    .stage-board.g2-exam-sheet {
+      /* kitchen styles come from .g2-kitchen-board; keep class for compatibility */
+    }
+    .g2-exam-kicker { /* use .g2-kitchen-kicker in markup */ }
+    .g2-exam-title { }
+    .g2-exam-sub { }
+    .stage-board.g2-exam-sheet,
+    .g2-exam-sheet.stage-card,
+    .stage-board.g2-kitchen-board,
+    .g2-kitchen-board {
+      /* ensure kitchen board wins when both present */
+    }
+    .stage-board.g2-exam-sheet {
       width: 100%;
       margin-inline: auto;
-      background: #fff;
-      color: #111;
-      border: 1.5px solid #111;
-      box-shadow:
-        0 0 0 4px rgba(255, 255, 255, 0.55),
-        0 18px 40px -22px rgba(0, 0, 0, 0.45);
-      font-family: 'Libre Baskerville', 'Times New Roman', Times, serif;
+      background: linear-gradient(180deg, rgba(255,247,237,0.97), rgba(255,237,213,0.95));
+      color: #431407;
+      border: 4px solid #fbbf24;
+      border-radius: 1.25rem;
+      box-shadow: 0 0 0 6px rgba(127,29,29,0.35), 0 22px 48px -18px rgba(0,0,0,0.55);
+      font-family: 'Fredoka', 'Plus Jakarta Sans', sans-serif;
       position: relative;
+      overflow: hidden;
     }
-    .g2-exam-sheet::before {
+    .stage-board.g2-exam-sheet::before {
       content: '';
       position: absolute;
       left: 0; right: 0; top: 0;
-      height: 8px;
-      background: repeating-linear-gradient(
-        90deg,
-        #C8372D 0 16px,
-        #1E6B3B 16px 32px,
-        #D97724 32px 48px,
-        #23486A 48px 64px
-      );
-      pointer-events: none;
+      height: 14px;
+      background: repeating-linear-gradient(90deg, #C8372D 0 18px, #1E6B3B 18px 36px, #F59E0B 36px 54px, #fff 54px 60px);
       z-index: 2;
     }
     .g2-exam-kicker {
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 0.72rem;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.75rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: #111;
+      color: #9a3412;
     }
     .g2-exam-title {
-      font-family: Arial, Helvetica, sans-serif;
-      font-weight: 800;
-      letter-spacing: 0.05em;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.02em;
       text-transform: uppercase;
-      color: #111;
-      line-height: 1.15;
+      color: #7f1d1d;
+      line-height: 1.1;
+      text-shadow: 0 2px 0 rgba(251,191,36,0.35);
     }
     .g2-exam-sub {
-      font-family: Arial, Helvetica, sans-serif;
-      font-weight: 700;
-      color: #222;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
+      color: #9a3412;
     }
     .hkcee-cover {
       width: 100%;
@@ -2907,52 +3204,79 @@
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 6: GAME 1 SESSION INTRO (BILINGUAL)                             -->
+  <!-- SLIDE 6: GAME 1 SESSION INTRO (EXAM BOOKLET)                        -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center" data-title="6. Game 1: Make a Guess — Intro">
-    <div class="festive-card quiz-sheet theme-rail stage-card rounded-3xl border-4 border-[#1E6B3B]">
-      <div class="theme-icon-tile w-24 h-24 mx-auto mb-5 rounded-3xl bg-[#1E6B3B] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
-        <i class="fa-solid fa-clipboard-question"></i>
+  <section class="slide flex-col items-center justify-center" data-title="6. Game 1: Make a Guess — Intro">
+    <div class="g1-exam-book" role="document" aria-label="Game 1 exam booklet cover">
+      <div class="g1-exam-top">
+        <div>
+          <div class="g1-exam-code" contenteditable="true">2026-XMAS GAME 1 · PAPER A</div>
+          <div class="g1-exam-authority mt-1" contenteditable="true">
+            APAC CHRISTMAS LUNCH AUTHORITY<br />
+            SCHOOL QUIZ EXAMINATION 2026
+          </div>
+        </div>
+        <div class="g1-exam-sidebits">
+          <div class="g1-barcode" aria-hidden="true">BARCODE</div>
+          <div style="font-size:0.55rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;">Candidate No.</div>
+          <div class="g1-cand" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        </div>
       </div>
-      <span class="px-4 py-1.5 rounded-full bg-sky-100 border border-sky-300 text-sky-900 text-xs font-extrabold uppercase tracking-widest">
-        Christmas Class Quiz • 聖誕課堂測驗
-      </span>
-      <h1 class="font-festive-display text-5xl sm:text-7xl font-bold text-[#1E6B3B] tracking-tight mt-4 mb-2" contenteditable="true">
-        GAME 1: MAKE A GUESS
-      </h1>
-      <h2 class="text-2xl sm:text-3xl font-black text-[#23486A] mb-4" contenteditable="true">
-        遊戲一：猜一猜
-      </h2>
-      <p class="text-base sm:text-xl text-slate-700 font-bold" contenteditable="true">
-        A school guessing game — phones out, brains on!
-      </p>
-      <p class="text-sm text-slate-600 font-semibold mt-2" contenteditable="true">
-        學校猜謎遊戲：拿出手機，開動腦筋！
-      </p>
+      <h1 class="g1-exam-title" contenteditable="true">GAME 1: MAKE A GUESS</h1>
+      <h2 class="g1-exam-sub" contenteditable="true">遊戲一：猜一猜 · Question Paper</h2>
+      <div class="g1-exam-meta" contenteditable="true">Phones out · Live quiz · Markers for Examiner’s use only</div>
+      <div class="g1-instructions-label">INSTRUCTIONS TO CANDIDATES</div>
+      <ol class="g1-instructions" contenteditable="true">
+        <li>Write nothing on this cover until the quiz opens.
+          <span class="zh">測驗開始前請勿在封面書寫。</span>
+        </li>
+        <li>Use your phone to join the live class quiz when instructed.
+          <span class="zh">按指示用手機加入即時課堂測驗。</span>
+        </li>
+        <li>Answer all questions. Guess wisely.
+          <span class="zh">請回答全部題目，小心作答。</span>
+        </li>
+      </ol>
+      <div class="g1-exam-footer" contenteditable="true">© APAC Christmas Lunch · Examination Scripts · All Rights Reserved 2026</div>
     </div>
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 7: GAME 1 — OPEN AHASLIDES ONLY                                 -->
+  <!-- SLIDE 7: GAME 1 — OPEN AHASLIDES (EXAM BOOKLET)                       -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center" data-title="7. Game 1: Open AhaSlides">
-    <div class="festive-card quiz-sheet theme-rail stage-card rounded-3xl border-4 border-[#1E6B3B] flex flex-col items-center justify-center">
-      <div class="theme-icon-tile w-24 h-24 mx-auto mb-5 rounded-3xl bg-[#1E6B3B] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
-        <i class="fa-solid fa-clipboard-question"></i>
+  <section class="slide flex-col items-center justify-center" data-title="7. Game 1: Open AhaSlides">
+    <div class="g1-exam-book" role="document" aria-label="Game 1 live exam start sheet">
+      <div class="g1-exam-top">
+        <div>
+          <div class="g1-exam-code" contenteditable="true">2026-XMAS GAME 1 · PAPER A · LIVE</div>
+          <div class="g1-exam-authority mt-1" contenteditable="true">
+            APAC CHRISTMAS LUNCH AUTHORITY<br />
+            COMMENCEMENT OF EXAMINATION
+          </div>
+        </div>
+        <div class="g1-exam-sidebits">
+          <div class="g1-barcode" aria-hidden="true">BARCODE</div>
+          <div style="font-size:0.55rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;">Candidate No.</div>
+          <div class="g1-cand" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        </div>
       </div>
-      <span class="px-4 py-1.5 rounded-full bg-sky-100 border border-sky-300 text-sky-900 text-xs font-extrabold uppercase tracking-widest">
-        Live Class Quiz • 課堂即時測驗
-      </span>
-      <h2 class="font-festive-display text-4xl sm:text-6xl font-bold text-[#1E6B3B] tracking-tight mt-4 mb-3" contenteditable="true">
-        MAKE A GUESS
-      </h2>
-      <p class="text-sm text-slate-600 font-semibold mb-8" contenteditable="true">Phones out — Christmas class quiz starting now · 拿出手機，開始聖誕課堂測驗</p>
-
+      <h1 class="g1-exam-title" contenteditable="true">MAKE A GUESS</h1>
+      <h2 class="g1-exam-sub" contenteditable="true">猜一猜 · Open the live question paper</h2>
+      <div class="g1-exam-meta" contenteditable="true">Phones out now · 立刻拿出手機 · Join the quiz room</div>
+      <div class="g1-instructions-label">TO BEGIN</div>
+      <ol class="g1-instructions" contenteditable="true">
+        <li>Presenter opens AhaSlides.
+          <span class="zh">司儀開啟 AhaSlides。</span>
+        </li>
+        <li>Candidates join with phone and wait for the first question.
+          <span class="zh">考生用手機加入，等候第一題。</span>
+        </li>
+      </ol>
       <a id="ahaPresenterLaunchBtn" href="https://presenter.ahaslides.com/share/1793154443570-hpjbw2yzme/present" target="_blank" rel="noopener noreferrer"
-         onclick="pauseBgmForPresenterTab()"
-         class="w-full max-w-lg py-5 px-8 rounded-2xl bg-gradient-to-r from-[#1E6B3B] to-[#23486A] hover:from-[#14532D] hover:to-[#1a3650] text-white font-black text-xl sm:text-2xl tracking-wide shadow-xl flex items-center justify-center gap-3 cursor-pointer transition transform hover:scale-105 active:scale-95">
-        <i class="fa-solid fa-rocket text-amber-200"></i> OPEN AHASLIDES
+         onclick="pauseBgmForPresenterTab()" class="g1-exam-cta">
+        <i class="fa-solid fa-file-pen mr-2"></i> OPEN AHASLIDES · 開卷
       </a>
+      <div class="g1-exam-footer" contenteditable="true">Marker’s use only · Do not turn over until told</div>
     </div>
   </section>
 
@@ -2963,83 +3287,57 @@
   <!-- SLIDE 8: GAME 2 SESSION INTRO (BILINGUAL)                             -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center text-center" data-title="8. Game 2: The Culinary Fanatic — Intro">
-    <div class="g2-exam-sheet stage-card px-8 py-10 sm:px-12 sm:py-12">
-      <div class="w-20 h-20 mx-auto mb-5 bg-[#23486A] text-white flex items-center justify-center text-3xl shadow animate-float" style="border: 2px solid #111;">
-        <i class="fa-solid fa-people-group"></i>
+    <div class="g2-kitchen-board stage-card px-8 py-10 sm:px-12 sm:py-12 text-center">
+      <div class="relative z-10">
+        <span class="g2-ticket mb-4"><i class="fa-solid fa-fire-burner"></i> Kitchen Co-op · 廚房合作</span>
+        <div class="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-tr from-[#C8372D] to-[#F59E0B] text-white flex items-center justify-center text-3xl shadow-lg animate-float border-4 border-[#fde68a]">
+          <i class="fa-solid fa-utensils"></i>
+        </div>
+        <p class="g2-kitchen-kicker mb-2" contenteditable="true">Overcooked energy · Festive canteen chaos · 2026-XMAS GAME 2</p>
+        <h1 class="g2-kitchen-title text-3xl sm:text-5xl md:text-6xl" contenteditable="true">
+          THE CULINARY FANATIC
+        </h1>
+        <h2 class="g2-kitchen-sub text-xl sm:text-2xl mt-3" contenteditable="true">
+          遊戲二：料理狂熱者
+        </h2>
+        <p class="mt-4 text-sm sm:text-base font-bold text-[#7c2d12]" contenteditable="true">
+          Team of 3 · Tickets flying · 十分鐘廚房衝刺
+        </p>
       </div>
-      <p class="g2-exam-kicker mb-3" contenteditable="true">Home Ec · 家政課 · 2026-XMAS GAME 2</p>
-      <h1 class="g2-exam-title text-3xl sm:text-5xl md:text-6xl" contenteditable="true">
-        THE CULINARY FANATIC
-      </h1>
-      <h2 class="g2-exam-sub text-xl sm:text-2xl mt-3" contenteditable="true">
-        遊戲二：料理狂熱者
-      </h2>
-      <p class="mt-4 text-sm sm:text-base text-slate-700 font-semibold" style="font-family: Arial, Helvetica, sans-serif;" contenteditable="true">
-        Question-Answer Book · Team of 3 · 十分鐘挑戰
-      </p>
     </div>
   </section>
 
   <!-- ===================================================================== -->
   <!-- SLIDE 9: GAME 2 — EXAM / ORDER-FORM COVER (RULES + WIN)                -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center" data-title="9. Game 2: Exam Cover">
-    <div class="hkcee-cover" role="document" aria-label="Game 2 exam cover sheet">
-      <div class="hkcee-main">
-        <div class="hkcee-paper-code" contenteditable="true">2026-XMAS GAME 2 PAPER 1</div>
-        <div class="hkcee-diag" aria-hidden="true"></div>
-        <div class="hkcee-authority" contenteditable="true">
-          APAC CHRISTMAS LUNCH AUTHORITY<br />
-          SCHOOL CAFETERIA EXAMINATION 2026
+  <section class="slide flex-col items-center justify-center" data-title="9. Game 2: Mission Brief">
+    <div class="g2-kitchen-board max-w-5xl px-6 py-7 sm:px-10 sm:py-9" role="document" aria-label="Game 2 kitchen mission brief">
+      <div class="relative z-10">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+          <span class="g2-ticket"><i class="fa-solid fa-clipboard-list"></i> Mission ticket</span>
+          <span class="px-3 py-1 rounded-full bg-[#7f1d1d] text-[#fde68a] text-xs font-black uppercase tracking-wider" contenteditable="true">10:00 · Team of 3</span>
         </div>
-        <h1 class="hkcee-paper-title" contenteditable="true">THE CULINARY FANATIC</h1>
-        <div class="hkcee-paper-sub" contenteditable="true">Question-Answer Book · 料理狂熱者</div>
-        <div class="hkcee-time" contenteditable="true">
-          10 minutes · 十分鐘<br />
-          This paper must be answered by a team of 3
-        </div>
-        <div class="hkcee-instructions-label">INSTRUCTIONS</div>
-        <ol class="hkcee-instructions" contenteditable="true">
-          <li>
-            Each table forms a team of 3.
-            <span class="zh">每桌組成三人小組。</span>
-          </li>
-          <li>
-            Head table and the rest of each table also place orders. The Team of 3 completes 1 head-table order and 1 order from another table.
-            <span class="zh">主桌與同枱其餘人都要落單；三人小組完成主桌 1 張 + 其他桌 1 張訂單。</span>
-          </li>
-          <li>
-            Within 10 minutes, the fastest team that completes both orders correctly wins.
-            <span class="zh">限時 10 分鐘，最快且兩張訂單皆正確完成的隊伍勝出。</span>
-          </li>
-        </ol>
-        <div class="hkcee-footer" contenteditable="true">
-          © APAC Christmas Lunch · Home Economics · All Rights Reserved 2026
+        <p class="g2-kitchen-kicker mb-1" contenteditable="true">Christmas cafeteria rush · 聖誕食堂大作戰</p>
+        <h1 class="g2-kitchen-title text-3xl sm:text-5xl mb-2" contenteditable="true">THE CULINARY FANATIC</h1>
+        <h2 class="g2-kitchen-sub text-lg sm:text-xl mb-5" contenteditable="true">料理狂熱者 · Kitchen briefing</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-left">
+          <div class="rounded-xl border-2 border-[#f59e0b] bg-white/80 p-3.5 shadow-sm">
+            <div class="text-xs font-black uppercase tracking-wider text-[#9a3412] mb-1">1 · Form up</div>
+            <p class="text-sm font-bold text-[#431407]" contenteditable="true">Each table forms a team of 3.</p>
+            <p class="text-xs font-semibold text-[#9a3412] mt-1" contenteditable="true">每桌組成三人小組。</p>
+          </div>
+          <div class="rounded-xl border-2 border-[#f59e0b] bg-white/80 p-3.5 shadow-sm">
+            <div class="text-xs font-black uppercase tracking-wider text-[#9a3412] mb-1">2 · Double orders</div>
+            <p class="text-sm font-bold text-[#431407]" contenteditable="true">Head table and the rest of each table also place orders. Team of 3 completes 1 head-table order + 1 other-table order.</p>
+            <p class="text-xs font-semibold text-[#9a3412] mt-1" contenteditable="true">主桌與同枱其餘人都要落單；三人小組完成主桌 1 張 + 其他桌 1 張。</p>
+          </div>
+          <div class="rounded-xl border-2 border-[#f59e0b] bg-white/80 p-3.5 shadow-sm">
+            <div class="text-xs font-black uppercase tracking-wider text-[#9a3412] mb-1">3 · Fastest wins</div>
+            <p class="text-sm font-bold text-[#431407]" contenteditable="true">Within 10 minutes, the fastest team that completes both orders correctly wins.</p>
+            <p class="text-xs font-semibold text-[#9a3412] mt-1" contenteditable="true">限時 10 分鐘，最快且兩張訂單皆正確的隊伍勝出。</p>
+          </div>
         </div>
       </div>
-      <aside class="hkcee-side" aria-hidden="true">
-        <div class="hkcee-barcode">Please stick the<br />barcode label here.</div>
-        <div class="hkcee-cand-label">Candidate Number</div>
-        <div class="hkcee-cand-boxes"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
-        <table class="hkcee-mark-table">
-          <thead>
-            <tr><th colspan="2">Marker’s Use Only</th><th>Examiner’s Use Only</th></tr>
-          </thead>
-          <tbody>
-            <tr><td class="shade">Order</td><td class="shade">Mark</td><td class="shade">Mark</td></tr>
-            <tr><td>Head table</td><td class="tall"></td><td class="tall"></td></tr>
-            <tr><td>Other team</td><td class="tall"></td><td class="tall"></td></tr>
-            <tr><td class="shade">Total</td><td class="tall shade"></td><td class="tall shade"></td></tr>
-          </tbody>
-        </table>
-        <div class="hkcee-check-box">Checker’s Use Only</div>
-        <table class="hkcee-mark-table">
-          <tbody>
-            <tr><td class="shade">Pass</td><td class="tall"></td></tr>
-            <tr><td class="shade">Time</td><td class="tall"></td></tr>
-          </tbody>
-        </table>
-      </aside>
     </div>
   </section>
 
@@ -3047,13 +3345,14 @@
   <!-- SLIDE 10: GAME 2: HOW TO PLAY (ROLES + PROCESS CHART)                  -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-stretch justify-center" data-title="10. Game 2: How to Play">
-    <div class="stage-board g2-exam-sheet how-play-board">
-      <div class="shrink-0 text-center pt-1">
-        <p class="g2-exam-kicker mb-1" contenteditable="true">2026-XMAS GAME 2 · PAPER 2 · How the Game Is Played</p>
-        <h1 class="g2-exam-title text-xl sm:text-3xl md:text-4xl" contenteditable="true">
+    <div class="stage-board g2-kitchen-board g2-exam-sheet how-play-board">
+      <div class="shrink-0 text-center pt-2 relative z-10">
+        <span class="g2-ticket mb-2"><i class="fa-solid fa-diagram-project"></i> Process map</span>
+        <p class="g2-kitchen-kicker mb-1" contenteditable="true">2026-XMAS GAME 2 · Kitchen flow · How to Play</p>
+        <h1 class="g2-kitchen-title text-xl sm:text-3xl md:text-4xl" contenteditable="true">
           6-STEP CANTEEN RUN · TEAM OF 3
         </h1>
-        <h2 class="g2-exam-sub text-sm sm:text-lg mt-1" contenteditable="true">
+        <h2 class="g2-kitchen-sub text-sm sm:text-lg mt-1" contenteditable="true">
           食堂六步流程 · 三人小組
         </h2>
       </div>
@@ -3185,13 +3484,14 @@
   <!-- SLIDE 11: GAME 2: ORDER & PREPARE (MENUS + FORM)                       -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-stretch justify-center" data-title="11. Game 2: Order & Prepare">
-    <div class="stage-board g2-exam-sheet order-prep-board">
-      <div class="shrink-0 text-center pt-1">
-        <p class="g2-exam-kicker mb-1" contenteditable="true">2026-XMAS GAME 2 · PAPER 3 · What to Order &amp; Prepare</p>
-        <h1 class="g2-exam-title text-xl sm:text-3xl md:text-4xl" contenteditable="true">
+    <div class="stage-board g2-kitchen-board g2-exam-sheet order-prep-board">
+      <div class="shrink-0 text-center pt-2 relative z-10">
+        <span class="g2-ticket mb-2"><i class="fa-solid fa-burger"></i> Order station</span>
+        <p class="g2-kitchen-kicker mb-1" contenteditable="true">2026-XMAS GAME 2 · Menus on the pass</p>
+        <h1 class="g2-kitchen-title text-xl sm:text-3xl md:text-4xl" contenteditable="true">
           MENUS + ORDER FORM
         </h1>
-        <h2 class="g2-exam-sub text-sm sm:text-lg mt-1" contenteditable="true">
+        <h2 class="g2-kitchen-sub text-sm sm:text-lg mt-1" contenteditable="true">
           餐牌 + 落單紙
         </h2>
         <p class="text-[11px] sm:text-sm text-slate-600 font-semibold mt-1" style="font-family: Arial, Helvetica, sans-serif;" contenteditable="true">
@@ -3263,13 +3563,11 @@
   <section class="slide flex-col items-center justify-center" style="padding-top: 1.25rem; padding-bottom: 4.5rem; padding-left: 1.5rem; padding-right: 1.5rem;" data-title="12. Game 2: Cook — Timer & Livestream">
     <div class="max-w-[1520px] w-full h-full flex flex-col gap-2.5 justify-center">
 
-      <div class="g2-exam-sheet lab-live-bar px-5 py-3 flex flex-wrap items-center justify-between gap-3" style="padding-top:1rem;">
+      <div class="g2-kitchen-board g2-exam-sheet lab-live-bar px-5 py-3 flex flex-wrap items-center justify-between gap-3" style="padding-top:1.15rem;border-radius:1rem;">
         <div class="flex flex-col gap-1 min-w-0">
           <div class="flex items-center gap-3 flex-wrap">
-            <span class="px-3 py-1 bg-[#C8372D] text-white font-black text-xs uppercase animate-pulse" style="font-family:Arial,Helvetica,sans-serif;border:1px solid #111;">
-              <i class="fa-solid fa-circle text-[9px] mr-1"></i> Home Ec Lab Live
-            </span>
-            <h2 class="g2-exam-title text-lg sm:text-2xl">
+            <span class="g2-ticket animate-pulse"><i class="fa-solid fa-circle text-[9px]"></i> Kitchen Live</span>
+            <h2 class="g2-kitchen-title text-lg sm:text-2xl">
               CHRISTMAS CAFETERIA CHALLENGE
             </h2>
           </div>
