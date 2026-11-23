@@ -412,21 +412,21 @@
       object-position: center;
       display: block;
     }
-    .slide[data-title="10. Game 2: Order & Prepare"] .stage-board {
+    .slide[data-title="9. Game 2: Order & Prepare"] .stage-board {
       max-width: min(96rem, 96vw);
     }
-    .slide[data-title="10. Game 2: Order & Prepare"] .menu-board-shell {
+    .slide[data-title="9. Game 2: Order & Prepare"] .menu-board-shell {
       padding: 0.55rem 0.55rem 0.7rem;
     }
-    .slide[data-title="10. Game 2: Order & Prepare"] .menu-board-chalk {
+    .slide[data-title="9. Game 2: Order & Prepare"] .menu-board-chalk {
       padding: 0.55rem 0.6rem 0.7rem;
     }
     /* Game 2 — How to Play (horizontal role swimlanes, L→R) */
-    .slide[data-title="9. Game 2: How to Play"] {
+    .slide[data-title="8. Game 2: How to Play"] {
       padding-top: 2.85rem;
       padding-bottom: 3.2rem;
     }
-    .slide[data-title="9. Game 2: How to Play"] .how-play-board {
+    .slide[data-title="8. Game 2: How to Play"] .how-play-board {
       width: 100%;
       max-width: min(98rem, 98vw);
       max-height: 100%;
@@ -437,7 +437,7 @@
       gap: 0.4rem;
     }
     .hswim {
-      --lane-label: 4.6rem;
+      --lane-label: 5.6rem;
       position: relative;
       flex: 1 1 auto;
       min-height: 0;
@@ -466,27 +466,56 @@
       grid-column: 1;
       z-index: 2;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      writing-mode: vertical-rl;
-      transform: rotate(180deg);
+      gap: 0.2rem;
       text-align: center;
       font-family: 'Fredoka', sans-serif;
       font-weight: 700;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.02em;
       border-radius: 0.55rem;
       color: #fff;
-      padding: 0.35rem 0.15rem;
-      line-height: 1.15;
-      font-size: clamp(0.62rem, 1.25vh, 0.78rem);
+      padding: 0.28rem 0.2rem;
+      line-height: 1.1;
+      font-size: clamp(0.58rem, 1.15vh, 0.72rem);
       box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+      min-width: 0;
+    }
+    .hswim-label .role-avatar-wrap {
+      margin: 0;
+      flex-shrink: 0;
+    }
+    .hswim-label .role-avatar {
+      width: clamp(1.85rem, 3.8vh, 2.45rem);
+      height: clamp(1.85rem, 3.8vh, 2.45rem);
+      background: #fff;
+    }
+    .hswim-label .role-avatar-badge {
+      width: 0.85rem;
+      height: 0.85rem;
+      font-size: 0.48rem;
+      top: -0.12rem;
+      right: -0.12rem;
+    }
+    .hswim-label .hswim-role-text {
+      display: block;
+      min-width: 0;
+    }
+    .hswim-label strong {
+      display: block;
+      font-size: inherit;
+      font-weight: 800;
+      line-height: 1.05;
+      text-transform: uppercase;
     }
     .hswim-label small {
       display: block;
       font-weight: 600;
-      opacity: 0.92;
+      opacity: 0.95;
       font-size: 0.92em;
-      margin-top: 0.25rem;
+      margin-top: 0.08rem;
+      line-height: 1.05;
     }
     .hswim-label.r1 { grid-row: 1; background: #23486A; }
     .hswim-label.r2 { grid-row: 2; background: #D97724; }
@@ -541,9 +570,12 @@
     .hswim-node .node-en {
       font-family: 'Fredoka', sans-serif;
       font-weight: 700;
-      font-size: clamp(0.72rem, 1.45vh, 0.9rem);
+      font-size: clamp(0.68rem, 1.35vh, 0.86rem);
       color: #1c1917;
       line-height: 1.15;
+    }
+    .hswim-node.n4 .node-en {
+      font-size: clamp(0.62rem, 1.2vh, 0.78rem);
     }
     .hswim-node .node-zh {
       font-family: 'Plus Jakarta Sans', sans-serif;
@@ -596,7 +628,7 @@
     }
     @media (max-width: 899px) {
       .hswim {
-        --lane-label: 3.4rem;
+        --lane-label: 4.2rem;
         grid-template-columns: var(--lane-label) 1fr;
         grid-template-rows: none;
         grid-auto-rows: minmax(3.2rem, auto);
@@ -604,10 +636,13 @@
       }
       .hswim-lane-bg { display: none; }
       .hswim-label {
-        writing-mode: horizontal-tb;
-        transform: none;
-        font-size: 0.62rem;
-        padding: 0.25rem;
+        font-size: 0.55rem;
+        padding: 0.2rem;
+        gap: 0.12rem;
+      }
+      .hswim-label .role-avatar {
+        width: 1.7rem;
+        height: 1.7rem;
       }
       .hswim-label small { display: none; }
       .hswim-node.n1,
@@ -637,13 +672,13 @@
     }
 
     /* Game 2 — Order & Prepare (kitchen pass) */
-    .slide[data-title="10. Game 2: Order & Prepare"] {
+    .slide[data-title="9. Game 2: Order & Prepare"] {
       padding-top: 3.0rem;
       padding-bottom: 3.5rem;
       padding-left: 0.75rem;
       padding-right: 0.75rem;
     }
-    .slide[data-title="10. Game 2: Order & Prepare"] .order-prep-board {
+    .slide[data-title="9. Game 2: Order & Prepare"] .order-prep-board {
       width: 100%;
       max-width: min(98rem, 98vw);
       flex: 1 1 auto;
@@ -655,13 +690,13 @@
       padding: 1.15rem 0.75rem 0.75rem;
       margin-inline: auto;
     }
-    .slide[data-title="10. Game 2: Order & Prepare"] .menu-set-card {
+    .slide[data-title="9. Game 2: Order & Prepare"] .menu-set-card {
       border-radius: 0;
       border: 1.5px solid #111 !important;
       background: #fffef8;
       box-shadow: none;
     }
-    .slide[data-title="10. Game 2: Order & Prepare"] .order-prep-form {
+    .slide[data-title="9. Game 2: Order & Prepare"] .order-prep-form {
       border-radius: 0;
       border: 1.5px solid #111 !important;
       background: #fff;
@@ -766,7 +801,7 @@
       opacity: 0.85;
     }
     /* Game 2 kitchen mission brief */
-    .slide[data-title="8. Game 2: Mission Brief"] {
+    .slide[data-title="7. Game 2: Mission Brief"] {
       padding-top: 2.4rem;
       padding-bottom: 3rem;
     }
@@ -957,22 +992,22 @@
     .menu-board-grid-light {
       margin-top: 0.35rem;
     }
-    .slide[data-title="10. Game 2: Order & Prepare"] .menu-board-grid {
+    .slide[data-title="9. Game 2: Order & Prepare"] .menu-board-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 0.85rem;
     }
     @media (max-width: 900px) {
-      .slide[data-title="10. Game 2: Order & Prepare"] .menu-board-grid {
+      .slide[data-title="9. Game 2: Order & Prepare"] .menu-board-grid {
         grid-template-columns: 1fr;
       }
     }
-    .slide[data-title="10. Game 2: Order & Prepare"] .order-sheet-slide {
+    .slide[data-title="9. Game 2: Order & Prepare"] .order-sheet-slide {
       width: 100%;
       max-width: min(72rem, 96vw);
       margin-inline: auto;
     }
-    .slide[data-title="10. Game 2: Order & Prepare"] .order-sheet-frame {
+    .slide[data-title="9. Game 2: Order & Prepare"] .order-sheet-frame {
       max-height: min(58vh, 560px);
       margin-top: 0.35rem;
     }
@@ -2557,7 +2592,7 @@
     }
 
     /* Slide 20 — school awards assembly / yearbook honor board */
-    .slide[data-title="18. Grand Prizes Wall"] {
+    .slide[data-title="17. Grand Prizes Wall"] {
       padding-top: 3.25rem;
       padding-bottom: 3.75rem;
       padding-left: 1rem;
@@ -3049,6 +3084,12 @@
             <span class="zh">未獲指示前請勿翻頁。</span>
           </li>
         </ol>
+        <div style="text-align:center;margin-top:0.65rem;">
+          <a id="ahaPresenterLaunchBtn" href="https://presenter.ahaslides.com/share/1793154443570-hpjbw2yzme/present" target="_blank" rel="noopener noreferrer"
+             onclick="pauseBgmForPresenterTab()" class="hkcee-exam-cta">
+            OPEN AHASLIDES · 開卷
+          </a>
+        </div>
         <div class="hkcee-footer" contenteditable="true">
           © Hong Kong Examinations style homage · APAC Christmas Lunch 2026<br />
           考試卷封面格式致敬 · 聖誕午餐活動專用
@@ -3087,85 +3128,9 @@
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 6: GAME 1 — OPEN AHASLIDES (HKCEE EXAM COVER)                   -->
+  <!-- SLIDE 6: GAME 2 SESSION INTRO (BILINGUAL)                             -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center" data-title="6. Game 1: Open AhaSlides">
-    <div class="hkcee-cover" role="document" aria-label="Game 1 live exam start sheet">
-      <div class="hkcee-main">
-        <div class="hkcee-paper-code" contenteditable="true">2026-XMAS GAME 1 · PAPER A · LIVE</div>
-        <div class="hkcee-diag" aria-hidden="true"></div>
-        <div class="hkcee-authority" contenteditable="true">
-          APAC CHRISTMAS LUNCH AUTHORITY<br />
-          COMMENCEMENT OF EXAMINATION
-        </div>
-        <h1 class="hkcee-paper-title" contenteditable="true">MAKE A GUESS</h1>
-        <div class="hkcee-paper-sub" contenteditable="true">猜一猜 · Open the live question paper</div>
-        <div class="hkcee-time" contenteditable="true">
-          Phones out now · 立刻拿出手機<br />
-          Join the quiz room when the presenter opens the paper
-        </div>
-        <div class="hkcee-instructions-label">TO BEGIN</div>
-        <ol class="hkcee-instructions" contenteditable="true">
-          <li>Presenter opens AhaSlides.
-            <span class="zh">司儀開啟 AhaSlides。</span>
-          </li>
-          <li>Candidates join with phone and wait for the first question.
-            <span class="zh">考生用手機加入，等候第一題。</span>
-          </li>
-          <li>Do not leave the quiz room until the paper ends.
-            <span class="zh">測驗結束前請勿離開答題室。</span>
-          </li>
-        </ol>
-        <div style="text-align:center;">
-          <a id="ahaPresenterLaunchBtn" href="https://presenter.ahaslides.com/share/1793154443570-hpjbw2yzme/present" target="_blank" rel="noopener noreferrer"
-             onclick="pauseBgmForPresenterTab()" class="hkcee-exam-cta">
-            OPEN AHASLIDES · 開卷
-          </a>
-        </div>
-        <div class="hkcee-footer" contenteditable="true">
-          Marker’s use only · Do not turn over until told<br />
-          閱卷用 · 未獲指示前請勿翻頁
-        </div>
-      </div>
-
-        <aside class="hkcee-side" aria-label="Examination administration panel">
-          <div class="hkcee-barcode">Please stick the<br />barcode label here</div>
-          <div class="hkcee-cand-label">Candidate Number</div>
-          <div class="hkcee-cand-boxes" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
-          <div class="hkcee-mark-caption">Marker’s Use Only</div>
-          <table class="hkcee-mark-table" aria-hidden="true">
-            <thead><tr><th>Question No.</th><th>Marks</th><th>Marks</th></tr></thead>
-            <tbody>
-              <tr><td>1–2</td><td class="tall"></td><td class="tall shade"></td></tr>
-              <tr><td>3–4</td><td class="tall"></td><td class="tall shade"></td></tr>
-              <tr><td>5–6</td><td class="tall"></td><td class="tall shade"></td></tr>
-              <tr><td>7–8</td><td class="tall"></td><td class="tall shade"></td></tr>
-              <tr><td>Total</td><td class="tall"></td><td class="tall shade"></td></tr>
-            </tbody>
-          </table>
-          <div class="hkcee-check-box">Checker’s Use Only</div>
-          <div class="hkcee-mark-caption">Examiner’s Use Only</div>
-          <table class="hkcee-mark-table" aria-hidden="true">
-            <thead><tr><th>Question No.</th><th>Marks</th><th>Marks</th></tr></thead>
-            <tbody>
-              <tr><td>9</td><td class="tall"></td><td class="tall shade"></td></tr>
-              <tr><td>10</td><td class="tall"></td><td class="tall shade"></td></tr>
-              <tr><td>Total</td><td class="tall"></td><td class="tall shade"></td></tr>
-            </tbody>
-          </table>
-          <div class="hkcee-check-box">Checker’s Use Only</div>
-          <p style="font-size:0.62rem;margin:0.2rem 0 0;line-height:1.3;">* To be filled in by the candidate</p>
-        </aside>
-    </div>
-  </section>
-
-  <!-- ===================================================================== -->
-  <!-- SLIDE 7: GAME 1 — SOCK GUESS REVEAL (PRE-LUNCH)                       -->
-  <!-- ===================================================================== -->
-    <!-- ===================================================================== -->
-  <!-- SLIDE 8: GAME 2 SESSION INTRO (BILINGUAL)                             -->
-  <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center" data-title="7. Game 2: The Culinary Fanatic — Intro">
+  <section class="slide flex-col items-center justify-center text-center" data-title="6. Game 2: The Culinary Fanatic — Intro">
     <div class="g2-kitchen-board festive-card theme-rail canteen-frame stage-card rounded-3xl border-4 border-[#1E6B3B] px-8 py-10 sm:px-12 sm:py-12 text-center">
       <div class="relative z-10">
         <span class="g2-ticket mb-4"><i class="fa-solid fa-fire-burner"></i> Kitchen Co-op · 廚房合作</span>
@@ -3189,7 +3154,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 9: GAME 2 — EXAM / ORDER-FORM COVER (RULES + WIN)                -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center" data-title="8. Game 2: Mission Brief">
+  <section class="slide flex-col items-center justify-center" data-title="7. Game 2: Mission Brief">
     <div class="g2-brief-card festive-card theme-rail canteen-frame rounded-3xl border-4 border-[#1E6B3B]" role="document" aria-label="Game 2 mission brief">
       <p class="g2-kitchen-kicker mb-1" contenteditable="true">Game 2 rules · 遊戲二規則</p>
       <h1 class="g2-kitchen-title text-3xl sm:text-4xl" contenteditable="true">MISSION BRIEF</h1>
@@ -3226,7 +3191,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 9: GAME 2: HOW TO PLAY (HORIZONTAL ROLE SWIMLANES)               -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-stretch justify-center" data-title="9. Game 2: How to Play">
+  <section class="slide flex-col items-stretch justify-center" data-title="8. Game 2: How to Play">
     <div class="stage-board g2-kitchen-board g2-exam-sheet festive-card theme-rail canteen-frame how-play-board">
       <div class="shrink-0 text-center pt-1 relative z-10">
         <span class="g2-ticket mb-1.5"><i class="fa-solid fa-diagram-project"></i> Horizontal swimlanes</span>
@@ -3246,11 +3211,36 @@
         <div class="hswim-lane-bg r4" aria-hidden="true"></div>
         <div class="hswim-lane-bg r5" aria-hidden="true"></div>
 
-        <div class="hswim-label r1">TABLES<small>各枱</small></div>
-        <div class="hswim-label r2">ORDER TAKERS<small>落單員</small></div>
-        <div class="hswim-label r3">CHEF<small>大廚</small></div>
-        <div class="hswim-label r4">SERVER<small>樓面侍應</small></div>
-        <div class="hswim-label r5">EXAMINER<small>考官</small></div>
+        <div class="hswim-label r1">
+          <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">🪑</span>
+            <div class="role-avatar border-4 border-[#23486A]"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="#E8F0F8"/><circle cx="42" cy="54" r="16" fill="#FDE2C4"/><circle cx="78" cy="54" r="16" fill="#FDE2C4"/><circle cx="60" cy="62" r="18" fill="#FDE2C4"/><path d="M28,92 L92,92 L96,112 L24,112 Z" fill="#23486A"/></svg></div>
+          </div>
+          <span class="hswim-role-text"><strong>Tables</strong><small>各枱</small></span>
+        </div>
+        <div class="hswim-label r2">
+          <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">📋</span>
+            <div class="role-avatar border-4 border-amber-400"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="58" r="28" fill="#FDE2C4"/><path d="M28,58 C26,30 44,18 60,18 C76,18 94,30 92,58 Z" fill="#92400E"/><rect x="34" y="88" width="52" height="24" rx="6" fill="#F59E0B"/></svg></div>
+          </div>
+          <span class="hswim-role-text"><strong>Order Takers</strong><small>落單員</small></span>
+        </div>
+        <div class="hswim-label r3">
+          <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">👨‍🍳</span>
+            <div class="role-avatar border-4 border-[#C8372D]"><svg viewBox="0 0 120 120" aria-hidden="true"><ellipse cx="60" cy="28" rx="28" ry="14" fill="#F8FAFC"/><circle cx="60" cy="62" r="26" fill="#FDE2C4"/><path d="M34,90 L86,90 L92,114 L28,114 Z" fill="#C8372D"/></svg></div>
+          </div>
+          <span class="hswim-role-text"><strong>Chef</strong><small>大廚</small></span>
+        </div>
+        <div class="hswim-label r4">
+          <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">🍽️</span>
+            <div class="role-avatar border-4 border-[#1E6B3B]"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="56" r="28" fill="#FDE2C4"/><ellipse cx="60" cy="96" rx="30" ry="10" fill="#FEF3C7" stroke="#D97724" stroke-width="2"/><path d="M34,90 L86,90 L90,112 L30,112 Z" fill="#1E6B3B"/></svg></div>
+          </div>
+          <span class="hswim-role-text"><strong>Server</strong><small>樓面侍應</small></span>
+        </div>
+        <div class="hswim-label r5">
+          <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">📝</span>
+            <div class="role-avatar border-4 border-[#7C3AED]"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="#F5F3FF"/><circle cx="60" cy="50" r="22" fill="#FDE2C4"/><rect x="34" y="28" width="52" height="10" rx="2" fill="#4C1D95"/><rect x="40" y="78" width="40" height="28" rx="3" fill="#EDE9FE" stroke="#7C3AED" stroke-width="3"/></svg></div>
+          </div>
+          <span class="hswim-role-text"><strong>Examiner</strong><small>考官</small></span>
+        </div>
 
         <article class="hswim-node c-tables n1" data-hswim="n1">
           <span class="node-icon" aria-hidden="true"><i class="fa-solid fa-pen-to-square"></i></span>
@@ -3295,8 +3285,8 @@
         <article class="hswim-node c-server n4" data-hswim="n4">
           <span class="node-icon" aria-hidden="true"><i class="fa-solid fa-bell-concierge"></i></span>
           <div class="node-copy">
-            <p class="node-en" contenteditable="true"><span class="node-num">4</span>Deliver tray</p>
-            <p class="node-zh" contenteditable="true">送回落單枱</p>
+            <p class="node-en" contenteditable="true"><span class="node-num">4</span>Deliver Tray with Order Form</p>
+            <p class="node-zh" contenteditable="true">送回托盤連落單紙</p>
           </div>
         </article>
 
@@ -3331,7 +3321,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 11: GAME 2: ORDER & PREPARE (MENUS + FORM)                       -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-stretch justify-center" data-title="10. Game 2: Order & Prepare">
+  <section class="slide flex-col items-stretch justify-center" data-title="9. Game 2: Order & Prepare">
     <div class="stage-board g2-kitchen-board g2-exam-sheet festive-card theme-rail canteen-frame order-prep-board">
       <div class="shrink-0 text-center pt-2 relative z-10">
         <span class="g2-ticket mb-2"><i class="fa-solid fa-burger"></i> Order station</span>
@@ -3408,7 +3398,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 12: GAME 2: TIMER & LIVESTREAM (DEMO)                            -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center" style="padding-top: 1.25rem; padding-bottom: 4.5rem; padding-left: 1.5rem; padding-right: 1.5rem;" data-title="11. Game 2: Cook — Timer & Livestream">
+  <section class="slide flex-col items-center justify-center" style="padding-top: 1.25rem; padding-bottom: 4.5rem; padding-left: 1.5rem; padding-right: 1.5rem;" data-title="10. Game 2: Cook — Timer & Livestream">
     <div class="max-w-[1520px] w-full h-full flex flex-col gap-2.5 justify-center">
 
       <div class="g2-kitchen-board g2-exam-sheet festive-card theme-rail canteen-frame lab-live-bar px-5 py-3 flex flex-wrap items-center justify-between gap-3" style="padding-top:1.15rem;border-radius:1rem;">
@@ -3499,7 +3489,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 13: LUCKY DRAW PHASE 1 (BEFORE 2ND BUFFET) (PRINCIPAL'S HONOR ROLL SPINNER)         -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col overflow-hidden" style="padding-top: 3.1rem; padding-bottom: 4rem;" data-title="12. Christmas Gifts Spinner">
+  <section class="slide flex-col overflow-hidden" style="padding-top: 3.1rem; padding-bottom: 4rem;" data-title="11. Christmas Gifts Spinner">
     <div class="flex-1 max-w-[1600px] w-full mx-auto flex flex-col justify-center">
       <div class="flex flex-wrap items-center justify-between gap-2 mb-1 px-1">
         <div class="flex items-center gap-3 flex-wrap">
@@ -3604,7 +3594,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 14: 2ND ROUND BUFFET (DESSERT & COFFEE)                   -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center" data-title="13. 2nd Round Buffet — Dessert & Coffee">
+  <section class="slide flex-col items-center justify-center text-center" data-title="12. 2nd Round Buffet — Dessert & Coffee">
     <div class="festive-card canteen-frame theme-rail stage-card rounded-3xl border-4 border-[#1E6B3B]">
       <div class="w-24 h-24 mx-auto mb-4 rounded-3xl bg-gradient-to-tr from-[#1E6B3B] to-[#23486A] flex items-center justify-center text-white text-4xl shadow-lg animate-float">
         <i class="fa-solid fa-cookie-bite"></i>
@@ -3644,7 +3634,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 17: BEST DRESSED — CATWALK                                      -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center overflow-hidden" data-title="14. Best Dressed — Catwalk">
+  <section class="slide flex-col items-center justify-center text-center overflow-hidden" data-title="13. Best Dressed — Catwalk">
     <div class="stage-card festive-card yearbook-card theme-rail rounded-3xl border-4 border-[#C8372D] relative catwalk-yearbook" id="bestDressedRevealStage">
       <div class="cc-walkers cc-walkers-on-yearbook" aria-hidden="true">
         <i class="fa-solid fa-person-walking cc-w1"></i>
@@ -3672,7 +3662,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 18: GRAND PRIZES INTRO                                          -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center" data-title="15. Grand Prizes Intro">
+  <section class="slide flex-col items-center justify-center text-center" data-title="14. Grand Prizes Intro">
     <div class="festive-card finale-card theme-rail stage-card rounded-3xl border-4 border-[#D97724]">
       <div class="w-24 h-24 mx-auto mb-5 rounded-3xl bg-gradient-to-tr from-[#C8372D] to-[#D97724] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
         <i class="fa-solid fa-gift"></i>
@@ -3701,7 +3691,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 19: GRAND PRIZES SPINNER (DEDICATED SHARED-POOL WHEEL)           -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col overflow-hidden" style="padding-top: 3.1rem; padding-bottom: 4rem;" data-title="16. Grand Prizes Spinner">
+  <section class="slide flex-col overflow-hidden" style="padding-top: 3.1rem; padding-bottom: 4rem;" data-title="15. Grand Prizes Spinner">
     <div class="flex-1 max-w-[1600px] w-full mx-auto flex flex-col justify-center">
       <div class="flex flex-wrap items-center justify-between gap-2 mb-1 px-1">
         <div class="flex items-center gap-3 flex-wrap">
@@ -3789,7 +3779,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 17: SOCK GUESS REVEAL (AFTER GRAND DRAW)                        -->
   <!-- ===================================================================== -->
-<section class="slide flex-col items-center justify-center text-center" data-title="17. Sock Guess Reveal">
+<section class="slide flex-col items-center justify-center text-center" data-title="16. Sock Guess Reveal">
     <div id="sockGuessRevealStage" class="sock-reveal-stage stage-board stage-board-pad rounded-3xl border-4 relative shadow-2xl">
       <div class="sock-twinkle" aria-hidden="true"></div>
       <div class="sock-flash" aria-hidden="true"></div>
@@ -3830,7 +3820,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 19: GROUP PHOTO BACKDROP                                        -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-between text-center" data-title="18. Group Photo Backdrop">
+  <section class="slide flex-col items-center justify-between text-center" data-title="17. Group Photo Backdrop">
     <div class="w-full max-w-5xl mx-auto pt-2">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#C8372D] text-white text-xs font-black uppercase tracking-widest shadow mb-2">
         <i class="fa-solid fa-camera"></i> Group Photo • 畢業大合照
@@ -3989,15 +3979,15 @@
     let orderFormPhotoDataUrl = ''; // #SAVE:orderFormPhotoDataUrl
     let menuPhotos = {}; // #SAVE:menuPhotos
     // Stable slide indices (0-based)
-    // 18 slides (0..17): sock reveal sits after grand prize draw
-    const SLIDE_COOK = 10;
-    const SLIDE_XMAS_SPIN = 11; // first lucky draw — before 2nd buffet
-    const SLIDE_RECESS = 12; // 2nd round buffet (dessert & coffee)
-    const SLIDE_BEST_REVEAL = 13; // catwalk yearbook backdrop
-    const SLIDE_GRAND_INTRO = 14;
-    const SLIDE_GRAND_SPIN = 15;
-    const SLIDE_SOCK_GUESS = 16; // after grand prize draw
-    const SLIDE_GROUP = 17;
+    // 17 slides (0..16): AhaSlides CTA on Game 1 intro; sock reveal after grand prize draw
+    const SLIDE_COOK = 9;
+    const SLIDE_XMAS_SPIN = 10; // first lucky draw — before 2nd buffet
+    const SLIDE_RECESS = 11; // 2nd round buffet (dessert & coffee)
+    const SLIDE_BEST_REVEAL = 12; // catwalk yearbook backdrop
+    const SLIDE_GRAND_INTRO = 13;
+    const SLIDE_GRAND_SPIN = 14;
+    const SLIDE_SOCK_GUESS = 15; // after grand prize draw
+    const SLIDE_GROUP = 16;
     const SOCK_GUESS_COUNT = 3;
     const CHRISTMAS_SLOTS = 14; // 3+3+4+3+1
     const GRAND_SLOTS = 6;
@@ -5361,15 +5351,15 @@
       { id: 'mcs', label: 'MCs Intro', slides: [1], trackKey: 'maruko' },
       { id: 'headmaster', label: 'Headmaster Intro', slides: [2], trackKey: 'dumbledore' },
       { id: 'buffet', label: 'Buffet', slides: [3], trackKey: 'buffet' },
-      { id: 'game1', label: 'Game 1 Make a Guess', slides: [4, 5], trackKey: 'game1' },
-      { id: 'game2Prelude', label: 'Game 2 prelude', slides: [6, 7], trackKey: 'game1' },
-      { id: 'game2', label: 'Game 2 Culinary Fanatic', slides: [8, 9, 10], trackKey: 'game2' },
-      { id: 'christmasGifts', label: 'Christmas Gifts', slides: [11], trackKey: 'luckyDraw' },
-      { id: 'recess', label: '2nd Round Buffet', slides: [12], trackKey: 'recess' },
-      { id: 'bestDressed', label: 'Best Dressed Catwalk', slides: [13], trackKey: 'bestDressed' },
-      { id: 'grandPrizes', label: 'Grand Prizes', slides: [14, 15], trackKey: 'luckyDraw' },
-      { id: 'sockGuess', label: 'Sock Guess Reveal', slides: [16], trackKey: 'luckyDraw' },
-      { id: 'finale', label: 'Finale', slides: [17], trackKey: 'finale' }
+      { id: 'game1', label: 'Game 1 Make a Guess', slides: [4], trackKey: 'game1' },
+      { id: 'game2Prelude', label: 'Game 2 prelude', slides: [5, 6], trackKey: 'game1' },
+      { id: 'game2', label: 'Game 2 Culinary Fanatic', slides: [7, 8, 9], trackKey: 'game2' },
+      { id: 'christmasGifts', label: 'Christmas Gifts', slides: [10], trackKey: 'luckyDraw' },
+      { id: 'recess', label: '2nd Round Buffet', slides: [11], trackKey: 'recess' },
+      { id: 'bestDressed', label: 'Best Dressed Catwalk', slides: [12], trackKey: 'bestDressed' },
+      { id: 'grandPrizes', label: 'Grand Prizes', slides: [13, 14], trackKey: 'luckyDraw' },
+      { id: 'sockGuess', label: 'Sock Guess Reveal', slides: [15], trackKey: 'luckyDraw' },
+      { id: 'finale', label: 'Finale', slides: [16], trackKey: 'finale' }
     ];
 
     function getPhaseForSlide(slideIdx) {
@@ -5639,13 +5629,13 @@
       if (currentSlideIdx === SLIDE_SOCK_GUESS && prevIdx !== SLIDE_SOCK_GUESS) resetSockGuessReveal({ silent: true });
       // Always sync VDO room + viewer when entering the cook slide (room may already exist from boot)
       if (currentSlideIdx === SLIDE_COOK) connectTonyVdoStream({ silent: true });
-      if (slides[currentSlideIdx]?.dataset?.title === '9. Game 2: How to Play') {
+      if (slides[currentSlideIdx]?.dataset?.title === '8. Game 2: How to Play') {
         requestAnimationFrame(() => requestAnimationFrame(drawHowPlaySwimArrows));
       }
     }
 
     window.addEventListener('resize', () => {
-      if (slides[currentSlideIdx]?.dataset?.title === '9. Game 2: How to Play') drawHowPlaySwimArrows();
+      if (slides[currentSlideIdx]?.dataset?.title === '8. Game 2: How to Play') drawHowPlaySwimArrows();
     });
 
     let bestDressedRevealBusy = false;
