@@ -298,79 +298,81 @@
       flex-direction: column;
       gap: 0.65rem;
     }
-    .how-play-guests {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.55rem;
+    .how-play-roles {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.4rem 0.55rem;
     }
-    @media (min-width: 768px) {
-      .how-play-guests {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-    .how-play-guest {
-      border-radius: 0;
+    .how-play-role-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
       border: 1.5px solid #111;
       background: #fffef8;
-      padding: 0.55rem 0.75rem;
-      text-align: left;
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
+      padding: 0.28rem 0.55rem 0.28rem 0.28rem;
+      font-family: Arial, Helvetica, sans-serif;
     }
-    .how-play-guest .role-avatar {
-      width: 3.35rem;
-      height: 3.35rem;
+    .how-play-role-chip .role-avatar {
+      width: 2.35rem;
+      height: 2.35rem;
       flex-shrink: 0;
     }
-    .how-play-guest .role-avatar-badge {
-      width: 1.35rem;
-      height: 1.35rem;
-      font-size: 0.7rem;
-      top: -0.25rem;
-      right: -0.25rem;
+    .how-play-role-chip .role-avatar-badge {
+      width: 1.1rem;
+      height: 1.1rem;
+      font-size: 0.58rem;
+      top: -0.2rem;
+      right: -0.2rem;
+    }
+    .how-play-role-chip strong {
+      display: block;
+      font-size: 0.72rem;
+      line-height: 1.1;
+      color: #111;
+    }
+    .how-play-role-chip span {
+      display: block;
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: #1E6B3B;
+      line-height: 1.1;
     }
     .how-play-flow {
       display: flex;
       flex-direction: column;
-      gap: 0.45rem;
+      gap: 0.38rem;
       align-items: stretch;
-    }
-    @media (min-width: 1024px) {
-      .how-play-flow {
-        flex-direction: row;
-        align-items: stretch;
-      }
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: auto;
     }
     .how-play-step {
-      flex: 1 1 0;
-      min-width: 0;
       border-radius: 0;
-      padding: 0.55rem 0.55rem 0.7rem;
-      text-align: center;
+      padding: 0.4rem 0.55rem;
+      text-align: left;
       border: 1.5px solid #111;
       background: #fff;
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: auto auto 1fr;
       align-items: center;
-      justify-content: flex-start;
-      gap: 0.2rem;
+      gap: 0.55rem 0.65rem;
     }
     .how-play-step .role-avatar-wrap {
-      margin-bottom: 0.15rem;
+      margin: 0;
     }
     .how-play-step .role-avatar {
-      width: clamp(3.5rem, 7.2vh, 5.1rem);
-      height: clamp(3.5rem, 7.2vh, 5.1rem);
+      width: clamp(2.6rem, 5.5vh, 3.4rem);
+      height: clamp(2.6rem, 5.5vh, 3.4rem);
     }
     .how-play-step .role-avatar-badge {
-      width: 1.4rem;
-      height: 1.4rem;
-      font-size: 0.72rem;
+      width: 1.15rem;
+      height: 1.15rem;
+      font-size: 0.6rem;
     }
     .how-play-step .step-num {
-      width: 1.65rem;
-      height: 1.65rem;
+      width: 1.55rem;
+      height: 1.55rem;
       border-radius: 0;
       display: grid;
       place-items: center;
@@ -378,25 +380,48 @@
       font-weight: 900;
       font-size: 0.85rem;
       font-family: Arial, Helvetica, sans-serif;
+      flex-shrink: 0;
     }
-    .how-play-arrow {
-      display: none;
-      color: #23486A;
-      font-size: 1.25rem;
-      align-items: center;
-      padding: 0 0.15rem;
+    .how-play-step .step-copy {
+      min-width: 0;
     }
-    @media (min-width: 1024px) {
-      .how-play-arrow { display: flex; }
+    .how-play-step .step-copy .step-roles {
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 900;
+      font-size: clamp(0.78rem, 1.5vh, 0.95rem);
+      color: #111;
+      line-height: 1.2;
     }
-    .how-play-arrow-mobile {
+    .how-play-step .step-copy .step-roles-zh {
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 800;
+      font-size: clamp(0.68rem, 1.3vh, 0.82rem);
+      color: #1E6B3B;
+      margin-top: 0.1rem;
+    }
+    .how-play-step .step-copy .step-en {
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 600;
+      font-size: clamp(0.68rem, 1.35vh, 0.84rem);
+      color: #334155;
+      margin-top: 0.15rem;
+      line-height: 1.25;
+    }
+    .how-play-step .step-copy .step-zh {
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 700;
+      font-size: clamp(0.62rem, 1.2vh, 0.76rem);
+      color: #64748b;
+      line-height: 1.25;
+    }
+    .how-play-step .step-avatars {
       display: flex;
-      justify-content: center;
-      color: #23486A;
-      font-size: 1rem;
+      align-items: center;
+      gap: 0.2rem;
     }
-    @media (min-width: 1024px) {
-      .how-play-arrow-mobile { display: none; }
+    .how-play-step .step-avatars .role-avatar {
+      width: clamp(2.2rem, 4.8vh, 2.9rem);
+      height: clamp(2.2rem, 4.8vh, 2.9rem);
     }
 
     /* Game 2 — Order & Prepare (menu + form) — exam sheet on Xmas stage */
@@ -2809,14 +2834,14 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 4: BUFFET SCREEN (PREVIEW ONLY)                                 -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center" data-title="4. Lunch Buffet & Game Preview">
+  <section class="slide flex-col items-center justify-center text-center" data-title="4. 1st Round Buffet & Game Preview">
     <div class="festive-card canteen-frame theme-rail stage-card rounded-3xl border-4 border-[#1E6B3B]">
       <div class="w-24 h-24 mx-auto mb-4 rounded-3xl bg-gradient-to-tr from-[#1E6B3B] to-[#23486A] flex items-center justify-center text-white text-4xl shadow-lg animate-float">
         <i class="fa-solid fa-utensils"></i>
       </div>
 
       <span class="px-4 py-1 rounded-full bg-green-100 border border-green-300 text-green-800 text-xs font-extrabold uppercase tracking-widest">
-        🎄 School Canteen Open • 學校食堂開放
+        🎄 Round 1 Buffet • 第一輪自助午餐
       </span>
 
       <h1 class="font-festive-display text-4xl sm:text-6xl font-bold text-[#1E6B3B] tracking-tight mt-3 mb-6" contenteditable="true">
@@ -2825,11 +2850,14 @@
 
       <div class="max-w-xl mx-auto bg-sky-50 border-2 border-[#23486A]/35 rounded-2xl p-5 mb-6 text-center shadow-sm">
         <div class="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-[#23486A] text-white text-xs font-black uppercase tracking-wider mb-1.5">
-          <i class="fa-solid fa-clock"></i> Up Next • 緊接活動
+          <i class="fa-solid fa-clock"></i> Run order • 本日流程
         </div>
-        <h3 class="text-xl sm:text-2xl font-black text-slate-800" contenteditable="true">
-          Get ready for quizzes • 準備好課堂測驗
+        <h3 class="text-base sm:text-lg font-black text-slate-800 leading-snug" contenteditable="true">
+          Games → 1st lucky draw → 2nd buffet → Best Dressed → Grand prizes
         </h3>
+        <p class="text-xs sm:text-sm font-bold text-slate-600 mt-1.5" contenteditable="true">
+          遊戲 → 第一次抽獎 → 第二輪自助 → 最佳服裝 → 豪華大獎
+        </p>
       </div>
 
       <div class="mt-1">
@@ -3023,177 +3051,131 @@
       <div class="shrink-0 text-center pt-1">
         <p class="g2-exam-kicker mb-1" contenteditable="true">2026-XMAS GAME 2 · PAPER 2 · How the Game Is Played</p>
         <h1 class="g2-exam-title text-xl sm:text-3xl md:text-4xl" contenteditable="true">
-          EVERYONE ORDERS · TEAM OF 3 SERVES
+          6-STEP CANTEEN RUN · TEAM OF 3
         </h1>
         <h2 class="g2-exam-sub text-sm sm:text-lg mt-1" contenteditable="true">
-          全員落單 · 三人小組走單
+          食堂六步流程 · 三人小組
         </h2>
-        <p class="text-[11px] sm:text-sm text-slate-700 font-semibold mt-1" style="font-family: Arial, Helvetica, sans-serif;" contenteditable="true">
-          Roles &amp; process in one chart · 角色與流程合併一圖
-        </p>
       </div>
 
-      <!-- Guests place orders: head table + rest of table -->
-      <div class="how-play-guests shrink-0">
-        <div class="how-play-guest">
-          <div class="role-avatar-wrap pointer-events-none shrink-0">
-            <span class="role-avatar-badge" aria-hidden="true">👑</span>
-            <div class="role-avatar border-4 border-[#C8372D]">
-              <svg viewBox="0 0 120 120" aria-hidden="true">
-                <circle cx="60" cy="60" r="56" fill="#FFF1F2"/>
-                <circle cx="60" cy="52" r="22" fill="#FDE2C4"/>
-                <path d="M34,48 C36,28 48,20 60,20 C72,20 84,28 86,48" fill="#1E293B"/>
-                <circle cx="50" cy="50" r="2.8" fill="#1E293B"/>
-                <circle cx="70" cy="50" r="2.8" fill="#1E293B"/>
-                <path d="M50,64 Q60,72 70,64" stroke="#C8372D" stroke-width="3" fill="none" stroke-linecap="round"/>
-                <path d="M32,88 L88,88 L94,112 L26,112 Z" fill="#C8372D"/>
-                <polygon points="40,28 48,14 56,28 64,12 72,28 80,16 88,30 32,30" fill="#F59E0B" stroke="#B45309" stroke-width="2"/>
-              </svg>
-            </div>
+      <div class="how-play-roles shrink-0" aria-label="Game 2 roles">
+        <div class="how-play-role-chip">
+          <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">🪑</span>
+            <div class="role-avatar border-4 border-[#23486A]"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="#E8F0F8"/><circle cx="42" cy="54" r="16" fill="#FDE2C4"/><circle cx="78" cy="54" r="16" fill="#FDE2C4"/><circle cx="60" cy="62" r="18" fill="#FDE2C4"/><path d="M30,48 C32,34 38,30 42,30 C48,30 52,36 54,46" fill="#92400E"/><path d="M66,48 C68,34 74,30 78,30 C84,30 88,36 90,46" fill="#1E293B"/><path d="M48,50 C50,38 56,34 60,34 C64,34 70,38 72,50" fill="#78350F"/><circle cx="38" cy="52" r="2" fill="#1E293B"/><circle cx="46" cy="52" r="2" fill="#1E293B"/><circle cx="74" cy="52" r="2" fill="#1E293B"/><circle cx="82" cy="52" r="2" fill="#1E293B"/><circle cx="54" cy="60" r="2.2" fill="#1E293B"/><circle cx="66" cy="60" r="2.2" fill="#1E293B"/><path d="M28,92 L92,92 L96,112 L24,112 Z" fill="#23486A"/></svg></div>
           </div>
-          <div class="min-w-0">
-            <p class="font-black text-sm sm:text-base text-[#111] leading-tight" style="font-family: Arial, Helvetica, sans-serif;" contenteditable="true">
-              Head Table — place orders
-            </p>
-            <p class="text-xs sm:text-sm font-bold text-[#1E6B3B] mt-0.5" contenteditable="true">主桌賓客也要落單</p>
-            <p class="text-[11px] sm:text-xs text-slate-600 font-semibold mt-1" contenteditable="true">
-              Fill the order form for the serving teams · 為上場隊伍填寫落單紙
-            </p>
-          </div>
+          <div><strong>Tables</strong><span>各枱</span></div>
         </div>
-        <div class="how-play-guest">
-          <div class="role-avatar-wrap pointer-events-none shrink-0">
-            <span class="role-avatar-badge" aria-hidden="true">🪑</span>
-            <div class="role-avatar border-4 border-[#23486A]">
-              <svg viewBox="0 0 120 120" aria-hidden="true">
-                <circle cx="60" cy="60" r="56" fill="#E8F0F8"/>
-                <circle cx="42" cy="54" r="16" fill="#FDE2C4"/>
-                <circle cx="78" cy="54" r="16" fill="#FDE2C4"/>
-                <circle cx="60" cy="62" r="18" fill="#FDE2C4"/>
-                <path d="M30,48 C32,34 38,30 42,30 C48,30 52,36 54,46" fill="#92400E"/>
-                <path d="M66,48 C68,34 74,30 78,30 C84,30 88,36 90,46" fill="#1E293B"/>
-                <path d="M48,50 C50,38 56,34 60,34 C64,34 70,38 72,50" fill="#78350F"/>
-                <circle cx="38" cy="52" r="2" fill="#1E293B"/>
-                <circle cx="46" cy="52" r="2" fill="#1E293B"/>
-                <circle cx="74" cy="52" r="2" fill="#1E293B"/>
-                <circle cx="82" cy="52" r="2" fill="#1E293B"/>
-                <circle cx="54" cy="60" r="2.2" fill="#1E293B"/>
-                <circle cx="66" cy="60" r="2.2" fill="#1E293B"/>
-                <path d="M28,92 L92,92 L96,112 L24,112 Z" fill="#23486A"/>
-              </svg>
-            </div>
+        <div class="how-play-role-chip">
+          <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">📋</span>
+            <div class="role-avatar border-4 border-amber-400"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="58" r="28" fill="#FDE2C4"/><path d="M28,58 C26,30 44,18 60,18 C76,18 94,30 92,58 Z" fill="#92400E"/><circle cx="48" cy="56" r="3.2" fill="#1E293B"/><circle cx="72" cy="56" r="3.2" fill="#1E293B"/><path d="M50,70 Q60,78 70,70" stroke="#B45309" stroke-width="3" fill="none" stroke-linecap="round"/><rect x="34" y="88" width="52" height="24" rx="6" fill="#F59E0B"/><rect x="44" y="78" width="32" height="18" rx="3" fill="#FEF3C7" stroke="#D97724" stroke-width="2"/><line x1="50" y1="84" x2="70" y2="84" stroke="#D97724" stroke-width="2"/><line x1="50" y1="90" x2="66" y2="90" stroke="#D97724" stroke-width="2"/></svg></div>
           </div>
-          <div class="min-w-0">
-            <p class="font-black text-sm sm:text-base text-[#111] leading-tight" style="font-family: Arial, Helvetica, sans-serif;" contenteditable="true">
-              Rest of the table — place orders too
-            </p>
-            <p class="text-xs sm:text-sm font-bold text-[#1E6B3B] mt-0.5" contenteditable="true">同枱其餘同事同樣落單</p>
-            <p class="text-[11px] sm:text-xs text-slate-600 font-semibold mt-1" contenteditable="true">
-              Not only the Team of 3 — guests at each table order · 不只三人小組，每桌客人也要落單
-            </p>
+          <div><strong>Order Takers</strong><span>落單員</span></div>
+        </div>
+        <div class="how-play-role-chip">
+          <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">👨‍🍳</span>
+            <div class="role-avatar border-4 border-[#C8372D]"><svg viewBox="0 0 120 120" aria-hidden="true"><ellipse cx="60" cy="28" rx="28" ry="14" fill="#F8FAFC"/><rect x="40" y="28" width="40" height="12" fill="#E2E8F0"/><circle cx="60" cy="62" r="26" fill="#FDE2C4"/><circle cx="50" cy="60" r="3" fill="#1E293B"/><circle cx="70" cy="60" r="3" fill="#1E293B"/><path d="M50,72 Q60,80 70,72" stroke="#C8372D" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M34,90 L86,90 L92,114 L28,114 Z" fill="#C8372D"/><rect x="52" y="96" width="16" height="10" rx="2" fill="#FEF3C7"/></svg></div>
           </div>
+          <div><strong>Chef</strong><span>大廚</span></div>
+        </div>
+        <div class="how-play-role-chip">
+          <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">🍽️</span>
+            <div class="role-avatar border-4 border-[#1E6B3B]"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="56" r="28" fill="#FDE2C4"/><path d="M30,52 C28,28 46,16 60,16 C74,16 92,28 90,52 Z" fill="#14532D"/><circle cx="48" cy="54" r="3" fill="#1E293B"/><circle cx="72" cy="54" r="3" fill="#1E293B"/><path d="M50,68 Q60,76 70,68" stroke="#1E6B3B" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="60" cy="96" rx="30" ry="10" fill="#FEF3C7" stroke="#D97724" stroke-width="2"/><circle cx="60" cy="92" r="8" fill="#FCA5A5"/><path d="M34,90 L86,90 L90,112 L30,112 Z" fill="#1E6B3B"/></svg></div>
+          </div>
+          <div><strong>Server</strong><span>樓面侍應</span></div>
+        </div>
+        <div class="how-play-role-chip">
+          <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">📝</span>
+            <div class="role-avatar border-4 border-[#7C3AED]"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="#F5F3FF"/><circle cx="60" cy="50" r="22" fill="#FDE2C4"/><path d="M38,46 C40,28 50,22 60,22 C70,22 80,28 82,46" fill="#1E293B"/><rect x="34" y="28" width="52" height="10" rx="2" fill="#4C1D95"/><circle cx="50" cy="48" r="2.6" fill="#1E293B"/><circle cx="70" cy="48" r="2.6" fill="#1E293B"/><path d="M50,62 Q60,70 70,62" stroke="#7C3AED" stroke-width="3" fill="none" stroke-linecap="round"/><rect x="40" y="78" width="40" height="28" rx="3" fill="#EDE9FE" stroke="#7C3AED" stroke-width="3"/><path d="M48,92 l8 8 16-18" fill="none" stroke="#1E6B3B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </div>
+          <div><strong>Examiner</strong><span>考官</span></div>
         </div>
       </div>
 
-      <div class="how-play-arrow-mobile shrink-0" aria-hidden="true"><i class="fa-solid fa-arrow-down"></i></div>
+      <div class="how-play-flow">
+        <div class="how-play-step" style="background:#EEF2FF;">
+          <span class="step-num" style="background:#23486A;">1</span>
+          <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">🪑</span>
+            <div class="role-avatar border-4 border-[#23486A]"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="#E8F0F8"/><circle cx="42" cy="54" r="16" fill="#FDE2C4"/><circle cx="78" cy="54" r="16" fill="#FDE2C4"/><circle cx="60" cy="62" r="18" fill="#FDE2C4"/><path d="M28,92 L92,92 L96,112 L24,112 Z" fill="#23486A"/></svg></div>
+          </div>
+          <div class="step-copy">
+            <p class="step-roles" contenteditable="true">Tables</p>
+            <p class="step-roles-zh" contenteditable="true">各枱</p>
+            <p class="step-en" contenteditable="true">Make orders on the assigned order form.</p>
+            <p class="step-zh" contenteditable="true">按獲派落單紙落單。</p>
+          </div>
+        </div>
 
-      <!-- Team pipeline with avatars -->
-      <div class="how-play-flow flex-1 min-h-0">
         <div class="how-play-step" style="background:#FFFBEB;">
-          <span class="step-num" style="background:#F59E0B;">1</span>
-          <div class="role-avatar-wrap pointer-events-none">
-            <span class="role-avatar-badge" aria-hidden="true">📋</span>
-            <div class="role-avatar border-4 border-amber-400">
-              <svg viewBox="0 0 120 120" aria-hidden="true">
-                <circle cx="60" cy="58" r="28" fill="#FDE2C4"/>
-                <path d="M28,58 C26,30 44,18 60,18 C76,18 94,30 92,58 Z" fill="#92400E"/>
-                <circle cx="48" cy="56" r="3.2" fill="#1E293B"/>
-                <circle cx="72" cy="56" r="3.2" fill="#1E293B"/>
-                <path d="M50,70 Q60,78 70,70" stroke="#B45309" stroke-width="3" fill="none" stroke-linecap="round"/>
-                <rect x="34" y="88" width="52" height="24" rx="6" fill="#F59E0B"/>
-                <rect x="44" y="78" width="32" height="18" rx="3" fill="#FEF3C7" stroke="#D97724" stroke-width="2"/>
-                <line x1="50" y1="84" x2="70" y2="84" stroke="#D97724" stroke-width="2"/>
-                <line x1="50" y1="90" x2="66" y2="90" stroke="#D97724" stroke-width="2"/>
-              </svg>
-            </div>
+          <span class="step-num" style="background:#F59E0B;">2</span>
+          <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">📋</span>
+            <div class="role-avatar border-4 border-amber-400"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="58" r="28" fill="#FDE2C4"/><path d="M28,58 C26,30 44,18 60,18 C76,18 94,30 92,58 Z" fill="#92400E"/><rect x="34" y="88" width="52" height="24" rx="6" fill="#F59E0B"/><rect x="44" y="78" width="32" height="18" rx="3" fill="#FEF3C7" stroke="#D97724" stroke-width="2"/></svg></div>
           </div>
-          <p class="font-black text-sm sm:text-base text-amber-900 leading-tight" style="font-family: Arial, Helvetica, sans-serif;" contenteditable="true">Order Taker</p>
-          <p class="text-[11px] sm:text-xs font-black text-amber-800" contenteditable="true">落單員</p>
-          <p class="text-[11px] sm:text-xs text-slate-600 font-semibold mt-1 leading-snug" contenteditable="true">Collect form · explain order to Chef</p>
-          <p class="text-[10px] sm:text-[11px] font-bold text-amber-900/80" contenteditable="true">收單 · 向大廚解釋</p>
+          <div class="step-copy">
+            <p class="step-roles" contenteditable="true">Order Takers</p>
+            <p class="step-roles-zh" contenteditable="true">落單員</p>
+            <p class="step-en" contenteditable="true">Collect the order from the tables (assignment is in their envelopes).</p>
+            <p class="step-zh" contenteditable="true">向各枱收取訂單（任務信封已寫明負責枱）。</p>
+          </div>
         </div>
-        <div class="how-play-arrow" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></div>
-        <div class="how-play-arrow-mobile" aria-hidden="true"><i class="fa-solid fa-arrow-down"></i></div>
+
         <div class="how-play-step" style="background:#FFF1F2;">
-          <span class="step-num" style="background:#C8372D;">2</span>
-          <div class="role-avatar-wrap pointer-events-none">
-            <span class="role-avatar-badge" aria-hidden="true">👨‍🍳</span>
-            <div class="role-avatar border-4 border-[#C8372D]">
-              <svg viewBox="0 0 120 120" aria-hidden="true">
-                <ellipse cx="60" cy="28" rx="28" ry="14" fill="#F8FAFC"/>
-                <rect x="40" y="28" width="40" height="12" fill="#E2E8F0"/>
-                <circle cx="60" cy="62" r="26" fill="#FDE2C4"/>
-                <circle cx="50" cy="60" r="3" fill="#1E293B"/>
-                <circle cx="70" cy="60" r="3" fill="#1E293B"/>
-                <path d="M50,72 Q60,80 70,72" stroke="#C8372D" stroke-width="3" fill="none" stroke-linecap="round"/>
-                <path d="M34,90 L86,90 L92,114 L28,114 Z" fill="#C8372D"/>
-                <rect x="52" y="96" width="16" height="10" rx="2" fill="#FEF3C7"/>
-              </svg>
+          <span class="step-num" style="background:#C8372D;">3</span>
+          <div class="step-avatars">
+            <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">📋</span>
+              <div class="role-avatar border-4 border-amber-400"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="58" r="28" fill="#FDE2C4"/><path d="M28,58 C26,30 44,18 60,18 C76,18 94,30 92,58 Z" fill="#92400E"/><rect x="34" y="88" width="52" height="24" rx="6" fill="#F59E0B"/></svg></div>
+            </div>
+            <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">👨‍🍳</span>
+              <div class="role-avatar border-4 border-[#C8372D]"><svg viewBox="0 0 120 120" aria-hidden="true"><ellipse cx="60" cy="28" rx="28" ry="14" fill="#F8FAFC"/><circle cx="60" cy="62" r="26" fill="#FDE2C4"/><path d="M34,90 L86,90 L92,114 L28,114 Z" fill="#C8372D"/></svg></div>
+            </div>
+            <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">🍽️</span>
+              <div class="role-avatar border-4 border-[#1E6B3B]"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="56" r="28" fill="#FDE2C4"/><ellipse cx="60" cy="96" rx="30" ry="10" fill="#FEF3C7" stroke="#D97724" stroke-width="2"/><path d="M34,90 L86,90 L90,112 L30,112 Z" fill="#1E6B3B"/></svg></div>
             </div>
           </div>
-          <p class="font-black text-sm sm:text-base text-[#C8372D] leading-tight" style="font-family: Arial, Helvetica, sans-serif;" contenteditable="true">Chef</p>
-          <p class="text-[11px] sm:text-xs font-black text-red-800" contenteditable="true">大廚</p>
-          <p class="text-[11px] sm:text-xs text-slate-600 font-semibold mt-1 leading-snug" contenteditable="true">Assemble meal from the food pool</p>
-          <p class="text-[10px] sm:text-[11px] font-bold text-red-800/80" contenteditable="true">從食材池組裝餐點</p>
+          <div class="step-copy">
+            <p class="step-roles" contenteditable="true">Order Takers → Chef → Server</p>
+            <p class="step-roles-zh" contenteditable="true">落單員 → 大廚 → 樓面侍應</p>
+            <p class="step-en" contenteditable="true">Order Takers brief the Chef; Chef fetches ingredients from the food pool onto the Server’s tray.</p>
+            <p class="step-zh" contenteditable="true">落單員向大廚講解；大廚從食材池取料，放到侍應的托盤上。</p>
+          </div>
         </div>
-        <div class="how-play-arrow" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></div>
-        <div class="how-play-arrow-mobile" aria-hidden="true"><i class="fa-solid fa-arrow-down"></i></div>
+
         <div class="how-play-step" style="background:#ECFDF5;">
-          <span class="step-num" style="background:#1E6B3B;">3</span>
-          <div class="role-avatar-wrap pointer-events-none">
-            <span class="role-avatar-badge" aria-hidden="true">🍽️</span>
-            <div class="role-avatar border-4 border-[#1E6B3B]">
-              <svg viewBox="0 0 120 120" aria-hidden="true">
-                <circle cx="60" cy="56" r="28" fill="#FDE2C4"/>
-                <path d="M30,52 C28,28 46,16 60,16 C74,16 92,28 90,52 Z" fill="#14532D"/>
-                <circle cx="48" cy="54" r="3" fill="#1E293B"/>
-                <circle cx="72" cy="54" r="3" fill="#1E293B"/>
-                <path d="M50,68 Q60,76 70,68" stroke="#1E6B3B" stroke-width="3" fill="none" stroke-linecap="round"/>
-                <ellipse cx="60" cy="96" rx="30" ry="10" fill="#FEF3C7" stroke="#D97724" stroke-width="2"/>
-                <circle cx="60" cy="92" r="8" fill="#FCA5A5"/>
-                <path d="M34,90 L86,90 L90,112 L30,112 Z" fill="#1E6B3B"/>
-              </svg>
-            </div>
+          <span class="step-num" style="background:#1E6B3B;">4</span>
+          <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">🍽️</span>
+            <div class="role-avatar border-4 border-[#1E6B3B]"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="56" r="28" fill="#FDE2C4"/><path d="M30,52 C28,28 46,16 60,16 C74,16 92,28 90,52 Z" fill="#14532D"/><ellipse cx="60" cy="96" rx="30" ry="10" fill="#FEF3C7" stroke="#D97724" stroke-width="2"/><circle cx="60" cy="92" r="8" fill="#FCA5A5"/><path d="M34,90 L86,90 L90,112 L30,112 Z" fill="#1E6B3B"/></svg></div>
           </div>
-          <p class="font-black text-sm sm:text-base text-[#1E6B3B] leading-tight" style="font-family: Arial, Helvetica, sans-serif;" contenteditable="true">Server</p>
-          <p class="text-[11px] sm:text-xs font-black text-green-800" contenteditable="true">樓面侍應</p>
-          <p class="text-[11px] sm:text-xs text-slate-600 font-semibold mt-1 leading-snug" contenteditable="true">Deliver with form · wait for check</p>
-          <p class="text-[10px] sm:text-[11px] font-bold text-green-800/80" contenteditable="true">連同表格上菜 · 等候核對</p>
+          <div class="step-copy">
+            <p class="step-roles" contenteditable="true">Server → Tables</p>
+            <p class="step-roles-zh" contenteditable="true">樓面侍應 → 各枱</p>
+            <p class="step-en" contenteditable="true">Server delivers the food tray with the order back to the ordering Tables.</p>
+            <p class="step-zh" contenteditable="true">侍應把連同訂單的托盤送回落單枱。</p>
+          </div>
         </div>
-        <div class="how-play-arrow" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></div>
-        <div class="how-play-arrow-mobile" aria-hidden="true"><i class="fa-solid fa-arrow-down"></i></div>
+
         <div class="how-play-step" style="background:#FFF7ED;">
-          <span class="step-num" style="background:#D97724;">✓</span>
-          <div class="role-avatar-wrap pointer-events-none">
-            <span class="role-avatar-badge" aria-hidden="true">✅</span>
-            <div class="role-avatar border-4 border-[#D97724]">
-              <svg viewBox="0 0 120 120" aria-hidden="true">
-                <circle cx="60" cy="60" r="56" fill="#FEF3C7"/>
-                <circle cx="60" cy="50" r="22" fill="#FDE2C4"/>
-                <path d="M38,46 C40,28 50,22 60,22 C70,22 80,28 82,46" fill="#78350F"/>
-                <rect x="34" y="28" width="52" height="10" rx="2" fill="#1E293B"/>
-                <circle cx="50" cy="48" r="2.6" fill="#1E293B"/>
-                <circle cx="70" cy="48" r="2.6" fill="#1E293B"/>
-                <path d="M50,62 Q60,70 70,62" stroke="#B45309" stroke-width="3" fill="none" stroke-linecap="round"/>
-                <rect x="40" y="78" width="40" height="28" rx="3" fill="#FFF7ED" stroke="#D97724" stroke-width="3"/>
-                <path d="M48,92 l8 8 16-18" fill="none" stroke="#1E6B3B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
+          <span class="step-num" style="background:#D97724;">5</span>
+          <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">✅</span>
+            <div class="role-avatar border-4 border-[#D97724]"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="#FEF3C7"/><circle cx="60" cy="50" r="22" fill="#FDE2C4"/><rect x="40" y="78" width="40" height="28" rx="3" fill="#FFF7ED" stroke="#D97724" stroke-width="3"/><path d="M48,92 l8 8 16-18" fill="none" stroke="#1E6B3B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           </div>
-          <p class="font-black text-sm sm:text-base text-[#92400E] leading-tight" style="font-family: Arial, Helvetica, sans-serif;" contenteditable="true">Correctness Check</p>
-          <p class="text-[11px] sm:text-xs font-black text-amber-900" contenteditable="true">核對正確</p>
-          <p class="text-[11px] sm:text-xs text-slate-600 font-semibold mt-1 leading-snug" contenteditable="true">Must match the written order</p>
-          <p class="text-[10px] sm:text-[11px] font-bold text-[#92400E]/80" contenteditable="true">必須與訂單一致 · 錯則重做</p>
+          <div class="step-copy">
+            <p class="step-roles" contenteditable="true">Tables</p>
+            <p class="step-roles-zh" contenteditable="true">各枱</p>
+            <p class="step-en" contenteditable="true">Verify the meal and mark the order form complete.</p>
+            <p class="step-zh" contenteditable="true">核對餐點，並在落單紙上勾選完成。</p>
+          </div>
+        </div>
+
+        <div class="how-play-step" style="background:#F5F3FF;">
+          <span class="step-num" style="background:#7C3AED;">6</span>
+          <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">📝</span>
+            <div class="role-avatar border-4 border-[#7C3AED]"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="#F5F3FF"/><circle cx="60" cy="50" r="22" fill="#FDE2C4"/><rect x="34" y="28" width="52" height="10" rx="2" fill="#4C1D95"/><rect x="40" y="78" width="40" height="28" rx="3" fill="#EDE9FE" stroke="#7C3AED" stroke-width="3"/><path d="M48,92 l8 8 16-18" fill="none" stroke="#1E6B3B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          </div>
+          <div class="step-copy">
+            <p class="step-roles" contenteditable="true">Examiner</p>
+            <p class="step-roles-zh" contenteditable="true">考官</p>
+            <p class="step-en" contenteditable="true">Teams with both orders done go to the Examiner — fastest team wins.</p>
+            <p class="step-zh" contenteditable="true">兩張訂單都完成的隊伍前往考官；最快者勝出。</p>
+          </div>
         </div>
       </div>
     </div>
@@ -3369,43 +3351,9 @@
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 12: DESSERT & COFFEE BREAK (TUCK SHOP RECESS)                   -->
+  <!-- SLIDE 13: LUCKY DRAW PHASE 1 (BEFORE 2ND BUFFET) (PRINCIPAL'S HONOR ROLL SPINNER)         -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center" data-title="13. Dessert & Coffee Break">
-    <div class="festive-card canteen-frame theme-rail stage-card rounded-3xl border-4 border-[#1E6B3B]">
-      <div class="w-24 h-24 mx-auto mb-4 rounded-3xl bg-gradient-to-tr from-[#1E6B3B] to-[#23486A] flex items-center justify-center text-white text-4xl shadow-lg animate-float">
-        <i class="fa-solid fa-cookie-bite"></i>
-      </div>
-
-      <span class="px-4 py-1 rounded-full bg-green-100 border border-green-300 text-green-800 text-xs font-extrabold uppercase tracking-widest">
-        🍰 Tuck Shop Recess • 小食部小休
-      </span>
-
-      <h1 class="font-festive-display text-4xl sm:text-6xl font-bold text-[#1E6B3B] tracking-tight mt-3 mb-6" contenteditable="true">
-        DESSERT &amp; COFFEE BREAK • 甜品咖啡小休
-      </h1>
-
-      <div class="max-w-xl mx-auto bg-sky-50 border-2 border-[#23486A]/35 rounded-2xl p-5 mb-6 text-center shadow-sm">
-        <div class="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-[#23486A] text-white text-xs font-black uppercase tracking-wider mb-1.5">
-          <i class="fa-solid fa-gift"></i> Up Next • 緊接活動
-        </div>
-        <h3 class="text-xl sm:text-2xl font-black text-slate-800" contenteditable="true">
-          Christmas Gifts Lucky Draw Next! • 接下來是聖誕禮物抽獎！
-        </h3>
-      </div>
-
-      <div class="mt-1">
-        <button type="button" onclick="ringSchoolBell(this)" class="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl bg-gradient-to-r from-[#D97724] to-[#F59E0B] hover:from-[#b45309] hover:to-[#D97724] text-white font-black text-base sm:text-lg tracking-wide shadow-xl transition transform hover:scale-105 active:scale-95 cursor-pointer border-2 border-amber-200">
-          <i class="fa-solid fa-bell text-xl"></i> Ring School Bell
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================================================================== -->
-  <!-- SLIDE 13: LUCKY DRAW PHASE 1 (PRINCIPAL'S HONOR ROLL SPINNER)         -->
-  <!-- ===================================================================== -->
-  <section class="slide flex-col overflow-hidden" style="padding-top: 3.1rem; padding-bottom: 4rem;" data-title="14. Christmas Gifts Spinner">
+  <section class="slide flex-col overflow-hidden" style="padding-top: 3.1rem; padding-bottom: 4rem;" data-title="13. Christmas Gifts Spinner">
     <div class="flex-1 max-w-[1600px] w-full mx-auto flex flex-col justify-center">
       <div class="flex flex-wrap items-center justify-between gap-2 mb-1 px-1">
         <div class="flex items-center gap-3 flex-wrap">
@@ -3503,6 +3451,43 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SLIDE 14: 2ND ROUND BUFFET (DESSERT & COFFEE)                   -->
+  <!-- ===================================================================== -->
+  <section class="slide flex-col items-center justify-center text-center" data-title="14. 2nd Round Buffet — Dessert & Coffee">
+    <div class="festive-card canteen-frame theme-rail stage-card rounded-3xl border-4 border-[#1E6B3B]">
+      <div class="w-24 h-24 mx-auto mb-4 rounded-3xl bg-gradient-to-tr from-[#1E6B3B] to-[#23486A] flex items-center justify-center text-white text-4xl shadow-lg animate-float">
+        <i class="fa-solid fa-cookie-bite"></i>
+      </div>
+
+      <span class="px-4 py-1 rounded-full bg-green-100 border border-green-300 text-green-800 text-xs font-extrabold uppercase tracking-widest">
+        🍰 Round 2 Buffet • 第二輪自助
+      </span>
+
+      <h1 class="font-festive-display text-4xl sm:text-6xl font-bold text-[#1E6B3B] tracking-tight mt-3 mb-6" contenteditable="true">
+        2ND ROUND BUFFET • 第二輪自助午餐
+      </h1>
+      <p class="text-base sm:text-xl font-bold text-slate-600 -mt-4 mb-5" contenteditable="true">
+        Dessert &amp; coffee · 甜品咖啡小休
+      </p>
+
+      <div class="max-w-xl mx-auto bg-sky-50 border-2 border-[#23486A]/35 rounded-2xl p-5 mb-6 text-center shadow-sm">
+        <div class="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-[#23486A] text-white text-xs font-black uppercase tracking-wider mb-1.5">
+          <i class="fa-solid fa-camera"></i> Up Next • 緊接活動
+        </div>
+        <h3 class="text-xl sm:text-2xl font-black text-slate-800" contenteditable="true">
+          Best Dressed catwalk next! • 接下來是最佳服裝走秀！
+        </h3>
+      </div>
+
+      <div class="mt-1">
+        <button type="button" onclick="ringSchoolBell(this)" class="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl bg-gradient-to-r from-[#D97724] to-[#F59E0B] hover:from-[#b45309] hover:to-[#D97724] text-white font-black text-base sm:text-lg tracking-wide shadow-xl transition transform hover:scale-105 active:scale-95 cursor-pointer border-2 border-amber-200">
+          <i class="fa-solid fa-bell text-xl"></i> Ring School Bell
+        </button>
       </div>
     </div>
   </section>
@@ -3819,7 +3804,8 @@
     // 20 slides (0..19): Best Dressed intro removed; catwalk only
     const SLIDE_SOCK_GUESS = 4;
     const SLIDE_COOK = 11;
-    const SLIDE_XMAS_SPIN = 13;
+    const SLIDE_XMAS_SPIN = 12; // first lucky draw — before 2nd buffet
+    const SLIDE_RECESS = 13; // 2nd round buffet (dessert & coffee)
     const SLIDE_BEST_REVEAL = 14; // catwalk yearbook backdrop
     const SLIDE_GRAND_INTRO = 15;
     const SLIDE_GRAND_SPIN = 16;
@@ -4061,7 +4047,7 @@
       if (handoff) {
         if (xmasLeft === 0) {
           handoff.innerHTML = left >= GRAND_SLOTS
-            ? `✅ Christmas complete · <strong>${left}</strong> names left for Grand (need ${GRAND_SLOTS}) · continue to Best Dress → Grand Spinner`
+            ? `✅ Christmas complete · <strong>${left}</strong> names left for Grand (need ${GRAND_SLOTS}) · next: 2nd buffet → Best Dress → Grand`
             : `⚠️ Christmas complete · only <strong>${left}</strong> names left — need ${GRAND_SLOTS} for Grand. Add more names to the roster.`;
           handoff.className = left >= GRAND_SLOTS
             ? 'rounded-xl bg-emerald-50 border border-emerald-200 px-2.5 py-2 text-[10px] font-semibold text-emerald-900 leading-relaxed'
@@ -5182,8 +5168,8 @@
       { id: 'game1', label: 'Game 1 Make a Guess', slides: [5, 6], trackKey: 'game1' },
       { id: 'game2Prelude', label: 'Game 2 prelude', slides: [7, 8], trackKey: 'game1' },
       { id: 'game2', label: 'Game 2 Culinary Fanatic', slides: [9, 10, 11], trackKey: 'game2' },
-      { id: 'recess', label: 'Recess', slides: [12], trackKey: 'recess' },
-      { id: 'christmasGifts', label: 'Christmas Gifts', slides: [13], trackKey: 'luckyDraw' },
+      { id: 'christmasGifts', label: 'Christmas Gifts', slides: [12], trackKey: 'luckyDraw' },
+      { id: 'recess', label: '2nd Round Buffet', slides: [13], trackKey: 'recess' },
       { id: 'bestDressed', label: 'Best Dressed Catwalk', slides: [14], trackKey: 'bestDressed' },
       { id: 'grandPrizes', label: 'Grand Prizes', slides: [15, 16], trackKey: 'luckyDraw' },
       { id: 'finale', label: 'Finale', slides: [17], trackKey: 'finale' }
