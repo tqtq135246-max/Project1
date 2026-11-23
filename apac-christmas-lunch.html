@@ -421,178 +421,205 @@
     .slide[data-title="10. Game 2: Order & Prepare"] .menu-board-chalk {
       padding: 0.55rem 0.6rem 0.7rem;
     }
-    /* Game 2 — How to Play (kitchen process map) */
+    /* Game 2 — How to Play (role swimlanes) */
     .slide[data-title="9. Game 2: How to Play"] {
-      padding-top: 3.1rem;
-      padding-bottom: 3.6rem;
-    }
-    .how-play-roles {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.35rem 0.45rem;
-    }
-    .how-play-role-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      border: 2px solid rgba(35,72,106,0.25);
-      background: rgba(255,255,255,0.95);
-      border-radius: 999px;
-      padding: 0.2rem 0.55rem 0.2rem 0.2rem;
-      font-family: 'Fredoka', sans-serif;
-      box-shadow: 0 8px 18px -14px rgba(35,72,106,0.35);
-    }
-    .how-play-role-chip .role-avatar {
-      width: 2.1rem;
-      height: 2.1rem;
-      flex-shrink: 0;
-    }
-    .how-play-role-chip .role-avatar-badge {
-      width: 1rem;
-      height: 1rem;
-      font-size: 0.55rem;
-      top: -0.15rem;
-      right: -0.15rem;
-    }
-    .how-play-role-chip strong {
-      display: block;
-      font-size: 0.68rem;
-      line-height: 1.05;
-      color: #C8372D;
-    }
-    .how-play-role-chip span {
-      display: block;
-      font-size: 0.58rem;
-      font-weight: 700;
-      color: #1E6B3B;
-      line-height: 1.05;
+      padding-top: 2.9rem;
+      padding-bottom: 3.3rem;
     }
     .slide[data-title="9. Game 2: How to Play"] .how-play-board {
       width: 100%;
-      max-width: min(96rem, 96vw);
+      max-width: min(98rem, 98vw);
       max-height: 100%;
       min-height: 0;
-      padding: 1.35rem 1rem 1.1rem;
+      padding: 1rem 0.9rem 0.85rem;
       display: flex;
       flex-direction: column;
-      gap: 0.55rem;
+      gap: 0.5rem;
     }
-    .how-play-flow {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.45rem;
-      align-items: stretch;
+    .how-play-swim {
+      --swim-cols: 2.35rem repeat(5, minmax(0, 1fr));
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
       flex: 1 1 auto;
       min-height: 0;
-    }
-    @media (min-width: 900px) {
-      .how-play-flow {
-        grid-template-columns: repeat(6, minmax(0, 1fr));
-        gap: 0.35rem;
-        align-items: stretch;
-      }
-    }
-    .how-play-step {
-      position: relative;
+      overflow: auto;
+      border: 2px solid rgba(35, 72, 106, 0.18);
       border-radius: 1rem;
-      padding: 0.55rem 0.45rem 0.65rem;
-      text-align: center;
-      border: 2px solid rgba(35,72,106,0.22);
-      background: rgba(255,255,255,0.96);
+      background:
+        linear-gradient(90deg,
+          transparent 0,
+          transparent calc(2.35rem + (100% - 2.35rem) * 0 / 5),
+          rgba(35, 72, 106, 0.04) calc(2.35rem + (100% - 2.35rem) * 0 / 5),
+          rgba(35, 72, 106, 0.04) calc(2.35rem + (100% - 2.35rem) * 1 / 5),
+          rgba(245, 158, 11, 0.07) calc(2.35rem + (100% - 2.35rem) * 1 / 5),
+          rgba(245, 158, 11, 0.07) calc(2.35rem + (100% - 2.35rem) * 2 / 5),
+          rgba(200, 55, 45, 0.06) calc(2.35rem + (100% - 2.35rem) * 2 / 5),
+          rgba(200, 55, 45, 0.06) calc(2.35rem + (100% - 2.35rem) * 3 / 5),
+          rgba(30, 107, 59, 0.06) calc(2.35rem + (100% - 2.35rem) * 3 / 5),
+          rgba(30, 107, 59, 0.06) calc(2.35rem + (100% - 2.35rem) * 4 / 5),
+          rgba(124, 58, 237, 0.06) calc(2.35rem + (100% - 2.35rem) * 4 / 5),
+          rgba(124, 58, 237, 0.06) 100%);
+      padding: 0.35rem;
+    }
+    .swim-rail {
+      display: grid;
+      grid-template-columns: var(--swim-cols);
+      gap: 0.35rem;
+      align-items: stretch;
+      min-height: 0;
+    }
+    .swim-rail-head {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      padding-bottom: 0.15rem;
+    }
+    .swim-step-gutter {
+      display: grid;
+      place-items: center;
+      align-self: center;
+    }
+    .swim-lane-head {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
-      gap: 0.2rem;
-      box-shadow: 0 12px 24px -18px rgba(35,72,106,0.35);
+      justify-content: center;
+      gap: 0.15rem;
+      text-align: center;
+      padding: 0.35rem 0.25rem;
+      border-radius: 0.75rem;
+      background: rgba(255, 255, 255, 0.92);
+      border: 2px solid rgba(35, 72, 106, 0.16);
+      font-family: 'Fredoka', sans-serif;
       min-width: 0;
     }
-    @media (min-width: 900px) {
-      .how-play-step:not(:last-child)::after {
-        content: '➜';
-        position: absolute;
-        right: -0.55rem;
-        top: 42%;
-        transform: translateY(-50%);
-        z-index: 3;
-        font-size: 1.05rem;
-        color: #D97724;
-        text-shadow: none;
-        pointer-events: none;
-      }
+    .swim-lane-head .role-avatar {
+      width: clamp(1.85rem, 3.6vh, 2.4rem);
+      height: clamp(1.85rem, 3.6vh, 2.4rem);
     }
-    .how-play-step .role-avatar-wrap { margin: 0; }
-    .how-play-step .role-avatar {
-      width: clamp(2.4rem, 5vh, 3.2rem);
-      height: clamp(2.4rem, 5vh, 3.2rem);
+    .swim-lane-head .role-avatar-badge {
+      width: 0.9rem;
+      height: 0.9rem;
+      font-size: 0.5rem;
+      top: -0.12rem;
+      right: -0.12rem;
     }
-    .how-play-step .role-avatar-badge {
-      width: 1.05rem;
-      height: 1.05rem;
-      font-size: 0.55rem;
+    .swim-lane-head strong {
+      display: block;
+      font-size: clamp(0.72rem, 1.35vh, 0.9rem);
+      line-height: 1.1;
+      color: #23486A;
     }
-    .how-play-step .step-num {
-      width: 1.45rem;
-      height: 1.45rem;
+    .swim-lane-head span {
+      display: block;
+      font-size: clamp(0.62rem, 1.15vh, 0.78rem);
+      font-weight: 700;
+      color: #1E6B3B;
+      line-height: 1.1;
+    }
+    .swim-lane-head.lane-tables { border-color: rgba(35, 72, 106, 0.35); }
+    .swim-lane-head.lane-ot { border-color: rgba(245, 158, 11, 0.55); }
+    .swim-lane-head.lane-chef { border-color: rgba(200, 55, 45, 0.45); }
+    .swim-lane-head.lane-server { border-color: rgba(30, 107, 59, 0.45); }
+    .swim-lane-head.lane-exam { border-color: rgba(124, 58, 237, 0.45); }
+    .swim-row {
+      flex: 1 1 0;
+      min-height: 3.6rem;
+    }
+    .swim-row .step-num {
+      width: 1.7rem;
+      height: 1.7rem;
       border-radius: 999px;
       display: grid;
       place-items: center;
       color: #fff;
       font-weight: 900;
-      font-size: 0.78rem;
+      font-size: 0.88rem;
       font-family: 'Fredoka', sans-serif;
-      box-shadow: 0 2px 0 rgba(0,0,0,0.2);
+      box-shadow: 0 2px 0 rgba(0, 0, 0, 0.18);
     }
-    .how-play-step .step-copy { min-width: 0; width: 100%; }
-    .how-play-step .step-copy .step-roles {
-      font-family: 'Fredoka', sans-serif;
-      font-weight: 700;
-      font-size: clamp(0.72rem, 1.35vh, 0.9rem);
-      color: #C8372D;
-      line-height: 1.15;
-    }
-    .how-play-step .step-copy .step-roles-zh {
-      font-family: 'Fredoka', sans-serif;
-      font-weight: 600;
-      font-size: clamp(0.62rem, 1.15vh, 0.78rem);
-      color: #1E6B3B;
-      margin-top: 0.05rem;
-    }
-    .how-play-step .step-copy .step-en {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-weight: 700;
-      font-size: clamp(0.58rem, 1.15vh, 0.72rem);
-      color: #57534e;
-      margin-top: 0.25rem;
-      line-height: 1.25;
-    }
-    .how-play-step .step-copy .step-zh {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-weight: 600;
-      font-size: clamp(0.55rem, 1.05vh, 0.68rem);
-      color: #78716c;
-      line-height: 1.25;
-    }
-    .how-play-step .step-avatars {
+    .swim-card {
+      border-radius: 0.85rem;
+      border: 2px solid rgba(35, 72, 106, 0.18);
+      background: rgba(255, 255, 255, 0.96);
+      padding: 0.45rem 0.55rem 0.5rem;
+      box-shadow: 0 10px 22px -18px rgba(35, 72, 106, 0.4);
+      min-width: 0;
       display: flex;
-      align-items: center;
+      flex-direction: column;
       justify-content: center;
       gap: 0.12rem;
     }
-    .how-play-step .step-avatars .role-avatar {
-      width: clamp(1.85rem, 4vh, 2.45rem);
-      height: clamp(1.85rem, 4vh, 2.45rem);
+    .swim-card .step-en {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: clamp(0.72rem, 1.45vh, 0.9rem);
+      color: #292524;
+      line-height: 1.3;
+    }
+    .swim-card .step-zh {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 600;
+      font-size: clamp(0.66rem, 1.3vh, 0.82rem);
+      color: #78716c;
+      line-height: 1.3;
+    }
+    .swim-card.lane-tables { grid-column: 2; background: #EEF2FF; border-color: rgba(35, 72, 106, 0.28); }
+    .swim-card.lane-ot { grid-column: 3; background: #FFFBEB; border-color: rgba(245, 158, 11, 0.4); }
+    .swim-card.lane-chef { grid-column: 4; background: #FFF1F2; border-color: rgba(200, 55, 45, 0.35); }
+    .swim-card.lane-server { grid-column: 5; background: #ECFDF5; border-color: rgba(30, 107, 59, 0.35); }
+    .swim-card.lane-exam { grid-column: 6; background: #F5F3FF; border-color: rgba(124, 58, 237, 0.35); }
+    .swim-card.lane-kitchen {
+      grid-column: 3 / span 3;
+      background: linear-gradient(90deg, #FFFBEB 0%, #FFF1F2 48%, #ECFDF5 100%);
+      border-color: rgba(200, 55, 45, 0.28);
+    }
+    .swim-card.lane-serve-back {
+      grid-column: 5;
+      background: #ECFDF5;
+      border-color: rgba(30, 107, 59, 0.35);
+    }
+    .swim-card .swim-handOff {
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      font-size: clamp(0.68rem, 1.25vh, 0.82rem);
+      color: #C8372D;
+      margin-bottom: 0.08rem;
     }
     @media (max-width: 899px) {
-      .how-play-step {
-        display: grid;
-        grid-template-columns: auto auto 1fr;
-        text-align: left;
-        padding: 0.45rem 0.55rem;
+      .how-play-swim {
+        background: rgba(255, 255, 255, 0.55);
+        gap: 0.45rem;
       }
-      .how-play-step .step-avatars { justify-content: flex-start; }
-      .how-play-step .step-copy { text-align: left; }
+      .swim-rail-head { display: none; }
+      .swim-rail {
+        grid-template-columns: 2.1rem 1fr;
+        gap: 0.4rem;
+      }
+      .swim-card,
+      .swim-card.lane-tables,
+      .swim-card.lane-ot,
+      .swim-card.lane-chef,
+      .swim-card.lane-server,
+      .swim-card.lane-exam,
+      .swim-card.lane-kitchen,
+      .swim-card.lane-serve-back,
+      .swim-card.lane-server {
+        grid-column: 2;
+      }
+      .swim-card::before {
+        font-family: 'Fredoka', sans-serif;
+        font-weight: 700;
+        font-size: 0.72rem;
+        color: #23486A;
+        margin-bottom: 0.1rem;
+      }
+      .swim-card.lane-tables::before { content: 'Tables · 各枱'; }
+      .swim-card.lane-ot::before { content: 'Order Takers · 落單員'; }
+      .swim-card.lane-kitchen::before { content: 'Order Takers → Chef → Server · 落單員 → 大廚 → 樓面侍應'; }
+      .swim-card.lane-serve-back::before { content: 'Server → Tables · 樓面侍應 → 各枱'; }
+      .swim-card.lane-exam::before { content: 'Examiner · 考官'; }
     }
 
     /* Game 2 — Order & Prepare (kitchen pass) */
@@ -3183,136 +3210,101 @@
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 10: GAME 2: HOW TO PLAY (ROLES + PROCESS CHART)                  -->
+  <!-- SLIDE 9: GAME 2: HOW TO PLAY (ROLE SWIMLANES)                          -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-stretch justify-center" data-title="9. Game 2: How to Play">
     <div class="stage-board g2-kitchen-board g2-exam-sheet festive-card theme-rail canteen-frame how-play-board">
-      <div class="shrink-0 text-center pt-2 relative z-10">
-        <span class="g2-ticket mb-2"><i class="fa-solid fa-diagram-project"></i> Process map</span>
+      <div class="shrink-0 text-center pt-1 relative z-10">
+        <span class="g2-ticket mb-1.5"><i class="fa-solid fa-diagram-project"></i> Role swimlanes</span>
         <p class="g2-kitchen-kicker mb-1" contenteditable="true">2026-XMAS GAME 2 · Kitchen flow · How to Play</p>
         <h1 class="g2-kitchen-title text-xl sm:text-3xl md:text-4xl" contenteditable="true">
           6-STEP CANTEEN RUN · TEAM OF 3
         </h1>
-        <h2 class="g2-kitchen-sub text-sm sm:text-lg mt-1" contenteditable="true">
-          食堂六步流程 · 三人小組
+        <h2 class="g2-kitchen-sub text-sm sm:text-lg mt-0.5" contenteditable="true">
+          食堂六步流程 · 三人小組 · 角色泳道
         </h2>
       </div>
 
-      <div class="how-play-roles shrink-0" aria-label="Game 2 roles">
-        <div class="how-play-role-chip">
-          <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">🪑</span>
-            <div class="role-avatar border-4 border-[#23486A]"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="#E8F0F8"/><circle cx="42" cy="54" r="16" fill="#FDE2C4"/><circle cx="78" cy="54" r="16" fill="#FDE2C4"/><circle cx="60" cy="62" r="18" fill="#FDE2C4"/><path d="M30,48 C32,34 38,30 42,30 C48,30 52,36 54,46" fill="#92400E"/><path d="M66,48 C68,34 74,30 78,30 C84,30 88,36 90,46" fill="#1E293B"/><path d="M48,50 C50,38 56,34 60,34 C64,34 70,38 72,50" fill="#78350F"/><circle cx="38" cy="52" r="2" fill="#1E293B"/><circle cx="46" cy="52" r="2" fill="#1E293B"/><circle cx="74" cy="52" r="2" fill="#1E293B"/><circle cx="82" cy="52" r="2" fill="#1E293B"/><circle cx="54" cy="60" r="2.2" fill="#1E293B"/><circle cx="66" cy="60" r="2.2" fill="#1E293B"/><path d="M28,92 L92,92 L96,112 L24,112 Z" fill="#23486A"/></svg></div>
+      <div class="how-play-swim" role="group" aria-label="Game 2 how to play by role">
+        <div class="swim-rail swim-rail-head" aria-hidden="false">
+          <div class="swim-step-gutter" aria-hidden="true"></div>
+          <div class="swim-lane-head lane-tables">
+            <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">🪑</span>
+              <div class="role-avatar border-4 border-[#23486A]"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="#E8F0F8"/><circle cx="42" cy="54" r="16" fill="#FDE2C4"/><circle cx="78" cy="54" r="16" fill="#FDE2C4"/><circle cx="60" cy="62" r="18" fill="#FDE2C4"/><path d="M28,92 L92,92 L96,112 L24,112 Z" fill="#23486A"/></svg></div>
+            </div>
+            <div><strong>Tables</strong><span>各枱</span></div>
           </div>
-          <div><strong>Tables</strong><span>各枱</span></div>
-        </div>
-        <div class="how-play-role-chip">
-          <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">📋</span>
-            <div class="role-avatar border-4 border-amber-400"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="58" r="28" fill="#FDE2C4"/><path d="M28,58 C26,30 44,18 60,18 C76,18 94,30 92,58 Z" fill="#92400E"/><circle cx="48" cy="56" r="3.2" fill="#1E293B"/><circle cx="72" cy="56" r="3.2" fill="#1E293B"/><path d="M50,70 Q60,78 70,70" stroke="#B45309" stroke-width="3" fill="none" stroke-linecap="round"/><rect x="34" y="88" width="52" height="24" rx="6" fill="#F59E0B"/><rect x="44" y="78" width="32" height="18" rx="3" fill="#FEF3C7" stroke="#D97724" stroke-width="2"/><line x1="50" y1="84" x2="70" y2="84" stroke="#D97724" stroke-width="2"/><line x1="50" y1="90" x2="66" y2="90" stroke="#D97724" stroke-width="2"/></svg></div>
+          <div class="swim-lane-head lane-ot">
+            <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">📋</span>
+              <div class="role-avatar border-4 border-amber-400"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="58" r="28" fill="#FDE2C4"/><path d="M28,58 C26,30 44,18 60,18 C76,18 94,30 92,58 Z" fill="#92400E"/><rect x="34" y="88" width="52" height="24" rx="6" fill="#F59E0B"/></svg></div>
+            </div>
+            <div><strong>Order Takers</strong><span>落單員</span></div>
           </div>
-          <div><strong>Order Takers</strong><span>落單員</span></div>
-        </div>
-        <div class="how-play-role-chip">
-          <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">👨‍🍳</span>
-            <div class="role-avatar border-4 border-[#C8372D]"><svg viewBox="0 0 120 120" aria-hidden="true"><ellipse cx="60" cy="28" rx="28" ry="14" fill="#F8FAFC"/><rect x="40" y="28" width="40" height="12" fill="#E2E8F0"/><circle cx="60" cy="62" r="26" fill="#FDE2C4"/><circle cx="50" cy="60" r="3" fill="#1E293B"/><circle cx="70" cy="60" r="3" fill="#1E293B"/><path d="M50,72 Q60,80 70,72" stroke="#C8372D" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M34,90 L86,90 L92,114 L28,114 Z" fill="#C8372D"/><rect x="52" y="96" width="16" height="10" rx="2" fill="#FEF3C7"/></svg></div>
+          <div class="swim-lane-head lane-chef">
+            <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">👨‍🍳</span>
+              <div class="role-avatar border-4 border-[#C8372D]"><svg viewBox="0 0 120 120" aria-hidden="true"><ellipse cx="60" cy="28" rx="28" ry="14" fill="#F8FAFC"/><circle cx="60" cy="62" r="26" fill="#FDE2C4"/><path d="M34,90 L86,90 L92,114 L28,114 Z" fill="#C8372D"/></svg></div>
+            </div>
+            <div><strong>Chef</strong><span>大廚</span></div>
           </div>
-          <div><strong>Chef</strong><span>大廚</span></div>
-        </div>
-        <div class="how-play-role-chip">
-          <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">🍽️</span>
-            <div class="role-avatar border-4 border-[#1E6B3B]"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="56" r="28" fill="#FDE2C4"/><path d="M30,52 C28,28 46,16 60,16 C74,16 92,28 90,52 Z" fill="#14532D"/><circle cx="48" cy="54" r="3" fill="#1E293B"/><circle cx="72" cy="54" r="3" fill="#1E293B"/><path d="M50,68 Q60,76 70,68" stroke="#1E6B3B" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="60" cy="96" rx="30" ry="10" fill="#FEF3C7" stroke="#D97724" stroke-width="2"/><circle cx="60" cy="92" r="8" fill="#FCA5A5"/><path d="M34,90 L86,90 L90,112 L30,112 Z" fill="#1E6B3B"/></svg></div>
+          <div class="swim-lane-head lane-server">
+            <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">🍽️</span>
+              <div class="role-avatar border-4 border-[#1E6B3B]"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="56" r="28" fill="#FDE2C4"/><ellipse cx="60" cy="96" rx="30" ry="10" fill="#FEF3C7" stroke="#D97724" stroke-width="2"/><path d="M34,90 L86,90 L90,112 L30,112 Z" fill="#1E6B3B"/></svg></div>
+            </div>
+            <div><strong>Server</strong><span>樓面侍應</span></div>
           </div>
-          <div><strong>Server</strong><span>樓面侍應</span></div>
-        </div>
-        <div class="how-play-role-chip">
-          <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">📝</span>
-            <div class="role-avatar border-4 border-[#7C3AED]"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="#F5F3FF"/><circle cx="60" cy="50" r="22" fill="#FDE2C4"/><path d="M38,46 C40,28 50,22 60,22 C70,22 80,28 82,46" fill="#1E293B"/><rect x="34" y="28" width="52" height="10" rx="2" fill="#4C1D95"/><circle cx="50" cy="48" r="2.6" fill="#1E293B"/><circle cx="70" cy="48" r="2.6" fill="#1E293B"/><path d="M50,62 Q60,70 70,62" stroke="#7C3AED" stroke-width="3" fill="none" stroke-linecap="round"/><rect x="40" y="78" width="40" height="28" rx="3" fill="#EDE9FE" stroke="#7C3AED" stroke-width="3"/><path d="M48,92 l8 8 16-18" fill="none" stroke="#1E6B3B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="swim-lane-head lane-exam">
+            <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">📝</span>
+              <div class="role-avatar border-4 border-[#7C3AED]"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="#F5F3FF"/><circle cx="60" cy="50" r="22" fill="#FDE2C4"/><rect x="34" y="28" width="52" height="10" rx="2" fill="#4C1D95"/><rect x="40" y="78" width="40" height="28" rx="3" fill="#EDE9FE" stroke="#7C3AED" stroke-width="3"/></svg></div>
+            </div>
+            <div><strong>Examiner</strong><span>考官</span></div>
           </div>
-          <div><strong>Examiner</strong><span>考官</span></div>
         </div>
-      </div>
 
-      <div class="how-play-flow">
-        <div class="how-play-step" style="background:#EEF2FF;">
-          <span class="step-num" style="background:#23486A;">1</span>
-          <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">🪑</span>
-            <div class="role-avatar border-4 border-[#23486A]"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="#E8F0F8"/><circle cx="42" cy="54" r="16" fill="#FDE2C4"/><circle cx="78" cy="54" r="16" fill="#FDE2C4"/><circle cx="60" cy="62" r="18" fill="#FDE2C4"/><path d="M28,92 L92,92 L96,112 L24,112 Z" fill="#23486A"/></svg></div>
-          </div>
-          <div class="step-copy">
-            <p class="step-roles" contenteditable="true">Tables</p>
-            <p class="step-roles-zh" contenteditable="true">各枱</p>
+        <div class="swim-rail swim-row">
+          <div class="swim-step-gutter"><span class="step-num" style="background:#23486A;">1</span></div>
+          <div class="swim-card lane-tables">
             <p class="step-en" contenteditable="true">Make orders on the assigned order form.</p>
             <p class="step-zh" contenteditable="true">按獲派落單紙落單。</p>
           </div>
         </div>
 
-        <div class="how-play-step" style="background:#FFFBEB;">
-          <span class="step-num" style="background:#F59E0B;">2</span>
-          <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">📋</span>
-            <div class="role-avatar border-4 border-amber-400"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="58" r="28" fill="#FDE2C4"/><path d="M28,58 C26,30 44,18 60,18 C76,18 94,30 92,58 Z" fill="#92400E"/><rect x="34" y="88" width="52" height="24" rx="6" fill="#F59E0B"/><rect x="44" y="78" width="32" height="18" rx="3" fill="#FEF3C7" stroke="#D97724" stroke-width="2"/></svg></div>
-          </div>
-          <div class="step-copy">
-            <p class="step-roles" contenteditable="true">Order Takers</p>
-            <p class="step-roles-zh" contenteditable="true">落單員</p>
+        <div class="swim-rail swim-row">
+          <div class="swim-step-gutter"><span class="step-num" style="background:#F59E0B;">2</span></div>
+          <div class="swim-card lane-ot">
             <p class="step-en" contenteditable="true">Collect the order from the tables (assignment is in their envelopes).</p>
             <p class="step-zh" contenteditable="true">向各枱收取訂單（任務信封已寫明負責枱）。</p>
           </div>
         </div>
 
-        <div class="how-play-step" style="background:#FFF1F2;">
-          <span class="step-num" style="background:#C8372D;">3</span>
-          <div class="step-avatars">
-            <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">📋</span>
-              <div class="role-avatar border-4 border-amber-400"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="58" r="28" fill="#FDE2C4"/><path d="M28,58 C26,30 44,18 60,18 C76,18 94,30 92,58 Z" fill="#92400E"/><rect x="34" y="88" width="52" height="24" rx="6" fill="#F59E0B"/></svg></div>
-            </div>
-            <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">👨‍🍳</span>
-              <div class="role-avatar border-4 border-[#C8372D]"><svg viewBox="0 0 120 120" aria-hidden="true"><ellipse cx="60" cy="28" rx="28" ry="14" fill="#F8FAFC"/><circle cx="60" cy="62" r="26" fill="#FDE2C4"/><path d="M34,90 L86,90 L92,114 L28,114 Z" fill="#C8372D"/></svg></div>
-            </div>
-            <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">🍽️</span>
-              <div class="role-avatar border-4 border-[#1E6B3B]"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="56" r="28" fill="#FDE2C4"/><ellipse cx="60" cy="96" rx="30" ry="10" fill="#FEF3C7" stroke="#D97724" stroke-width="2"/><path d="M34,90 L86,90 L90,112 L30,112 Z" fill="#1E6B3B"/></svg></div>
-            </div>
-          </div>
-          <div class="step-copy">
-            <p class="step-roles" contenteditable="true">Order Takers → Chef → Server</p>
-            <p class="step-roles-zh" contenteditable="true">落單員 → 大廚 → 樓面侍應</p>
+        <div class="swim-rail swim-row">
+          <div class="swim-step-gutter"><span class="step-num" style="background:#C8372D;">3</span></div>
+          <div class="swim-card lane-kitchen">
+            <p class="swim-handOff" contenteditable="true">Order Takers → Chef → Server · 落單員 → 大廚 → 樓面侍應</p>
             <p class="step-en" contenteditable="true">Order Takers brief the Chef; Chef fetches ingredients from the food pool onto the Server’s tray.</p>
             <p class="step-zh" contenteditable="true">落單員向大廚講解；大廚從食材池取料，放到侍應的托盤上。</p>
           </div>
         </div>
 
-        <div class="how-play-step" style="background:#ECFDF5;">
-          <span class="step-num" style="background:#1E6B3B;">4</span>
-          <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">🍽️</span>
-            <div class="role-avatar border-4 border-[#1E6B3B]"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="56" r="28" fill="#FDE2C4"/><path d="M30,52 C28,28 46,16 60,16 C74,16 92,28 90,52 Z" fill="#14532D"/><ellipse cx="60" cy="96" rx="30" ry="10" fill="#FEF3C7" stroke="#D97724" stroke-width="2"/><circle cx="60" cy="92" r="8" fill="#FCA5A5"/><path d="M34,90 L86,90 L90,112 L30,112 Z" fill="#1E6B3B"/></svg></div>
-          </div>
-          <div class="step-copy">
-            <p class="step-roles" contenteditable="true">Server → Tables</p>
-            <p class="step-roles-zh" contenteditable="true">樓面侍應 → 各枱</p>
+        <div class="swim-rail swim-row">
+          <div class="swim-step-gutter"><span class="step-num" style="background:#1E6B3B;">4</span></div>
+          <div class="swim-card lane-serve-back">
+            <p class="swim-handOff" contenteditable="true">Server → Tables · 樓面侍應 → 各枱</p>
             <p class="step-en" contenteditable="true">Server delivers the food tray with the order back to the ordering Tables.</p>
             <p class="step-zh" contenteditable="true">侍應把連同訂單的托盤送回落單枱。</p>
           </div>
         </div>
 
-        <div class="how-play-step" style="background:#FFF7ED;">
-          <span class="step-num" style="background:#D97724;">5</span>
-          <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">✅</span>
-            <div class="role-avatar border-4 border-[#D97724]"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="#FEF3C7"/><circle cx="60" cy="50" r="22" fill="#FDE2C4"/><rect x="40" y="78" width="40" height="28" rx="3" fill="#FFF7ED" stroke="#D97724" stroke-width="3"/><path d="M48,92 l8 8 16-18" fill="none" stroke="#1E6B3B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          </div>
-          <div class="step-copy">
-            <p class="step-roles" contenteditable="true">Tables</p>
-            <p class="step-roles-zh" contenteditable="true">各枱</p>
+        <div class="swim-rail swim-row">
+          <div class="swim-step-gutter"><span class="step-num" style="background:#D97724;">5</span></div>
+          <div class="swim-card lane-tables">
             <p class="step-en" contenteditable="true">Verify the meal and mark the order form complete.</p>
             <p class="step-zh" contenteditable="true">核對餐點，並在落單紙上勾選完成。</p>
           </div>
         </div>
 
-        <div class="how-play-step" style="background:#F5F3FF;">
-          <span class="step-num" style="background:#7C3AED;">6</span>
-          <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">📝</span>
-            <div class="role-avatar border-4 border-[#7C3AED]"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="#F5F3FF"/><circle cx="60" cy="50" r="22" fill="#FDE2C4"/><rect x="34" y="28" width="52" height="10" rx="2" fill="#4C1D95"/><rect x="40" y="78" width="40" height="28" rx="3" fill="#EDE9FE" stroke="#7C3AED" stroke-width="3"/><path d="M48,92 l8 8 16-18" fill="none" stroke="#1E6B3B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          </div>
-          <div class="step-copy">
-            <p class="step-roles" contenteditable="true">Examiner</p>
-            <p class="step-roles-zh" contenteditable="true">考官</p>
+        <div class="swim-rail swim-row">
+          <div class="swim-step-gutter"><span class="step-num" style="background:#7C3AED;">6</span></div>
+          <div class="swim-card lane-exam">
             <p class="step-en" contenteditable="true">Teams with both orders done go to the Examiner — fastest team wins.</p>
             <p class="step-zh" contenteditable="true">兩張訂單都完成的隊伍前往考官；最快者勝出。</p>
           </div>
