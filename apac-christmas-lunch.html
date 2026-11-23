@@ -489,17 +489,17 @@
       object-position: center;
       display: block;
     }
-    .slide[data-title="11. Game 2: Order & Prepare"] .stage-board {
+    .slide[data-title="10. Game 2: Order & Prepare"] .stage-board {
       max-width: min(96rem, 96vw);
     }
-    .slide[data-title="11. Game 2: Order & Prepare"] .menu-board-shell {
+    .slide[data-title="10. Game 2: Order & Prepare"] .menu-board-shell {
       padding: 0.55rem 0.55rem 0.7rem;
     }
-    .slide[data-title="11. Game 2: Order & Prepare"] .menu-board-chalk {
+    .slide[data-title="10. Game 2: Order & Prepare"] .menu-board-chalk {
       padding: 0.55rem 0.6rem 0.7rem;
     }
     /* Game 2 — How to Play (kitchen process map) */
-    .slide[data-title="10. Game 2: How to Play"] {
+    .slide[data-title="9. Game 2: How to Play"] {
       padding-top: 3.1rem;
       padding-bottom: 3.6rem;
     }
@@ -545,7 +545,7 @@
       color: #1E6B3B;
       line-height: 1.05;
     }
-    .slide[data-title="10. Game 2: How to Play"] .how-play-board {
+    .slide[data-title="9. Game 2: How to Play"] .how-play-board {
       width: 100%;
       max-width: min(96rem, 96vw);
       max-height: 100%;
@@ -673,13 +673,13 @@
     }
 
     /* Game 2 — Order & Prepare (kitchen pass) */
-    .slide[data-title="11. Game 2: Order & Prepare"] {
+    .slide[data-title="10. Game 2: Order & Prepare"] {
       padding-top: 3.0rem;
       padding-bottom: 3.5rem;
       padding-left: 0.75rem;
       padding-right: 0.75rem;
     }
-    .slide[data-title="11. Game 2: Order & Prepare"] .order-prep-board {
+    .slide[data-title="10. Game 2: Order & Prepare"] .order-prep-board {
       width: 100%;
       max-width: min(98rem, 98vw);
       flex: 1 1 auto;
@@ -691,13 +691,13 @@
       padding: 1.15rem 0.75rem 0.75rem;
       margin-inline: auto;
     }
-    .slide[data-title="11. Game 2: Order & Prepare"] .menu-set-card {
+    .slide[data-title="10. Game 2: Order & Prepare"] .menu-set-card {
       border-radius: 0;
       border: 1.5px solid #111 !important;
       background: #fffef8;
       box-shadow: none;
     }
-    .slide[data-title="11. Game 2: Order & Prepare"] .order-prep-form {
+    .slide[data-title="10. Game 2: Order & Prepare"] .order-prep-form {
       border-radius: 0;
       border: 1.5px solid #111 !important;
       background: #fff;
@@ -802,7 +802,7 @@
       opacity: 0.85;
     }
     /* Game 2 kitchen mission brief */
-    .slide[data-title="9. Game 2: Mission Brief"] {
+    .slide[data-title="8. Game 2: Mission Brief"] {
       padding-top: 2.6rem;
       padding-bottom: 3.2rem;
       padding-left: 0.75rem;
@@ -1009,22 +1009,22 @@
     .menu-board-grid-light {
       margin-top: 0.35rem;
     }
-    .slide[data-title="11. Game 2: Order & Prepare"] .menu-board-grid {
+    .slide[data-title="10. Game 2: Order & Prepare"] .menu-board-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 0.85rem;
     }
     @media (max-width: 900px) {
-      .slide[data-title="11. Game 2: Order & Prepare"] .menu-board-grid {
+      .slide[data-title="10. Game 2: Order & Prepare"] .menu-board-grid {
         grid-template-columns: 1fr;
       }
     }
-    .slide[data-title="11. Game 2: Order & Prepare"] .order-sheet-slide {
+    .slide[data-title="10. Game 2: Order & Prepare"] .order-sheet-slide {
       width: 100%;
       max-width: min(72rem, 96vw);
       margin-inline: auto;
     }
-    .slide[data-title="11. Game 2: Order & Prepare"] .order-sheet-frame {
+    .slide[data-title="10. Game 2: Order & Prepare"] .order-sheet-frame {
       max-height: min(58vh, 560px);
       margin-top: 0.35rem;
     }
@@ -2338,7 +2338,7 @@
       to { height: 34px; }
     }
 
-    /* Sock Guess reveal — pre-lunch Game 1 answers */
+    /* Sock Guess reveal — after grand prize draw */
     .sock-reveal-stage {
       position: relative;
       overflow: hidden;
@@ -3052,10 +3052,10 @@
           <i class="fa-solid fa-clock"></i> Run order • 本日流程
         </div>
         <h3 class="text-base sm:text-lg font-black text-slate-800 leading-snug" contenteditable="true">
-          Games → 1st lucky draw → 2nd buffet → Best Dressed → Grand prizes
+          Games → 1st lucky draw → 2nd buffet → Best Dressed → Grand prizes → Sock reveal
         </h3>
         <p class="text-xs sm:text-sm font-bold text-slate-600 mt-1.5" contenteditable="true">
-          遊戲 → 第一次抽獎 → 第二輪自助 → 最佳服裝 → 豪華大獎
+          遊戲 → 第一次抽獎 → 第二輪自助 → 最佳服裝 → 豪華大獎 → 襪子揭曉
         </p>
       </div>
 
@@ -3067,48 +3067,11 @@
     </div>
   </section>
 
-<section class="slide flex-col items-center justify-center text-center" data-title="5. Sock Guess Reveal">
-    <div id="sockGuessRevealStage" class="sock-reveal-stage stage-board stage-board-pad rounded-3xl border-4 relative shadow-2xl">
-      <div class="sock-twinkle" aria-hidden="true"></div>
-      <div class="sock-flash" aria-hidden="true"></div>
-
-      <span class="relative z-10 px-4 py-1.5 rounded-full bg-rose-200/20 border border-rose-100/50 text-rose-50 text-xs font-extrabold uppercase tracking-widest backdrop-blur-sm">
-        Surprise reveal · 驚喜揭曉
-      </span>
-
-      <div class="sock-sealed mt-4">
-        <div class="sock-icon-badge" aria-hidden="true"><i class="fa-solid fa-socks"></i></div>
-        <div class="bd-drum-bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
-        <p class="text-sm sm:text-base font-bold text-rose-50/95 max-w-xl mx-auto leading-snug" contenteditable="true">
-          Quizzes are coming… but first, a surprise! · 測驗即將開始……先來個驚喜！
-        </p>
-        <p id="sockGuessDrumStatus" class="text-sm font-bold text-amber-100/90 mt-2">Sock guess winners · 襪子猜謎得獎者</p>
-        <button type="button" id="sockGuessRevealBtn" onclick="startSockGuessReveal()" class="mt-2 inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#C8372D] to-[#D97724] hover:from-[#b91c1c] hover:to-[#b45309] text-white font-black text-base sm:text-lg tracking-wide shadow-xl transition transform hover:scale-105 active:scale-95 cursor-pointer border-2 border-amber-200">
-          <i class="fa-solid fa-drum"></i> Drumroll &amp; Reveal · 擊鼓揭曉
-        </button>
-        <p class="text-[11px] font-semibold text-rose-50/60 mt-1">or press <kbd class="px-1.5 py-0.5 rounded bg-black/30 border border-rose-100/40 font-mono">SPACE</kbd></p>
-      </div>
-
-      <div class="sock-results mt-2">
-        <h1 class="font-festive-display text-3xl sm:text-5xl font-bold tracking-tight text-amber-100 mb-1 drop-shadow" contenteditable="true">
-          SOCK GUESS WINNERS · 襪子猜謎得獎者
-        </h1>
-        <p class="text-sm font-bold text-rose-50/85 mb-3" contenteditable="true">
-          Tap each sock to attach the reveal photo · 點擊襪子貼上揭曉照片（每襪 1 張）
-        </p>
-        <div id="sockGuessRevealGrid" class="sock-guess-grid"></div>
-        <button type="button" onclick="resetSockGuessReveal()" class="mt-4 text-xs font-bold text-rose-50/70 hover:text-rose-50 underline cursor-pointer">
-          Reset seal · 重設封印（綵排）
-        </button>
-      </div>
-    </div>
-    <input type="file" id="sockGuessPhotoInput" accept="image/*" class="hidden" />
-  </section>
 
   <!-- ===================================================================== -->
   <!-- SLIDE 6: GAME 1 SESSION INTRO (EXAM BOOKLET)                        -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center" data-title="6. Game 1: Make a Guess — Intro">
+  <section class="slide flex-col items-center justify-center" data-title="5. Game 1: Make a Guess — Intro">
     <div class="g1-exam-book festive-card theme-rail quiz-sheet stage-card rounded-3xl border-4 border-[#C8372D]" role="document" aria-label="Game 1 exam booklet cover">
       <div class="g1-exam-top">
         <div>
@@ -3146,7 +3109,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 7: GAME 1 — OPEN AHASLIDES (EXAM BOOKLET)                       -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center" data-title="7. Game 1: Open AhaSlides">
+  <section class="slide flex-col items-center justify-center" data-title="6. Game 1: Open AhaSlides">
     <div class="g1-exam-book festive-card theme-rail quiz-sheet stage-card rounded-3xl border-4 border-[#C8372D]" role="document" aria-label="Game 1 live exam start sheet">
       <div class="g1-exam-top">
         <div>
@@ -3188,7 +3151,7 @@
     <!-- ===================================================================== -->
   <!-- SLIDE 8: GAME 2 SESSION INTRO (BILINGUAL)                             -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center" data-title="8. Game 2: The Culinary Fanatic — Intro">
+  <section class="slide flex-col items-center justify-center text-center" data-title="7. Game 2: The Culinary Fanatic — Intro">
     <div class="g2-kitchen-board festive-card theme-rail canteen-frame stage-card rounded-3xl border-4 border-[#1E6B3B] px-8 py-10 sm:px-12 sm:py-12 text-center">
       <div class="relative z-10">
         <span class="g2-ticket mb-4"><i class="fa-solid fa-fire-burner"></i> Kitchen Co-op · 廚房合作</span>
@@ -3212,7 +3175,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 9: GAME 2 — EXAM / ORDER-FORM COVER (RULES + WIN)                -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center" data-title="9. Game 2: Mission Brief">
+  <section class="slide flex-col items-center justify-center" data-title="8. Game 2: Mission Brief">
     <div class="g2-kitchen-board festive-card theme-rail canteen-frame max-w-5xl rounded-3xl border-4 border-[#1E6B3B] px-6 py-7 sm:px-10 sm:py-9" role="document" aria-label="Game 2 kitchen mission brief">
       <div class="relative z-10">
         <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
@@ -3246,7 +3209,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 10: GAME 2: HOW TO PLAY (ROLES + PROCESS CHART)                  -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-stretch justify-center" data-title="10. Game 2: How to Play">
+  <section class="slide flex-col items-stretch justify-center" data-title="9. Game 2: How to Play">
     <div class="stage-board g2-kitchen-board g2-exam-sheet festive-card theme-rail canteen-frame how-play-board">
       <div class="shrink-0 text-center pt-2 relative z-10">
         <span class="g2-ticket mb-2"><i class="fa-solid fa-diagram-project"></i> Process map</span>
@@ -3385,7 +3348,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 11: GAME 2: ORDER & PREPARE (MENUS + FORM)                       -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-stretch justify-center" data-title="11. Game 2: Order & Prepare">
+  <section class="slide flex-col items-stretch justify-center" data-title="10. Game 2: Order & Prepare">
     <div class="stage-board g2-kitchen-board g2-exam-sheet festive-card theme-rail canteen-frame order-prep-board">
       <div class="shrink-0 text-center pt-2 relative z-10">
         <span class="g2-ticket mb-2"><i class="fa-solid fa-burger"></i> Order station</span>
@@ -3462,7 +3425,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 12: GAME 2: TIMER & LIVESTREAM (DEMO)                            -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center" style="padding-top: 1.25rem; padding-bottom: 4.5rem; padding-left: 1.5rem; padding-right: 1.5rem;" data-title="12. Game 2: Cook — Timer & Livestream">
+  <section class="slide flex-col items-center justify-center" style="padding-top: 1.25rem; padding-bottom: 4.5rem; padding-left: 1.5rem; padding-right: 1.5rem;" data-title="11. Game 2: Cook — Timer & Livestream">
     <div class="max-w-[1520px] w-full h-full flex flex-col gap-2.5 justify-center">
 
       <div class="g2-kitchen-board g2-exam-sheet festive-card theme-rail canteen-frame lab-live-bar px-5 py-3 flex flex-wrap items-center justify-between gap-3" style="padding-top:1.15rem;border-radius:1rem;">
@@ -3553,7 +3516,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 13: LUCKY DRAW PHASE 1 (BEFORE 2ND BUFFET) (PRINCIPAL'S HONOR ROLL SPINNER)         -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col overflow-hidden" style="padding-top: 3.1rem; padding-bottom: 4rem;" data-title="13. Christmas Gifts Spinner">
+  <section class="slide flex-col overflow-hidden" style="padding-top: 3.1rem; padding-bottom: 4rem;" data-title="12. Christmas Gifts Spinner">
     <div class="flex-1 max-w-[1600px] w-full mx-auto flex flex-col justify-center">
       <div class="flex flex-wrap items-center justify-between gap-2 mb-1 px-1">
         <div class="flex items-center gap-3 flex-wrap">
@@ -3658,7 +3621,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 14: 2ND ROUND BUFFET (DESSERT & COFFEE)                   -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center" data-title="14. 2nd Round Buffet — Dessert & Coffee">
+  <section class="slide flex-col items-center justify-center text-center" data-title="13. 2nd Round Buffet — Dessert & Coffee">
     <div class="festive-card canteen-frame theme-rail stage-card rounded-3xl border-4 border-[#1E6B3B]">
       <div class="w-24 h-24 mx-auto mb-4 rounded-3xl bg-gradient-to-tr from-[#1E6B3B] to-[#23486A] flex items-center justify-center text-white text-4xl shadow-lg animate-float">
         <i class="fa-solid fa-cookie-bite"></i>
@@ -3698,7 +3661,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 17: BEST DRESSED — CATWALK                                      -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center overflow-hidden" data-title="15. Best Dressed — Catwalk">
+  <section class="slide flex-col items-center justify-center text-center overflow-hidden" data-title="14. Best Dressed — Catwalk">
     <div class="stage-card festive-card yearbook-card theme-rail rounded-3xl border-4 border-[#C8372D] relative catwalk-yearbook" id="bestDressedRevealStage">
       <div class="cc-walkers cc-walkers-on-yearbook" aria-hidden="true">
         <i class="fa-solid fa-person-walking cc-w1"></i>
@@ -3726,7 +3689,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 18: GRAND PRIZES INTRO                                          -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center" data-title="16. Grand Prizes Intro">
+  <section class="slide flex-col items-center justify-center text-center" data-title="15. Grand Prizes Intro">
     <div class="festive-card finale-card theme-rail stage-card rounded-3xl border-4 border-[#D97724]">
       <div class="w-24 h-24 mx-auto mb-5 rounded-3xl bg-gradient-to-tr from-[#C8372D] to-[#D97724] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
         <i class="fa-solid fa-gift"></i>
@@ -3755,7 +3718,7 @@
   <!-- ===================================================================== -->
   <!-- SLIDE 19: GRAND PRIZES SPINNER (DEDICATED SHARED-POOL WHEEL)           -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col overflow-hidden" style="padding-top: 3.1rem; padding-bottom: 4rem;" data-title="17. Grand Prizes Spinner">
+  <section class="slide flex-col overflow-hidden" style="padding-top: 3.1rem; padding-bottom: 4rem;" data-title="16. Grand Prizes Spinner">
     <div class="flex-1 max-w-[1600px] w-full mx-auto flex flex-col justify-center">
       <div class="flex flex-wrap items-center justify-between gap-2 mb-1 px-1">
         <div class="flex items-center gap-3 flex-wrap">
@@ -3837,6 +3800,48 @@
         </div>
       </div>
     </div>
+  </section>
+
+
+  <!-- ===================================================================== -->
+  <!-- SLIDE 17: SOCK GUESS REVEAL (AFTER GRAND DRAW)                        -->
+  <!-- ===================================================================== -->
+<section class="slide flex-col items-center justify-center text-center" data-title="17. Sock Guess Reveal">
+    <div id="sockGuessRevealStage" class="sock-reveal-stage stage-board stage-board-pad rounded-3xl border-4 relative shadow-2xl">
+      <div class="sock-twinkle" aria-hidden="true"></div>
+      <div class="sock-flash" aria-hidden="true"></div>
+
+      <span class="relative z-10 px-4 py-1.5 rounded-full bg-rose-200/20 border border-rose-100/50 text-rose-50 text-xs font-extrabold uppercase tracking-widest backdrop-blur-sm">
+        Surprise reveal · 驚喜揭曉
+      </span>
+
+      <div class="sock-sealed mt-4">
+        <div class="sock-icon-badge" aria-hidden="true"><i class="fa-solid fa-socks"></i></div>
+        <div class="bd-drum-bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <p class="text-sm sm:text-base font-bold text-rose-50/95 max-w-xl mx-auto leading-snug" contenteditable="true">
+          Grand prizes are in — one more surprise! · 大獎已揭曉——再來一個驚喜！
+        </p>
+        <p id="sockGuessDrumStatus" class="text-sm font-bold text-amber-100/90 mt-2">Sock guess winners · 襪子猜謎得獎者</p>
+        <button type="button" id="sockGuessRevealBtn" onclick="startSockGuessReveal()" class="mt-2 inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#C8372D] to-[#D97724] hover:from-[#b91c1c] hover:to-[#b45309] text-white font-black text-base sm:text-lg tracking-wide shadow-xl transition transform hover:scale-105 active:scale-95 cursor-pointer border-2 border-amber-200">
+          <i class="fa-solid fa-drum"></i> Drumroll &amp; Reveal · 擊鼓揭曉
+        </button>
+        <p class="text-[11px] font-semibold text-rose-50/60 mt-1">or press <kbd class="px-1.5 py-0.5 rounded bg-black/30 border border-rose-100/40 font-mono">SPACE</kbd></p>
+      </div>
+
+      <div class="sock-results mt-2">
+        <h1 class="font-festive-display text-3xl sm:text-5xl font-bold tracking-tight text-amber-100 mb-1 drop-shadow" contenteditable="true">
+          SOCK GUESS WINNERS · 襪子猜謎得獎者
+        </h1>
+        <p class="text-sm font-bold text-rose-50/85 mb-3" contenteditable="true">
+          Tap each sock to attach the reveal photo · 點擊襪子貼上揭曉照片（每襪 1 張）
+        </p>
+        <div id="sockGuessRevealGrid" class="sock-guess-grid"></div>
+        <button type="button" onclick="resetSockGuessReveal()" class="mt-4 text-xs font-bold text-rose-50/70 hover:text-rose-50 underline cursor-pointer">
+          Reset seal · 重設封印（綵排）
+        </button>
+      </div>
+    </div>
+    <input type="file" id="sockGuessPhotoInput" accept="image/*" class="hidden" />
   </section>
 
   <!-- ===================================================================== -->
@@ -4001,14 +4006,14 @@
     let orderFormPhotoDataUrl = ''; // #SAVE:orderFormPhotoDataUrl
     let menuPhotos = {}; // #SAVE:menuPhotos
     // Stable slide indices (0-based)
-    // 20 slides (0..19): Best Dressed intro removed; catwalk only
-    const SLIDE_SOCK_GUESS = 4;
-    const SLIDE_COOK = 11;
-    const SLIDE_XMAS_SPIN = 12; // first lucky draw — before 2nd buffet
-    const SLIDE_RECESS = 13; // 2nd round buffet (dessert & coffee)
-    const SLIDE_BEST_REVEAL = 14; // catwalk yearbook backdrop
-    const SLIDE_GRAND_INTRO = 15;
-    const SLIDE_GRAND_SPIN = 16;
+    // 18 slides (0..17): sock reveal sits after grand prize draw
+    const SLIDE_COOK = 10;
+    const SLIDE_XMAS_SPIN = 11; // first lucky draw — before 2nd buffet
+    const SLIDE_RECESS = 12; // 2nd round buffet (dessert & coffee)
+    const SLIDE_BEST_REVEAL = 13; // catwalk yearbook backdrop
+    const SLIDE_GRAND_INTRO = 14;
+    const SLIDE_GRAND_SPIN = 15;
+    const SLIDE_SOCK_GUESS = 16; // after grand prize draw
     const SLIDE_GROUP = 17;
     const SOCK_GUESS_COUNT = 3;
     const CHRISTMAS_SLOTS = 14; // 3+3+4+3+1
@@ -4340,7 +4345,7 @@
       } else {
         preview.classList.add('is-empty');
         preview.textContent = 'All six drawn';
-        if (detail) detail.textContent = 'Honor roll complete — continue to group photo';
+        if (detail) detail.textContent = 'Honor roll complete — sock reveal next, then group photo';
       }
     }
 
@@ -5373,14 +5378,14 @@
       { id: 'mcs', label: 'MCs Intro', slides: [1], trackKey: 'maruko' },
       { id: 'headmaster', label: 'Headmaster Intro', slides: [2], trackKey: 'dumbledore' },
       { id: 'buffet', label: 'Buffet', slides: [3], trackKey: 'buffet' },
-      { id: 'sockGuess', label: 'Sock Guess Reveal', slides: [4], trackKey: 'luckyDraw' },
-      { id: 'game1', label: 'Game 1 Make a Guess', slides: [5, 6], trackKey: 'game1' },
-      { id: 'game2Prelude', label: 'Game 2 prelude', slides: [7, 8], trackKey: 'game1' },
-      { id: 'game2', label: 'Game 2 Culinary Fanatic', slides: [9, 10, 11], trackKey: 'game2' },
-      { id: 'christmasGifts', label: 'Christmas Gifts', slides: [12], trackKey: 'luckyDraw' },
-      { id: 'recess', label: '2nd Round Buffet', slides: [13], trackKey: 'recess' },
-      { id: 'bestDressed', label: 'Best Dressed Catwalk', slides: [14], trackKey: 'bestDressed' },
-      { id: 'grandPrizes', label: 'Grand Prizes', slides: [15, 16], trackKey: 'luckyDraw' },
+      { id: 'game1', label: 'Game 1 Make a Guess', slides: [4, 5], trackKey: 'game1' },
+      { id: 'game2Prelude', label: 'Game 2 prelude', slides: [6, 7], trackKey: 'game1' },
+      { id: 'game2', label: 'Game 2 Culinary Fanatic', slides: [8, 9, 10], trackKey: 'game2' },
+      { id: 'christmasGifts', label: 'Christmas Gifts', slides: [11], trackKey: 'luckyDraw' },
+      { id: 'recess', label: '2nd Round Buffet', slides: [12], trackKey: 'recess' },
+      { id: 'bestDressed', label: 'Best Dressed Catwalk', slides: [13], trackKey: 'bestDressed' },
+      { id: 'grandPrizes', label: 'Grand Prizes', slides: [14, 15], trackKey: 'luckyDraw' },
+      { id: 'sockGuess', label: 'Sock Guess Reveal', slides: [16], trackKey: 'luckyDraw' },
       { id: 'finale', label: 'Finale', slides: [17], trackKey: 'finale' }
     ];
 
