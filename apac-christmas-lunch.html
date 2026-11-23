@@ -75,165 +75,88 @@
     .font-festive-script { font-family: 'Caveat', cursive; }
     .font-festive-display { font-family: 'Fredoka', sans-serif; }
 
-    /* ========== GAME 1 — exam accents on shared festive chrome ========== */
-    .g1-exam-book {
-      width: min(52rem, 96vw);
-      margin-inline: auto;
-      text-align: left;
-      padding: 1.35rem 1.5rem 1.6rem;
-      color: #1e293b;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      position: relative;
-      border-radius: 1.5rem;
-    }
-    .g1-exam-book.theme-rail::after {
-      content: '✏️ 🎄 📝 🎁 🎓 ❄️';
-    }
-    .g1-exam-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-      align-items: flex-start;
-      position: relative;
-      z-index: 1;
-      margin-bottom: 0.85rem;
-      padding-bottom: 0.65rem;
-      border-bottom: 2px dashed rgba(200,55,45,0.35);
-    }
-    .g1-exam-code {
-      font-size: 0.68rem;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #C8372D;
-    }
-    .g1-exam-authority {
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      line-height: 1.35;
-      color: #23486A;
-      margin-top: 0.25rem;
-    }
-    .g1-exam-sidebits {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 0.35rem;
-    }
-    .g1-barcode {
-      width: 7.5rem;
-      height: 2.1rem;
-      border: 1.5px solid #23486A;
-      border-radius: 0.35rem;
-      background: repeating-linear-gradient(90deg, #23486A 0 2px, #fff 2px 4px, #1E6B3B 4px 5px, #fff 5px 8px);
-      opacity: 0.85;
-    }
-    .g1-cand { display: flex; gap: 2px; }
-    .g1-cand span {
-      width: 0.85rem;
-      height: 1.05rem;
-      border: 1.5px solid #94a3b8;
-      border-radius: 0.15rem;
-      background: #fff;
-    }
-    .g1-exam-title {
-      font-family: 'Fredoka', sans-serif;
-      font-weight: 700;
-      font-size: clamp(1.7rem, 4vw, 2.85rem);
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      text-align: center;
-      margin: 0.7rem 0 0.3rem;
-      color: #C8372D;
-      position: relative;
-      z-index: 1;
-    }
-    .g1-exam-sub {
-      font-family: 'Fredoka', sans-serif;
-      font-weight: 600;
-      text-align: center;
-      font-size: clamp(1rem, 2vw, 1.3rem);
-      margin-bottom: 0.7rem;
-      color: #1E6B3B;
-      position: relative;
-      z-index: 1;
-    }
-    .g1-exam-meta {
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-align: center;
-      border: 2px solid rgba(35,72,106,0.25);
-      border-radius: 0.85rem;
-      padding: 0.5rem 0.85rem;
-      margin: 0 auto 0.9rem;
-      max-width: 28rem;
-      background: rgba(213,226,234,0.45);
-      color: #23486A;
-      position: relative;
-      z-index: 1;
-    }
-    .g1-instructions-label {
-      font-size: 0.72rem;
-      font-weight: 900;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      margin-bottom: 0.35rem;
-      color: #C8372D;
-      position: relative;
-      z-index: 1;
-    }
-    .g1-instructions {
-      font-size: 0.88rem;
-      font-weight: 600;
-      margin: 0 0 1rem 1.1rem;
-      padding: 0;
-      position: relative;
-      z-index: 1;
-      line-height: 1.45;
-      color: #334155;
-    }
-    .g1-instructions .zh {
-      display: block;
-      color: #64748b;
-      font-size: 0.78rem;
-      font-weight: 600;
-      margin-top: 0.1rem;
-    }
-    .g1-exam-cta {
-      display: block;
-      width: 100%;
-      max-width: 28rem;
-      margin: 0.75rem auto 0;
-      padding: 0.95rem 1.25rem;
-      border: 2px solid #1E6B3B;
-      border-radius: 1rem;
-      background: linear-gradient(90deg, #1E6B3B, #23486A);
+    /* ========== GAME 1 — HKCEE exam booklet (monochrome cover) ========== */
+    .hkcee-exam-cta {
+      display: inline-block;
+      margin: 0.85rem auto 0;
+      padding: 0.55rem 1.1rem;
+      border: 1.5px solid #111;
+      background: #111;
       color: #fff;
-      font-family: 'Fredoka', sans-serif;
-      font-weight: 700;
-      font-size: 1.05rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      text-align: center;
-      text-decoration: none;
-      position: relative;
-      z-index: 1;
-      box-shadow: 0 12px 28px -14px rgba(30,107,59,0.55);
-      transition: transform 0.15s ease, filter 0.15s ease;
-    }
-    .g1-exam-cta:hover { transform: translateY(-1px); filter: brightness(1.05); color: #fff; }
-    .g1-exam-footer {
-      font-size: 0.62rem;
-      font-weight: 700;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 800;
+      font-size: 0.85rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
+      text-decoration: none;
       text-align: center;
-      color: #94a3b8;
-      margin-top: 1rem;
-      position: relative;
-      z-index: 1;
+    }
+    .hkcee-exam-cta:hover { background: #222; color: #fff; }
+    .hkcee-mark-caption {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-align: center;
+      margin: 0.15rem 0 0.1rem;
+    }
+    .g2-brief-card {
+      width: min(42rem, 94vw);
+      margin-inline: auto;
+      text-align: left;
+      padding: 1.75rem 1.75rem 1.85rem;
+    }
+    .g2-brief-rules {
+      list-style: none;
+      margin: 1.1rem 0 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .g2-brief-rules li {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.75rem;
+      align-items: start;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px dashed rgba(35,72,106,0.22);
+    }
+    .g2-brief-rules li:last-child { border-bottom: 0; padding-bottom: 0; }
+    .g2-brief-num {
+      width: 1.85rem;
+      height: 1.85rem;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #fff;
+      background: #1E6B3B;
+      flex-shrink: 0;
+    }
+    .g2-brief-rules strong {
+      display: block;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.05rem;
+      color: #C8372D;
+      line-height: 1.2;
+    }
+    .g2-brief-rules .en {
+      display: block;
+      margin-top: 0.2rem;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #334155;
+      line-height: 1.35;
+    }
+    .g2-brief-rules .zh {
+      display: block;
+      margin-top: 0.15rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #64748b;
+      line-height: 1.35;
     }
 
     /* ========== GAME 2 — kitchen accents on shared festive chrome ========== */
@@ -803,10 +726,8 @@
     }
     /* Game 2 kitchen mission brief */
     .slide[data-title="8. Game 2: Mission Brief"] {
-      padding-top: 2.6rem;
-      padding-bottom: 3.2rem;
-      padding-left: 0.75rem;
-      padding-right: 0.75rem;
+      padding-top: 2.4rem;
+      padding-bottom: 3rem;
     }
     /* Game 2 boards share festive-card chrome; accent classes above */
 
@@ -817,29 +738,15 @@
       background: #fff;
       color: #111;
       border: 1.5px solid #111;
+      border-radius: 0;
       box-shadow:
-        0 0 0 4px rgba(255, 255, 255, 0.55),
-        0 18px 40px -22px rgba(0,0,0,0.45);
+        0 0 0 3px rgba(255, 255, 255, 0.7),
+        0 18px 40px -22px rgba(35, 72, 106, 0.28);
       display: grid;
       grid-template-columns: minmax(0, 1.55fr) minmax(12rem, 0.72fr);
       min-height: min(78vh, 44rem);
-      font-family: 'Libre Baskerville', 'Times New Roman', Times, serif;
+      font-family: Arial, Helvetica, sans-serif;
       position: relative;
-    }
-    .hkcee-cover::before {
-      content: '';
-      position: absolute;
-      left: 0; right: 0; top: 0;
-      height: 8px;
-      background: repeating-linear-gradient(
-        90deg,
-        #C8372D 0 16px,
-        #1E6B3B 16px 32px,
-        #D97724 32px 48px,
-        #23486A 48px 64px
-      );
-      pointer-events: none;
-      z-index: 3;
     }
     @media (max-width: 900px) {
       .hkcee-cover { grid-template-columns: 1fr; }
@@ -859,12 +766,12 @@
       letter-spacing: 0.02em;
     }
     .hkcee-diag {
-      width: 3.2rem;
-      height: 0.9rem;
-      margin: 0.35rem 0 0.55rem;
-      background:
-        linear-gradient(135deg, transparent 42%, #111 42% 48%, transparent 48%),
-        linear-gradient(135deg, transparent 52%, #111 52% 58%, transparent 58%);
+      width: 4.6rem;
+      height: 1.05rem;
+      margin: 0.4rem 0 0.7rem;
+      background: #111;
+      transform: skewX(-32deg);
+      transform-origin: left center;
     }
     .hkcee-authority {
       text-align: center;
@@ -3069,79 +2976,145 @@
 
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 6: GAME 1 SESSION INTRO (EXAM BOOKLET)                        -->
+  <!-- SLIDE 5: GAME 1 SESSION INTRO (HKCEE EXAM COVER)                      -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center" data-title="5. Game 1: Make a Guess — Intro">
-    <div class="g1-exam-book festive-card theme-rail quiz-sheet stage-card rounded-3xl border-4 border-[#C8372D]" role="document" aria-label="Game 1 exam booklet cover">
-      <div class="g1-exam-top">
-        <div>
-          <div class="g1-exam-code" contenteditable="true">2026-XMAS GAME 1 · PAPER A</div>
-          <div class="g1-exam-authority mt-1" contenteditable="true">
-            APAC CHRISTMAS LUNCH AUTHORITY<br />
-            SCHOOL QUIZ EXAMINATION 2026
-          </div>
+    <div class="hkcee-cover" role="document" aria-label="Game 1 HKCEE-style exam booklet cover">
+      <div class="hkcee-main">
+        <div class="hkcee-paper-code" contenteditable="true">2026-XMAS GAME 1 · PAPER A</div>
+        <div class="hkcee-diag" aria-hidden="true"></div>
+        <div class="hkcee-authority" contenteditable="true">
+          APAC CHRISTMAS LUNCH AUTHORITY<br />
+          SCHOOL QUIZ EXAMINATION 2026
         </div>
-        <div class="g1-exam-sidebits">
-          <div class="g1-barcode" aria-hidden="true">BARCODE</div>
-          <div style="font-size:0.55rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;">Candidate No.</div>
-          <div class="g1-cand" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <h1 class="hkcee-paper-title" contenteditable="true">GAME 1: MAKE A GUESS</h1>
+        <div class="hkcee-paper-sub" contenteditable="true">Question-Answer Book · 遊戲一：猜一猜</div>
+        <div class="hkcee-time" contenteditable="true">
+          Phones out · Live class quiz<br />
+          This paper must be answered on your phone
+        </div>
+        <div class="hkcee-instructions-label">INSTRUCTIONS</div>
+        <ol class="hkcee-instructions" contenteditable="true">
+          <li>Write nothing on this cover until the quiz opens.
+            <span class="zh">測驗開始前請勿在封面書寫。</span>
+          </li>
+          <li>When instructed, use your phone to join the live class quiz.
+            <span class="zh">按指示用手機加入即時課堂測驗。</span>
+          </li>
+          <li>Answer all questions. Guess wisely.
+            <span class="zh">請回答全部題目，小心作答。</span>
+          </li>
+          <li>Do not turn over until told to do so.
+            <span class="zh">未獲指示前請勿翻頁。</span>
+          </li>
+        </ol>
+        <div class="hkcee-footer" contenteditable="true">
+          © Hong Kong Examinations style homage · APAC Christmas Lunch 2026<br />
+          考試卷封面格式致敬 · 聖誕午餐活動專用
         </div>
       </div>
-      <h1 class="g1-exam-title" contenteditable="true">GAME 1: MAKE A GUESS</h1>
-      <h2 class="g1-exam-sub" contenteditable="true">遊戲一：猜一猜 · Question Paper</h2>
-      <div class="g1-exam-meta" contenteditable="true">Phones out · Live quiz · Markers for Examiner’s use only</div>
-      <div class="g1-instructions-label">INSTRUCTIONS TO CANDIDATES</div>
-      <ol class="g1-instructions" contenteditable="true">
-        <li>Write nothing on this cover until the quiz opens.
-          <span class="zh">測驗開始前請勿在封面書寫。</span>
-        </li>
-        <li>Use your phone to join the live class quiz when instructed.
-          <span class="zh">按指示用手機加入即時課堂測驗。</span>
-        </li>
-        <li>Answer all questions. Guess wisely.
-          <span class="zh">請回答全部題目，小心作答。</span>
-        </li>
-      </ol>
-      <div class="g1-exam-footer" contenteditable="true">© APAC Christmas Lunch · Examination Scripts · All Rights Reserved 2026</div>
+
+        <aside class="hkcee-side" aria-label="Examination administration panel">
+          <div class="hkcee-barcode">Please stick the<br />barcode label here</div>
+          <div class="hkcee-cand-label">Candidate Number</div>
+          <div class="hkcee-cand-boxes" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="hkcee-mark-caption">Marker’s Use Only</div>
+          <table class="hkcee-mark-table" aria-hidden="true">
+            <thead><tr><th>Question No.</th><th>Marks</th><th>Marks</th></tr></thead>
+            <tbody>
+              <tr><td>1–2</td><td class="tall"></td><td class="tall shade"></td></tr>
+              <tr><td>3–4</td><td class="tall"></td><td class="tall shade"></td></tr>
+              <tr><td>5–6</td><td class="tall"></td><td class="tall shade"></td></tr>
+              <tr><td>7–8</td><td class="tall"></td><td class="tall shade"></td></tr>
+              <tr><td>Total</td><td class="tall"></td><td class="tall shade"></td></tr>
+            </tbody>
+          </table>
+          <div class="hkcee-check-box">Checker’s Use Only</div>
+          <div class="hkcee-mark-caption">Examiner’s Use Only</div>
+          <table class="hkcee-mark-table" aria-hidden="true">
+            <thead><tr><th>Question No.</th><th>Marks</th><th>Marks</th></tr></thead>
+            <tbody>
+              <tr><td>9</td><td class="tall"></td><td class="tall shade"></td></tr>
+              <tr><td>10</td><td class="tall"></td><td class="tall shade"></td></tr>
+              <tr><td>Total</td><td class="tall"></td><td class="tall shade"></td></tr>
+            </tbody>
+          </table>
+          <div class="hkcee-check-box">Checker’s Use Only</div>
+          <p style="font-size:0.62rem;margin:0.2rem 0 0;line-height:1.3;">* To be filled in by the candidate</p>
+        </aside>
     </div>
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 7: GAME 1 — OPEN AHASLIDES (EXAM BOOKLET)                       -->
+  <!-- SLIDE 6: GAME 1 — OPEN AHASLIDES (HKCEE EXAM COVER)                   -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center" data-title="6. Game 1: Open AhaSlides">
-    <div class="g1-exam-book festive-card theme-rail quiz-sheet stage-card rounded-3xl border-4 border-[#C8372D]" role="document" aria-label="Game 1 live exam start sheet">
-      <div class="g1-exam-top">
-        <div>
-          <div class="g1-exam-code" contenteditable="true">2026-XMAS GAME 1 · PAPER A · LIVE</div>
-          <div class="g1-exam-authority mt-1" contenteditable="true">
-            APAC CHRISTMAS LUNCH AUTHORITY<br />
-            COMMENCEMENT OF EXAMINATION
-          </div>
+    <div class="hkcee-cover" role="document" aria-label="Game 1 live exam start sheet">
+      <div class="hkcee-main">
+        <div class="hkcee-paper-code" contenteditable="true">2026-XMAS GAME 1 · PAPER A · LIVE</div>
+        <div class="hkcee-diag" aria-hidden="true"></div>
+        <div class="hkcee-authority" contenteditable="true">
+          APAC CHRISTMAS LUNCH AUTHORITY<br />
+          COMMENCEMENT OF EXAMINATION
         </div>
-        <div class="g1-exam-sidebits">
-          <div class="g1-barcode" aria-hidden="true">BARCODE</div>
-          <div style="font-size:0.55rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;">Candidate No.</div>
-          <div class="g1-cand" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <h1 class="hkcee-paper-title" contenteditable="true">MAKE A GUESS</h1>
+        <div class="hkcee-paper-sub" contenteditable="true">猜一猜 · Open the live question paper</div>
+        <div class="hkcee-time" contenteditable="true">
+          Phones out now · 立刻拿出手機<br />
+          Join the quiz room when the presenter opens the paper
+        </div>
+        <div class="hkcee-instructions-label">TO BEGIN</div>
+        <ol class="hkcee-instructions" contenteditable="true">
+          <li>Presenter opens AhaSlides.
+            <span class="zh">司儀開啟 AhaSlides。</span>
+          </li>
+          <li>Candidates join with phone and wait for the first question.
+            <span class="zh">考生用手機加入，等候第一題。</span>
+          </li>
+          <li>Do not leave the quiz room until the paper ends.
+            <span class="zh">測驗結束前請勿離開答題室。</span>
+          </li>
+        </ol>
+        <div style="text-align:center;">
+          <a id="ahaPresenterLaunchBtn" href="https://presenter.ahaslides.com/share/1793154443570-hpjbw2yzme/present" target="_blank" rel="noopener noreferrer"
+             onclick="pauseBgmForPresenterTab()" class="hkcee-exam-cta">
+            OPEN AHASLIDES · 開卷
+          </a>
+        </div>
+        <div class="hkcee-footer" contenteditable="true">
+          Marker’s use only · Do not turn over until told<br />
+          閱卷用 · 未獲指示前請勿翻頁
         </div>
       </div>
-      <h1 class="g1-exam-title" contenteditable="true">MAKE A GUESS</h1>
-      <h2 class="g1-exam-sub" contenteditable="true">猜一猜 · Open the live question paper</h2>
-      <div class="g1-exam-meta" contenteditable="true">Phones out now · 立刻拿出手機 · Join the quiz room</div>
-      <div class="g1-instructions-label">TO BEGIN</div>
-      <ol class="g1-instructions" contenteditable="true">
-        <li>Presenter opens AhaSlides.
-          <span class="zh">司儀開啟 AhaSlides。</span>
-        </li>
-        <li>Candidates join with phone and wait for the first question.
-          <span class="zh">考生用手機加入，等候第一題。</span>
-        </li>
-      </ol>
-      <a id="ahaPresenterLaunchBtn" href="https://presenter.ahaslides.com/share/1793154443570-hpjbw2yzme/present" target="_blank" rel="noopener noreferrer"
-         onclick="pauseBgmForPresenterTab()" class="g1-exam-cta">
-        <i class="fa-solid fa-file-pen mr-2"></i> OPEN AHASLIDES · 開卷
-      </a>
-      <div class="g1-exam-footer" contenteditable="true">Marker’s use only · Do not turn over until told</div>
+
+        <aside class="hkcee-side" aria-label="Examination administration panel">
+          <div class="hkcee-barcode">Please stick the<br />barcode label here</div>
+          <div class="hkcee-cand-label">Candidate Number</div>
+          <div class="hkcee-cand-boxes" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="hkcee-mark-caption">Marker’s Use Only</div>
+          <table class="hkcee-mark-table" aria-hidden="true">
+            <thead><tr><th>Question No.</th><th>Marks</th><th>Marks</th></tr></thead>
+            <tbody>
+              <tr><td>1–2</td><td class="tall"></td><td class="tall shade"></td></tr>
+              <tr><td>3–4</td><td class="tall"></td><td class="tall shade"></td></tr>
+              <tr><td>5–6</td><td class="tall"></td><td class="tall shade"></td></tr>
+              <tr><td>7–8</td><td class="tall"></td><td class="tall shade"></td></tr>
+              <tr><td>Total</td><td class="tall"></td><td class="tall shade"></td></tr>
+            </tbody>
+          </table>
+          <div class="hkcee-check-box">Checker’s Use Only</div>
+          <div class="hkcee-mark-caption">Examiner’s Use Only</div>
+          <table class="hkcee-mark-table" aria-hidden="true">
+            <thead><tr><th>Question No.</th><th>Marks</th><th>Marks</th></tr></thead>
+            <tbody>
+              <tr><td>9</td><td class="tall"></td><td class="tall shade"></td></tr>
+              <tr><td>10</td><td class="tall"></td><td class="tall shade"></td></tr>
+              <tr><td>Total</td><td class="tall"></td><td class="tall shade"></td></tr>
+            </tbody>
+          </table>
+          <div class="hkcee-check-box">Checker’s Use Only</div>
+          <p style="font-size:0.62rem;margin:0.2rem 0 0;line-height:1.3;">* To be filled in by the candidate</p>
+        </aside>
     </div>
   </section>
 
@@ -3176,33 +3149,36 @@
   <!-- SLIDE 9: GAME 2 — EXAM / ORDER-FORM COVER (RULES + WIN)                -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center" data-title="8. Game 2: Mission Brief">
-    <div class="g2-kitchen-board festive-card theme-rail canteen-frame max-w-5xl rounded-3xl border-4 border-[#1E6B3B] px-6 py-7 sm:px-10 sm:py-9" role="document" aria-label="Game 2 kitchen mission brief">
-      <div class="relative z-10">
-        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
-          <span class="g2-ticket"><i class="fa-solid fa-clipboard-list"></i> Mission ticket</span>
-          <span class="px-3 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-900 text-xs font-black uppercase tracking-wider" contenteditable="true">10:00 · Team of 3</span>
-        </div>
-        <p class="g2-kitchen-kicker mb-1" contenteditable="true">Christmas cafeteria rush · 聖誕食堂大作戰</p>
-        <h1 class="g2-kitchen-title text-3xl sm:text-5xl mb-2" contenteditable="true">THE CULINARY FANATIC</h1>
-        <h2 class="g2-kitchen-sub text-lg sm:text-xl mb-5" contenteditable="true">料理狂熱者 · Kitchen briefing</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-left">
-          <div class="rounded-xl border-2 border-[#1E6B3B]/25 bg-white/90 p-3.5 shadow-sm">
-            <div class="text-xs font-black uppercase tracking-wider text-[#D97724] mb-1">1 · Form up</div>
-            <p class="text-sm font-bold text-slate-800" contenteditable="true">Each table forms a team of 3.</p>
-            <p class="text-xs font-semibold text-[#D97724] mt-1" contenteditable="true">每桌組成三人小組。</p>
+    <div class="g2-brief-card festive-card theme-rail canteen-frame rounded-3xl border-4 border-[#1E6B3B]" role="document" aria-label="Game 2 mission brief">
+      <p class="g2-kitchen-kicker mb-1" contenteditable="true">Game 2 rules · 遊戲二規則</p>
+      <h1 class="g2-kitchen-title text-3xl sm:text-4xl" contenteditable="true">MISSION BRIEF</h1>
+      <h2 class="g2-kitchen-sub text-base sm:text-lg mt-1 mb-1" contenteditable="true">料理狂熱者 · Team of 3 · 10 minutes</h2>
+      <ol class="g2-brief-rules">
+        <li>
+          <span class="g2-brief-num">1</span>
+          <div contenteditable="true">
+            <strong>Form up</strong>
+            <span class="en">Each table forms a team of 3.</span>
+            <span class="zh">每桌組成三人小組。</span>
           </div>
-          <div class="rounded-xl border-2 border-[#1E6B3B]/25 bg-white/90 p-3.5 shadow-sm">
-            <div class="text-xs font-black uppercase tracking-wider text-[#D97724] mb-1">2 · Double orders</div>
-            <p class="text-sm font-bold text-slate-800" contenteditable="true">Head table and the rest of each table also place orders. Team of 3 completes 1 head-table order + 1 other-table order.</p>
-            <p class="text-xs font-semibold text-[#D97724] mt-1" contenteditable="true">主桌與同枱其餘人都要落單；三人小組完成主桌 1 張 + 其他桌 1 張。</p>
+        </li>
+        <li>
+          <span class="g2-brief-num">2</span>
+          <div contenteditable="true">
+            <strong>Double orders</strong>
+            <span class="en">Complete 1 head-table order + 1 other-table order.</span>
+            <span class="zh">完成主桌 1 張訂單 + 其他桌 1 張訂單。</span>
           </div>
-          <div class="rounded-xl border-2 border-[#1E6B3B]/25 bg-white/90 p-3.5 shadow-sm">
-            <div class="text-xs font-black uppercase tracking-wider text-[#D97724] mb-1">3 · Fastest wins</div>
-            <p class="text-sm font-bold text-slate-800" contenteditable="true">Within 10 minutes, the fastest team that completes both orders correctly wins.</p>
-            <p class="text-xs font-semibold text-[#D97724] mt-1" contenteditable="true">限時 10 分鐘，最快且兩張訂單皆正確的隊伍勝出。</p>
+        </li>
+        <li>
+          <span class="g2-brief-num">3</span>
+          <div contenteditable="true">
+            <strong>Fastest wins</strong>
+            <span class="en">Within 10 minutes, the fastest correct team wins.</span>
+            <span class="zh">限時 10 分鐘，最快且正確的隊伍勝出。</span>
           </div>
-        </div>
-      </div>
+        </li>
+      </ol>
     </div>
   </section>
 
