@@ -3971,7 +3971,7 @@
     const DEFAULT_VDO_VIEW_URL = `https://vdo.ninja/?view=${DEFAULT_VDO_STREAM_ID}&room=${DEFAULT_VDO_ROOM_ID}&solo`;
     const DEFAULT_VDO_PUSH_URL = `https://vdo.ninja/?push=${DEFAULT_VDO_STREAM_ID}&room=${DEFAULT_VDO_ROOM_ID}&webcam&autostart&label=${encodeURIComponent('FloorCam')}&quality=0`;
     const VDO_PASSWORD_SESSION_KEY = 'apacVdoStreamPassword';
-    let customVdoNinjaUrl = DEFAULT_VDO_VIEW_URL; // #SAVE:customVdoNinjaUrl
+    let customVdoNinjaUrl = DEFAULT_VDO_VIEW_URL; // session view base only — never #SAVE (password must not export)
     let companyLogoDataUrl = ''; // #SAVE:companyLogoDataUrl
     // Phase BGM: { name, url?, dataUrl?, youtubeId? }. YouTube preferred when set (no dataUrl override).
     const DEFAULT_PHASE_MP3S = {
@@ -4536,7 +4536,7 @@
           ? DEFAULT_VDO_PUSH_URL
           : `https://vdo.ninja/?push=${encodeURIComponent(vdoRoomId)}&webcam&autostart&label=${encodeURIComponent('FloorCam')}&quality=0`
       );
-      // Persist password-free bases only (#SAVE:customVdoNinjaUrl must never hold p=)
+      // Persist password-free bases only (never store session p= on these vars)
       customVdoNinjaUrl = stripVdoPassword(baseView);
       vdoPushUrl = stripVdoPassword(basePush);
       syncVdoRoomUi();
@@ -4680,16 +4680,25 @@
       }
     }
 
+    function setVdoIframeSessionSrc(frame, cleanUrl, forceReload) {
+      // Live iframe only — return value must never be stored on customVdoNinjaUrl / Save HTML
+      if (!frame) return;
+      const liveSrc = withVdoPassword(stripVdoPassword(cleanUrl));
+      if (forceReload || frame.getAttribute('src') !== liveSrc) {
+        frame.removeAttribute('src');
+        frame.src = liveSrc;
+      }
+    }
+
     function loadVdoNinjaStream(url, opts = {}) {
       let viewUrl = url || customVdoNinjaUrl;
       if (!viewUrl) { showToast('Start a VDO room first', 'error'); return; }
-      // #SAVE:customVdoNinjaUrl stays password-free; session p= only on the live iframe src
       const cleanView = stripVdoPassword(viewUrl);
-      const liveView = withVdoPassword(cleanView);
       if (!isAllowedVdoUrl(cleanView)) {
         showToast('Livestream URL must be on vdo.ninja', 'error');
         return;
       }
+      // Password-free base only (not a #SAVE binding)
       customVdoNinjaUrl = cleanView;
       if (typeof activeMediaStream !== 'undefined' && activeMediaStream) {
         activeMediaStream.getTracks().forEach(t => t.stop());
@@ -4703,11 +4712,7 @@
       const frameBox = document.getElementById('livestreamFrameBox');
       const goLiveBtn = document.getElementById('goFullStageBtn');
       if (!frame) return;
-      // Bust stuck waiting-state iframes when re-entering the cook slide
-      if (opts.forceReload || frame.getAttribute('src') !== liveView) {
-        frame.removeAttribute('src');
-        frame.src = liveView;
-      }
+      setVdoIframeSessionSrc(frame, cleanView, !!opts.forceReload);
       frame.classList.remove('hidden');
       if (placeholderUI) placeholderUI.classList.add('hidden');
       if (stopBtn) stopBtn.classList.remove('hidden');
@@ -6522,6 +6527,7 @@
       const cloneFrameBox = cloneDoc.querySelector('#livestreamFrameBox');
       if (cloneFrameBox) { cloneFrameBox.classList.add('border-dashed', 'border-slate-400'); cloneFrameBox.classList.remove('border-solid', 'border-[#1E6B3B]'); }
       const cloneLayout = cloneDoc.querySelector('#livestreamLayout'); if (cloneLayout) cloneLayout.classList.remove('qr-visible');
+      const cloneQr = cloneDoc.querySelector('#vdoQrBox'); if (cloneQr) cloneQr.innerHTML = '';
       // Do not bake stream password into exported HTML display / push links
       const cloneViewLink = cloneDoc.querySelector('#vdoViewLinkDisplay');
       if (cloneViewLink) {
@@ -6565,8 +6571,7 @@
         customPhaseMp3s: baked.customPhaseMp3s,
         customBellDataUrl: baked.customBellDataUrl,
         customBellFileName,
-        // Never bake stream password into exported HTML
-        customVdoNinjaUrl: stripVdoPassword(customVdoNinjaUrl) || DEFAULT_VDO_VIEW_URL,
+        // customVdoNinjaUrl intentionally omitted — keep DEFAULT in exported file (no session p=)
         companyLogoDataUrl,
         vdoRoomId,
         christmasBatchIndex,
