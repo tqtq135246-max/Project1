@@ -3,260 +3,204 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Airport hiring messaging — decision deck</title>
+  <title>Airport hiring — WhatsApp options</title>
   <style>
     :root {
-      --bg: #12161a;
-      --slide: #ffffff;
-      --text: #161616;
-      --muted: #5a5a5a;
-      --line: #e4e4e4;
-      --accent: #1f4e79;
-      --accent-soft: #e8eef5;
-      --yes: #1f6b45;
-      --yes-soft: #e6f4ec;
-      --no: #9a3412;
-      --no-soft: #fdeee6;
-      --mid: #92400e;
-      --mid-soft: #fef3c7;
-      --sans: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-      --bar-h: 48px;
-      --dot-h: 28px;
+      --bg: #111;
+      --paper: #fff;
+      --ink: #222;
+      --soft: #666;
+      --line: #ddd;
+      --mark: #1a5f4a;
+      --mark-bg: #eef6f2;
+      --warm: #8a4b12;
+      --warm-bg: #faf3ea;
+      --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --bar: 44px;
+      --dots: 26px;
     }
     * { box-sizing: border-box; }
-    html, body {
-      height: 100%;
-      margin: 0;
-      overflow: hidden;
-    }
+    html, body { height: 100%; margin: 0; overflow: hidden; }
     body {
       font-family: var(--sans);
       background: var(--bg);
-      color: var(--text);
+      color: var(--ink);
     }
 
     .chrome {
       position: fixed;
       inset: 0;
       display: grid;
-      grid-template-rows: var(--bar-h) 1fr var(--dot-h);
+      grid-template-rows: var(--bar) 1fr var(--dots);
     }
-
     .bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      padding: 0 16px;
-      color: #d7d7d7;
-      font-size: 13px;
-      background: #0c1014;
-      border-bottom: 1px solid #242a30;
-    }
-    .bar .left { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .bar .right { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
-    .bar button {
-      font-family: inherit;
-      cursor: pointer;
-      border: 1px solid #4a5158;
-      background: #2a3138;
-      color: #fff;
-      border-radius: 6px;
-      padding: 7px 12px;
+      padding: 0 14px;
+      color: #bbb;
       font-size: 12px;
-      font-weight: 600;
+      background: #0a0a0a;
     }
-    .bar button:hover { background: #3a424a; }
-    .bar .hint { color: #9aa3ab; font-size: 12px; min-width: 48px; text-align: right; }
+    .bar button {
+      font: 600 12px/1 var(--sans);
+      border: 1px solid #444;
+      background: #222;
+      color: #eee;
+      border-radius: 4px;
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+    .bar .right { display: flex; gap: 8px; align-items: center; }
+    .bar .n { color: #888; min-width: 40px; text-align: right; }
 
     .stage {
       min-height: 0;
-      display: flex;
-      align-items: stretch;
-      justify-content: center;
-      padding: 12px 16px;
+      padding: 10px 12px;
     }
-
     .frame {
+      position: relative;
       width: 100%;
       height: 100%;
-      max-width: 1400px;
+      max-width: 1280px;
       margin: 0 auto;
-      position: relative;
     }
-
     .slide {
       display: none;
       position: absolute;
       inset: 0;
-      background: var(--slide);
-      border-radius: 10px;
-      padding: clamp(28px, 3.5vh, 48px) clamp(32px, 4vw, 64px);
+      background: var(--paper);
+      border-radius: 6px;
+      padding: clamp(32px, 5vh, 56px) clamp(36px, 5vw, 72px);
       overflow: auto;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
     }
-    .slide.active {
+    .slide.on {
       display: flex;
       flex-direction: column;
+      gap: clamp(14px, 2.2vh, 22px);
     }
 
-    .kicker {
-      font-size: clamp(11px, 1.3vh, 13px);
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: clamp(6px, 1vh, 12px);
-    }
     h1 {
-      font-size: clamp(28px, 4.2vh, 44px);
-      line-height: 1.12;
-      margin: 0 0 clamp(10px, 1.5vh, 16px);
-      font-weight: 750;
+      margin: 0;
+      font-size: clamp(26px, 4vh, 40px);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
     }
     h2 {
-      font-size: clamp(22px, 3.4vh, 34px);
-      line-height: 1.15;
-      margin: 0 0 clamp(10px, 1.5vh, 16px);
-      font-weight: 750;
+      margin: 0;
+      font-size: clamp(22px, 3.2vh, 30px);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.015em;
     }
     p {
-      margin: 0 0 clamp(8px, 1.2vh, 12px);
-      font-size: clamp(15px, 2vh, 18px);
-      line-height: 1.4;
-    }
-    .muted { color: var(--muted); }
-    .lead {
-      font-size: clamp(16px, 2.2vh, 20px);
-      color: var(--muted);
-      max-width: 900px;
-    }
-
-    .grow { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: center; gap: clamp(10px, 1.6vh, 18px); }
-
-    .grid2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: clamp(10px, 1.4vw, 16px);
-    }
-    .grid3 {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: clamp(10px, 1.2vw, 14px);
-    }
-
-    .card {
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: clamp(12px, 1.6vh, 18px) clamp(12px, 1.4vw, 18px);
-      background: #fafafa;
-    }
-    .card h3 {
-      margin: 0 0 8px;
-      font-size: clamp(14px, 1.8vh, 16px);
-    }
-    .card p, .card li {
-      font-size: clamp(13px, 1.7vh, 15px);
       margin: 0;
-      color: var(--muted);
-      line-height: 1.4;
+      font-size: clamp(15px, 2vh, 18px);
+      line-height: 1.45;
+      color: var(--ink);
+      max-width: 58rem;
     }
-    .card ul { margin: 0; padding-left: 18px; }
-    .card li { margin-bottom: 6px; }
-    .card.rec { border: 2px solid var(--yes); background: var(--yes-soft); }
-    .card.warn { border-color: #f0c7a8; background: var(--no-soft); }
-    .card.info { border-color: #c9d7e8; background: var(--accent-soft); }
+    .soft { color: var(--soft); }
+    .body { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: clamp(12px, 2vh, 20px); }
 
-    .pill {
-      display: inline-block;
-      font-size: 11px;
+    .row { display: grid; gap: 12px; }
+    .row.two { grid-template-columns: 1fr 1fr; }
+    .row.three { grid-template-columns: 1fr 1fr 1fr; }
+
+    .box {
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 14px 16px;
+    }
+    .box h3 {
+      margin: 0 0 8px;
+      font-size: clamp(14px, 1.9vh, 16px);
       font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 999px;
-      margin-bottom: 8px;
     }
-    .pill.yes { background: var(--yes-soft); color: var(--yes); }
-    .pill.no { background: var(--no-soft); color: var(--no); }
-    .pill.mid { background: var(--mid-soft); color: var(--mid); }
-    .pill.blue { background: var(--accent-soft); color: var(--accent); }
+    .box p, .box li {
+      font-size: clamp(13px, 1.7vh, 15px);
+      line-height: 1.4;
+      color: var(--soft);
+      margin: 0;
+    }
+    .box ul { margin: 0; padding-left: 1.1em; }
+    .box li + li { margin-top: 5px; }
+    .box.pick {
+      border-color: var(--mark);
+      background: var(--mark-bg);
+    }
+    .box.note {
+      border-color: #e2d2bc;
+      background: var(--warm-bg);
+    }
 
-    .steps {
+    .path {
       display: grid;
       grid-template-columns: repeat(9, 1fr);
-      gap: 8px;
+      gap: 6px;
     }
-    .step {
-      text-align: center;
+    .path div {
       border: 1px solid var(--line);
-      border-radius: 8px;
+      border-radius: 4px;
       padding: 10px 4px;
-      background: #fafafa;
-      font-size: clamp(11px, 1.4vh, 13px);
+      text-align: center;
+      font-size: clamp(11px, 1.5vh, 13px);
       font-weight: 600;
     }
-    .step span {
+    .path b {
       display: block;
-      width: 24px;
-      height: 24px;
-      line-height: 24px;
-      margin: 0 auto 6px;
-      border-radius: 999px;
-      background: var(--accent-soft);
-      color: var(--accent);
-      font-size: 12px;
+      color: var(--soft);
+      font-weight: 600;
+      font-size: 11px;
+      margin-bottom: 4px;
     }
 
-    table.cmp {
+    table {
       width: 100%;
       border-collapse: collapse;
       font-size: clamp(13px, 1.7vh, 15px);
     }
-    table.cmp th, table.cmp td {
-      border-bottom: 1px solid var(--line);
+    th, td {
       text-align: left;
-      padding: clamp(8px, 1.2vh, 12px) 8px;
+      padding: 10px 8px;
+      border-bottom: 1px solid var(--line);
       vertical-align: top;
     }
-    table.cmp th {
-      color: var(--muted);
-      font-weight: 600;
+    th {
+      color: var(--soft);
       font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
+      font-weight: 600;
     }
 
-    .reco {
-      padding: clamp(14px, 2vh, 20px);
-      border-radius: 10px;
-      background: var(--yes-soft);
-      border: 2px solid var(--yes);
+    .call {
+      border-left: 4px solid var(--mark);
+      background: var(--mark-bg);
+      padding: 14px 16px;
     }
-    .reco strong {
+    .call strong {
       display: block;
-      font-size: clamp(16px, 2.2vh, 20px);
       margin-bottom: 6px;
-      color: var(--yes);
+      font-size: clamp(15px, 2vh, 18px);
     }
-    .reco p { margin: 0; font-size: clamp(14px, 1.9vh, 16px); }
 
     .dots {
       display: flex;
-      gap: 6px;
       justify-content: center;
       align-items: center;
+      gap: 6px;
     }
     .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: #5a636b;
-      border: none;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      border: 0;
       padding: 0;
+      background: #555;
       cursor: pointer;
     }
     .dot.on { background: #fff; }
 
-    /* True fullscreen: hide chrome, slide fills entire screen */
     .chrome:fullscreen,
     .chrome:-webkit-full-screen {
       grid-template-rows: 0 1fr 0;
@@ -264,47 +208,33 @@
     .chrome:fullscreen .bar,
     .chrome:fullscreen .dots,
     .chrome:-webkit-full-screen .bar,
-    .chrome:-webkit-full-screen .dots {
-      display: none;
-    }
+    .chrome:-webkit-full-screen .dots { display: none; }
     .chrome:fullscreen .stage,
-    .chrome:-webkit-full-screen .stage {
-      padding: 0;
-    }
+    .chrome:-webkit-full-screen .stage { padding: 0; }
     .chrome:fullscreen .frame,
-    .chrome:-webkit-full-screen .frame {
-      max-width: none;
-    }
+    .chrome:-webkit-full-screen .frame { max-width: none; }
     .chrome:fullscreen .slide,
-    .chrome:-webkit-full-screen .slide {
-      border-radius: 0;
-      box-shadow: none;
-    }
+    .chrome:-webkit-full-screen .slide { border-radius: 0; }
 
     @media (max-width: 900px) {
-      .grid2, .grid3, .steps { grid-template-columns: 1fr 1fr; }
-      .steps { grid-template-columns: repeat(3, 1fr); }
-    }
-    @media (max-width: 600px) {
-      .grid2, .grid3 { grid-template-columns: 1fr; }
+      .row.two, .row.three { grid-template-columns: 1fr; }
+      .path { grid-template-columns: repeat(3, 1fr); }
     }
 
     @media print {
       body { background: #fff; overflow: visible; }
       .chrome { position: static; display: block; }
       .bar, .dots { display: none !important; }
-      .stage, .frame { display: block; padding: 0; height: auto; max-width: none; }
+      .stage, .frame { height: auto; max-width: none; padding: 0; }
       .slide {
         display: flex !important;
         position: relative;
         inset: auto;
-        box-shadow: none;
-        border: 1px solid #ddd;
-        height: auto;
         min-height: 90vh;
-        margin: 0 0 16px;
         page-break-after: always;
         border-radius: 0;
+        border: 1px solid #ccc;
+        margin-bottom: 12px;
       }
     }
   </style>
@@ -312,271 +242,218 @@
 <body>
   <div class="chrome" id="chrome">
     <div class="bar">
-      <div class="left">Airport catering hiring · messaging decision</div>
+      <div>Airport catering hiring · WhatsApp tools</div>
       <div class="right">
-        <span class="hint" id="counter">1 / 8</span>
-        <button type="button" id="prev">← Prev</button>
-        <button type="button" id="next">Next →</button>
+        <span class="n" id="counter">1 / 8</span>
+        <button type="button" id="prev">Prev</button>
+        <button type="button" id="next">Next</button>
         <button type="button" id="fs">Full screen</button>
-        <button type="button" onclick="window.print()">Print / PDF</button>
+        <button type="button" onclick="window.print()">Print</button>
       </div>
     </div>
 
     <div class="stage">
       <div class="frame">
-        <!-- 1 -->
-        <section class="slide active" data-title="Title">
-          <div class="kicker">Decision for leadership</div>
-          <h1>Path to SleekFlow / AI for<br />mass recruitment</h1>
-          <p class="lead">
-            We agree the end-game is an AI / messaging platform (e.g. SleekFlow).
-            This deck covers today’s situation, the options, and how to start without locking a full year.
-          </p>
-          <div class="grow">
-            <div class="grid3">
-              <div class="card info"><h3>1. Situation</h3><p>Current SOP and where it hurts now</p></div>
-              <div class="card"><h3>2. Options</h3><p>As-is · WhatsApp Business · SleekFlow short pilot</p></div>
-              <div class="card rec"><h3>3. Recommendation</h3><p>Short SleekFlow pilot toward the agreed end-game</p></div>
+
+        <section class="slide on">
+          <h1>How should we message<br />candidates for airport catering hiring?</h1>
+          <p class="soft">We looked at a few ways to run WhatsApp for this hiring path. This is what we found, and where we think we should start.</p>
+          <div class="body">
+            <div class="row three">
+              <div class="box"><h3>Today</h3><p>How the team works now</p></div>
+              <div class="box"><h3>What we compared</h3><p>Keep as-is, WhatsApp Business, SleekFlow</p></div>
+              <div class="box pick"><h3>Where we landed</h3><p>Short SleekFlow trial first</p></div>
             </div>
           </div>
         </section>
 
-        <!-- 2 -->
-        <section class="slide" data-title="Current SOP">
-          <div class="kicker">Current situation</div>
-          <h2>Hiring path today (SOP)</h2>
-          <p class="muted">One People / Ops team. Mostly WhatsApp + manual follow-up for junior / blue-collar airport catering roles.</p>
-          <div class="grow">
-            <div class="steps">
-              <div class="step"><span>1</span>Apply</div>
-              <div class="step"><span>2</span>Screen</div>
-              <div class="step"><span>3</span>Interview</div>
-              <div class="step"><span>4</span>More info</div>
-              <div class="step"><span>5</span>Permit</div>
-              <div class="step"><span>6</span>Book test</div>
-              <div class="step"><span>7</span>Pass test</div>
-              <div class="step"><span>8</span>Offer</div>
-              <div class="step"><span>9</span>Day 1</div>
+        <section class="slide">
+          <h2>How hiring works today</h2>
+          <p class="soft">One team handles it end to end. Almost everything is manual WhatsApp.</p>
+          <div class="body">
+            <div class="path">
+              <div><b>1</b>Apply</div>
+              <div><b>2</b>Screen</div>
+              <div><b>3</b>Interview</div>
+              <div><b>4</b>Docs / ID</div>
+              <div><b>5</b>Permit</div>
+              <div><b>6</b>Book test</div>
+              <div><b>7</b>Pass test</div>
+              <div><b>8</b>Offer</div>
+              <div><b>9</b>Day 1</div>
             </div>
-            <div class="card info">
-              <h3>Day-1 care matters</h3>
-              <p>Candidates often need morning contact — venue, supervisor number, help if they cannot find the gate.</p>
+            <div class="box note">
+              <h3>Extra care on day 1</h3>
+              <p>These are junior roles. People often need a morning message with the meeting point, and sometimes a call if they cannot find the entrance.</p>
             </div>
           </div>
         </section>
 
-        <!-- 3 -->
-        <section class="slide" data-title="Real pains">
-          <div class="kicker">Current situation</div>
-          <h2>Where it hurts today</h2>
-          <p class="muted">Near-term pains are different from the long-term mass-recruitment end-game.</p>
-          <div class="grow">
-            <div class="grid2">
-              <div class="card warn">
-                <span class="pill no">Near-term</span>
-                <h3>Hard to find candidates</h3>
-                <ul>
-                  <li>Scarcity for junior airport catering roles</li>
-                  <li>Not mainly “too many applications to process”</li>
-                  <li>Need better capture + reactivation when people appear</li>
-                </ul>
+        <section class="slide">
+          <h2>What the team is actually struggling with</h2>
+          <div class="body">
+            <div class="row two">
+              <div class="box note">
+                <h3>Not enough candidates</h3>
+                <p>The hard part is getting people in. It is not that we are buried under applications.</p>
               </div>
-              <div class="card warn">
-                <span class="pill no">Near-term</span>
-                <h3>After-hire connecting is tedious</h3>
-                <ul>
-                  <li>Reminders, day-1 pings, chase when quiet</li>
-                  <li>Live rescue when someone is lost still needs a human</li>
-                  <li>Platform can automate the planned messages</li>
-                </ul>
+              <div class="box note">
+                <h3>Follow-up after hire is heavy</h3>
+                <p>Reminders, day-1 guidance, chasing quiet replies — still done person by person on WhatsApp.</p>
               </div>
             </div>
-            <div class="card info">
-              <h3>End-game (agreed)</h3>
-              <p>For true mass recruitment later, SleekFlow / an AI messaging agent is the destination — shared inbox, flows, stages, proactive templates, ad capture.</p>
-            </div>
+            <p class="soft">So any tool has to help with follow-up and keeping chats organised. It will not magically fill the pipeline by itself.</p>
           </div>
         </section>
 
-        <!-- 4 -->
-        <section class="slide" data-title="Options">
-          <div class="kicker">Options</div>
-          <h2>Three paths</h2>
-          <div class="grow">
-            <div class="grid3">
-              <div class="card">
-                <span class="pill mid">Option A</span>
-                <h3>Keep current process</h3>
+        <section class="slide">
+          <h2>Options we looked at</h2>
+          <div class="body">
+            <div class="row three">
+              <div class="box">
+                <h3>1. Stay as we are</h3>
                 <ul>
-                  <li>No new tool cost</li>
-                  <li>No learning toward end-game</li>
-                  <li>Same manual chase forever</li>
+                  <li>No new cost</li>
+                  <li>Same phone / chat scramble</li>
+                  <li>Nothing new to learn from</li>
                 </ul>
               </div>
-              <div class="card">
-                <span class="pill blue">Option B</span>
-                <h3>WhatsApp Business only</h3>
+              <div class="box">
+                <h3>2. WhatsApp Business app</h3>
                 <ul>
-                  <li>Greeting / OOO / quick replies</li>
-                  <li>Low cost interim</li>
-                  <li>Does not build the AI / mass path</li>
-                  <li>Weak multi-agent inbox</li>
+                  <li>Cheap</li>
+                  <li>Greeting, away message, quick replies</li>
+                  <li>Fine for light auto-reply</li>
+                  <li>Weak when several people share one inbox</li>
                 </ul>
               </div>
-              <div class="card rec">
-                <span class="pill yes">Option C</span>
-                <h3>SleekFlow short pilot</h3>
+              <div class="box">
+                <h3>3. SleekFlow</h3>
                 <ul>
-                  <li>Contract can be <b>1–4 months</b> (not forced yearly)</li>
-                  <li>~20k/year level pricing → pro-rate for pilot</li>
-                  <li>Starts the agreed end-game stack</li>
-                  <li>Meta template fees extra for outreach</li>
+                  <li>Shared inbox, bot, stages</li>
+                  <li>Can schedule reminders</li>
+                  <li>About 20k / year if paid yearly</li>
+                  <li>They also offer 1–4 month contracts</li>
                 </ul>
               </div>
             </div>
           </div>
         </section>
 
-        <!-- 5 -->
-        <section class="slide" data-title="Sense-check">
-          <div class="kicker">Sense-check</div>
-          <h2>What SleekFlow covers on the path</h2>
-          <div class="grow">
-            <div class="grid2">
-              <div class="card" style="background:var(--yes-soft); border-color:#9dccb0;">
-                <span class="pill yes">Use in pilot</span>
-                <ul>
-                  <li>Apply intake bot when candidate writes in</li>
-                  <li>Shared inbox + contact stages</li>
-                  <li>Scheduled reminders / day-1 templates</li>
-                  <li>Reactivate past applicants; CTWA if we run ads</li>
-                </ul>
-              </div>
-              <div class="card warn">
-                <span class="pill no">Still human / outside tool</span>
-                <ul>
-                  <li>Creating candidate supply from nothing</li>
-                  <li>Interview and verbal-offer calls</li>
-                  <li>Live “I’m lost at Gate A” rescue</li>
-                  <li>Airport permit / authority test itself</li>
-                </ul>
-              </div>
-            </div>
-            <div class="card info">
-              <h3>Contract flexibility</h3>
-              <p>Vendor can do a short commitment (about 1–4 months). That lowers risk vs locking a full year while we prove value on our funnel.</p>
-            </div>
-          </div>
-        </section>
-
-        <!-- 6 -->
-        <section class="slide" data-title="Compare">
-          <div class="kicker">Comparison</div>
-          <h2>Toward the end-game</h2>
-          <div class="grow">
-            <table class="cmp">
+        <section class="slide">
+          <h2>What each option is good for</h2>
+          <div class="body">
+            <table>
               <thead>
                 <tr>
-                  <th>Need</th>
+                  <th></th>
                   <th>WhatsApp Business</th>
-                  <th>SleekFlow short pilot</th>
+                  <th>SleekFlow</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>Greeting / OOO auto-reply</td>
-                  <td>Yes</td>
-                  <td>Yes</td>
+                  <td>Away message / simple reply</td>
+                  <td>Works</td>
+                  <td>Works</td>
                 </tr>
                 <tr>
-                  <td>Apply bot + stages</td>
+                  <td>Collect apply details by chat</td>
                   <td>Limited</td>
-                  <td>Strong</td>
+                  <td>Better</td>
                 </tr>
                 <tr>
-                  <td>Multi-person shared inbox</td>
-                  <td>Weak</td>
-                  <td>Strong</td>
+                  <td>Several staff on one number</td>
+                  <td>Awkward</td>
+                  <td>Built for this</td>
                 </tr>
                 <tr>
-                  <td>Day-1 / reminder automation</td>
-                  <td>Mostly manual</td>
-                  <td>Templates + schedule</td>
+                  <td>Reminders &amp; day-1 messages</td>
+                  <td>Mostly by hand</td>
+                  <td>Can schedule (Meta may charge per push)</td>
                 </tr>
                 <tr>
-                  <td>Builds mass-recruitment end-game</td>
-                  <td>No</td>
-                  <td>Yes — this is the stack</td>
-                </tr>
-                <tr>
-                  <td>Commitment risk</td>
-                  <td>Low</td>
-                  <td>Low–medium (1–4 month contract)</td>
+                  <td>If hiring volume grows later</td>
+                  <td>We outgrow it</td>
+                  <td>Closer to what we will need</td>
                 </tr>
               </tbody>
             </table>
           </div>
         </section>
 
-        <!-- 7 -->
-        <section class="slide" data-title="Recommendation">
-          <div class="kicker">Recommendation</div>
-          <h2>What I believe makes most sense</h2>
-          <div class="grow">
-            <div class="reco">
-              <strong>Option C — start a short SleekFlow pilot (1–4 months)</strong>
-              <p>
-                End-game is already agreed (SleekFlow / AI for mass recruitment).
-                A short contract lets us build the real stack now, learn on our SOP,
-                and avoid a full-year lock before value is proven.
-              </p>
-            </div>
-            <div class="grid2">
-              <div class="card">
-                <h3>Pilot scope</h3>
+        <section class="slide">
+          <h2>Honest limits</h2>
+          <div class="body">
+            <div class="row two">
+              <div class="box">
+                <h3>SleekFlow can take on</h3>
                 <ul>
-                  <li>Apply intake + contact stages</li>
-                  <li>Interview / test / day-1 reminder templates</li>
-                  <li>Shared inbox for People / Ops</li>
-                  <li>Optional: reactivate past applicants</li>
+                  <li>Asking for name / phone / role when someone writes in</li>
+                  <li>Keeping stages in one place</li>
+                  <li>Sending planned reminders and day-1 pings</li>
+                  <li>Letting more than one person handle the same chats</li>
                 </ul>
               </div>
-              <div class="card info">
-                <h3>Success criteria (before renew)</h3>
+              <div class="box note">
+                <h3>Still on the team</h3>
                 <ul>
-                  <li>Less retyping on apply / chase</li>
-                  <li>Fewer missed day-1 no-shows from silence</li>
-                  <li>Team can run inbox without phone chaos</li>
-                  <li>Clear view of Meta template cost vs benefit</li>
+                  <li>Finding people to apply in the first place</li>
+                  <li>Interview and offer calls</li>
+                  <li>Calling someone who is lost on the way</li>
+                  <li>Airport permit / test with the authority</li>
+                </ul>
+              </div>
+            </div>
+            <p class="soft">Also: if we message first after the free chat window closes, Meta may charge per template. That sits on top of the SleekFlow fee.</p>
+          </div>
+        </section>
+
+        <section class="slide">
+          <h2>Where we landed</h2>
+          <div class="body">
+            <div class="call">
+              <strong>Start with SleekFlow on a short contract (1–4 months).</strong>
+              <p>We compared staying put and WhatsApp Business. Both are cheaper up front. SleekFlow is the one that actually matches how we want to run this when hiring gets busier — shared inbox, apply chat, reminders — without signing a full year yet.</p>
+            </div>
+            <div class="row two">
+              <div class="box">
+                <h3>Use the trial for</h3>
+                <ul>
+                  <li>Apply intake</li>
+                  <li>Team inbox</li>
+                  <li>Interview / test / day-1 reminders</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h3>Before we renew, check</h3>
+                <ul>
+                  <li>Is chase / retyping actually down?</li>
+                  <li>Are day-1 no-replies easier to catch?</li>
+                  <li>Is the Meta message cost acceptable?</li>
                 </ul>
               </div>
             </div>
           </div>
         </section>
 
-        <!-- 8 -->
-        <section class="slide" data-title="Ask">
-          <div class="kicker">Ask</div>
-          <h2>Decision needed</h2>
-          <div class="grow">
-            <div class="grid2">
-              <div class="card rec">
-                <span class="pill yes">Proposed</span>
-                <h3>Approve short SleekFlow pilot</h3>
-                <p>1–4 month contract toward the agreed AI / mass-recruitment end-game. Review metrics before extending.</p>
+        <section class="slide">
+          <h2>Ask</h2>
+          <div class="body">
+            <div class="row two">
+              <div class="box pick">
+                <h3>Please approve</h3>
+                <p>A 1–4 month SleekFlow trial for airport catering hiring WhatsApp. Review results before extending.</p>
               </div>
-              <div class="card">
-                <span class="pill mid">Bridge only if delayed</span>
-                <h3>WhatsApp Business meantime</h3>
-                <p>Use greeting / OOO / labels only if pilot start slips — not as the long-term answer.</p>
+              <div class="box">
+                <h3>If the trial is delayed</h3>
+                <p>We can tidy things with WhatsApp Business greeting / away messages in the meantime — just as a stopgap.</p>
               </div>
             </div>
-            <div class="card">
-              <h3>One-line summary</h3>
-              <p><b>End-game = SleekFlow / AI for mass hiring. Start now on a short contract, prove value on our funnel, then scale.</b></p>
-            </div>
+            <p><b>Bottom line:</b> we looked at the simple options first; short SleekFlow is the one worth trying now.</p>
           </div>
         </section>
+
       </div>
     </div>
 
@@ -584,9 +461,9 @@
   </div>
 
   <script>
-    const chrome = document.getElementById("chrome");
+    const chromeEl = document.getElementById("chrome");
     const slides = [...document.querySelectorAll(".slide")];
-    const dotsWrap = document.getElementById("dots");
+    const dots = document.getElementById("dots");
     const counter = document.getElementById("counter");
     let i = 0;
 
@@ -594,39 +471,34 @@
       const b = document.createElement("button");
       b.type = "button";
       b.className = "dot" + (idx === 0 ? " on" : "");
-      b.setAttribute("aria-label", "Go to slide " + (idx + 1));
       b.addEventListener("click", () => go(idx));
-      dotsWrap.appendChild(b);
+      dots.appendChild(b);
     });
 
     function go(n) {
       i = Math.max(0, Math.min(slides.length - 1, n));
-      slides.forEach((s, idx) => s.classList.toggle("active", idx === i));
-      [...dotsWrap.children].forEach((d, idx) => d.classList.toggle("on", idx === i));
+      slides.forEach((s, idx) => s.classList.toggle("on", idx === i));
+      [...dots.children].forEach((d, idx) => d.classList.toggle("on", idx === i));
       counter.textContent = (i + 1) + " / " + slides.length;
     }
 
-    document.getElementById("prev").addEventListener("click", () => go(i - 1));
-    document.getElementById("next").addEventListener("click", () => go(i + 1));
-    document.getElementById("fs").addEventListener("click", () => {
+    document.getElementById("prev").onclick = () => go(i - 1);
+    document.getElementById("next").onclick = () => go(i + 1);
+    document.getElementById("fs").onclick = () => {
       if (!document.fullscreenElement) {
-        (chrome.requestFullscreen || chrome.webkitRequestFullscreen).call(chrome);
+        (chromeEl.requestFullscreen || chromeEl.webkitRequestFullscreen).call(chromeEl);
       } else {
         (document.exitFullscreen || document.webkitExitFullscreen).call(document);
       }
-    });
+    };
 
     document.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") {
+      if (["ArrowRight", "PageDown", " "].includes(e.key)) {
         e.preventDefault();
         go(i + 1);
-      } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
+      } else if (["ArrowLeft", "PageUp"].includes(e.key)) {
         e.preventDefault();
         go(i - 1);
-      } else if (e.key === "Home") {
-        go(0);
-      } else if (e.key === "End") {
-        go(slides.length - 1);
       } else if (e.key === "f" || e.key === "F") {
         document.getElementById("fs").click();
       }
