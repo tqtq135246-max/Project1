@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Airport hiring — SleekFlow story (simple)</title>
+  <style>
+    :root {
+      --bg: #f7f6f3;
+      --paper: #ffffff;
+      --text: #1c1c1c;
+      --muted: #5f5f5f;
+      --line: #ddd8cf;
+      --sop: #2f5d9f;
+      --sop-soft: #e8eef7;
+      --offer: #2e7d4f;
+      --offer-soft: #e8f5ee;
+      --gap: #b33a3a;
+      --gap-soft: #f7e8e8;
+      --warn: #c45c26;
+      --warn-soft: #f8ebe3;
+      --font: "Georgia", "Times New Roman", serif;
+      --sans: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.5;
+    }
+    .page {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 28px 20px 64px;
+    }
+    .top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    h1 {
+      font-family: var(--font);
+      font-size: 32px;
+      line-height: 1.15;
+      margin: 0 0 8px;
+      font-weight: 700;
+    }
+    .lede {
+      margin: 0;
+      color: var(--muted);
+      max-width: 520px;
+      font-size: 15px;
+    }
+    .print-btn {
+      font-family: var(--sans);
+      border: 1px solid var(--line);
+      background: var(--paper);
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .nav {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 24px 0;
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: var(--bg);
+      padding: 10px 0;
+    }
+    .nav a {
+      text-decoration: none;
+      color: var(--text);
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: block;
+    }
+    .nav a .n {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .nav a .t { font-weight: 700; font-size: 14px; }
+    .nav a.sop { border-top: 4px solid var(--sop); }
+    .nav a.offer { border-top: 4px solid var(--offer); }
+    .nav a.gap { border-top: 4px solid var(--gap); }
+
+    section {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 18px;
+    }
+    section h2 {
+      font-family: var(--font);
+      font-size: 26px;
+      margin: 0 0 8px;
+    }
+    section .intro {
+      color: var(--muted);
+      margin: 0 0 18px;
+      font-size: 15px;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 4px 8px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+    .badge.sop { background: var(--sop-soft); color: var(--sop); }
+    .badge.offer { background: var(--offer-soft); color: var(--offer); }
+    .badge.gap { background: var(--gap-soft); color: var(--gap); }
+
+    .steps {
+      display: grid;
+      gap: 8px;
+    }
+    .step {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 12px;
+      border-radius: 10px;
+      background: #faf9f6;
+      border: 1px solid var(--line);
+    }
+    .step .num {
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      background: var(--sop-soft);
+      color: var(--sop);
+    }
+    .step .name { font-weight: 700; margin-bottom: 2px; }
+    .step .desc { font-size: 13px; color: var(--muted); }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .box {
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      padding: 14px;
+      background: #faf9f6;
+    }
+    .box h3 {
+      margin: 0 0 8px;
+      font-size: 15px;
+    }
+    .box ul {
+      margin: 0;
+      padding-left: 18px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .box li { margin-bottom: 6px; }
+    .box.good { border-color: var(--offer); background: var(--offer-soft); }
+    .box.bad { border-color: var(--gap); background: var(--gap-soft); }
+    .box.warn { border-color: var(--warn); background: var(--warn-soft); }
+
+    .bar {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr 1.2fr;
+      gap: 0;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+    .bar > div { padding: 14px; }
+    .bar .a { background: var(--warn-soft); }
+    .bar .b { background: var(--offer-soft); }
+    .bar .c { background: var(--gap-soft); }
+    .bar .lab {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .bar .val { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+    .bar .hint { font-size: 12px; color: var(--muted); }
+
+    .chat {
+      margin-top: 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      background: #faf9f6;
+    }
+    .chat .cap {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .bubble {
+      max-width: 85%;
+      padding: 8px 10px;
+      border-radius: 10px;
+      margin-bottom: 6px;
+      font-size: 13px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+    .bubble.team { background: #eee; }
+    .bubble.user { margin-left: auto; background: var(--offer-soft); border-color: #c7e2d2; }
+    .bubble .who {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+    .takeaway {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-left: 4px solid var(--gap);
+      background: var(--gap-soft);
+      border-radius: 0 10px 10px 0;
+      font-size: 14px;
+    }
+    .takeaway strong { display: block; margin-bottom: 4px; }
+
+    @media (max-width: 720px) {
+      .nav, .split, .bar { grid-template-columns: 1fr; }
+      h1 { font-size: 26px; }
+    }
+    @media print {
+      .print-btn, .nav { display: none !important; }
+      body { background: #fff; }
+      section { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top">
+      <div>
+        <h1>Airport catering hiring<br />SleekFlow — simple story</h1>
+        <p class="lede">
+          Three slides for the team discussion: today’s SOP, what SleekFlow can do,
+          and what the pushback says is still missing.
+        </p>
+      </div>
+      <button class="print-btn" type="button" onclick="window.print()">Print / Save as PDF</button>
+    </div>
+
+    <nav class="nav">
+      <a class="sop" href="#sop"><div class="n">Part 1</div><div class="t">Current process / SOP</div></a>
+      <a class="offer" href="#offer"><div class="n">Part 2</div><div class="t">What SleekFlow can offer</div></a>
+      <a class="gap" href="#gap"><div class="n">Part 3</div><div class="t">What is not addressed</div></a>
+    </nav>
+
+    <!-- PART 1 -->
+    <section id="sop">
+      <div class="badge sop">Part 1</div>
+      <h2>Current process / SOP</h2>
+      <p class="intro">
+        One People / Ops team under the same lead. Everything runs on WhatsApp + manual follow-up.
+        Junior / blue-collar hires need extra care to reach the venue on day 1.
+      </p>
+
+      <div class="steps">
+        <div class="step"><div class="num">1</div><div><div class="name">Apply</div><div class="desc">Candidate shares basic info and contact.</div></div></div>
+        <div class="step"><div class="num">2</div><div><div class="name">Screen &amp; book</div><div class="desc">Team checks fit and books interview.</div></div></div>
+        <div class="step"><div class="num">3</div><div><div class="name">Interview</div><div class="desc">Face-to-face meeting. Pass or not.</div></div></div>
+        <div class="step"><div class="num">4</div><div><div class="name">More info</div><div class="desc">Collect ID and personal details.</div></div></div>
+        <div class="step"><div class="num">5</div><div><div class="name">Airport permit</div><div class="desc">Team submits permit pack; wait for approval.</div></div></div>
+        <div class="step"><div class="num">6</div><div><div class="name">Book test</div><div class="desc">Arrange airport authority test + venue guidance.</div></div></div>
+        <div class="step"><div class="num">7</div><div><div class="name">Pass test</div><div class="desc">Candidate takes test; rebook until pass.</div></div></div>
+        <div class="step"><div class="num">8</div><div><div class="name">Verbal offer</div><div class="desc">Team calls to offer; confirm start details.</div></div></div>
+        <div class="step"><div class="num">9</div><div><div class="name">First day</div><div class="desc">Morning contact, map, supervisor phone; paper offer on site.</div></div></div>
+      </div>
+
+      <div class="chat">
+        <div class="cap">Today’s feel — day 1 (still fully manual)</div>
+        <div class="bubble team"><div class="who">Team</div>Good morning — day 1. Meet Gate A. Pat 9123 4567</div>
+        <div class="bubble user"><div class="who">Candidate</div>I can’t find Gate A</div>
+        <div class="bubble team"><div class="who">Team</div>Stay there — I’ll call you now</div>
+      </div>
+    </section>
+
+    <!-- PART 2 -->
+    <section id="offer">
+      <div class="badge offer">Part 2</div>
+      <h2>What SleekFlow can offer</h2>
+      <p class="intro">
+        SleekFlow is useful when a candidate already writes in. The bot can collect application data
+        and keep a contact record. Later messages the team starts may need Meta templates (extra cost).
+      </p>
+
+      <div class="split">
+        <div class="box good">
+          <h3>Where it helps</h3>
+          <ul>
+            <li>Apply intake — QR / link, ask name, phone, role</li>
+            <li>Save contact + stage in one place</li>
+            <li>Some booking / reminder flows after the candidate replies</li>
+            <li>Shared inbox so the team sees the thread</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>How it usually works</h3>
+          <ul>
+            <li>Candidate writes first → bot can chat in the free window</li>
+            <li>Team reaches out later → often needs a paid template</li>
+            <li>When they reply → bot/team can continue again</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bar" aria-label="Where SleekFlow sits on the path">
+        <div class="a">
+          <div class="lab">Before apply</div>
+          <div class="val">Find people</div>
+          <div class="hint">Not SleekFlow’s job</div>
+        </div>
+        <div class="b">
+          <div class="lab">Apply</div>
+          <div class="val">SleekFlow helps</div>
+          <div class="hint">Data capture / bot Q&amp;A</div>
+        </div>
+        <div class="c">
+          <div class="lab">After hire</div>
+          <div class="val">Connect &amp; day 1</div>
+          <div class="hint">Still mostly the team</div>
+        </div>
+      </div>
+
+      <div class="chat">
+        <div class="cap">What the bot is good at — apply</div>
+        <div class="bubble user"><div class="who">Candidate</div>Hi, I want to apply (from QR)</div>
+        <div class="bubble"><div class="who">SleekFlow bot</div>Welcome! Your full name?</div>
+        <div class="bubble user"><div class="who">Candidate</div>Alex Chan</div>
+        <div class="bubble"><div class="who">SleekFlow bot</div>Phone + role preference?</div>
+        <div class="bubble"><div class="who">SleekFlow bot</div>Thanks — application received.</div>
+      </div>
+    </section>
+
+    <!-- PART 3 -->
+    <section id="gap">
+      <div class="badge gap">Part 3</div>
+      <h2>What is not addressed</h2>
+      <p class="intro">
+        Team pushback in one line: SleekFlow helps the application form — it does not fix the real pains.
+      </p>
+
+      <div class="split">
+        <div class="box warn">
+          <h3>1. Hard to find candidates</h3>
+          <ul>
+            <li>Main issue is scarcity — not “too many applications for admins”</li>
+            <li>Junior / blue-collar airport roles are hard to attract</li>
+            <li>A bot only talks to people who already showed up</li>
+          </ul>
+        </div>
+        <div class="box bad">
+          <h3>2. After hire, connecting stays manual</h3>
+          <ul>
+            <li>Verbal offer call is still the team</li>
+            <li>Day-1 morning care is still the team</li>
+            <li>If they get lost / panic / don’t reply — someone must call</li>
+            <li>This is the tedious part after hiring</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="chat">
+        <div class="cap">Even with SleekFlow — day 1 still needs the team</div>
+        <div class="bubble"><div class="who">Template (paid)</div>Day 1 — Gate A. Pat 9123 4567. Reply OK</div>
+        <div class="bubble user"><div class="who">Candidate</div>I can’t find it</div>
+        <div class="bubble team"><div class="who">Team</div>Stay put — calling you now</div>
+        <div class="bubble"><div class="who">SleekFlow bot</div>(Cannot walk them to the gate)</div>
+      </div>
+
+      <div class="takeaway">
+        <strong>Takeaway for the decision</strong>
+        SleekFlow can tidy the front door (apply). It does not create candidates, and it does not
+        remove the post-hire connecting work that the team says is most tedious.
+      </div>
+    </section>
+  </div>
+</body>
+</html>
