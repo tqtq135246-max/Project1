@@ -75,31 +75,19 @@
     .font-festive-script { font-family: 'Caveat', cursive; }
     .font-festive-display { font-family: 'Fredoka', sans-serif; }
 
-    /* ========== GAME 1 — HKCEE exam booklet family ========== */
-    .slide[data-title="6. Game 1: Make a Guess — Intro"],
-    .slide[data-title="7. Game 1: Open AhaSlides"] {
-      background:
-        linear-gradient(180deg, rgba(241,245,249,0.92), rgba(226,232,240,0.88)),
-        repeating-linear-gradient(0deg, transparent 0 27px, rgba(15,23,42,0.06) 27px 28px);
-    }
+    /* ========== GAME 1 — exam accents on shared festive chrome ========== */
     .g1-exam-book {
       width: min(52rem, 96vw);
       margin-inline: auto;
-      background: #fff;
-      color: #111;
-      border: 1.5px solid #111;
-      box-shadow: 0 0 0 6px #e2e8f0, 0 22px 44px -24px rgba(0,0,0,0.4);
-      font-family: 'Libre Baskerville', 'Times New Roman', Times, serif;
-      position: relative;
       text-align: left;
-      padding: 1.25rem 1.4rem 1.5rem;
+      padding: 1.35rem 1.5rem 1.6rem;
+      color: #1e293b;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      position: relative;
+      border-radius: 1.5rem;
     }
-    .g1-exam-book::before {
-      content: '';
-      position: absolute;
-      inset: 8px;
-      border: 1px solid #94a3b8;
-      pointer-events: none;
+    .g1-exam-book.theme-rail::after {
+      content: '✏️ 🎄 📝 🎁 🎓 ❄️';
     }
     .g1-exam-top {
       display: flex;
@@ -110,106 +98,105 @@
       z-index: 1;
       margin-bottom: 0.85rem;
       padding-bottom: 0.65rem;
-      border-bottom: 1.5px solid #111;
+      border-bottom: 2px dashed rgba(200,55,45,0.35);
     }
     .g1-exam-code {
-      font-family: Arial, Helvetica, sans-serif;
       font-size: 0.68rem;
-      font-weight: 700;
+      font-weight: 800;
       letter-spacing: 0.12em;
       text-transform: uppercase;
+      color: #C8372D;
     }
     .g1-exam-authority {
-      font-family: Arial, Helvetica, sans-serif;
       font-size: 0.72rem;
       font-weight: 800;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
       line-height: 1.35;
+      color: #23486A;
+      margin-top: 0.25rem;
     }
     .g1-exam-sidebits {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
       gap: 0.35rem;
-      font-family: Arial, Helvetica, sans-serif;
     }
     .g1-barcode {
       width: 7.5rem;
       height: 2.1rem;
-      border: 1px solid #111;
-      background: repeating-linear-gradient(90deg, #111 0 2px, #fff 2px 4px, #111 4px 5px, #fff 5px 8px);
-      font-size: 0.45rem;
-      text-align: center;
-      line-height: 2.1rem;
-      color: transparent;
+      border: 1.5px solid #23486A;
+      border-radius: 0.35rem;
+      background: repeating-linear-gradient(90deg, #23486A 0 2px, #fff 2px 4px, #1E6B3B 4px 5px, #fff 5px 8px);
+      opacity: 0.85;
     }
-    .g1-cand {
-      display: flex;
-      gap: 2px;
-    }
+    .g1-cand { display: flex; gap: 2px; }
     .g1-cand span {
       width: 0.85rem;
       height: 1.05rem;
-      border: 1px solid #111;
-      background: #f8fafc;
+      border: 1.5px solid #94a3b8;
+      border-radius: 0.15rem;
+      background: #fff;
     }
     .g1-exam-title {
-      font-family: Arial, Helvetica, sans-serif;
-      font-weight: 900;
-      font-size: clamp(1.6rem, 4vw, 2.75rem);
-      letter-spacing: 0.04em;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.7rem, 4vw, 2.85rem);
+      letter-spacing: 0.02em;
       text-transform: uppercase;
       text-align: center;
-      margin: 0.85rem 0 0.35rem;
+      margin: 0.7rem 0 0.3rem;
+      color: #C8372D;
       position: relative;
       z-index: 1;
     }
     .g1-exam-sub {
-      font-family: Arial, Helvetica, sans-serif;
-      font-weight: 700;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
       text-align: center;
-      font-size: clamp(0.95rem, 2vw, 1.25rem);
-      margin-bottom: 0.75rem;
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      margin-bottom: 0.7rem;
+      color: #1E6B3B;
       position: relative;
       z-index: 1;
     }
     .g1-exam-meta {
-      font-family: Arial, Helvetica, sans-serif;
       font-size: 0.8rem;
       font-weight: 700;
       text-align: center;
-      border: 1px solid #111;
-      padding: 0.45rem 0.75rem;
+      border: 2px solid rgba(35,72,106,0.25);
+      border-radius: 0.85rem;
+      padding: 0.5rem 0.85rem;
       margin: 0 auto 0.9rem;
       max-width: 28rem;
-      background: #f1f5f9;
+      background: rgba(213,226,234,0.45);
+      color: #23486A;
       position: relative;
       z-index: 1;
     }
     .g1-instructions-label {
-      font-family: Arial, Helvetica, sans-serif;
       font-size: 0.72rem;
       font-weight: 900;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       margin-bottom: 0.35rem;
+      color: #C8372D;
       position: relative;
       z-index: 1;
     }
     .g1-instructions {
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 0.86rem;
+      font-size: 0.88rem;
       font-weight: 600;
       margin: 0 0 1rem 1.1rem;
       padding: 0;
       position: relative;
       z-index: 1;
       line-height: 1.45;
+      color: #334155;
     }
     .g1-instructions .zh {
       display: block;
-      color: #475569;
+      color: #64748b;
       font-size: 0.78rem;
       font-weight: 600;
       margin-top: 0.1rem;
@@ -219,117 +206,88 @@
       width: 100%;
       max-width: 28rem;
       margin: 0.75rem auto 0;
-      padding: 0.9rem 1.25rem;
-      border: 2px solid #111;
-      background: #111;
+      padding: 0.95rem 1.25rem;
+      border: 2px solid #1E6B3B;
+      border-radius: 1rem;
+      background: linear-gradient(90deg, #1E6B3B, #23486A);
       color: #fff;
-      font-family: Arial, Helvetica, sans-serif;
-      font-weight: 900;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
       font-size: 1.05rem;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
       text-align: center;
       text-decoration: none;
       position: relative;
       z-index: 1;
-      transition: background 0.15s ease, color 0.15s ease;
+      box-shadow: 0 12px 28px -14px rgba(30,107,59,0.55);
+      transition: transform 0.15s ease, filter 0.15s ease;
     }
-    .g1-exam-cta:hover { background: #fff; color: #111; }
+    .g1-exam-cta:hover { transform: translateY(-1px); filter: brightness(1.05); color: #fff; }
     .g1-exam-footer {
-      font-family: Arial, Helvetica, sans-serif;
       font-size: 0.62rem;
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       text-align: center;
-      color: #64748b;
+      color: #94a3b8;
       margin-top: 1rem;
       position: relative;
       z-index: 1;
     }
 
-    /* ========== GAME 2 — festive Overcooked kitchen ========== */
-    .slide[data-title^="8. Game 2"],
-    .slide[data-title^="9. Game 2"],
-    .slide[data-title^="10. Game 2"],
-    .slide[data-title^="11. Game 2"],
-    .slide[data-title^="12. Game 2"] {
-      background:
-        radial-gradient(ellipse at 20% 10%, rgba(251,191,36,0.28), transparent 42%),
-        radial-gradient(ellipse at 85% 20%, rgba(248,113,113,0.22), transparent 40%),
-        linear-gradient(165deg, #3f1d0b 0%, #7c2d12 38%, #9a3412 70%, #431407 100%);
-    }
+    /* ========== GAME 2 — kitchen accents on shared festive chrome ========== */
     .g2-kitchen-board {
       width: 100%;
       margin-inline: auto;
-      background:
-        linear-gradient(180deg, rgba(255,247,237,0.97), rgba(255,237,213,0.95));
-      color: #431407;
-      border: 4px solid #fbbf24;
-      border-radius: 1.25rem;
-      box-shadow:
-        0 0 0 6px rgba(127,29,29,0.35),
-        0 22px 48px -18px rgba(0,0,0,0.55),
-        inset 0 1px 0 rgba(255,255,255,0.7);
-      font-family: 'Fredoka', 'Plus Jakarta Sans', sans-serif;
+      color: #1e293b;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       position: relative;
-      overflow: hidden;
+      border-radius: 1.5rem;
     }
-    .g2-kitchen-board::before {
-      content: '';
-      position: absolute;
-      left: 0; right: 0; top: 0;
-      height: 14px;
-      background: repeating-linear-gradient(90deg,
-        #C8372D 0 18px, #1E6B3B 18px 36px, #F59E0B 36px 54px, #fff 54px 60px);
-      z-index: 2;
+    .g2-kitchen-board.theme-rail::after {
+      content: '✏️ 🎄 🍳 🎁 🎓 ❄️';
     }
-    .g2-kitchen-board::after {
-      content: '🎄 🍳 🎄 🍲 🎄';
-      position: absolute;
-      right: 0.75rem;
-      bottom: 0.4rem;
-      font-size: 0.85rem;
-      opacity: 0.45;
-      pointer-events: none;
-      letter-spacing: 0.35em;
-    }
-    .g2-kitchen-kicker {
+    .g2-kitchen-kicker,
+    .g2-exam-kicker {
       font-family: 'Fredoka', sans-serif;
       font-size: 0.75rem;
       font-weight: 700;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: #9a3412;
+      color: #D97724;
     }
-    .g2-kitchen-title {
+    .g2-kitchen-title,
+    .g2-exam-title {
       font-family: 'Fredoka', sans-serif;
       font-weight: 700;
       letter-spacing: 0.02em;
       text-transform: uppercase;
-      color: #7f1d1d;
+      color: #C8372D;
       line-height: 1.1;
-      text-shadow: 0 2px 0 rgba(251,191,36,0.35);
+      text-shadow: none;
     }
-    .g2-kitchen-sub {
+    .g2-kitchen-sub,
+    .g2-exam-sub {
       font-family: 'Fredoka', sans-serif;
       font-weight: 600;
-      color: #9a3412;
+      color: #1E6B3B;
     }
     .g2-ticket {
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      padding: 0.28rem 0.7rem;
+      padding: 0.28rem 0.75rem;
       border-radius: 999px;
-      background: #7f1d1d;
-      color: #fef3c7;
+      background: #ecfdf5;
+      color: #14532D;
+      border: 1.5px solid #86efac;
       font-family: 'Fredoka', sans-serif;
       font-size: 0.7rem;
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      box-shadow: 0 4px 0 #450a0a;
+      box-shadow: none;
     }
 
 
@@ -555,12 +513,12 @@
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
-      border: 2px solid #9a3412;
-      background: #fff7ed;
+      border: 2px solid rgba(35,72,106,0.25);
+      background: rgba(255,255,255,0.95);
       border-radius: 999px;
       padding: 0.2rem 0.55rem 0.2rem 0.2rem;
       font-family: 'Fredoka', sans-serif;
-      box-shadow: 0 3px 0 rgba(127,29,29,0.25);
+      box-shadow: 0 8px 18px -14px rgba(35,72,106,0.35);
     }
     .how-play-role-chip .role-avatar {
       width: 2.1rem;
@@ -578,13 +536,13 @@
       display: block;
       font-size: 0.68rem;
       line-height: 1.05;
-      color: #7f1d1d;
+      color: #C8372D;
     }
     .how-play-role-chip span {
       display: block;
       font-size: 0.58rem;
       font-weight: 700;
-      color: #9a3412;
+      color: #1E6B3B;
       line-height: 1.05;
     }
     .slide[data-title="10. Game 2: How to Play"] .how-play-board {
@@ -617,14 +575,14 @@
       border-radius: 1rem;
       padding: 0.55rem 0.45rem 0.65rem;
       text-align: center;
-      border: 2.5px solid #9a3412;
-      background: #fffbeb;
+      border: 2px solid rgba(35,72,106,0.22);
+      background: rgba(255,255,255,0.96);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
       gap: 0.2rem;
-      box-shadow: 0 6px 0 rgba(127,29,29,0.18);
+      box-shadow: 0 12px 24px -18px rgba(35,72,106,0.35);
       min-width: 0;
     }
     @media (min-width: 900px) {
@@ -636,8 +594,8 @@
         transform: translateY(-50%);
         z-index: 3;
         font-size: 1.05rem;
-        color: #fbbf24;
-        text-shadow: 0 2px 0 #7f1d1d;
+        color: #D97724;
+        text-shadow: none;
         pointer-events: none;
       }
     }
@@ -668,14 +626,14 @@
       font-family: 'Fredoka', sans-serif;
       font-weight: 700;
       font-size: clamp(0.72rem, 1.35vh, 0.9rem);
-      color: #7f1d1d;
+      color: #C8372D;
       line-height: 1.15;
     }
     .how-play-step .step-copy .step-roles-zh {
       font-family: 'Fredoka', sans-serif;
       font-weight: 600;
       font-size: clamp(0.62rem, 1.15vh, 0.78rem);
-      color: #9a3412;
+      color: #1E6B3B;
       margin-top: 0.05rem;
     }
     .how-play-step .step-copy .step-en {
@@ -850,64 +808,8 @@
       padding-left: 0.75rem;
       padding-right: 0.75rem;
     }
-    /* Legacy class names map to kitchen board (Game 2 Overcooked look) */
-    .g2-exam-sheet { /* alias */ }
-    .g2-exam-sheet.g2-kitchen-board,
-    .g2-kitchen-board.g2-exam-sheet,
-    .stage-board.g2-exam-sheet {
-      /* kitchen styles come from .g2-kitchen-board; keep class for compatibility */
-    }
-    .g2-exam-kicker { /* use .g2-kitchen-kicker in markup */ }
-    .g2-exam-title { }
-    .g2-exam-sub { }
-    .stage-board.g2-exam-sheet,
-    .g2-exam-sheet.stage-card,
-    .stage-board.g2-kitchen-board,
-    .g2-kitchen-board {
-      /* ensure kitchen board wins when both present */
-    }
-    .stage-board.g2-exam-sheet {
-      width: 100%;
-      margin-inline: auto;
-      background: linear-gradient(180deg, rgba(255,247,237,0.97), rgba(255,237,213,0.95));
-      color: #431407;
-      border: 4px solid #fbbf24;
-      border-radius: 1.25rem;
-      box-shadow: 0 0 0 6px rgba(127,29,29,0.35), 0 22px 48px -18px rgba(0,0,0,0.55);
-      font-family: 'Fredoka', 'Plus Jakarta Sans', sans-serif;
-      position: relative;
-      overflow: hidden;
-    }
-    .stage-board.g2-exam-sheet::before {
-      content: '';
-      position: absolute;
-      left: 0; right: 0; top: 0;
-      height: 14px;
-      background: repeating-linear-gradient(90deg, #C8372D 0 18px, #1E6B3B 18px 36px, #F59E0B 36px 54px, #fff 54px 60px);
-      z-index: 2;
-    }
-    .g2-exam-kicker {
-      font-family: 'Fredoka', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #9a3412;
-    }
-    .g2-exam-title {
-      font-family: 'Fredoka', sans-serif;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      color: #7f1d1d;
-      line-height: 1.1;
-      text-shadow: 0 2px 0 rgba(251,191,36,0.35);
-    }
-    .g2-exam-sub {
-      font-family: 'Fredoka', sans-serif;
-      font-weight: 600;
-      color: #9a3412;
-    }
+    /* Game 2 boards share festive-card chrome; accent classes above */
+
     .hkcee-cover {
       width: 100%;
       max-width: min(58rem, 96vw);
@@ -3207,7 +3109,7 @@
   <!-- SLIDE 6: GAME 1 SESSION INTRO (EXAM BOOKLET)                        -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center" data-title="6. Game 1: Make a Guess — Intro">
-    <div class="g1-exam-book" role="document" aria-label="Game 1 exam booklet cover">
+    <div class="g1-exam-book festive-card theme-rail quiz-sheet stage-card rounded-3xl border-4 border-[#C8372D]" role="document" aria-label="Game 1 exam booklet cover">
       <div class="g1-exam-top">
         <div>
           <div class="g1-exam-code" contenteditable="true">2026-XMAS GAME 1 · PAPER A</div>
@@ -3245,7 +3147,7 @@
   <!-- SLIDE 7: GAME 1 — OPEN AHASLIDES (EXAM BOOKLET)                       -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center" data-title="7. Game 1: Open AhaSlides">
-    <div class="g1-exam-book" role="document" aria-label="Game 1 live exam start sheet">
+    <div class="g1-exam-book festive-card theme-rail quiz-sheet stage-card rounded-3xl border-4 border-[#C8372D]" role="document" aria-label="Game 1 live exam start sheet">
       <div class="g1-exam-top">
         <div>
           <div class="g1-exam-code" contenteditable="true">2026-XMAS GAME 1 · PAPER A · LIVE</div>
@@ -3287,7 +3189,7 @@
   <!-- SLIDE 8: GAME 2 SESSION INTRO (BILINGUAL)                             -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center text-center" data-title="8. Game 2: The Culinary Fanatic — Intro">
-    <div class="g2-kitchen-board stage-card px-8 py-10 sm:px-12 sm:py-12 text-center">
+    <div class="g2-kitchen-board festive-card theme-rail canteen-frame stage-card rounded-3xl border-4 border-[#1E6B3B] px-8 py-10 sm:px-12 sm:py-12 text-center">
       <div class="relative z-10">
         <span class="g2-ticket mb-4"><i class="fa-solid fa-fire-burner"></i> Kitchen Co-op · 廚房合作</span>
         <div class="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-tr from-[#C8372D] to-[#F59E0B] text-white flex items-center justify-center text-3xl shadow-lg animate-float border-4 border-[#fde68a]">
@@ -3300,7 +3202,7 @@
         <h2 class="g2-kitchen-sub text-xl sm:text-2xl mt-3" contenteditable="true">
           遊戲二：料理狂熱者
         </h2>
-        <p class="mt-4 text-sm sm:text-base font-bold text-[#7c2d12]" contenteditable="true">
+        <p class="mt-4 text-sm sm:text-base font-bold text-slate-700" contenteditable="true">
           Team of 3 · Tickets flying · 十分鐘廚房衝刺
         </p>
       </div>
@@ -3311,30 +3213,30 @@
   <!-- SLIDE 9: GAME 2 — EXAM / ORDER-FORM COVER (RULES + WIN)                -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-center" data-title="9. Game 2: Mission Brief">
-    <div class="g2-kitchen-board max-w-5xl px-6 py-7 sm:px-10 sm:py-9" role="document" aria-label="Game 2 kitchen mission brief">
+    <div class="g2-kitchen-board festive-card theme-rail canteen-frame max-w-5xl rounded-3xl border-4 border-[#1E6B3B] px-6 py-7 sm:px-10 sm:py-9" role="document" aria-label="Game 2 kitchen mission brief">
       <div class="relative z-10">
         <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
           <span class="g2-ticket"><i class="fa-solid fa-clipboard-list"></i> Mission ticket</span>
-          <span class="px-3 py-1 rounded-full bg-[#7f1d1d] text-[#fde68a] text-xs font-black uppercase tracking-wider" contenteditable="true">10:00 · Team of 3</span>
+          <span class="px-3 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-900 text-xs font-black uppercase tracking-wider" contenteditable="true">10:00 · Team of 3</span>
         </div>
         <p class="g2-kitchen-kicker mb-1" contenteditable="true">Christmas cafeteria rush · 聖誕食堂大作戰</p>
         <h1 class="g2-kitchen-title text-3xl sm:text-5xl mb-2" contenteditable="true">THE CULINARY FANATIC</h1>
         <h2 class="g2-kitchen-sub text-lg sm:text-xl mb-5" contenteditable="true">料理狂熱者 · Kitchen briefing</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-left">
-          <div class="rounded-xl border-2 border-[#f59e0b] bg-white/80 p-3.5 shadow-sm">
-            <div class="text-xs font-black uppercase tracking-wider text-[#9a3412] mb-1">1 · Form up</div>
-            <p class="text-sm font-bold text-[#431407]" contenteditable="true">Each table forms a team of 3.</p>
-            <p class="text-xs font-semibold text-[#9a3412] mt-1" contenteditable="true">每桌組成三人小組。</p>
+          <div class="rounded-xl border-2 border-[#1E6B3B]/25 bg-white/90 p-3.5 shadow-sm">
+            <div class="text-xs font-black uppercase tracking-wider text-[#D97724] mb-1">1 · Form up</div>
+            <p class="text-sm font-bold text-slate-800" contenteditable="true">Each table forms a team of 3.</p>
+            <p class="text-xs font-semibold text-[#D97724] mt-1" contenteditable="true">每桌組成三人小組。</p>
           </div>
-          <div class="rounded-xl border-2 border-[#f59e0b] bg-white/80 p-3.5 shadow-sm">
-            <div class="text-xs font-black uppercase tracking-wider text-[#9a3412] mb-1">2 · Double orders</div>
-            <p class="text-sm font-bold text-[#431407]" contenteditable="true">Head table and the rest of each table also place orders. Team of 3 completes 1 head-table order + 1 other-table order.</p>
-            <p class="text-xs font-semibold text-[#9a3412] mt-1" contenteditable="true">主桌與同枱其餘人都要落單；三人小組完成主桌 1 張 + 其他桌 1 張。</p>
+          <div class="rounded-xl border-2 border-[#1E6B3B]/25 bg-white/90 p-3.5 shadow-sm">
+            <div class="text-xs font-black uppercase tracking-wider text-[#D97724] mb-1">2 · Double orders</div>
+            <p class="text-sm font-bold text-slate-800" contenteditable="true">Head table and the rest of each table also place orders. Team of 3 completes 1 head-table order + 1 other-table order.</p>
+            <p class="text-xs font-semibold text-[#D97724] mt-1" contenteditable="true">主桌與同枱其餘人都要落單；三人小組完成主桌 1 張 + 其他桌 1 張。</p>
           </div>
-          <div class="rounded-xl border-2 border-[#f59e0b] bg-white/80 p-3.5 shadow-sm">
-            <div class="text-xs font-black uppercase tracking-wider text-[#9a3412] mb-1">3 · Fastest wins</div>
-            <p class="text-sm font-bold text-[#431407]" contenteditable="true">Within 10 minutes, the fastest team that completes both orders correctly wins.</p>
-            <p class="text-xs font-semibold text-[#9a3412] mt-1" contenteditable="true">限時 10 分鐘，最快且兩張訂單皆正確的隊伍勝出。</p>
+          <div class="rounded-xl border-2 border-[#1E6B3B]/25 bg-white/90 p-3.5 shadow-sm">
+            <div class="text-xs font-black uppercase tracking-wider text-[#D97724] mb-1">3 · Fastest wins</div>
+            <p class="text-sm font-bold text-slate-800" contenteditable="true">Within 10 minutes, the fastest team that completes both orders correctly wins.</p>
+            <p class="text-xs font-semibold text-[#D97724] mt-1" contenteditable="true">限時 10 分鐘，最快且兩張訂單皆正確的隊伍勝出。</p>
           </div>
         </div>
       </div>
@@ -3345,7 +3247,7 @@
   <!-- SLIDE 10: GAME 2: HOW TO PLAY (ROLES + PROCESS CHART)                  -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-stretch justify-center" data-title="10. Game 2: How to Play">
-    <div class="stage-board g2-kitchen-board g2-exam-sheet how-play-board">
+    <div class="stage-board g2-kitchen-board g2-exam-sheet festive-card theme-rail canteen-frame how-play-board">
       <div class="shrink-0 text-center pt-2 relative z-10">
         <span class="g2-ticket mb-2"><i class="fa-solid fa-diagram-project"></i> Process map</span>
         <p class="g2-kitchen-kicker mb-1" contenteditable="true">2026-XMAS GAME 2 · Kitchen flow · How to Play</p>
@@ -3484,7 +3386,7 @@
   <!-- SLIDE 11: GAME 2: ORDER & PREPARE (MENUS + FORM)                       -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-stretch justify-center" data-title="11. Game 2: Order & Prepare">
-    <div class="stage-board g2-kitchen-board g2-exam-sheet order-prep-board">
+    <div class="stage-board g2-kitchen-board g2-exam-sheet festive-card theme-rail canteen-frame order-prep-board">
       <div class="shrink-0 text-center pt-2 relative z-10">
         <span class="g2-ticket mb-2"><i class="fa-solid fa-burger"></i> Order station</span>
         <p class="g2-kitchen-kicker mb-1" contenteditable="true">2026-XMAS GAME 2 · Menus on the pass</p>
@@ -3563,7 +3465,7 @@
   <section class="slide flex-col items-center justify-center" style="padding-top: 1.25rem; padding-bottom: 4.5rem; padding-left: 1.5rem; padding-right: 1.5rem;" data-title="12. Game 2: Cook — Timer & Livestream">
     <div class="max-w-[1520px] w-full h-full flex flex-col gap-2.5 justify-center">
 
-      <div class="g2-kitchen-board g2-exam-sheet lab-live-bar px-5 py-3 flex flex-wrap items-center justify-between gap-3" style="padding-top:1.15rem;border-radius:1rem;">
+      <div class="g2-kitchen-board g2-exam-sheet festive-card theme-rail canteen-frame lab-live-bar px-5 py-3 flex flex-wrap items-center justify-between gap-3" style="padding-top:1.15rem;border-radius:1rem;">
         <div class="flex flex-col gap-1 min-w-0">
           <div class="flex items-center gap-3 flex-wrap">
             <span class="g2-ticket animate-pulse"><i class="fa-solid fa-circle text-[9px]"></i> Kitchen Live</span>
