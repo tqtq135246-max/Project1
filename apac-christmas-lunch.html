@@ -4489,17 +4489,17 @@
     }
 
     function buildVdoUrls(roomId) {
-      // Party stream IDs without password; password applied at runtime if entered
+      // Room/view IDs only — never include session password; attach at load/QR/copy time
       if (!roomId || roomId === DEFAULT_VDO_ROOM_ID) {
         return {
-          push: withVdoPassword(DEFAULT_VDO_PUSH_URL),
-          view: withVdoPassword(DEFAULT_VDO_VIEW_URL)
+          push: stripVdoPassword(DEFAULT_VDO_PUSH_URL),
+          view: stripVdoPassword(DEFAULT_VDO_VIEW_URL)
         };
       }
       const id = encodeURIComponent(roomId);
       const push = `https://vdo.ninja/?push=${id}&webcam&autostart&label=${encodeURIComponent('FloorCam')}&quality=0`;
       const view = `https://vdo.ninja/?view=${id}&scene&cleanoutput&solidbg&bgcolor=000000`;
-      return { push: withVdoPassword(push), view: withVdoPassword(view) };
+      return { push: stripVdoPassword(push), view: stripVdoPassword(view) };
     }
 
     function isAllowedVdoUrl(url) {
@@ -4519,7 +4519,8 @@
       if (roomLabel) roomLabel.textContent = vdoRoomId || '—';
       if (pushLink) {
         if (vdoPushUrl) {
-          pushLink.href = vdoPushUrl;
+          const livePush = withVdoPassword(stripVdoPassword(vdoPushUrl));
+          pushLink.href = livePush;
           pushLink.textContent = stripVdoPassword(vdoPushUrl) + (vdoStreamPassword ? ' (+ session password)' : '');
         } else {
           pushLink.href = '#';
@@ -4535,10 +4536,11 @@
           ? DEFAULT_VDO_PUSH_URL
           : `https://vdo.ninja/?push=${encodeURIComponent(vdoRoomId)}&webcam&autostart&label=${encodeURIComponent('FloorCam')}&quality=0`
       );
-      customVdoNinjaUrl = withVdoPassword(baseView);
-      vdoPushUrl = withVdoPassword(basePush);
+      // Persist password-free bases only (#SAVE:customVdoNinjaUrl must never hold p=)
+      customVdoNinjaUrl = stripVdoPassword(baseView);
+      vdoPushUrl = stripVdoPassword(basePush);
       syncVdoRoomUi();
-      renderVdoQr(vdoPushUrl);
+      renderVdoQr(withVdoPassword(vdoPushUrl));
       if (opts.forceReload) {
         loadVdoNinjaStream(customVdoNinjaUrl, { forceReload: true, showQr: opts.showQr });
       }
@@ -4548,10 +4550,10 @@
       if (forceNew) vdoRoomId = makeRoomId();
       else if (!vdoRoomId) vdoRoomId = DEFAULT_VDO_ROOM_ID;
       const urls = buildVdoUrls(vdoRoomId);
-      vdoPushUrl = urls.push;
-      customVdoNinjaUrl = urls.view;
+      vdoPushUrl = stripVdoPassword(urls.push);
+      customVdoNinjaUrl = stripVdoPassword(urls.view);
       syncVdoRoomUi();
-      renderVdoQr(vdoPushUrl);
+      renderVdoQr(withVdoPassword(vdoPushUrl));
       loadVdoNinjaStream(customVdoNinjaUrl, { forceReload: true, showQr: opts.showQr });
       if (!opts.silent) {
         showToast(forceNew ? 'New room ready — scan QR, then Full Stage' : 'Party livestream ready — enter password if the room needs one');
@@ -4602,7 +4604,8 @@
 
     function copyVdoPushLink() {
       if (!vdoPushUrl) startVdoNinjaRoom(false);
-      navigator.clipboard.writeText(vdoPushUrl).then(() => showToast('Push link copied')).catch(() => showToast(vdoPushUrl));
+      const live = withVdoPassword(stripVdoPassword(vdoPushUrl));
+      navigator.clipboard.writeText(live).then(() => showToast('Push link copied')).catch(() => showToast(live));
     }
 
     function getDisplayedVdoViewUrl() {
@@ -4629,10 +4632,10 @@
         const u = new URL(url);
         vdoRoomId = u.searchParams.get('room') || DEFAULT_VDO_ROOM_ID;
       } catch (_) { /* keep defaults */ }
-      // Session password (if any) is attached at load time — never bake into shipped HTML
+      // Session password (if any) is attached at load time — never store on customVdoNinjaUrl
       loadVdoNinjaStream(url, { forceReload: true, showQr: false });
       const pushBase = `https://vdo.ninja/?push=${encodeURIComponent(DEFAULT_VDO_STREAM_ID)}&room=${encodeURIComponent(DEFAULT_VDO_ROOM_ID)}&webcam&autostart&label=${encodeURIComponent('FloorCam')}&quality=0`;
-      vdoPushUrl = withVdoPassword(pushBase);
+      vdoPushUrl = stripVdoPassword(pushBase);
       syncVdoRoomUi();
       if (!opts.silent) {
         showToast(vdoStreamPassword ? 'Party livestream connected (session password)' : 'Party livestream connected — enter password if the room needs one');
@@ -4680,13 +4683,14 @@
     function loadVdoNinjaStream(url, opts = {}) {
       let viewUrl = url || customVdoNinjaUrl;
       if (!viewUrl) { showToast('Start a VDO room first', 'error'); return; }
-      // Never persist password into the saved default; only attach session password at load time
-      viewUrl = withVdoPassword(stripVdoPassword(viewUrl));
-      if (!isAllowedVdoUrl(viewUrl)) {
+      // #SAVE:customVdoNinjaUrl stays password-free; session p= only on the live iframe src
+      const cleanView = stripVdoPassword(viewUrl);
+      const liveView = withVdoPassword(cleanView);
+      if (!isAllowedVdoUrl(cleanView)) {
         showToast('Livestream URL must be on vdo.ninja', 'error');
         return;
       }
-      customVdoNinjaUrl = viewUrl;
+      customVdoNinjaUrl = cleanView;
       if (typeof activeMediaStream !== 'undefined' && activeMediaStream) {
         activeMediaStream.getTracks().forEach(t => t.stop());
         activeMediaStream = null;
@@ -4700,9 +4704,9 @@
       const goLiveBtn = document.getElementById('goFullStageBtn');
       if (!frame) return;
       // Bust stuck waiting-state iframes when re-entering the cook slide
-      if (opts.forceReload || frame.getAttribute('src') !== viewUrl) {
+      if (opts.forceReload || frame.getAttribute('src') !== liveView) {
         frame.removeAttribute('src');
-        frame.src = viewUrl;
+        frame.src = liveView;
       }
       frame.classList.remove('hidden');
       if (placeholderUI) placeholderUI.classList.add('hidden');
@@ -6518,13 +6522,23 @@
       const cloneFrameBox = cloneDoc.querySelector('#livestreamFrameBox');
       if (cloneFrameBox) { cloneFrameBox.classList.add('border-dashed', 'border-slate-400'); cloneFrameBox.classList.remove('border-solid', 'border-[#1E6B3B]'); }
       const cloneLayout = cloneDoc.querySelector('#livestreamLayout'); if (cloneLayout) cloneLayout.classList.remove('qr-visible');
-      // Do not bake stream password into exported HTML display link
+      // Do not bake stream password into exported HTML display / push links
       const cloneViewLink = cloneDoc.querySelector('#vdoViewLinkDisplay');
       if (cloneViewLink) {
         const clean = stripVdoPassword(cloneViewLink.getAttribute('href') || cloneViewLink.textContent || '') || DEFAULT_VDO_VIEW_URL;
         cloneViewLink.setAttribute('href', clean);
         cloneViewLink.textContent = clean;
       }
+      const clonePushLink = cloneDoc.querySelector('#vdoPushLink');
+      if (clonePushLink) {
+        const cleanPush = stripVdoPassword(clonePushLink.getAttribute('href') || '') || DEFAULT_VDO_PUSH_URL;
+        clonePushLink.setAttribute('href', cleanPush);
+        if (clonePushLink.textContent && /vdo\.ninja/i.test(clonePushLink.textContent)) {
+          clonePushLink.textContent = cleanPush;
+        }
+      }
+      const clonePwd = cloneDoc.querySelector('#vdoPasswordInput');
+      if (clonePwd) clonePwd.removeAttribute('value');
       const cloneModal = cloneDoc.querySelector('#winnerModal');
       if (cloneModal) { cloneModal.classList.add('opacity-0', 'pointer-events-none'); }
       const cloneSlides = cloneDoc.querySelectorAll('.slide');
@@ -6628,19 +6642,17 @@
     renderSockGuessUI();
     buildFestiveScatter();
     window.addEventListener('resize', () => buildFestiveScatter());
-    // Party livestream room/view IDs only — password is session-entered, never shipped
+    // Party livestream room/view IDs only — password is session-entered, never stored on #SAVE vars
     writeVdoPasswordToSession(readVdoPasswordFromSession());
     if (!vdoRoomId) vdoRoomId = DEFAULT_VDO_ROOM_ID;
-    customVdoNinjaUrl = withVdoPassword(stripVdoPassword(customVdoNinjaUrl) || DEFAULT_VDO_VIEW_URL);
-    vdoPushUrl = withVdoPassword(
-      stripVdoPassword(vdoPushUrl) || (
-        vdoRoomId === DEFAULT_VDO_ROOM_ID
-          ? DEFAULT_VDO_PUSH_URL
-          : `https://vdo.ninja/?push=${encodeURIComponent(vdoRoomId)}&webcam&autostart&label=${encodeURIComponent('FloorCam')}&quality=0`
-      )
+    customVdoNinjaUrl = stripVdoPassword(customVdoNinjaUrl) || DEFAULT_VDO_VIEW_URL;
+    vdoPushUrl = stripVdoPassword(vdoPushUrl) || (
+      vdoRoomId === DEFAULT_VDO_ROOM_ID
+        ? DEFAULT_VDO_PUSH_URL
+        : `https://vdo.ninja/?push=${encodeURIComponent(vdoRoomId)}&webcam&autostart&label=${encodeURIComponent('FloorCam')}&quality=0`
     );
     syncVdoRoomUi();
-    renderVdoQr(vdoPushUrl);
+    renderVdoQr(withVdoPassword(vdoPushUrl));
   </script>
 </body>
 </html>
