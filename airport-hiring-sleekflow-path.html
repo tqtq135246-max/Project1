@@ -20,10 +20,13 @@
       --green: #2e7d4f;
       --green-soft: #e8f5ee;
       --orange: #c45c26;
+      --orange-soft: #f8ebe3;
       --yellow: #b8860b;
+      --yellow-soft: #f7f1df;
       --blue: #2f5d9f;
-      --purple: #6b4ea2;
+      --blue-soft: #e8eef7;
       --red: #b33a3a;
+      --red-soft: #f7e8e8;
       --radius: 8px;
       --font: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
     }
@@ -40,7 +43,7 @@
     .wrap { max-width: 1100px; margin: 0 auto; padding: 24px; }
     h1 { font-size: 24px; margin: 0 0 6px; font-weight: 700; }
     h2 { font-size: 18px; margin: 0; font-weight: 700; }
-    .sub { color: var(--text-secondary); margin: 0 0 20px; }
+    .sub { color: var(--text-secondary); margin: 0 0 16px; }
     .muted { color: var(--text-secondary); font-size: 13px; }
     .tiny { color: var(--text-tertiary); font-size: 12px; }
     .stack { display: flex; flex-direction: column; gap: 16px; }
@@ -48,7 +51,7 @@
 
     .toolbar {
       display: flex; justify-content: space-between; align-items: center;
-      gap: 12px; margin-bottom: 16px; flex-wrap: wrap;
+      gap: 12px; margin-bottom: 12px; flex-wrap: wrap;
     }
     .print-btn {
       padding: 8px 14px; border-radius: var(--radius);
@@ -56,6 +59,48 @@
       cursor: pointer; font-weight: 600; font-size: 13px;
     }
     .print-btn:hover { background: var(--fill); }
+
+    .pain-banner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .pain-card {
+      padding: 16px;
+      border-radius: var(--radius);
+      border: 2px solid;
+    }
+    .pain-card.scarcity {
+      border-color: var(--orange);
+      background: var(--orange-soft);
+    }
+    .pain-card.connect {
+      border-color: var(--red);
+      background: var(--red-soft);
+    }
+    .pain-card .kicker {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      color: var(--text-secondary);
+    }
+    .pain-card .title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .pain-card .body { font-size: 13px; color: var(--text-secondary); }
+    .pain-card .not {
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text);
+    }
 
     .tabs {
       display: flex; gap: 6px;
@@ -94,7 +139,8 @@
       background: var(--fill-muted);
     }
     .card.green { border: 2px solid var(--green); background: var(--green-soft); }
-    .card.yellow { border: 2px solid var(--yellow); }
+    .card.yellow { border: 2px solid var(--yellow); background: var(--yellow-soft); }
+    .card.blue { border: 2px solid var(--blue); background: var(--blue-soft); }
     .card strong { display: block; margin-bottom: 8px; }
 
     .callout {
@@ -106,28 +152,33 @@
     }
     .callout.warn { border-left-color: var(--yellow); }
     .callout.danger { border-left-color: var(--red); }
+    .callout.orange { border-left-color: var(--orange); }
     .callout .t { font-weight: 700; margin-bottom: 4px; }
 
-    .score-title { font-weight: 600; margin-bottom: 10px; }
-    .score-grid {
+    .zone-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 10px;
     }
-    .score-card {
-      padding: 16px 12px;
+    .zone {
+      padding: 14px;
       border-radius: var(--radius);
       border: 2px solid;
-      text-align: center;
       background: var(--fill-muted);
     }
-    .score-card .n {
-      font-size: 32px;
+    .zone .zn {
+      font-size: 11px;
       font-weight: 700;
-      line-height: 1.1;
-      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 4px;
+      color: var(--text-secondary);
     }
-    .score-card .l { font-size: 13px; font-weight: 600; }
+    .zone .zt { font-weight: 700; font-size: 14px; margin-bottom: 6px; }
+    .zone .zb { font-size: 12px; color: var(--text-secondary); }
+    .zone.scarcity { border-color: var(--orange); }
+    .zone.sf { border-color: var(--green); background: var(--green-soft); }
+    .zone.manual { border-color: var(--red); }
 
     .path-rows { display: flex; flex-direction: column; gap: 16px; }
     .path-row {
@@ -144,10 +195,10 @@
       display: flex; align-items: center; justify-content: center;
       background: var(--fill); border: 3px solid; font-size: 20px; font-weight: 600;
     }
-    .circle.active { background: var(--green); border-color: var(--green) !important; color: #fff; }
+    .circle.active { background: var(--text); border-color: var(--text) !important; color: #fff; }
     .step-title { font-size: 12px; font-weight: 500; text-align: center; color: var(--text-secondary); }
     .step-btn.active .step-title { font-weight: 600; color: var(--text); }
-    .step-tag { font-size: 10px; font-weight: 600; }
+    .step-tag { font-size: 10px; font-weight: 700; text-align: center; line-height: 1.2; }
     .arrow {
       width: 24px; height: 56px; display: flex; align-items: center;
       justify-content: center; color: var(--text-quaternary); font-size: 18px;
@@ -164,6 +215,8 @@
     }
     .pill.ok { border-color: var(--green); color: var(--green); background: var(--green-soft); }
     .pill.warn { border-color: var(--yellow); color: var(--yellow); }
+    .pill.danger { border-color: var(--red); color: var(--red); background: var(--red-soft); }
+    .pill.scarce { border-color: var(--orange); color: var(--orange); background: var(--orange-soft); }
     .swatch {
       width: 10px; height: 10px; border-radius: 2px; display: inline-block;
     }
@@ -174,7 +227,7 @@
       cursor: pointer; font-size: 13px;
     }
     .nav-btn.primary {
-      background: var(--green); color: #fff; border-color: var(--green); font-weight: 600;
+      background: var(--text); color: #fff; border-color: var(--text); font-weight: 600;
     }
     .nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
     .spacer { flex: 1; min-width: 8px; }
@@ -195,15 +248,15 @@
     .hpanel .lab { font-size: 12px; color: var(--text-tertiary); margin-bottom: 4px; }
     .hpanel .val { font-size: 13px; font-weight: 600; }
 
-    .how-box, .effort-box, .why-box {
+    .how-box, .impact-box {
       padding: 14px; border-radius: var(--radius);
       border: 1px solid var(--stroke-soft); background: var(--fill-muted);
     }
-    .effort-box { border-width: 2px; }
-    .effort-box .lab, .why-box .lab, .how-box .lab {
+    .impact-box { border-width: 2px; }
+    .how-box .lab, .impact-box .lab {
       font-size: 12px; color: var(--text-tertiary); margin-bottom: 4px;
     }
-    .effort-box .val, .why-box .val, .how-box .val { font-weight: 600; font-size: 13px; }
+    .how-box .val, .impact-box .val { font-weight: 600; font-size: 13px; }
 
     .views {
       display: grid;
@@ -212,8 +265,7 @@
       align-items: start;
     }
     @media (max-width: 800px) {
-      .views { grid-template-columns: 1fr; }
-      .score-grid { grid-template-columns: repeat(2, 1fr); }
+      .pain-banner, .zone-grid, .views { grid-template-columns: 1fr; }
       .hpanel { flex-direction: column; }
       .hpanel > div { border-right: none; border-bottom: 1px solid var(--stroke-soft); }
     }
@@ -283,9 +335,24 @@
     <div class="toolbar">
       <div>
         <h1>Hiring path — airport catering</h1>
-        <p class="sub" style="margin:0">One team under the same lead. Current process vs two SleekFlow options.</p>
+        <p class="sub" style="margin:0">Updated after team pushback: the real pains are finding people, and staying connected after hire.</p>
       </div>
       <button class="print-btn" type="button" onclick="window.print()">Print / Save as PDF</button>
+    </div>
+
+    <div class="pain-banner">
+      <div class="pain-card scarcity">
+        <div class="kicker">Pushback 1 · Real pain</div>
+        <div class="title">Hard to find candidates</div>
+        <div class="body">Blue-collar / junior airport catering roles are scarce. The bottleneck is attracting and keeping people in the funnel — not an admin pile of too many applications.</div>
+        <div class="not">Not the main issue: “too many candidates for admins to process.”</div>
+      </div>
+      <div class="pain-card connect">
+        <div class="kicker">Pushback 2 · Real pain</div>
+        <div class="title">Post-hire connecting is still manual</div>
+        <div class="body">SleekFlow bot mainly helps the application intake. After hiring (offer → day 1 venue care), the tedious chase / wake-up / hand-holding stays with the team on WhatsApp.</div>
+        <div class="not">Bot does not remove the most tedious part of the journey.</div>
+      </div>
     </div>
 
     <div class="tabs" id="tabs"></div>
@@ -293,194 +360,198 @@
   </div>
 
   <script>
+    /**
+     * zone: scarcity | apply | process | posthire
+     * sfHelp: none | partial | yes  — does SleekFlow actually help this step?
+     */
     const STEPS = [
       {
         id: "apply", n: 1, title: "Apply", who: "Candidate",
         what: "Share name, phone, job interest.",
-        needs: "Fast form + contact record.",
-        pain: "volume", whyPain: "Same apply task × hundreds of people.",
-        todayHow: "Candidate WhatsApps the team. Staff ask details one by one and type into a sheet.",
-        opt1How: "Candidate scans QR / taps link and writes first. Bot collects data while they are chatting (inbound — not team outreach).",
-        opt2How: "Same as Option 1 — candidate starts; SleekFlow bot collects apply data.",
-        effortOpt1: "down", effortOpt2: "down",
-        noteOpt1: "Only step where the candidate opens the chat. No template fee for this inbound apply.",
-        noteOpt2: "This is where Option 2 still uses SleekFlow (mass data in).",
-        opt1Outreach: false,
+        needs: "People to apply in the first place.",
+        zone: "scarcity",
+        painLabel: "Hard to find people",
+        whyPain: "Not enough applicants for junior / blue-collar airport roles.",
+        todayHow: "Team posts / waits for WhatsApp inbound. Often quiet — the struggle is getting candidates to show up, not sorting a flood.",
+        opt1How: "SleekFlow bot can collect apply data when someone writes first (QR / link). It does not create candidates out of thin air.",
+        opt2How: "Same — SleekFlow only captures whoever already decided to apply.",
+        sfHelp: "yes",
+        impactOpt1: "Helps intake only",
+        impactOpt2: "Helps intake only",
+        noteOpt1: "Useful if someone arrives. Does not fix scarcity.",
+        noteOpt2: "Useful if someone arrives. Does not fix scarcity.",
         currentChat: [
-          { from: "user", text: "Hi, saw the catering job at airport" },
-          { from: "agent", text: "Hi! Can I have your full name?" },
-          { from: "user", text: "Alex Chan" },
-          { from: "agent", text: "Phone number + which role?" },
-          { from: "user", text: "9123 4567, kitchen helper" },
-          { from: "agent", text: "OK noted. We’ll message if shortlisted." }
+          { from: "agent", text: "Hi, saw your interest — still looking for kitchen helper?" },
+          { from: "user", text: "Yes, maybe" },
+          { from: "agent", text: "Can I take your name + phone?" },
+          { from: "user", text: "Alex Chan, 9123 4567" },
+          { from: "agent", text: "Thanks — we’ll message if we have a slot" }
         ],
         opt1Chat: [
           { from: "user", text: "Hi, I want to apply (from QR)" },
           { from: "bot", text: "Welcome! Your full name?" },
           { from: "user", text: "Alex Chan" },
-          { from: "bot", text: "Role preference?" },
-          { from: "bot", text: "Thanks — application received." }
+          { from: "bot", text: "Phone + role?" },
+          { from: "bot", text: "Application received." }
         ],
         opt2Chat: [
           { from: "user", text: "Hi, I want to apply" },
           { from: "bot", text: "SleekFlow bot: full name?" },
           { from: "user", text: "Alex Chan" },
-          { from: "bot", text: "Phone + role?" },
           { from: "bot", text: "Saved. Team will follow up." }
         ],
         consoleRows: [
-          { name: "Alex Chan", stage: "Applied", flag: "Inbound" },
-          { name: "Mei Wong", stage: "Applied", flag: "Inbound" },
-          { name: "Sam Lee", stage: "Applied", flag: "Inbound" }
+          { name: "Alex Chan", stage: "Applied", flag: "Rare inbound" },
+          { name: "—", stage: "Empty", flag: "Need more leads" },
+          { name: "—", stage: "Empty", flag: "Need more leads" }
         ]
       },
       {
         id: "screen", n: 2, title: "Screen & book", who: "Team",
-        what: "Check fit. Book interview slot.",
-        needs: "Basic screen + interview time.",
-        pain: "volume", whyPain: "Same booking/reminder loop for everyone.",
-        todayHow: "Team scrolls the chat list, asks availability, books by hand, then reminds again later.",
-        opt1How: "Team outreach → paid template to book (and again for day-before reminder). After they reply, bot/team can continue inside the new window.",
-        opt2How: "SleekFlow keeps the apply record. Scheduling / reminders move to 2nd phone.",
-        effortOpt1: "down", effortOpt2: "trade",
-        noteOpt1: "Assume beyond 24h — every book / remind starts with a paid template.",
-        noteOpt2: "Mass profile in SF. Booking on 2nd phone ≈ today’s effort after step 1.",
-        opt1Outreach: true,
-        care: "Map photo of interview place.",
+        what: "Check fit. Book interview.",
+        needs: "Reach candidate again before they drop off.",
+        zone: "apply",
+        painLabel: "Keep them engaged",
+        whyPain: "Each scarce lead must be booked before they disappear.",
+        todayHow: "Team manually books and reminds on WhatsApp — volume is usually manageable; losing the person is the risk.",
+        opt1How: "Bot/templates can help book if they reply. Still depends on the candidate responding — and outreach may need paid templates.",
+        opt2How: "Apply data in SleekFlow; booking moves to 2nd phone.",
+        sfHelp: "partial",
+        impactOpt1: "Some booking help",
+        impactOpt2: "Hand-off soon",
+        noteOpt1: "Helps a bit on booking — still not the scarcity fix.",
+        noteOpt2: "SF stops early; booking still manual on 2nd phone.",
+        care: "Map / venue tip so they actually show up.",
         currentChat: [
           { from: "agent", text: "Alex, free for interview Tue or Wed?" },
           { from: "user", text: "Tue morning OK" },
           { from: "agent", text: "Tue 10:00 at staff entrance." },
-          { from: "agent", text: "(Next day) Reminder — tomorrow 10:00, bring ID" },
-          { from: "user", text: "OK see you" }
+          { from: "agent", text: "(Next day) Reminder — tomorrow 10:00" }
         ],
         opt1Chat: [
           { from: "template", text: "TEMPLATE (paid): Book interview — [Tue 10:00] [Wed 14:00]" },
           { from: "user", text: "Tue 10:00" },
-          { from: "bot", text: "Booked. Venue tip coming after you reply." },
-          { from: "template", text: "TEMPLATE (paid): Reminder — interview tomorrow 10:00. Reply YES" },
-          { from: "user", text: "YES" },
-          { from: "bot", text: "See you tomorrow. Map below." }
+          { from: "bot", text: "Booked." },
+          { from: "template", text: "TEMPLATE (paid): Reminder tomorrow 10:00. Reply YES" }
         ],
         opt2Chat: [
-          { from: "bot", text: "SF: shortlisted — team will WhatsApp you" },
           { from: "agent", text: "(2nd phone) Hi Alex, interview Tue 10:00?" },
           { from: "user", text: "Yes" },
           { from: "agent", text: "(2nd phone) Reminder tomorrow + map" }
         ],
         consoleRows: [
-          { name: "Alex Chan", stage: "Interview booked", flag: "Tue 10:00" },
-          { name: "Mei Wong", stage: "Needs reminder", flag: "Template" },
-          { name: "Sam Lee", stage: "No reply", flag: "Chase" }
+          { name: "Alex Chan", stage: "Interview booked", flag: "Must not lose" },
+          { name: "Mei Wong", stage: "No reply", flag: "Chase" },
+          { name: "Sam Lee", stage: "Dropped", flag: "Lost lead" }
         ]
       },
       {
         id: "interview", n: 3, title: "Interview", who: "Team",
         what: "Meet face to face. Pass or not.",
-        needs: "Human talk + same-day result message.",
-        pain: "tailored", whyPain: "Each person needs a real conversation.",
-        todayHow: "In-person interview. Result messaged on the same personal WhatsApp thread.",
-        opt1How: "Interview is human. Result / next-step message is team outreach → paid template, then bot/team continues after they reply.",
-        opt2How: "Interview + result all on 2nd phone. SleekFlow not used from here.",
-        effortOpt1: "same", effortOpt2: "same",
-        noteOpt1: "Bot does not interview. Result ping still costs a template under our assumption.",
-        noteOpt2: "Same human effort as today — different phone number.",
-        opt1Outreach: true,
+        needs: "Human conversation.",
+        zone: "process",
+        painLabel: "Human step",
+        whyPain: "Must be in person — tool cannot replace this.",
+        todayHow: "In-person interview; result sent on WhatsApp.",
+        opt1How: "Interview stays human. Result message may need a paid template if outside 24h.",
+        opt2How: "Interview + result on 2nd phone.",
+        sfHelp: "none",
+        impactOpt1: "No change",
+        impactOpt2: "No change",
+        noteOpt1: "SleekFlow cannot run the interview.",
+        noteOpt2: "Same human effort as today.",
         sfLimit: "SleekFlow cannot run the interview itself.",
         currentChat: [
           { from: "agent", text: "Thanks for coming today Alex" },
           { from: "agent", text: "You passed. Next we’ll need your ID photo" },
-          { from: "user", text: "Thank you! When do I send?" },
-          { from: "agent", text: "You can send here now" }
+          { from: "user", text: "Thank you!" }
         ],
         opt1Chat: [
-          { from: "template", text: "TEMPLATE (paid): Interview result — Passed. Reply OK for next steps" },
+          { from: "template", text: "TEMPLATE (paid): Interview result — Passed. Reply OK" },
           { from: "user", text: "OK" },
           { from: "bot", text: "Please send a clear ID photo next." }
         ],
         opt2Chat: [
           { from: "agent", text: "(2nd phone) Thanks for coming — you passed" },
-          { from: "agent", text: "(2nd phone) Please send ID photo here" },
-          { from: "user", text: "OK" }
+          { from: "agent", text: "(2nd phone) Please send ID photo here" }
         ],
         consoleRows: [
-          { name: "Alex Chan", stage: "Interview pass", flag: "Same day" },
+          { name: "Alex Chan", stage: "Interview pass", flag: "Keep warm" },
           { name: "Mei Wong", stage: "Interview fail", flag: "Closed" },
-          { name: "Sam Lee", stage: "Interview today", flag: "In person" }
+          { name: "Sam Lee", stage: "No-show", flag: "Lost" }
         ]
       },
       {
         id: "confirm", n: 4, title: "More info", who: "Candidate",
         what: "Send ID and personal details.",
-        needs: "Guided photo upload + help if stuck.",
-        pain: "both", whyPain: "Mass chase + one-to-one help when stuck.",
-        todayHow: "Team chases ID/docs in the same chat, repeatedly.",
-        opt1How: "Doc chase is team outreach → paid template to ask for ID / emergency contact. After reply, bot guides upload; team helps if stuck.",
-        opt2How: "All doc chase on 2nd phone — same pattern as today.",
-        effortOpt1: "down", effortOpt2: "same",
-        noteOpt1: "Assume beyond 24h — each chase starts with a paid template.",
-        noteOpt2: "No SleekFlow help here — effort ≈ current process.",
-        opt1Outreach: true,
+        needs: "Chase docs without losing them.",
+        zone: "process",
+        painLabel: "Chase to keep them",
+        whyPain: "Docs chase is tedious — mainly to protect a scarce hire.",
+        todayHow: "Team chases ID/docs in the same chat.",
+        opt1How: "Templates/bot can ask for docs; team still helps when photos are bad.",
+        opt2How: "Doc chase on 2nd phone — same as today.",
+        sfHelp: "partial",
+        impactOpt1: "Some chase help",
+        impactOpt2: "Still manual",
+        noteOpt1: "Small relief on reminders — not the post-hire pain.",
+        noteOpt2: "Fully manual on 2nd phone.",
         currentChat: [
           { from: "agent", text: "Can you send a clear photo of your ID?" },
           { from: "user", text: "Is this OK?" },
           { from: "agent", text: "Too blurry — hold flat under light" },
-          { from: "user", text: "[photo]" },
-          { from: "agent", text: "Got it. Emergency contact too please" }
+          { from: "user", text: "[photo]" }
         ],
         opt1Chat: [
           { from: "template", text: "TEMPLATE (paid): Please send ID photo. Reply READY" },
           { from: "user", text: "READY" },
           { from: "bot", text: "Hold ID flat under light, then send photo." },
-          { from: "user", text: "[photo]" },
-          { from: "template", text: "TEMPLATE (paid): Still need emergency contact. Reply HELP" },
-          { from: "user", text: "HELP" },
-          { from: "agent", text: "Send name + phone of emergency contact." }
+          { from: "user", text: "[photo]" }
         ],
         opt2Chat: [
           { from: "agent", text: "(2nd phone) Please send ID photo" },
           { from: "user", text: "[photo]" },
-          { from: "agent", text: "(2nd phone) Emergency contact name + number?" },
-          { from: "user", text: "Pat Chan 9876 5432" }
+          { from: "agent", text: "(2nd phone) Emergency contact?" }
         ],
         consoleRows: [
           { name: "Alex Chan", stage: "Docs complete", flag: "OK" },
-          { name: "Sam Lee", stage: "Docs missing", flag: "Template chase" },
+          { name: "Sam Lee", stage: "Docs missing", flag: "At risk" },
           { name: "Priya N.", stage: "Needs help", flag: "Inbox" }
         ]
       },
       {
         id: "permit", n: 5, title: "Airport permit", who: "Team + Airport",
         what: "Submit airport permit pack.",
-        needs: "Status updates while waiting.",
-        pain: "volume", whyPain: "Same status chase, many candidates.",
-        todayHow: "Team files pack offline; types status updates into chats when candidates ask.",
-        opt1How: "Status updates are team outreach → paid Utility template. After they reply, bot/team can answer FAQ.",
-        opt2How: "Filing same as today; status replies on 2nd phone when asked.",
-        effortOpt1: "trade", effortOpt2: "same",
-        noteOpt1: "Template cost for each status ping; less typing after they reply.",
-        noteOpt2: "Same manual status work as today on 2nd phone.",
-        opt1Outreach: true,
+        needs: "Wait + status updates.",
+        zone: "process",
+        painLabel: "Waiting / status",
+        whyPain: "Airport process is external — long wait, candidate may go cold.",
+        todayHow: "Team files pack; answers “any update?” by hand.",
+        opt1How: "Status pings can use paid templates. Filing stays with the team.",
+        opt2How: "Filing + status on 2nd phone / manual.",
+        sfHelp: "partial",
+        impactOpt1: "Status ping only",
+        impactOpt2: "Still manual",
+        noteOpt1: "Does not speed airport approval.",
+        noteOpt2: "Same as today.",
         loop: "Bad docs → back to step 4.",
         sfLimit: "Airport portal filing stays with the team.",
         currentChat: [
           { from: "user", text: "Any update on my airport permit?" },
-          { from: "agent", text: "Submitted last week — still in review, normal" },
-          { from: "user", text: "How long usually?" },
-          { from: "agent", text: "Often 1–3 weeks. I’ll message when approved" }
+          { from: "agent", text: "Still in review — often 1–3 weeks" },
+          { from: "agent", text: "I’ll message when approved" }
         ],
         opt1Chat: [
           { from: "template", text: "TEMPLATE (paid): Permit submitted. Still in review. Reply 1 for FAQ" },
           { from: "user", text: "1" },
-          { from: "bot", text: "Typical wait 1–3 weeks. We’ll update you." }
+          { from: "bot", text: "Typical wait 1–3 weeks." }
         ],
         opt2Chat: [
           { from: "user", text: "(2nd phone) Any permit update?" },
-          { from: "agent", text: "(2nd phone) Still in review — normal wait" },
-          { from: "agent", text: "(2nd phone) Will tell you when approved" }
+          { from: "agent", text: "(2nd phone) Still in review — normal wait" }
         ],
         consoleRows: [
-          { name: "Alex Chan", stage: "Permit submitted", flag: "Template ping" },
+          { name: "Alex Chan", stage: "Permit submitted", flag: "Waiting" },
           { name: "Sam Lee", stage: "Permit returned", flag: "Fix docs" },
           { name: "Priya N.", stage: "Permit approved", flag: "Next test" }
         ]
@@ -488,28 +559,28 @@
       {
         id: "book-test", n: 6, title: "Book test", who: "Team",
         what: "Book airport authority test.",
-        needs: "Slot + venue photo + what to bring.",
-        pain: "volume", whyPain: "Many bookings and “where do I go?” messages.",
-        todayHow: "Team messages each person to pick a slot and sends venue photo by hand.",
-        opt1How: "Book + day-before reminder are both paid templates. After they reply, bot confirms slot and can send map.",
-        opt2How: "All booking / venue guidance on 2nd phone — same as today.",
-        effortOpt1: "trade", effortOpt2: "same",
-        noteOpt1: "Two template costs typical (book + remind); less typing after.",
-        noteOpt2: "No SF automation — effort ≈ current.",
-        opt1Outreach: true,
+        needs: "Slot + venue guidance.",
+        zone: "process",
+        painLabel: "Guide each person",
+        whyPain: "Each hire needs venue help — still person-by-person.",
+        todayHow: "Team books slot and sends venue photo by hand.",
+        opt1How: "Paid template to book; bot can send map after they reply.",
+        opt2How: "Booking / venue on 2nd phone.",
+        sfHelp: "partial",
+        impactOpt1: "Some booking help",
+        impactOpt2: "Still manual",
+        noteOpt1: "Template cost; still not post-hire care.",
+        noteOpt2: "Same as today.",
         care: "Day-before venue reminder.",
         currentChat: [
           { from: "agent", text: "Permit approved! Test Fri 09:00 or Mon 11:00?" },
           { from: "user", text: "Fri 09:00" },
-          { from: "agent", text: "OK. Bring ID. Venue photo:" },
-          { from: "agent", text: "[test centre photo]" },
-          { from: "agent", text: "(Day before) Reminder tomorrow 09:00" }
+          { from: "agent", text: "[test centre photo] Bring ID" }
         ],
         opt1Chat: [
-          { from: "template", text: "TEMPLATE (paid): Permit OK. Book test: [Fri 09:00] [Mon 11:00]" },
+          { from: "template", text: "TEMPLATE (paid): Book test: [Fri 09:00] [Mon 11:00]" },
           { from: "user", text: "Fri 09:00" },
-          { from: "bot", text: "Confirmed. Venue photo + bring ID." },
-          { from: "template", text: "TEMPLATE (paid): Reminder — test tomorrow 09:00" }
+          { from: "bot", text: "Confirmed. Venue photo + bring ID." }
         ],
         opt2Chat: [
           { from: "agent", text: "(2nd phone) Test Fri 09:00 or Mon 11:00?" },
@@ -518,29 +589,32 @@
         ],
         consoleRows: [
           { name: "Priya N.", stage: "Test booked", flag: "Fri 09:00" },
-          { name: "Alex Chan", stage: "Needs outreach", flag: "Template" },
-          { name: "Sam Lee", stage: "Docs fix", flag: "Blocked" }
+          { name: "Alex Chan", stage: "Needs outreach", flag: "Chase" },
+          { name: "Sam Lee", stage: "Blocked", flag: "Docs" }
         ]
       },
       {
         id: "pass-test", n: 7, title: "Pass test", who: "Candidate",
         what: "Take test. Retry until pass.",
-        needs: "Fast rebook + encourage message.",
-        pain: "both", whyPain: "Retries = more volume + personal care.",
-        todayHow: "Fail → team rebooks and encourages in the same chat.",
-        opt1How: "Fail / rebook message is team outreach → paid template. After reply, bot confirms next slot.",
-        opt2How: "Fail / rebook / encourage all on 2nd phone.",
-        effortOpt1: "down", effortOpt2: "same",
-        noteOpt1: "Template → reply → bot. Extra Meta cost per retry outreach.",
-        noteOpt2: "Same retry manpower as today.",
-        opt1Outreach: true,
+        needs: "Fast rebook + encourage.",
+        zone: "process",
+        painLabel: "Protect the hire",
+        whyPain: "Fail/retry — must keep a scarce candidate from quitting.",
+        todayHow: "Fail → team rebooks and encourages in chat.",
+        opt1How: "Rebook via paid template; bot confirms after reply.",
+        opt2How: "Fail / rebook on 2nd phone.",
+        sfHelp: "partial",
+        impactOpt1: "Some rebook help",
+        impactOpt2: "Still manual",
+        noteOpt1: "Still needs human care after a fail.",
+        noteOpt2: "Same as today.",
         loop: "Fail → step 6 again.",
         care: "Do not leave them waiting after a fail.",
         sfLimit: "Test itself is run by airport authority.",
         currentChat: [
           { from: "agent", text: "Not this time — want Mon 11:00 rebook?" },
           { from: "user", text: "Yes please" },
-          { from: "agent", text: "Done. Bring ID, arrive 30 min early" }
+          { from: "agent", text: "Done. Bring ID, arrive early" }
         ],
         opt1Chat: [
           { from: "template", text: "TEMPLATE (paid): Not this time. Rebook Mon 11:00? Reply YES" },
@@ -550,99 +624,102 @@
         opt2Chat: [
           { from: "agent", text: "(2nd phone) Not this time — Mon 11:00?" },
           { from: "user", text: "OK" },
-          { from: "agent", text: "(2nd phone) Booked. Arrive early, bring ID" }
+          { from: "agent", text: "(2nd phone) Booked. Arrive early" }
         ],
         consoleRows: [
           { name: "Priya N.", stage: "Test pass", flag: "Attempt 1" },
-          { name: "Alex Chan", stage: "Test rebook", flag: "Template" },
-          { name: "Jordan K.", stage: "Test fail", flag: "Encourage" }
+          { name: "Alex Chan", stage: "Test rebook", flag: "Encourage" },
+          { name: "Jordan K.", stage: "Test fail", flag: "At risk" }
         ]
       },
       {
         id: "verbal", n: 8, title: "Verbal offer", who: "Team",
         what: "Call to offer the job.",
-        needs: "Phone call + short written summary.",
-        pain: "tailored", whyPain: "Pay, shift, start date are personal.",
-        todayHow: "Call first, then type a short WhatsApp summary in the same thread.",
-        opt1How: "Call is human. Written offer summary is team outreach → paid template; after ACCEPT, bot confirms welcome.",
-        opt2How: "Call + summary on 2nd phone — same as today.",
-        effortOpt1: "same", effortOpt2: "same",
-        noteOpt1: "Call stays with the team; WhatsApp summary still needs a template.",
-        noteOpt2: "No effort change vs current.",
-        opt1Outreach: true,
+        needs: "Personal call + written summary.",
+        zone: "posthire",
+        painLabel: "Start of post-hire connect",
+        whyPain: "After hire decision, connecting is personal and tedious — bot does not own this.",
+        todayHow: "Call first, then WhatsApp summary in the same thread.",
+        opt1How: "Call stays human. Written summary may use a paid template — still team-owned connecting.",
+        opt2How: "Call + summary on 2nd phone — fully manual.",
+        sfHelp: "none",
+        impactOpt1: "Still manual connect",
+        impactOpt2: "Still manual connect",
+        noteOpt1: "This is where pushback starts: bot does not carry the hire relationship.",
+        noteOpt2: "Same tedious connecting as today.",
         sfLimit: "Verbal offer call stays with the team.",
         currentChat: [
           { from: "agent", text: "Following our call — kitchen helper, AM shift" },
           { from: "agent", text: "Start next Monday if OK?" },
           { from: "user", text: "Yes I accept, thank you" },
-          { from: "agent", text: "Great — we’ll guide you for day 1" }
+          { from: "agent", text: "Great — I’ll guide you for day 1" }
         ],
         opt1Chat: [
-          { from: "agent", text: "(Call done)" },
+          { from: "agent", text: "(Call done — still the team)" },
           { from: "template", text: "TEMPLATE (paid): Offer summary — AM shift, start Mon. Reply ACCEPT" },
           { from: "user", text: "ACCEPT" },
-          { from: "bot", text: "Welcome — day-1 guide comes later." }
+          { from: "bot", text: "Welcome — day-1 guide comes from the team." }
         ],
         opt2Chat: [
           { from: "agent", text: "(2nd phone) After call: AM shift, start Mon" },
-          { from: "user", text: "I accept" }
+          { from: "user", text: "I accept" },
+          { from: "agent", text: "(2nd phone) I’ll message you morning of day 1" }
         ],
         consoleRows: [
-          { name: "Priya N.", stage: "Verbal accepted", flag: "Start Mon" },
+          { name: "Priya N.", stage: "Verbal accepted", flag: "Must connect" },
           { name: "Alex Chan", stage: "Verbal pending", flag: "Call today" },
-          { name: "Jordan K.", stage: "Test pass", flag: "Ready" }
+          { name: "Jordan K.", stage: "Ready", flag: "Offer next" }
         ]
       },
       {
         id: "day1", n: 9, title: "First day", who: "Team",
         what: "Arrive. Get paper offer on site.",
         needs: "Morning contact + map + supervisor phone.",
-        pain: "tailored", whyPain: "Each person must find the venue.",
-        todayHow: "Team messages/calls each starter in the morning with meeting point.",
-        opt1How: "7am day-1 message is team outreach → paid template (map + supervisor). If they reply, bot/team can help find the gate.",
+        zone: "posthire",
+        painLabel: "Most tedious connect",
+        whyPain: "Day-1 wake-up / venue care is the painful manual work after hiring — junior staff need hand-holding.",
+        todayHow: "Team messages/calls each starter in the morning with meeting point and stays reachable.",
+        opt1How: "Can send a 7am paid template — but if they get lost, panic, or don’t reply, the team still connects person-by-person. Bot does not replace care.",
         opt2How: "Morning reach-out on 2nd phone — same care duty as today.",
-        effortOpt1: "down", effortOpt2: "same",
-        noteOpt1: "Must budget a template for every day-1 wake-up.",
+        sfHelp: "none",
+        impactOpt1: "Still manual care",
+        impactOpt2: "Still manual care",
+        noteOpt1: "Pushback: SleekFlow helps apply; day-1 connecting stays with the team.",
         noteOpt2: "Same morning manpower as current process.",
-        opt1Outreach: true,
-        care: "Must reach them on morning of day 1.",
-        sfLimit: "Paper offer is handed at the venue.",
+        care: "Must reach them on morning of day 1 — this is the hard part after hiring.",
+        sfLimit: "Paper offer is handed at the venue. Care is still human.",
         currentChat: [
           { from: "agent", text: "Good morning! Today is day 1" },
           { from: "agent", text: "Meet Gate A staff entrance. Supervisor Pat 9123 4567" },
           { from: "agent", text: "[meeting point photo]" },
-          { from: "user", text: "On my way" },
-          { from: "agent", text: "Message me if you can’t find it" }
+          { from: "user", text: "I can’t find Gate A" },
+          { from: "agent", text: "Stay there — I’ll call you now" }
         ],
         opt1Chat: [
           { from: "template", text: "TEMPLATE 7am (paid): Day 1 — Gate A. Pat 9123 4567. Reply OK" },
-          { from: "template", text: "[meeting point photo in template]" },
-          { from: "user", text: "OK" },
-          { from: "bot", text: "Great — message here if you can’t find Gate A." }
+          { from: "user", text: "I can’t find it" },
+          { from: "agent", text: "(Team takes over) Stay put — calling you now" },
+          { from: "bot", text: "(Bot cannot walk them to the gate)" }
         ],
         opt2Chat: [
           { from: "agent", text: "(2nd phone) Morning! Day 1 — Gate A" },
           { from: "agent", text: "(2nd phone) Pat 9123 4567 + photo" },
-          { from: "user", text: "On my way" }
+          { from: "user", text: "I can’t find Gate A" },
+          { from: "agent", text: "(2nd phone) Calling you now" }
         ],
         consoleRows: [
-          { name: "Priya N.", stage: "Day-1 check-in", flag: "Replied" },
+          { name: "Priya N.", stage: "Day-1 check-in", flag: "Needs call" },
           { name: "Alex Chan", stage: "Day-1 no reply", flag: "Call now" },
-          { name: "Jordan K.", stage: "Starts tomorrow", flag: "Queued" }
+          { name: "Jordan K.", stage: "Starts tomorrow", flag: "Prep connect" }
         ]
       }
     ];
 
-    const PAIN = {
-      volume: { label: "Mass & repetitive", color: "var(--orange)" },
-      tailored: { label: "Tailor-made", color: "var(--blue)" },
-      both: { label: "Both", color: "var(--purple)" }
-    };
-    const EFFORT = {
-      down: { label: "Less team effort", color: "var(--green)" },
-      same: { label: "Same team effort", color: "var(--stroke)" },
-      up: { label: "More team effort", color: "var(--orange)" },
-      trade: { label: "Trade-off", color: "var(--yellow)" }
+    const ZONE = {
+      scarcity: { label: "Hard to find", color: "var(--orange)", tag: "Scarcity" },
+      apply: { label: "Apply / keep warm", color: "var(--green)", tag: "SF can help" },
+      process: { label: "Process / permit", color: "var(--blue)", tag: "Process" },
+      posthire: { label: "After hire · connect", color: "var(--red)", tag: "Still manual" }
     };
 
     let tab = "current";
@@ -670,8 +747,8 @@
     function renderTabs() {
       const items = [
         { id: "current", label: "Current process" },
-        { id: "opt1", label: "Option 1" },
-        { id: "opt2", label: "Option 2" }
+        { id: "opt1", label: "Option 1 · SleekFlow" },
+        { id: "opt2", label: "Option 2 · SF + 2nd phone" }
       ];
       document.getElementById("tabs").innerHTML = items.map((item) =>
         `<button type="button" class="tab ${tab === item.id ? "active" : ""}" data-tab="${item.id}">${esc(item.label)}</button>`
@@ -681,72 +758,87 @@
       });
     }
 
+    function zonesHtml() {
+      return `
+        <div class="zone-grid">
+          <div class="zone scarcity">
+            <div class="zn">Zone A</div>
+            <div class="zt">Find candidates</div>
+            <div class="zb">Main pain: not enough people apply / stay. Tools don’t invent supply.</div>
+          </div>
+          <div class="zone sf">
+            <div class="zn">Zone B</div>
+            <div class="zt">Application intake</div>
+            <div class="zb">Where SleekFlow bot actually helps — capture details when someone writes in.</div>
+          </div>
+          <div class="zone manual">
+            <div class="zn">Zone C</div>
+            <div class="zt">After hire · connect</div>
+            <div class="zb">Most tedious: offer → day-1 care. Still manual with or without SleekFlow.</div>
+          </div>
+        </div>`;
+    }
+
     function introHtml() {
       if (tab === "current") {
         return `
           <div class="card">
-            <strong>Current process — full manual</strong>
-            <div class="muted">One team under the same lead chats with candidates on WhatsApp. High typing and chase effort. No SleekFlow. No Meta template fees.</div>
+            <strong>Current process — full manual WhatsApp</strong>
+            <div class="muted">Team chases scarce candidates by hand. The workload that hurts most is not “processing a flood of applications” — it is finding people, then staying connected after they accept so they actually show up on day 1.</div>
           </div>
-          <div class="callout"><div class="t">Phone view on this tab</div>Typical team ↔ candidate WhatsApp thread for that step.</div>`;
+          ${zonesHtml()}
+          <div class="callout orange"><div class="t">What this tab shows</div>Where scarcity bites early, and where post-hire connecting already burns time today.</div>`;
       }
       if (tab === "opt1") {
         return `
           <div class="card green">
-            <strong>Option 1 — SleekFlow full path</strong>
-            <div class="muted">Candidate can start the chat (apply via QR / link). After that, the team usually cannot reply inside Meta’s free 24-hour window for every person — so for this comparison we assume all team outreach (book, remind, result, chase, status, day-1) is beyond 24h and needs a paid Meta template. When the candidate replies, the bot/team can chat freely again until the next outreach.</div>
+            <strong>Option 1 — SleekFlow on the path</strong>
+            <div class="muted">Honest scope after pushback: the bot mainly helps <b>application intake</b> (when a candidate writes first). It does not solve “we can’t find candidates,” and after hiring the team still does the tedious connecting (offer call, day-1 venue care, lost-on-the-way calls).</div>
           </div>
-          <div class="callout warn"><div class="t">Cost assumption for Option 1</div>Every team reach-out = template fee. Only inbound apply (step 1) is free of that fee.</div>`;
+          ${zonesHtml()}
+          <div class="callout danger"><div class="t">Gap vs expectation</div>SleekFlow ≠ end-to-end hiring relief. Apply yes · Find people no · Post-hire connect mostly still manual (and templates may add Meta cost).</div>`;
       }
       return `
         <div class="card yellow">
-          <strong>Option 2 — SleekFlow only for steps 1–2 (mass data in)</strong>
-          <div class="muted">SleekFlow for apply (+ early screening records). From interview — and likely scheduling / reminders — through first day, outreach is on another phone number to avoid Meta template fees.</div>
-        </div>`;
-    }
-
-    function effortScoreHtml() {
-      if (tab === "current") return "";
-      const values = STEPS.map((s) => (tab === "opt1" ? s.effortOpt1 : s.effortOpt2));
-      const count = (d) => values.filter((x) => x === d).length;
-      const cards = [
-        { key: "down", label: "Less effort", color: "var(--green)" },
-        { key: "same", label: "Same", color: "var(--text-secondary)" },
-        { key: "trade", label: "Trade-off", color: "var(--yellow)" },
-        { key: "up", label: "More effort", color: "var(--orange)" }
-      ];
-      return `
-        <div>
-          <div class="score-title">Team manpower vs current · 9 steps</div>
-          <div class="score-grid">
-            ${cards.map((c) => `
-              <div class="score-card" style="border-color:${c.color}">
-                <div class="n" style="color:${c.color}">${count(c.key)}</div>
-                <div class="l">${esc(c.label)}</div>
-              </div>`).join("")}
-          </div>
-        </div>`;
+          <strong>Option 2 — SleekFlow only for apply, then 2nd phone</strong>
+          <div class="muted">Uses SleekFlow where it fits (mass-ish data capture on apply). Everything from interview / outreach through day-1 connecting stays on another phone — so post-hire care is explicitly still manual, same as today’s pain.</div>
+        </div>
+        ${zonesHtml()}
+        <div class="callout warn"><div class="t">Trade-off</div>Avoids some template fees, but does not fix scarcity or remove day-1 connecting work.</div>`;
     }
 
     function pathHtml() {
       const row = (list) => list.map((s, i) => {
         const active = s.n === stepN;
-        const pain = PAIN[s.pain].color;
-        const tag = tab === "opt2"
-          ? `<span class="step-tag" style="color:${s.n <= 2 ? "var(--green)" : "var(--yellow)"}">${s.n <= 2 ? "SleekFlow" : "2nd phone"}</span>`
-          : "";
+        const z = ZONE[s.zone];
+        let tagText = z.tag;
+        let tagColor = z.color;
+        if (tab === "opt2") {
+          if (s.n <= 2) { tagText = "SleekFlow"; tagColor = "var(--green)"; }
+          else { tagText = "2nd phone"; tagColor = "var(--yellow)"; }
+        } else if (tab === "opt1") {
+          if (s.sfHelp === "yes") { tagText = "SF helps"; tagColor = "var(--green)"; }
+          else if (s.sfHelp === "partial") { tagText = "SF partial"; tagColor = "var(--yellow)"; }
+          else { tagText = "Still manual"; tagColor = "var(--red)"; }
+        }
         return `
           <button type="button" class="step-btn ${active ? "active" : ""}" data-step="${s.n}">
-            <div class="circle ${active ? "active" : ""}" style="border-color:${pain}">${s.n}</div>
+            <div class="circle ${active ? "active" : ""}" style="border-color:${z.color}">${s.n}</div>
             <span class="step-title">${esc(s.title)}</span>
-            ${tag}
+            <span class="step-tag" style="color:${tagColor}">${esc(tagText)}</span>
           </button>
           ${i < list.length - 1 ? `<div class="arrow">→</div>` : ""}`;
       }).join("");
 
+      const legend = tab === "current"
+        ? `<div class="tiny">Circle colour = pain zone · Orange scarcity · Green apply · Blue process · Red after-hire connect</div>`
+        : tab === "opt1"
+          ? `<div class="tiny">Step tags: <b style="color:var(--green)">SF helps</b> · <b style="color:var(--yellow)">SF partial</b> · <b style="color:var(--red)">Still manual</b> (post-hire)</div>`
+          : `<div class="tiny">Green tag = SleekFlow · Yellow tag = 2nd phone (manual connect)</div>`;
+
       return `
-        <h2>Process map</h2>
-        ${tab === "opt2" ? `<div class="tiny">Green label = SleekFlow · Yellow label = 2nd phone outreach</div>` : ""}
+        <h2>Process map · where the pain sits</h2>
+        ${legend}
         <div class="path-rows">
           <div class="path-row">${row(STEPS.slice(0, 5))}</div>
           <div class="path-row">${row(STEPS.slice(5))}</div>
@@ -796,8 +888,9 @@
       renderTabs();
       const step = STEPS.find((s) => s.n === stepN) || STEPS[0];
       const idx = STEPS.findIndex((s) => s.n === step.n);
+      const z = ZONE[step.zone];
       const howText = tab === "current" ? step.todayHow : tab === "opt1" ? step.opt1How : step.opt2How;
-      const howLabel = tab === "current" ? "How the team works today" : tab === "opt1" ? "How Option 1 works" : "How Option 2 works";
+      const howLabel = tab === "current" ? "How it feels today" : tab === "opt1" ? "What Option 1 actually does" : "What Option 2 actually does";
       const chat = tab === "current" ? step.currentChat : tab === "opt1" ? step.opt1Chat : step.opt2Chat;
       const chatCaption = tab === "current"
         ? "WhatsApp · Team ↔ Candidate"
@@ -806,54 +899,65 @@
           : step.n <= 2
             ? "WhatsApp · SleekFlow then handoff"
             : "WhatsApp · 2nd phone";
-      const effort = tab === "opt1" ? step.effortOpt1 : step.effortOpt2;
+      const impact = tab === "opt1" ? step.impactOpt1 : step.impactOpt2;
       const note = tab === "opt1" ? step.noteOpt1 : step.noteOpt2;
+      const impactColor = step.zone === "posthire"
+        ? "var(--red)"
+        : step.zone === "scarcity"
+          ? "var(--orange)"
+          : step.sfHelp === "yes"
+            ? "var(--green)"
+            : "var(--yellow)";
+
       const consoleTitle = tab === "current"
-        ? "Team tracking (today — chat list / sheet)"
+        ? "Team tracking (today)"
         : tab === "opt1"
-          ? "Team console · SleekFlow"
+          ? "Team console · with SleekFlow"
           : step.n <= 2
             ? "Team console · SleekFlow (early only)"
-            : "Team tracking · 2nd phone / sheet";
-      const consoleRows = tab === "current"
-        ? [
-            { name: "Alex Chan", stage: step.title, flag: "Manual chat" },
-            { name: "Mei Wong", stage: step.title, flag: "Manual chat" },
-            { name: "Sam Lee", stage: step.title, flag: "Manual chat" }
-          ]
-        : step.consoleRows;
-      const pain = PAIN[step.pain];
+            : "Team tracking · 2nd phone";
 
-      let pills = "";
-      if (tab === "opt2") {
-        pills += `<span class="pill ${step.n <= 2 ? "ok" : "warn"}">${step.n <= 2 ? "SleekFlow" : "2nd phone"}</span>`;
-      }
+      let pills = `
+        <span class="pill ${step.zone === "scarcity" ? "scarce" : step.zone === "posthire" ? "danger" : step.zone === "apply" ? "ok" : ""}">
+          <span class="swatch" style="background:${z.color}"></span>${esc(step.painLabel)}
+        </span>`;
       if (tab === "opt1") {
-        pills += step.opt1Outreach
-          ? `<span class="pill warn">Outreach = paid template</span>`
-          : `<span class="pill ok">Inbound — no template</span>`;
+        if (step.sfHelp === "yes") pills += `<span class="pill ok">SleekFlow helps here</span>`;
+        else if (step.sfHelp === "partial") pills += `<span class="pill warn">SleekFlow partial</span>`;
+        else pills += `<span class="pill danger">Still manual</span>`;
       }
+      if (tab === "opt2") {
+        pills += step.n <= 2
+          ? `<span class="pill ok">SleekFlow</span>`
+          : `<span class="pill warn">2nd phone · manual</span>`;
+      }
+
+      const highlight = step.zone === "posthire"
+        ? `<div class="callout danger"><div class="t">Post-hire connecting</div>This is the tedious part after hiring. SleekFlow bot does not take this off the team.</div>`
+        : step.zone === "scarcity"
+          ? `<div class="callout orange"><div class="t">Scarcity pain</div>Problem is getting candidates — not processing too many of them.</div>`
+          : "";
 
       document.getElementById("app").innerHTML = `
         ${introHtml()}
-        ${effortScoreHtml()}
         ${pathHtml()}
         <hr class="div" />
         <div class="stack">
           <div class="row">
             <h2>Step ${step.n}: ${esc(step.title)}</h2>
-            <span class="pill"><span class="swatch" style="background:${pain.color}"></span>${esc(pain.label)}</span>
             ${pills}
             <span class="spacer"></span>
             <button type="button" class="nav-btn" id="prev" ${idx <= 0 ? "disabled" : ""}>Previous</button>
             <button type="button" class="nav-btn primary" id="next" ${idx >= STEPS.length - 1 ? "disabled" : ""}>Next</button>
           </div>
 
-          <div class="hpanel" style="border-left-color:${pain.color}">
+          ${highlight}
+
+          <div class="hpanel" style="border-left-color:${z.color}">
             <div><div class="lab">What</div><div class="val">${esc(step.what)}</div></div>
             <div><div class="lab">Who</div><div class="val">${esc(step.who)}</div></div>
             <div><div class="lab">Needs</div><div class="val">${esc(step.needs)}</div></div>
-            <div><div class="lab">Pain</div><div class="val">${esc(step.whyPain)}</div></div>
+            <div><div class="lab">Real pain</div><div class="val">${esc(step.whyPain)}</div></div>
           </div>
 
           <div class="how-box">
@@ -862,14 +966,16 @@
           </div>
 
           ${tab !== "current" ? `
-            <div class="effort-box" style="border-color:${EFFORT[effort].color}">
-              <div class="lab">Team manpower vs current</div>
-              <div class="val">${esc(EFFORT[effort].label)}</div>
-            </div>
-            <div class="why-box" style="background:var(--green-soft)">
-              <div class="lab">Why</div>
-              <div class="val">${esc(note)}</div>
-            </div>` : ""}
+            <div class="impact-box" style="border-color:${impactColor}">
+              <div class="lab">Does this option fix the pain?</div>
+              <div class="val">${esc(impact)}</div>
+              <div class="muted" style="margin-top:8px">${esc(note)}</div>
+            </div>` : `
+            <div class="impact-box" style="border-color:${z.color}">
+              <div class="lab">Pain zone</div>
+              <div class="val">${esc(z.label)}</div>
+              <div class="muted" style="margin-top:8px">${esc(step.whyPain)}</div>
+            </div>`}
 
           ${step.loop ? `<div class="muted">Repeat: ${esc(step.loop)}</div>` : ""}
           ${step.care ? `<div class="callout ${step.n === 9 ? "danger" : "warn"}"><div class="t">Care tip</div>${esc(step.care)}</div>` : ""}
@@ -881,7 +987,7 @@
             </div>
             <div>
               <div class="tiny" style="margin-bottom:8px">What the team tracks</div>
-              ${consoleHtml(consoleTitle, consoleRows)}
+              ${consoleHtml(consoleTitle, step.consoleRows)}
               ${step.sfLimit && tab === "opt1" ? `<div class="muted" style="margin-top:8px">Limit: ${esc(step.sfLimit)}</div>` : ""}
             </div>
           </div>
