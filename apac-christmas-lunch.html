@@ -421,205 +421,219 @@
     .slide[data-title="10. Game 2: Order & Prepare"] .menu-board-chalk {
       padding: 0.55rem 0.6rem 0.7rem;
     }
-    /* Game 2 — How to Play (role swimlanes) */
+    /* Game 2 — How to Play (horizontal role swimlanes, L→R) */
     .slide[data-title="9. Game 2: How to Play"] {
-      padding-top: 2.9rem;
-      padding-bottom: 3.3rem;
+      padding-top: 2.85rem;
+      padding-bottom: 3.2rem;
     }
     .slide[data-title="9. Game 2: How to Play"] .how-play-board {
       width: 100%;
       max-width: min(98rem, 98vw);
       max-height: 100%;
       min-height: 0;
-      padding: 1rem 0.9rem 0.85rem;
+      padding: 0.85rem 0.85rem 0.75rem;
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 0.4rem;
     }
-    .how-play-swim {
-      --swim-cols: 2.35rem repeat(5, minmax(0, 1fr));
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
+    .hswim {
+      --lane-label: 4.6rem;
+      position: relative;
       flex: 1 1 auto;
       min-height: 0;
-      overflow: auto;
-      border: 2px solid rgba(35, 72, 106, 0.18);
+      display: grid;
+      grid-template-columns: var(--lane-label) repeat(5, minmax(0, 1fr));
+      grid-template-rows: repeat(5, minmax(0, 1fr));
+      gap: 0.28rem 0.45rem;
+      border: 2px solid rgba(35, 72, 106, 0.16);
       border-radius: 1rem;
-      background:
-        linear-gradient(90deg,
-          transparent 0,
-          transparent calc(2.35rem + (100% - 2.35rem) * 0 / 5),
-          rgba(35, 72, 106, 0.04) calc(2.35rem + (100% - 2.35rem) * 0 / 5),
-          rgba(35, 72, 106, 0.04) calc(2.35rem + (100% - 2.35rem) * 1 / 5),
-          rgba(245, 158, 11, 0.07) calc(2.35rem + (100% - 2.35rem) * 1 / 5),
-          rgba(245, 158, 11, 0.07) calc(2.35rem + (100% - 2.35rem) * 2 / 5),
-          rgba(200, 55, 45, 0.06) calc(2.35rem + (100% - 2.35rem) * 2 / 5),
-          rgba(200, 55, 45, 0.06) calc(2.35rem + (100% - 2.35rem) * 3 / 5),
-          rgba(30, 107, 59, 0.06) calc(2.35rem + (100% - 2.35rem) * 3 / 5),
-          rgba(30, 107, 59, 0.06) calc(2.35rem + (100% - 2.35rem) * 4 / 5),
-          rgba(124, 58, 237, 0.06) calc(2.35rem + (100% - 2.35rem) * 4 / 5),
-          rgba(124, 58, 237, 0.06) 100%);
+      overflow: hidden;
+      background: rgba(255, 252, 247, 0.88);
       padding: 0.35rem;
     }
-    .swim-rail {
-      display: grid;
-      grid-template-columns: var(--swim-cols);
-      gap: 0.35rem;
-      align-items: stretch;
-      min-height: 0;
+    .hswim-lane-bg {
+      grid-column: 1 / -1;
+      border-radius: 0.55rem;
+      pointer-events: none;
+      z-index: 0;
     }
-    .swim-rail-head {
-      position: sticky;
-      top: 0;
+    .hswim-lane-bg.r1 { grid-row: 1; background: rgba(35, 72, 106, 0.06); }
+    .hswim-lane-bg.r2 { grid-row: 2; background: rgba(245, 158, 11, 0.08); }
+    .hswim-lane-bg.r3 { grid-row: 3; background: rgba(200, 55, 45, 0.07); }
+    .hswim-lane-bg.r4 { grid-row: 4; background: rgba(30, 107, 59, 0.07); }
+    .hswim-lane-bg.r5 { grid-row: 5; background: rgba(124, 58, 237, 0.07); }
+    .hswim-label {
+      grid-column: 1;
       z-index: 2;
-      padding-bottom: 0.15rem;
-    }
-    .swim-step-gutter {
-      display: grid;
-      place-items: center;
-      align-self: center;
-    }
-    .swim-lane-head {
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 0.15rem;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
       text-align: center;
-      padding: 0.35rem 0.25rem;
-      border-radius: 0.75rem;
-      background: rgba(255, 255, 255, 0.92);
-      border: 2px solid rgba(35, 72, 106, 0.16);
       font-family: 'Fredoka', sans-serif;
-      min-width: 0;
-    }
-    .swim-lane-head .role-avatar {
-      width: clamp(1.85rem, 3.6vh, 2.4rem);
-      height: clamp(1.85rem, 3.6vh, 2.4rem);
-    }
-    .swim-lane-head .role-avatar-badge {
-      width: 0.9rem;
-      height: 0.9rem;
-      font-size: 0.5rem;
-      top: -0.12rem;
-      right: -0.12rem;
-    }
-    .swim-lane-head strong {
-      display: block;
-      font-size: clamp(0.72rem, 1.35vh, 0.9rem);
-      line-height: 1.1;
-      color: #23486A;
-    }
-    .swim-lane-head span {
-      display: block;
-      font-size: clamp(0.62rem, 1.15vh, 0.78rem);
       font-weight: 700;
-      color: #1E6B3B;
-      line-height: 1.1;
+      letter-spacing: 0.04em;
+      border-radius: 0.55rem;
+      color: #fff;
+      padding: 0.35rem 0.15rem;
+      line-height: 1.15;
+      font-size: clamp(0.62rem, 1.25vh, 0.78rem);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
     }
-    .swim-lane-head.lane-tables { border-color: rgba(35, 72, 106, 0.35); }
-    .swim-lane-head.lane-ot { border-color: rgba(245, 158, 11, 0.55); }
-    .swim-lane-head.lane-chef { border-color: rgba(200, 55, 45, 0.45); }
-    .swim-lane-head.lane-server { border-color: rgba(30, 107, 59, 0.45); }
-    .swim-lane-head.lane-exam { border-color: rgba(124, 58, 237, 0.45); }
-    .swim-row {
-      flex: 1 1 0;
-      min-height: 3.6rem;
+    .hswim-label small {
+      display: block;
+      font-weight: 600;
+      opacity: 0.92;
+      font-size: 0.92em;
+      margin-top: 0.25rem;
     }
-    .swim-row .step-num {
-      width: 1.7rem;
-      height: 1.7rem;
-      border-radius: 999px;
+    .hswim-label.r1 { grid-row: 1; background: #23486A; }
+    .hswim-label.r2 { grid-row: 2; background: #D97724; }
+    .hswim-label.r3 { grid-row: 3; background: #C8372D; }
+    .hswim-label.r4 { grid-row: 4; background: #1E6B3B; }
+    .hswim-label.r5 { grid-row: 5; background: #7C3AED; }
+    .hswim-node {
+      z-index: 2;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      min-width: 0;
+      align-self: center;
+      justify-self: stretch;
+      background: #fff;
+      border-radius: 0.7rem;
+      border: 2.5px solid currentColor;
+      padding: 0.35rem 0.5rem 0.35rem 0.4rem;
+      box-shadow: 0 8px 18px -14px rgba(35, 72, 106, 0.45);
+    }
+    .hswim-node .node-icon {
+      flex-shrink: 0;
+      width: 1.85rem;
+      height: 1.85rem;
+      border-radius: 0.45rem;
       display: grid;
       place-items: center;
       color: #fff;
-      font-weight: 900;
-      font-size: 0.88rem;
-      font-family: 'Fredoka', sans-serif;
-      box-shadow: 0 2px 0 rgba(0, 0, 0, 0.18);
+      font-size: 0.85rem;
+      background: currentColor;
     }
-    .swim-card {
-      border-radius: 0.85rem;
-      border: 2px solid rgba(35, 72, 106, 0.18);
-      background: rgba(255, 255, 255, 0.96);
-      padding: 0.45rem 0.55rem 0.5rem;
-      box-shadow: 0 10px 22px -18px rgba(35, 72, 106, 0.4);
+    .hswim-node .node-icon i { color: #fff; }
+    .hswim-node .node-copy {
       min-width: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 0.12rem;
+      flex: 1;
     }
-    .swim-card .step-en {
-      font-family: 'Plus Jakarta Sans', sans-serif;
+    .hswim-node .node-num {
+      display: inline-grid;
+      place-items: center;
+      width: 1.15rem;
+      height: 1.15rem;
+      border-radius: 999px;
+      background: currentColor;
+      color: #fff;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 800;
+      font-size: 0.68rem;
+      margin-right: 0.2rem;
+      vertical-align: middle;
+    }
+    .hswim-node .node-en {
+      font-family: 'Fredoka', sans-serif;
       font-weight: 700;
       font-size: clamp(0.72rem, 1.45vh, 0.9rem);
-      color: #292524;
-      line-height: 1.3;
+      color: #1c1917;
+      line-height: 1.15;
     }
-    .swim-card .step-zh {
+    .hswim-node .node-zh {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 600;
-      font-size: clamp(0.66rem, 1.3vh, 0.82rem);
+      font-size: clamp(0.6rem, 1.15vh, 0.74rem);
       color: #78716c;
-      line-height: 1.3;
+      line-height: 1.15;
+      margin-top: 0.08rem;
     }
-    .swim-card.lane-tables { grid-column: 2; background: #EEF2FF; border-color: rgba(35, 72, 106, 0.28); }
-    .swim-card.lane-ot { grid-column: 3; background: #FFFBEB; border-color: rgba(245, 158, 11, 0.4); }
-    .swim-card.lane-chef { grid-column: 4; background: #FFF1F2; border-color: rgba(200, 55, 45, 0.35); }
-    .swim-card.lane-server { grid-column: 5; background: #ECFDF5; border-color: rgba(30, 107, 59, 0.35); }
-    .swim-card.lane-exam { grid-column: 6; background: #F5F3FF; border-color: rgba(124, 58, 237, 0.35); }
-    .swim-card.lane-kitchen {
-      grid-column: 3 / span 3;
-      background: linear-gradient(90deg, #FFFBEB 0%, #FFF1F2 48%, #ECFDF5 100%);
-      border-color: rgba(200, 55, 45, 0.28);
+    .hswim-node.c-tables { color: #23486A; }
+    .hswim-node.c-ot { color: #D97724; }
+    .hswim-node.c-chef { color: #C8372D; }
+    .hswim-node.c-server { color: #1E6B3B; }
+    .hswim-node.c-exam { color: #7C3AED; }
+    .hswim-node.c-tables .node-icon,
+    .hswim-node.c-tables .node-num { background: #23486A; }
+    .hswim-node.c-ot .node-icon,
+    .hswim-node.c-ot .node-num { background: #D97724; }
+    .hswim-node.c-chef .node-icon,
+    .hswim-node.c-chef .node-num { background: #C8372D; }
+    .hswim-node.c-server .node-icon,
+    .hswim-node.c-server .node-num { background: #1E6B3B; }
+    .hswim-node.c-exam .node-icon,
+    .hswim-node.c-exam .node-num { background: #7C3AED; }
+    /* Positions: cols 2–6 = flow stages; rows 1–5 = roles */
+    .hswim-node.n1 { grid-row: 1; grid-column: 2; }
+    .hswim-node.n2 { grid-row: 2; grid-column: 3; }
+    .hswim-node.n3a { grid-row: 2; grid-column: 4; }
+    .hswim-node.n3b { grid-row: 3; grid-column: 4; }
+    .hswim-node.n3c { grid-row: 4; grid-column: 4; }
+    .hswim-node.n4 { grid-row: 4; grid-column: 5; }
+    .hswim-node.n5 { grid-row: 1; grid-column: 6; }
+    .hswim-node.n6 { grid-row: 5; grid-column: 6; }
+    .hswim-arrows {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: visible;
     }
-    .swim-card.lane-serve-back {
-      grid-column: 5;
-      background: #ECFDF5;
-      border-color: rgba(30, 107, 59, 0.35);
-    }
-    .swim-card .swim-handOff {
-      font-family: 'Fredoka', sans-serif;
-      font-weight: 700;
-      font-size: clamp(0.68rem, 1.25vh, 0.82rem);
-      color: #C8372D;
-      margin-bottom: 0.08rem;
+    .hswim-arrows path {
+      fill: none;
+      stroke: #D97724;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      marker-end: url(#hswimArrowHead);
     }
     @media (max-width: 899px) {
-      .how-play-swim {
-        background: rgba(255, 255, 255, 0.55);
-        gap: 0.45rem;
+      .hswim {
+        --lane-label: 3.4rem;
+        grid-template-columns: var(--lane-label) 1fr;
+        grid-template-rows: none;
+        grid-auto-rows: minmax(3.2rem, auto);
+        overflow: auto;
       }
-      .swim-rail-head { display: none; }
-      .swim-rail {
-        grid-template-columns: 2.1rem 1fr;
-        gap: 0.4rem;
+      .hswim-lane-bg { display: none; }
+      .hswim-label {
+        writing-mode: horizontal-tb;
+        transform: none;
+        font-size: 0.62rem;
+        padding: 0.25rem;
       }
-      .swim-card,
-      .swim-card.lane-tables,
-      .swim-card.lane-ot,
-      .swim-card.lane-chef,
-      .swim-card.lane-server,
-      .swim-card.lane-exam,
-      .swim-card.lane-kitchen,
-      .swim-card.lane-serve-back,
-      .swim-card.lane-server {
+      .hswim-label small { display: none; }
+      .hswim-node.n1,
+      .hswim-node.n2,
+      .hswim-node.n3a,
+      .hswim-node.n3b,
+      .hswim-node.n3c,
+      .hswim-node.n4,
+      .hswim-node.n5,
+      .hswim-node.n6 {
         grid-column: 2;
       }
-      .swim-card::before {
-        font-family: 'Fredoka', sans-serif;
-        font-weight: 700;
-        font-size: 0.72rem;
-        color: #23486A;
-        margin-bottom: 0.1rem;
-      }
-      .swim-card.lane-tables::before { content: 'Tables · 各枱'; }
-      .swim-card.lane-ot::before { content: 'Order Takers · 落單員'; }
-      .swim-card.lane-kitchen::before { content: 'Order Takers → Chef → Server · 落單員 → 大廚 → 樓面侍應'; }
-      .swim-card.lane-serve-back::before { content: 'Server → Tables · 樓面侍應 → 各枱'; }
-      .swim-card.lane-exam::before { content: 'Examiner · 考官'; }
+      .hswim-node.n1 { grid-row: 1; }
+      .hswim-node.n2 { grid-row: 2; }
+      .hswim-node.n3a { grid-row: 3; }
+      .hswim-node.n3b { grid-row: 4; }
+      .hswim-node.n3c { grid-row: 5; }
+      .hswim-node.n4 { grid-row: 6; }
+      .hswim-node.n5 { grid-row: 7; }
+      .hswim-node.n6 { grid-row: 8; }
+      .hswim-label.r1 { grid-row: 1; }
+      .hswim-label.r2 { grid-row: 2; }
+      .hswim-label.r3 { grid-row: 4; }
+      .hswim-label.r4 { grid-row: 5 / span 2; }
+      .hswim-label.r5 { grid-row: 8; }
+      .hswim-arrows { display: none; }
     }
 
     /* Game 2 — Order & Prepare (kitchen pass) */
@@ -3210,105 +3224,106 @@
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 9: GAME 2: HOW TO PLAY (ROLE SWIMLANES)                          -->
+  <!-- SLIDE 9: GAME 2: HOW TO PLAY (HORIZONTAL ROLE SWIMLANES)               -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-stretch justify-center" data-title="9. Game 2: How to Play">
     <div class="stage-board g2-kitchen-board g2-exam-sheet festive-card theme-rail canteen-frame how-play-board">
       <div class="shrink-0 text-center pt-1 relative z-10">
-        <span class="g2-ticket mb-1.5"><i class="fa-solid fa-diagram-project"></i> Role swimlanes</span>
+        <span class="g2-ticket mb-1.5"><i class="fa-solid fa-diagram-project"></i> Horizontal swimlanes</span>
         <p class="g2-kitchen-kicker mb-1" contenteditable="true">2026-XMAS GAME 2 · Kitchen flow · How to Play</p>
         <h1 class="g2-kitchen-title text-xl sm:text-3xl md:text-4xl" contenteditable="true">
           6-STEP CANTEEN RUN · TEAM OF 3
         </h1>
-        <h2 class="g2-kitchen-sub text-sm sm:text-lg mt-0.5" contenteditable="true">
-          食堂六步流程 · 三人小組 · 角色泳道
+        <h2 class="g2-kitchen-sub text-sm sm:text-base mt-0.5" contenteditable="true">
+          食堂六步流程 · 三人小組 · 橫向角色泳道
         </h2>
       </div>
 
-      <div class="how-play-swim" role="group" aria-label="Game 2 how to play by role">
-        <div class="swim-rail swim-rail-head" aria-hidden="false">
-          <div class="swim-step-gutter" aria-hidden="true"></div>
-          <div class="swim-lane-head lane-tables">
-            <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">🪑</span>
-              <div class="role-avatar border-4 border-[#23486A]"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="#E8F0F8"/><circle cx="42" cy="54" r="16" fill="#FDE2C4"/><circle cx="78" cy="54" r="16" fill="#FDE2C4"/><circle cx="60" cy="62" r="18" fill="#FDE2C4"/><path d="M28,92 L92,92 L96,112 L24,112 Z" fill="#23486A"/></svg></div>
-            </div>
-            <div><strong>Tables</strong><span>各枱</span></div>
-          </div>
-          <div class="swim-lane-head lane-ot">
-            <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">📋</span>
-              <div class="role-avatar border-4 border-amber-400"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="58" r="28" fill="#FDE2C4"/><path d="M28,58 C26,30 44,18 60,18 C76,18 94,30 92,58 Z" fill="#92400E"/><rect x="34" y="88" width="52" height="24" rx="6" fill="#F59E0B"/></svg></div>
-            </div>
-            <div><strong>Order Takers</strong><span>落單員</span></div>
-          </div>
-          <div class="swim-lane-head lane-chef">
-            <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">👨‍🍳</span>
-              <div class="role-avatar border-4 border-[#C8372D]"><svg viewBox="0 0 120 120" aria-hidden="true"><ellipse cx="60" cy="28" rx="28" ry="14" fill="#F8FAFC"/><circle cx="60" cy="62" r="26" fill="#FDE2C4"/><path d="M34,90 L86,90 L92,114 L28,114 Z" fill="#C8372D"/></svg></div>
-            </div>
-            <div><strong>Chef</strong><span>大廚</span></div>
-          </div>
-          <div class="swim-lane-head lane-server">
-            <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">🍽️</span>
-              <div class="role-avatar border-4 border-[#1E6B3B]"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="56" r="28" fill="#FDE2C4"/><ellipse cx="60" cy="96" rx="30" ry="10" fill="#FEF3C7" stroke="#D97724" stroke-width="2"/><path d="M34,90 L86,90 L90,112 L30,112 Z" fill="#1E6B3B"/></svg></div>
-            </div>
-            <div><strong>Server</strong><span>樓面侍應</span></div>
-          </div>
-          <div class="swim-lane-head lane-exam">
-            <div class="role-avatar-wrap pointer-events-none"><span class="role-avatar-badge" aria-hidden="true">📝</span>
-              <div class="role-avatar border-4 border-[#7C3AED]"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="#F5F3FF"/><circle cx="60" cy="50" r="22" fill="#FDE2C4"/><rect x="34" y="28" width="52" height="10" rx="2" fill="#4C1D95"/><rect x="40" y="78" width="40" height="28" rx="3" fill="#EDE9FE" stroke="#7C3AED" stroke-width="3"/></svg></div>
-            </div>
-            <div><strong>Examiner</strong><span>考官</span></div>
-          </div>
-        </div>
+      <div class="hswim" id="howPlayHSwim" role="group" aria-label="Game 2 how to play horizontal swimlanes">
+        <div class="hswim-lane-bg r1" aria-hidden="true"></div>
+        <div class="hswim-lane-bg r2" aria-hidden="true"></div>
+        <div class="hswim-lane-bg r3" aria-hidden="true"></div>
+        <div class="hswim-lane-bg r4" aria-hidden="true"></div>
+        <div class="hswim-lane-bg r5" aria-hidden="true"></div>
 
-        <div class="swim-rail swim-row">
-          <div class="swim-step-gutter"><span class="step-num" style="background:#23486A;">1</span></div>
-          <div class="swim-card lane-tables">
-            <p class="step-en" contenteditable="true">Make orders on the assigned order form.</p>
-            <p class="step-zh" contenteditable="true">按獲派落單紙落單。</p>
-          </div>
-        </div>
+        <div class="hswim-label r1">TABLES<small>各枱</small></div>
+        <div class="hswim-label r2">ORDER TAKERS<small>落單員</small></div>
+        <div class="hswim-label r3">CHEF<small>大廚</small></div>
+        <div class="hswim-label r4">SERVER<small>樓面侍應</small></div>
+        <div class="hswim-label r5">EXAMINER<small>考官</small></div>
 
-        <div class="swim-rail swim-row">
-          <div class="swim-step-gutter"><span class="step-num" style="background:#F59E0B;">2</span></div>
-          <div class="swim-card lane-ot">
-            <p class="step-en" contenteditable="true">Collect the order from the tables (assignment is in their envelopes).</p>
-            <p class="step-zh" contenteditable="true">向各枱收取訂單（任務信封已寫明負責枱）。</p>
+        <article class="hswim-node c-tables n1" data-hswim="n1">
+          <span class="node-icon" aria-hidden="true"><i class="fa-solid fa-pen-to-square"></i></span>
+          <div class="node-copy">
+            <p class="node-en" contenteditable="true"><span class="node-num">1</span>Place order</p>
+            <p class="node-zh" contenteditable="true">按落單紙落單</p>
           </div>
-        </div>
+        </article>
 
-        <div class="swim-rail swim-row">
-          <div class="swim-step-gutter"><span class="step-num" style="background:#C8372D;">3</span></div>
-          <div class="swim-card lane-kitchen">
-            <p class="swim-handOff" contenteditable="true">Order Takers → Chef → Server · 落單員 → 大廚 → 樓面侍應</p>
-            <p class="step-en" contenteditable="true">Order Takers brief the Chef; Chef fetches ingredients from the food pool onto the Server’s tray.</p>
-            <p class="step-zh" contenteditable="true">落單員向大廚講解；大廚從食材池取料，放到侍應的托盤上。</p>
+        <article class="hswim-node c-ot n2" data-hswim="n2">
+          <span class="node-icon" aria-hidden="true"><i class="fa-solid fa-clipboard-list"></i></span>
+          <div class="node-copy">
+            <p class="node-en" contenteditable="true"><span class="node-num">2</span>Collect orders</p>
+            <p class="node-zh" contenteditable="true">向負責枱收單</p>
           </div>
-        </div>
+        </article>
 
-        <div class="swim-rail swim-row">
-          <div class="swim-step-gutter"><span class="step-num" style="background:#1E6B3B;">4</span></div>
-          <div class="swim-card lane-serve-back">
-            <p class="swim-handOff" contenteditable="true">Server → Tables · 樓面侍應 → 各枱</p>
-            <p class="step-en" contenteditable="true">Server delivers the food tray with the order back to the ordering Tables.</p>
-            <p class="step-zh" contenteditable="true">侍應把連同訂單的托盤送回落單枱。</p>
+        <article class="hswim-node c-ot n3a" data-hswim="n3a">
+          <span class="node-icon" aria-hidden="true"><i class="fa-solid fa-comments"></i></span>
+          <div class="node-copy">
+            <p class="node-en" contenteditable="true"><span class="node-num">3</span>Brief Chef</p>
+            <p class="node-zh" contenteditable="true">向大廚講單</p>
           </div>
-        </div>
+        </article>
 
-        <div class="swim-rail swim-row">
-          <div class="swim-step-gutter"><span class="step-num" style="background:#D97724;">5</span></div>
-          <div class="swim-card lane-tables">
-            <p class="step-en" contenteditable="true">Verify the meal and mark the order form complete.</p>
-            <p class="step-zh" contenteditable="true">核對餐點，並在落單紙上勾選完成。</p>
+        <article class="hswim-node c-chef n3b" data-hswim="n3b">
+          <span class="node-icon" aria-hidden="true"><i class="fa-solid fa-basket-shopping"></i></span>
+          <div class="node-copy">
+            <p class="node-en" contenteditable="true"><span class="node-num">3</span>Fetch food</p>
+            <p class="node-zh" contenteditable="true">食材池取料</p>
           </div>
-        </div>
+        </article>
 
-        <div class="swim-rail swim-row">
-          <div class="swim-step-gutter"><span class="step-num" style="background:#7C3AED;">6</span></div>
-          <div class="swim-card lane-exam">
-            <p class="step-en" contenteditable="true">Teams with both orders done go to the Examiner — fastest team wins.</p>
-            <p class="step-zh" contenteditable="true">兩張訂單都完成的隊伍前往考官；最快者勝出。</p>
+        <article class="hswim-node c-server n3c" data-hswim="n3c">
+          <span class="node-icon" aria-hidden="true"><i class="fa-solid fa-utensils"></i></span>
+          <div class="node-copy">
+            <p class="node-en" contenteditable="true"><span class="node-num">3</span>Load tray</p>
+            <p class="node-zh" contenteditable="true">食材上托盤</p>
           </div>
-        </div>
+        </article>
+
+        <article class="hswim-node c-server n4" data-hswim="n4">
+          <span class="node-icon" aria-hidden="true"><i class="fa-solid fa-bell-concierge"></i></span>
+          <div class="node-copy">
+            <p class="node-en" contenteditable="true"><span class="node-num">4</span>Deliver tray</p>
+            <p class="node-zh" contenteditable="true">送回落單枱</p>
+          </div>
+        </article>
+
+        <article class="hswim-node c-tables n5" data-hswim="n5">
+          <span class="node-icon" aria-hidden="true"><i class="fa-solid fa-circle-check"></i></span>
+          <div class="node-copy">
+            <p class="node-en" contenteditable="true"><span class="node-num">5</span>Verify & tick</p>
+            <p class="node-zh" contenteditable="true">核對並勾選完成</p>
+          </div>
+        </article>
+
+        <article class="hswim-node c-exam n6" data-hswim="n6">
+          <span class="node-icon" aria-hidden="true"><i class="fa-solid fa-trophy"></i></span>
+          <div class="node-copy">
+            <p class="node-en" contenteditable="true"><span class="node-num">6</span>Fastest wins</p>
+            <p class="node-zh" contenteditable="true">兩單完成找考官</p>
+          </div>
+        </article>
+
+        <svg class="hswim-arrows" aria-hidden="true">
+          <defs>
+            <marker id="hswimArrowHead" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+              <path d="M0,0 L8,4 L0,8 Z" fill="#D97724"></path>
+            </marker>
+          </defs>
+          <g id="hswimArrowPaths"></g>
+        </svg>
       </div>
     </div>
   </section>
@@ -5545,6 +5560,56 @@
       slideSelector.appendChild(opt);
     });
 
+    function drawHowPlaySwimArrows() {
+      const board = document.getElementById('howPlayHSwim');
+      const svg = board?.querySelector('svg.hswim-arrows');
+      const g = document.getElementById('hswimArrowPaths');
+      if (!board || !svg || !g) return;
+      if (window.matchMedia && window.matchMedia('(max-width: 899px)').matches) {
+        g.innerHTML = '';
+        return;
+      }
+      const br = board.getBoundingClientRect();
+      if (br.width < 40 || br.height < 40) return;
+      svg.setAttribute('width', String(br.width));
+      svg.setAttribute('height', String(br.height));
+      svg.setAttribute('viewBox', `0 0 ${br.width} ${br.height}`);
+      const pt = (id, edge) => {
+        const el = board.querySelector(`[data-hswim="${id}"]`);
+        if (!el) return null;
+        const r = el.getBoundingClientRect();
+        const x = (r.left + r.width / 2) - br.left;
+        const y = (r.top + r.height / 2) - br.top;
+        const left = r.left - br.left;
+        const right = r.right - br.left;
+        const top = r.top - br.top;
+        const bottom = r.bottom - br.top;
+        if (edge === 'right') return { x: right, y };
+        if (edge === 'left') return { x: left, y };
+        if (edge === 'bottom') return { x, y: bottom };
+        if (edge === 'top') return { x, y: top };
+        return { x, y };
+      };
+      const links = [
+        ['n1', 'bottom', 'n2', 'top'],
+        ['n2', 'right', 'n3a', 'left'],
+        ['n3a', 'bottom', 'n3b', 'top'],
+        ['n3b', 'bottom', 'n3c', 'top'],
+        ['n3c', 'right', 'n4', 'left'],
+        ['n4', 'top', 'n5', 'bottom'],
+        ['n5', 'bottom', 'n6', 'top'],
+      ];
+      const paths = links.map(([a, ae, b, be]) => {
+        const from = pt(a, ae);
+        const to = pt(b, be);
+        if (!from || !to) return '';
+        const mx = (from.x + to.x) / 2;
+        const my = (from.y + to.y) / 2;
+        return `<path d="M ${from.x.toFixed(1)} ${from.y.toFixed(1)} Q ${mx.toFixed(1)} ${my.toFixed(1)} ${to.x.toFixed(1)} ${to.y.toFixed(1)}" />`;
+      }).join('');
+      g.innerHTML = paths;
+    }
+
     function goToSlide(index) {
       if (index < 0 || index >= slides.length) return;
       const prevIdx = currentSlideIdx;
@@ -5574,7 +5639,14 @@
       if (currentSlideIdx === SLIDE_SOCK_GUESS && prevIdx !== SLIDE_SOCK_GUESS) resetSockGuessReveal({ silent: true });
       // Always sync VDO room + viewer when entering the cook slide (room may already exist from boot)
       if (currentSlideIdx === SLIDE_COOK) connectTonyVdoStream({ silent: true });
+      if (slides[currentSlideIdx]?.dataset?.title === '9. Game 2: How to Play') {
+        requestAnimationFrame(() => requestAnimationFrame(drawHowPlaySwimArrows));
+      }
     }
+
+    window.addEventListener('resize', () => {
+      if (slides[currentSlideIdx]?.dataset?.title === '9. Game 2: How to Play') drawHowPlaySwimArrows();
+    });
 
     let bestDressedRevealBusy = false;
     const BEST_DRESSED_STORAGE_KEY = 'apacBestDressedWinnerV1';
