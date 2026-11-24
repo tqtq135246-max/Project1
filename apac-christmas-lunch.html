@@ -1515,6 +1515,163 @@
       pointer-events: auto;
     }
 
+    /* Presenter rundown tracker (audience-safe: compact chip; expand with R) */
+    #rundownChip {
+      position: fixed;
+      top: 0.65rem;
+      right: 0.75rem;
+      z-index: 62;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.35rem;
+      max-width: min(22rem, calc(100vw - 1.5rem));
+      pointer-events: auto;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    #rundownChipBtn {
+      border: 1px solid rgba(255,255,255,0.35);
+      background: rgba(15, 23, 42, 0.88);
+      color: #fff;
+      border-radius: 999px;
+      padding: 0.4rem 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      cursor: pointer;
+      box-shadow: 0 10px 28px -12px rgba(15,23,42,0.55);
+      backdrop-filter: blur(10px);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+    #rundownChipBtn .rd-clock { font-variant-numeric: tabular-nums; font-family: ui-monospace, monospace; }
+    #rundownChipBtn .rd-seg { max-width: 9.5rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    #rundownChipBtn .rd-remain {
+      font-variant-numeric: tabular-nums;
+      font-family: ui-monospace, monospace;
+      padding: 0.1rem 0.4rem;
+      border-radius: 999px;
+      background: rgba(30,107,59,0.95);
+    }
+    #rundownChipBtn.is-warn .rd-remain { background: rgba(217,119,36,0.95); }
+    #rundownChipBtn.is-over .rd-remain { background: rgba(200,55,45,0.98); animation: rdPulse 1s ease-in-out infinite; }
+    @keyframes rdPulse {
+      0%, 100% { filter: brightness(1); }
+      50% { filter: brightness(1.18); }
+    }
+    #rundownPanel {
+      width: min(22rem, calc(100vw - 1.5rem));
+      background: rgba(15, 23, 42, 0.94);
+      color: #f8fafc;
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 1rem;
+      padding: 0.75rem 0.8rem 0.85rem;
+      box-shadow: 0 18px 40px -18px rgba(0,0,0,0.55);
+      backdrop-filter: blur(12px);
+      display: none;
+    }
+    #rundownPanel.is-open { display: block; }
+    #rundownPanel h3 {
+      margin: 0 0 0.35rem;
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #fde68a;
+    }
+    #rundownPanel .rd-meta {
+      font-size: 0.68rem;
+      color: #cbd5e1;
+      margin-bottom: 0.55rem;
+      line-height: 1.35;
+    }
+    #rundownPanel .rd-modes {
+      display: flex;
+      gap: 0.3rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.55rem;
+    }
+    #rundownPanel .rd-modes button {
+      border: 1px solid rgba(148,163,184,0.45);
+      background: rgba(30,41,59,0.9);
+      color: #e2e8f0;
+      font-size: 0.62rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      border-radius: 999px;
+      padding: 0.28rem 0.55rem;
+      cursor: pointer;
+    }
+    #rundownPanel .rd-modes button.is-active {
+      background: #1E6B3B;
+      border-color: #4ade80;
+      color: #fff;
+    }
+    #rundownList {
+      max-height: min(42vh, 22rem);
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      padding-right: 0.15rem;
+    }
+    .rd-item {
+      text-align: left;
+      width: 100%;
+      border: 1px solid rgba(71,85,105,0.7);
+      background: rgba(30,41,59,0.75);
+      color: #e2e8f0;
+      border-radius: 0.65rem;
+      padding: 0.4rem 0.5rem;
+      cursor: pointer;
+      display: grid;
+      grid-template-columns: 4.4rem 1fr auto;
+      gap: 0.35rem;
+      align-items: start;
+    }
+    .rd-item:hover { border-color: rgba(251,191,36,0.55); }
+    .rd-item.is-current {
+      border-color: #4ade80;
+      background: rgba(30,107,59,0.35);
+      box-shadow: inset 0 0 0 1px rgba(74,222,128,0.25);
+    }
+    .rd-item.is-over {
+      border-color: #f87171;
+      background: rgba(200,55,45,0.28);
+    }
+    .rd-item .rd-time {
+      font-family: ui-monospace, monospace;
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: #93c5fd;
+      line-height: 1.25;
+    }
+    .rd-item .rd-title {
+      font-size: 0.68rem;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+    .rd-item .rd-sub {
+      grid-column: 2 / -1;
+      font-size: 0.58rem;
+      color: #94a3b8;
+      line-height: 1.3;
+    }
+    .rd-item .rd-badge {
+      font-size: 0.58rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #fef3c7;
+    }
+    #rundownHint {
+      margin-top: 0.45rem;
+      font-size: 0.58rem;
+      color: #94a3b8;
+      line-height: 1.35;
+    }
+
     /* Hover-only BGM light-bulb switch (top-left hit zone) */
     #bgmSourceHitZone {
       position: fixed;
@@ -4196,9 +4353,31 @@
         <span id="bestDressedLoadStatus" class="hidden xl:inline max-w-[140px] truncate text-[10px] font-bold text-amber-200/80" title="Loaded Best Dressed winner">Not loaded</span>
 
         <div class="h-5 w-px bg-slate-700 mx-0.5"></div>
+        <button type="button" onclick="toggleRundownPanel(true)" class="px-2.5 py-1.5 rounded-xl bg-amber-800/90 hover:bg-amber-700 text-amber-50 font-bold flex items-center gap-1.5 transition cursor-pointer border border-amber-300/35" title="Rundown tracker (R)"><i class="fa-solid fa-stopwatch"></i><span class="hidden sm:inline">Rundown</span></button>
         <button type="button" onclick="saveCustomizedHTML()" class="px-2.5 py-1.5 rounded-xl bg-[#23486A] hover:bg-[#1a3650] text-white font-bold flex items-center gap-1.5 transition cursor-pointer border border-sky-400/30" title="Save HTML"><i class="fa-solid fa-floppy-disk text-amber-300"></i><span class="hidden sm:inline">Save HTML</span></button>
         <button type="button" onclick="togglePresentationFullscreen()" class="p-2 rounded-xl bg-[#C8372D] hover:bg-[#b91c1c] text-white transition shadow cursor-pointer" title="Fullscreen"><i class="fa-solid fa-expand"></i></button>
       </div>
+    </div>
+  </div>
+
+  <!-- Presenter rundown tracker: clock + segment countdown / overrun -->
+  <div id="rundownChip" aria-live="polite">
+    <button type="button" id="rundownChipBtn" onclick="toggleRundownPanel()" title="Rundown tracker — press R">
+      <i class="fa-solid fa-stopwatch"></i>
+      <span class="rd-clock" id="rundownClock">--:--:--</span>
+      <span class="rd-seg" id="rundownChipSeg">Rundown</span>
+      <span class="rd-remain" id="rundownChipRemain">--:--</span>
+    </button>
+    <div id="rundownPanel" role="dialog" aria-label="Event rundown tracker">
+      <h3>Christmas Lunch Rundown · 11 Dec 2026</h3>
+      <div class="rd-meta" id="rundownMeta">Tracks planned windows so sessions do not overrun. Uses today’s clock (HH:MM).</div>
+      <div class="rd-modes" role="group" aria-label="Rundown mode">
+        <button type="button" id="rdModeClock" class="is-active" onclick="setRundownMode('clock')">Clock</button>
+        <button type="button" id="rdModeSlides" onclick="setRundownMode('slides')">Follow slides</button>
+        <button type="button" id="rdModeManual" onclick="setRundownMode('manual')">Manual pin</button>
+      </div>
+      <div id="rundownList"></div>
+      <p id="rundownHint">Tip: press <strong>R</strong> to open/close · click a row to pin that segment · Clock mode follows wall time every day (rehearsal-friendly).</p>
     </div>
   </div>
 
@@ -4270,6 +4449,28 @@
     const SLIDE_SOCK_GUESS = 16; // after grand prize draw
     const SLIDE_GROUP = 17;
     const SOCK_GUESS_COUNT = 3;
+
+    // Event rundown (from Christmas Lunch_Rundown 2026_v1). Times are local HH:MM.
+    // slideFrom/slideTo are 0-based inclusive deck indices for Follow-slides mode.
+    const RUNDOWN = [
+      { id: 'setup', start: '10:45', end: '12:00', session: '0', title: 'Pre-event set-up & rehearsal', detail: 'Booths · MC/game/lucky-draw rehearsal', slideFrom: 0, slideTo: 0, soft: true },
+      { id: 'standby', start: '12:00', end: '12:10', session: '0', title: 'Crew standby', detail: 'Final checks · hold positions by 12:10', slideFrom: 0, slideTo: 0, soft: true },
+      { id: 'registration', start: '12:10', end: '12:28', session: '1', title: 'Registration · welcome drink', detail: 'Nametags · sock guess QR · Santa photos', slideFrom: 0, slideTo: 0, soft: true },
+      { id: 'seating', start: '12:28', end: '12:30', session: '1', title: 'Guests to seating', detail: 'Guide by seating plan', slideFrom: 0, slideTo: 0, soft: true },
+      { id: 'welcome', start: '12:30', end: '12:40', session: '2', title: 'Welcoming · CEO kick-off', detail: 'Bell · MC open · CEO speech & toast · 10 min', slideFrom: 0, slideTo: 2 },
+      { id: 'buffet1', start: '12:40', end: '13:10', session: '3', title: '1st round buffet', detail: '30 min lunch service', slideFrom: 3, slideTo: 3 },
+      { id: 'games', start: '13:10', end: '13:25', session: '4', title: 'Games', detail: 'Game 1 Guessing + Game 2 Cooking · 15 min', slideFrom: 4, slideTo: 10 },
+      { id: 'lucky1', start: '13:25', end: '13:35', session: '4', title: '1st lucky draw', detail: 'Christmas gifts · batch draws · 10–15 min', slideFrom: 11, slideTo: 11 },
+      { id: 'buffet2', start: '13:35', end: '13:45', session: '5', title: '2nd round buffet', detail: 'Dessert & coffee bridge to Best Dress', slideFrom: 12, slideTo: 12 },
+      { id: 'bestdress', start: '13:45', end: '14:07', session: '6', title: 'Best Dress · 2nd lucky draw · socks', detail: 'Catwalk · grand prizes · sock reveal · ~22 min', slideFrom: 13, slideTo: 16 },
+      { id: 'closing', start: '14:07', end: '14:25', session: '7', title: 'Closing · group photo', detail: 'Thanks · group photo · mingling supply', slideFrom: 17, slideTo: 17 },
+      { id: 'buffer', start: '14:25', end: '14:40', session: '8', title: 'Buffer · dismantle', detail: 'Party end ~14:30 · pack-down from 14:40', slideFrom: 17, slideTo: 17, soft: true }
+    ];
+    let rundownMode = 'clock'; // clock | slides | manual
+    let rundownPinnedId = null;
+    let rundownPanelOpen = false;
+    let rundownWarnedIds = new Set();
+    let rundownOverToastIds = new Set();
     const CHRISTMAS_SLOTS = 14; // 3+3+4+3+1
     const GRAND_SLOTS = 6;
     let winnerModalHoldTimer = null;
@@ -5914,11 +6115,164 @@
       if (slides[currentSlideIdx]?.dataset?.title === '8. Game 2: How to Play') {
         requestAnimationFrame(() => requestAnimationFrame(drawHowPlaySwimArrows));
       }
+      updateRundownTracker();
     }
 
     window.addEventListener('resize', () => {
       if (slides[currentSlideIdx]?.dataset?.title === '8. Game 2: How to Play') drawHowPlaySwimArrows();
     });
+
+    function parseRundownHM(hm) {
+      const [h, m] = String(hm).split(':').map(Number);
+      return (h * 60 + m) | 0;
+    }
+    function formatRundownClock(date = new Date()) {
+      return [date.getHours(), date.getMinutes(), date.getSeconds()]
+        .map(n => String(n).padStart(2, '0')).join(':');
+    }
+    function formatRundownSignedSeconds(totalSec) {
+      const sign = totalSec < 0 ? '+' : ''; // negative remaining = overrun → show +
+      const abs = Math.abs(totalSec | 0);
+      const mm = Math.floor(abs / 60);
+      const ss = abs % 60;
+      const core = `${String(mm).padStart(2, '0')}:${String(ss).padStart(2, '0')}`;
+      return totalSec < 0 ? `+${core}` : core;
+    }
+    function getRundownNowMinutes(date = new Date()) {
+      return date.getHours() * 60 + date.getMinutes() + date.getSeconds() / 60;
+    }
+    function getRundownSegmentByClock(nowMin = getRundownNowMinutes()) {
+      const firstStart = parseRundownHM(RUNDOWN[0].start);
+      if (nowMin < firstStart) {
+        return {
+          id: 'pre',
+          start: '00:00',
+          end: RUNDOWN[0].start,
+          session: '—',
+          title: 'Before rundown',
+          detail: `Waiting for ${RUNDOWN[0].title} · starts ${RUNDOWN[0].start}`,
+          slideFrom: 0,
+          slideTo: 0,
+          soft: true,
+          preEvent: true
+        };
+      }
+      let current = RUNDOWN[0];
+      for (const seg of RUNDOWN) {
+        const a = parseRundownHM(seg.start);
+        const b = parseRundownHM(seg.end);
+        if (nowMin >= a && nowMin < b) return seg;
+        if (nowMin >= a) current = seg;
+      }
+      // After last segment end → keep last, marked overrun by remain math
+      return current;
+    }
+    function getRundownSegmentBySlide(slideIdx = currentSlideIdx) {
+      const hit = RUNDOWN.find(seg => !seg.soft && slideIdx >= seg.slideFrom && slideIdx <= seg.slideTo)
+        || RUNDOWN.find(seg => slideIdx >= seg.slideFrom && slideIdx <= seg.slideTo);
+      return hit || RUNDOWN[RUNDOWN.length - 1];
+    }
+    function getActiveRundownSegment() {
+      if (rundownMode === 'manual' && rundownPinnedId) {
+        return RUNDOWN.find(s => s.id === rundownPinnedId) || getRundownSegmentByClock();
+      }
+      if (rundownMode === 'slides') return getRundownSegmentBySlide();
+      return getRundownSegmentByClock();
+    }
+    function setRundownMode(mode, opts = {}) {
+      rundownMode = mode;
+      if (mode !== 'manual') rundownPinnedId = null;
+      const map = { clock: 'rdModeClock', slides: 'rdModeSlides', manual: 'rdModeManual' };
+      Object.entries(map).forEach(([m, id]) => {
+        document.getElementById(id)?.classList.toggle('is-active', m === mode);
+      });
+      updateRundownTracker({ forceList: true });
+      if (!opts.silent) {
+        showToast(`Rundown: ${mode === 'clock' ? 'follow clock' : mode === 'slides' ? 'follow slides' : 'manual pin'}`, 'success');
+      }
+    }
+    function pinRundownSegment(id) {
+      rundownPinnedId = id;
+      rundownMode = 'manual';
+      setRundownMode('manual', { silent: true });
+      const seg = RUNDOWN.find(s => s.id === id);
+      showToast(`Pinned: ${seg?.title || id}`, 'success');
+      updateRundownTracker({ forceList: true });
+    }
+    function toggleRundownPanel(forceOpen) {
+      rundownPanelOpen = forceOpen == null ? !rundownPanelOpen : !!forceOpen;
+      document.getElementById('rundownPanel')?.classList.toggle('is-open', rundownPanelOpen);
+      if (rundownPanelOpen) updateRundownTracker({ forceList: true });
+    }
+    function buildRundownList() {
+      const list = document.getElementById('rundownList');
+      if (!list) return;
+      const active = getActiveRundownSegment();
+      const nowMin = getRundownNowMinutes();
+      list.innerHTML = RUNDOWN.map(seg => {
+        const end = parseRundownHM(seg.end);
+        const over = nowMin >= end && active?.id === seg.id;
+        const isCurrent = active?.id === seg.id;
+        return `<button type="button" class="rd-item${isCurrent ? ' is-current' : ''}${over ? ' is-over' : ''}" onclick="pinRundownSegment('${seg.id}')">
+          <span class="rd-time">${seg.start}–${seg.end}</span>
+          <span class="rd-title">${escapeHTML(seg.title)}</span>
+          <span class="rd-badge">${isCurrent ? (over ? 'OVER' : 'NOW') : (seg.soft ? 'soft' : 'S' + seg.session)}</span>
+          <span class="rd-sub">${escapeHTML(seg.detail || '')}</span>
+        </button>`;
+      }).join('');
+    }
+    function updateRundownTracker(opts = {}) {
+      const now = new Date();
+      const clockEl = document.getElementById('rundownClock');
+      if (clockEl) clockEl.textContent = formatRundownClock(now);
+      const seg = getActiveRundownSegment();
+      if (!seg) return;
+      const nowMin = getRundownNowMinutes(now);
+      const endMin = parseRundownHM(seg.end);
+      const startMin = parseRundownHM(seg.start);
+      const remainSec = Math.round((endMin - nowMin) * 60);
+      const chipBtn = document.getElementById('rundownChipBtn');
+      const chipSeg = document.getElementById('rundownChipSeg');
+      const chipRemain = document.getElementById('rundownChipRemain');
+      const meta = document.getElementById('rundownMeta');
+      if (chipSeg) chipSeg.textContent = seg.title;
+      if (chipRemain) chipRemain.textContent = formatRundownSignedSeconds(remainSec);
+      const warn = remainSec >= 0 && remainSec <= 120;
+      const over = remainSec < 0;
+      chipBtn?.classList.toggle('is-warn', warn && !over);
+      chipBtn?.classList.toggle('is-over', over);
+      if (meta) {
+        const modeLabel = rundownMode === 'clock' ? 'Clock' : rundownMode === 'slides' ? 'Follow slides' : 'Manual pin';
+        const nextIdx = RUNDOWN.findIndex(s => s.id === seg.id) + 1;
+        const nextTitle = seg.preEvent ? RUNDOWN[0].title : (RUNDOWN[nextIdx]?.title || '—');
+        const timingLabel = seg.preEvent
+          ? `<span style="color:#93c5fd">starts in ${formatRundownSignedSeconds(remainSec)}</span>`
+          : over
+            ? `<span style="color:#fca5a5">overrun ${formatRundownSignedSeconds(remainSec)}</span>`
+            : `<span style="color:#86efac">${formatRundownSignedSeconds(remainSec)} left</span>`;
+        meta.innerHTML = `<strong>${escapeHTML(seg.title)}</strong> · ${seg.preEvent ? `until ${seg.end}` : `${seg.start}–${seg.end}`}`
+          + ` · ${timingLabel}`
+          + `<br>Mode: ${modeLabel} · Next: ${escapeHTML(nextTitle)}`;
+      }
+      if (opts.forceList || rundownPanelOpen) buildRundownList();
+      // Toast once when entering last 2 minutes / first overrun (skip pre-event waiting)
+      if (!seg.preEvent && warn && !rundownWarnedIds.has(seg.id)) {
+        rundownWarnedIds.add(seg.id);
+        showToast(`⏱ ${seg.title}: under 2 min left`, 'error');
+      }
+      if (!seg.preEvent && over && !rundownOverToastIds.has(seg.id)) {
+        rundownOverToastIds.add(seg.id);
+        showToast(`⚠️ OVER: ${seg.title} — wrap or jump ahead`, 'error');
+      }
+      if (!over) rundownOverToastIds.delete(seg.id);
+      if (!warn && remainSec > 120) rundownWarnedIds.delete(seg.id);
+      void startMin;
+    }
+    function startRundownTracker() {
+      buildRundownList();
+      updateRundownTracker({ forceList: true });
+      setInterval(() => updateRundownTracker(), 1000);
+    }
 
     let bestDressedRevealBusy = false;
     const BEST_DRESSED_STORAGE_KEY = 'apacBestDressedWinnerV1';
@@ -6257,6 +6611,7 @@
 
       if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); nextSlide(); }
       else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prevSlide(); }
+      else if (e.key === 'r' || e.key === 'R') { e.preventDefault(); toggleRundownPanel(); }
       else if (e.code === 'Space' && (currentSlideIdx === SLIDE_XMAS_SPIN || currentSlideIdx === SLIDE_GRAND_SPIN) && !isSpinning && !isBatchRunning) {
         e.preventDefault();
         if (currentSlideIdx === SLIDE_XMAS_SPIN) {
@@ -6954,6 +7309,7 @@
     applyCompanyLogo();
     applyOrderFormPhoto();
     applyMenuPhotos();
+    startRundownTracker();
     if (bestDressedWinnerData) {
       try { applyBestDressedWinner(bestDressedWinnerData, { silent: true }); }
       catch (_) { restoreBestDressedWinnerFromStorage(); }
