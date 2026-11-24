@@ -4500,11 +4500,11 @@
     const BATCH_HOLD_MS = 2200;
 
     const CHRISTMAS_BATCHES = [
-      { id: 'giftA', qty: 3, name: 'Christmas Gift A', color: '#C8372D' },
-      { id: 'giftB', qty: 3, name: 'Christmas Gift B', color: '#1E6B3B' },
-      { id: 'giftC', qty: 4, name: 'Christmas Gift C', color: '#23486A' },
-      { id: 'giftD', qty: 3, name: 'Christmas Gift D', color: '#D97724' },
-      { id: 'giftE', qty: 1, name: 'Christmas Gift E', color: '#991B1B' }
+      { id: 'giftA', qty: 3, name: "City'super · HKD 200", color: '#C8372D', short: "City'super $200" },
+      { id: 'giftB', qty: 3, name: 'Starbucks · HKD 300', color: '#1E6B3B', short: 'Starbucks $300' },
+      { id: 'giftC', qty: 4, name: 'Wellcome · HKD 500', color: '#23486A', short: 'Wellcome $500' },
+      { id: 'giftD', qty: 3, name: 'Broadway Lifestyle · HKD 800', color: '#D97724', short: 'Broadway $800' },
+      { id: 'giftE', qty: 1, name: 'YAMM buffet for 2', color: '#991B1B', short: 'YAMM buffet' }
     ];
     const GRAND_PRIZES = [
       { id: 'gp1', rank: 1, name: '1st · iPhone 17e 256GB', color: '#C8372D', short: 'iPhone 17e' },
@@ -4514,6 +4514,13 @@
       { id: 'gp5', rank: 5, name: '5th · HK Disneyland ×2', color: '#991B1B', short: 'HKDL tickets' },
       { id: 'gp6', rank: 6, name: '6th · Garmin Forerunner 165', color: '#14532D', short: 'Garmin 165' }
     ];
+    const DEFAULT_CHRISTMAS_GIFT_PHOTOS = {
+      0: 'media/christmas-gifts/voucher-a.jpg',
+      1: 'media/christmas-gifts/voucher-b.jpg',
+      2: 'media/christmas-gifts/voucher-c.jpg',
+      3: 'media/christmas-gifts/voucher-d.jpg',
+      4: 'media/christmas-gifts/voucher-e.jpg'
+    };
     const DEFAULT_GRAND_PRIZE_PHOTOS = {
       0: 'media/grand-prizes/voucher-1st.jpg',
       1: 'media/grand-prizes/voucher-2nd.jpg',
@@ -4530,7 +4537,7 @@
       4: 'media/grand-prizes/announce-5th.jpg',
       5: 'media/grand-prizes/announce-6th.jpg'
     };
-    let christmasGiftPhotos = {}; // #SAVE:christmasGiftPhotos
+    let christmasGiftPhotos = { ...DEFAULT_CHRISTMAS_GIFT_PHOTOS }; // #SAVE:christmasGiftPhotos
     let grandPrizePhotos = { ...DEFAULT_GRAND_PRIZE_PHOTOS }; // #SAVE:grandPrizePhotos
     let christmasGiftNames = CHRISTMAS_BATCHES.map(g => g.name); // #SAVE:christmasGiftNames
     let grandPrizeNames = GRAND_PRIZES.map(g => g.name); // #SAVE:grandPrizeNames
@@ -4887,7 +4894,11 @@
           || DEFAULT_GRAND_PRIZE_PHOTOS[entry.rankIndex]
           || '';
       }
-      if (entry.giftIndex != null) return christmasGiftPhotos[entry.giftIndex] || '';
+      if (entry.giftIndex != null) {
+        return christmasGiftPhotos[entry.giftIndex]
+          || DEFAULT_CHRISTMAS_GIFT_PHOTOS[entry.giftIndex]
+          || '';
+      }
       return '';
     }
 
@@ -5244,7 +5255,7 @@
       }).join('');
       CHRISTMAS_BATCHES.forEach((_, idx) => {
         const el = document.getElementById(`phase1PhotoBox${idx}`);
-        const photo = christmasGiftPhotos[idx];
+        const photo = christmasGiftPhotos[idx] || DEFAULT_CHRISTMAS_GIFT_PHOTOS[idx];
         if (photo) setElementImage(el, photo, `Gift ${idx + 1}`);
         else setPrizePhotoPlaceholder(el, { iconClass: 'fa-solid fa-camera text-xl mb-1', label: 'Pin a photo' });
       });
@@ -5323,17 +5334,20 @@
       }
       if (photoEl) {
         photoEl.classList.toggle('hidden', !showPhoto);
-        const isGrandVoucher = showPhoto && last && last.rankIndex != null;
-        photoEl.classList.toggle('modal-prize-voucher', !!isGrandVoucher);
-        modal.classList.toggle('winner-modal-voucher', !!isGrandVoucher);
+        const isVoucherCard = showPhoto && last && (last.rankIndex != null || last.giftIndex != null);
+        photoEl.classList.toggle('modal-prize-voucher', !!isVoucherCard);
+        modal.classList.toggle('winner-modal-voucher', !!isVoucherCard);
         if (showPhoto) {
-          const photo = opts.photo || getPrizePhotoForWinner(last);
+          const photo = opts.photo
+            || getPrizePhotoForWinner(last)
+            || (last?.giftIndex != null ? DEFAULT_CHRISTMAS_GIFT_PHOTOS[last.giftIndex] : '')
+            || '';
           if (photo) {
             setElementImage(
               photoEl,
               photo,
-              isGrandVoucher ? 'Gift voucher' : 'Prize',
-              isGrandVoucher ? 'w-full h-full object-contain' : 'w-full h-full object-cover'
+              isVoucherCard ? 'Gift voucher' : 'Prize',
+              isVoucherCard ? 'w-full h-full object-contain' : 'w-full h-full object-cover'
             );
             photoEl.classList.remove('border-dashed');
             photoEl.classList.add('border-solid', 'border-[#C8372D]');
@@ -6930,7 +6944,9 @@
         await showWinnerModal(drawn[0], {
           names: drawn,
           label: prizeName,
-          photo: christmasGiftPhotos[giftIndex] || '',
+          photo: christmasGiftPhotos[giftIndex]
+            || DEFAULT_CHRISTMAS_GIFT_PHOTOS[giftIndex]
+            || '',
           showPhoto: true,
           waitUntilContinue: true,
           hideSpinAgain: true,
