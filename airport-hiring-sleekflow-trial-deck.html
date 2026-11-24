@@ -363,6 +363,63 @@
       border-width: 0 2px 2px 0;
     }
 
+
+    /* Section divider */
+    .slide.divider {
+      justify-content: center;
+      gap: clamp(16px, 3vh, 28px);
+      background:
+        radial-gradient(ellipse 70% 55% at 15% 80%, rgba(138,75,18,0.08), transparent 55%),
+        radial-gradient(ellipse 70% 55% at 90% 20%, rgba(26,95,74,0.08), transparent 50%),
+        var(--paper);
+    }
+    .slide.divider.help-tone {
+      background:
+        radial-gradient(ellipse 70% 55% at 20% 70%, rgba(26,95,74,0.12), transparent 55%),
+        var(--paper);
+    }
+    .slide.divider.cost-tone {
+      background:
+        radial-gradient(ellipse 70% 55% at 80% 30%, rgba(26,95,74,0.1), transparent 50%),
+        radial-gradient(ellipse 50% 40% at 10% 90%, rgba(138,75,18,0.07), transparent 50%),
+        var(--paper);
+    }
+    .sec-kicker {
+      font-size: clamp(12px, 1.5vh, 14px);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--soft);
+    }
+    .sec-kicker .zh {
+      display: inline;
+      margin-left: 8px;
+      letter-spacing: 0;
+      text-transform: none;
+      font-weight: 600;
+    }
+    .slide.divider h1 {
+      font-size: clamp(32px, 6vh, 52px);
+      max-width: 18ch;
+    }
+    .slide.divider .lead {
+      font-size: clamp(15px, 2.1vh, 19px);
+      max-width: 36rem;
+      color: var(--soft);
+    }
+    .slide.divider .sec-num {
+      font-size: clamp(64px, 14vh, 120px);
+      font-weight: 700;
+      line-height: 0.9;
+      letter-spacing: -0.05em;
+      opacity: 0.12;
+      color: var(--ink);
+      margin: 0;
+    }
+    .slide.divider.pain-tone .sec-num { color: var(--pain); opacity: 0.2; }
+    .slide.divider.help-tone .sec-num { color: var(--mark); opacity: 0.2; }
+    .slide.divider.cost-tone .sec-num { color: var(--mark); opacity: 0.22; }
+
     .dots {
       display: flex; justify-content: center; align-items: center; gap: 6px;
       z-index: 2;
@@ -427,7 +484,7 @@
     <div class="bar">
       <div>SleekFlow 4-month trial｜四個月試用 · hiring WhatsApp</div>
       <div class="right">
-        <span class="n" id="counter">1 / 9</span>
+        <span class="n" id="counter">1 / 12</span>
         <button type="button" id="prev">Prev｜上一頁</button>
         <button type="button" id="next">Next｜下一頁</button>
         <button type="button" id="fs">Full screen｜全螢幕</button>
@@ -508,13 +565,43 @@
           </div>
         </section>
 
-        <!-- 3 Pain -->
+        <!-- 3 Transition: Pain -->
+        <section class="slide divider pain-tone">
+          <p class="sec-num" aria-hidden="true">01</p>
+          <p class="sec-kicker">Section｜章節<span class="zh">痛點</span></p>
+          <h1>
+            Pain points
+            <span class="zh">痛點</span>
+          </h1>
+          <p class="lead">
+            First the situation today, then where it hurts on the path.
+            <span class="zh">先看現況，再看流程上哪裡最痛。</span>
+          </p>
+        </section>
+
+        <!-- 4 Situation + pains -->
         <section class="slide">
           <h2>
-            Pain points we are targeting
-            <span class="zh">我們要處理的痛點</span>
+            Today’s situation, then the pain points
+            <span class="zh">先看現況，再看痛點</span>
           </h2>
           <div class="body">
+            <div class="box">
+              <div class="ico pain" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h12v10H8l-4 3V6z"/><path d="M16 9h4v10l-3-2h-1"/></svg>
+              </div>
+              <h3>Current situation<span class="zh">現況</span></h3>
+              <ul>
+                <li>One People / Ops team runs airport catering hiring end to end<span class="zh">People／Ops 同一團隊負責機場餐飲招聘全流程</span></li>
+                <li>From apply to day 1, most contact is manual WhatsApp on shared / personal phones<span class="zh">由申請到到職日，多靠共用／個人電話人手 WhatsApp</span></li>
+                <li>Candidates are scarce — every lead that writes in matters<span class="zh">候選人偏少——每一個主動查詢都重要</span></li>
+                <li>Follow-up (book, docs, test, day-1 care) is repetitive and easy to miss<span class="zh">跟進（預約、文件、考試、到職照顧）重覆又易漏</span></li>
+              </ul>
+              <div class="pips" title="High effort" style="margin-top:10px">
+                <i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i>
+                <span class="soft" style="font-size:12px;margin-left:6px">Manual effort today｜現時人手負擔</span>
+              </div>
+            </div>
             <div class="row two">
               <div class="box pain">
                 <div class="ico pain" aria-hidden="true">
@@ -541,31 +628,92 @@
                 </ul>
               </div>
             </div>
-            <div class="effort">
-              <div class="box">
-                <h3>Today｜現況</h3>
-                <p>Manual chase on personal WhatsApp<span class="zh">人手在個人 WhatsApp 追蹤</span></p>
-                <div class="pips" title="High effort">
-                  <i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i>
-                </div>
-              </div>
-              <div class="arrow" aria-hidden="true">→</div>
-              <div class="box help">
-                <h3>Not the main problem<span class="zh">不是主要問題</span></h3>
-                <p>
-                  We are not drowning under too many applications. The trial is about keeping scarce candidates moving, and cutting retyping / missed follow-ups.
-                  <span class="zh">重點不是申請量太大；試用是要留住稀缺候選人，並減少重覆輸入與漏跟進。</span>
-                </p>
-              </div>
+          </div>
+        </section>
+
+        <!-- 5 Transition: SleekFlow -->
+        <section class="slide divider help-tone">
+          <p class="sec-num" aria-hidden="true">02</p>
+          <p class="sec-kicker">Section｜章節<span class="zh">協助方式</span></p>
+          <h1>
+            How SleekFlow helps
+            <span class="zh">SleekFlow 可如何協助</span>
+          </h1>
+          <p class="lead">
+            Step-by-step ideas first, then a visual summary of the trial scope.
+            <span class="zh">先逐步說明想法，再用視覺整理試用範圍。</span>
+          </p>
+        </section>
+
+        <!-- 6 Step by step (high level) -->
+        <section class="slide">
+          <h2>
+            Step by step — pain → SleekFlow idea
+            <span class="zh">逐步：痛點 → 試用做法</span>
+          </h2>
+          <p class="soft">
+            High-level view of how SleekFlow could assist at each step.
+            <span class="zh">從高階角度看每一步 SleekFlow 可如何協助。</span>
+          </p>
+          <div class="body">
+            <table>
+              <thead>
+                <tr>
+                  <th>Step｜步驟</th>
+                  <th>Pain today｜現況痛點</th>
+                  <th>Trial idea｜試用想法</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="sf-row">
+                  <td>1 Apply<span class="zh">申請</span></td>
+                  <td>Retype details; easy to lose the lead<span class="zh">重覆輸入；易流失</span></td>
+                  <td>QR / link → bot asks name, phone, role<span class="zh">二維碼／連結 → 機械人問姓名、電話、職位</span></td>
+                </tr>
+                <tr class="sf-row">
+                  <td>2 Screen &amp; book<span class="zh">篩選／預約</span></td>
+                  <td>Manual booking + reminder<span class="zh">人手預約及提醒</span></td>
+                  <td>Slot buttons; day-before reminder template<span class="zh">時段按鈕；前一天提醒範本</span></td>
+                </tr>
+                <tr class="human-row">
+                  <td>3 Interview<span class="zh">面試</span></td>
+                  <td>Must be face to face<span class="zh">必須面談</span></td>
+                  <td>Human only; result note in inbox<span class="zh">人手；結果記在收件匣</span></td>
+                </tr>
+                <tr class="sf-row">
+                  <td>4 Docs / ID<span class="zh">文件／身份證</span></td>
+                  <td>Chase blurry photos<span class="zh">追模糊照片</span></td>
+                  <td>Template chase + tips; team helps if stuck<span class="zh">範本催收 + 提示；卡住時人手協助</span></td>
+                </tr>
+                <tr class="sf-row">
+                  <td>5–7 Permit / test<span class="zh">許可證／考試</span></td>
+                  <td>Status + rebook by hand<span class="zh">人手查進度、改期</span></td>
+                  <td>Status / book / fail-rebook templates<span class="zh">進度／預約／不合格改期範本</span></td>
+                </tr>
+                <tr class="human-row">
+                  <td>8 Offer<span class="zh">口頭聘用</span></td>
+                  <td>Call is personal<span class="zh">電話需個人處理</span></td>
+                  <td>Call stays human; short written summary optional<span class="zh">電話仍人手；可選書面摘要</span></td>
+                </tr>
+                <tr class="sf-row">
+                  <td>9 Day 1<span class="zh">到職日</span></td>
+                  <td>Morning care for every starter<span class="zh">每位新人都要早上照顧</span></td>
+                  <td>7am map + supervisor template; team takes live rescue<span class="zh">早上地圖＋主管範本；緊急情況人手處理</span></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="legend">
+              <span style="color:var(--mark);font-weight:600">Green tip = SleekFlow can carry｜綠色＝SleekFlow 可分擔</span>
+              <span style="color:var(--human);font-weight:600">Grey tip = stays human｜灰色＝仍人手</span>
             </div>
           </div>
         </section>
 
-        <!-- 4 Where SF helps -->
+        <!-- 7 Summary + visual -->
         <section class="slide">
           <h2>
-            Where SleekFlow can help on the path
-            <span class="zh">SleekFlow 在流程上可協助之處</span>
+            Summary — where SleekFlow assists
+            <span class="zh">總結 — SleekFlow 可協助之處</span>
           </h2>
           <div class="body">
             <div class="flow">
@@ -616,67 +764,21 @@
           </div>
         </section>
 
-        <!-- 5 Step by step -->
-        <section class="slide">
-          <h2>
-            Step by step — pain → SleekFlow idea
-            <span class="zh">逐步：痛點 → 試用做法</span>
-          </h2>
-          <div class="body">
-            <table>
-              <thead>
-                <tr>
-                  <th>Step｜步驟</th>
-                  <th>Pain today｜現況痛點</th>
-                  <th>Trial idea｜試用想法</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="sf-row">
-                  <td>1 Apply<span class="zh">申請</span></td>
-                  <td>Retype details; easy to lose the lead<span class="zh">重覆輸入；易流失</span></td>
-                  <td>QR / link → bot asks name, phone, role<span class="zh">二維碼／連結 → 機械人問姓名、電話、職位</span></td>
-                </tr>
-                <tr class="sf-row">
-                  <td>2 Screen &amp; book<span class="zh">篩選／預約</span></td>
-                  <td>Manual booking + reminder<span class="zh">人手預約及提醒</span></td>
-                  <td>Slot buttons; day-before reminder template<span class="zh">時段按鈕；前一天提醒範本</span></td>
-                </tr>
-                <tr class="human-row">
-                  <td>3 Interview<span class="zh">面試</span></td>
-                  <td>Must be face to face<span class="zh">必須面談</span></td>
-                  <td>Human only; result note in inbox<span class="zh">人手；結果記在收件匣</span></td>
-                </tr>
-                <tr class="sf-row">
-                  <td>4 Docs / ID<span class="zh">文件／身份證</span></td>
-                  <td>Chase blurry photos<span class="zh">追模糊照片</span></td>
-                  <td>Template chase + tips; team helps if stuck<span class="zh">範本催收 + 提示；卡住時人手協助</span></td>
-                </tr>
-                <tr class="sf-row">
-                  <td>5–7 Permit / test<span class="zh">許可證／考試</span></td>
-                  <td>Status + rebook by hand<span class="zh">人手查進度、改期</span></td>
-                  <td>Status / book / fail-rebook templates<span class="zh">進度／預約／不合格改期範本</span></td>
-                </tr>
-                <tr class="human-row">
-                  <td>8 Offer<span class="zh">口頭聘用</span></td>
-                  <td>Call is personal<span class="zh">電話需個人處理</span></td>
-                  <td>Call stays human; short written summary optional<span class="zh">電話仍人手；可選書面摘要</span></td>
-                </tr>
-                <tr class="sf-row">
-                  <td>9 Day 1<span class="zh">到職日</span></td>
-                  <td>Morning care for every starter<span class="zh">每位新人都要早上照顧</span></td>
-                  <td>7am map + supervisor template; team takes live rescue<span class="zh">早上地圖＋主管範本；緊急情況人手處理</span></td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="legend">
-              <span style="color:var(--mark);font-weight:600">Green row tip = SleekFlow can carry｜綠色＝SleekFlow 可分擔</span>
-              <span style="color:var(--human);font-weight:600">Grey tip = stays human｜灰色＝仍人手</span>
-            </div>
-          </div>
+        <!-- 8 Transition: Cost -->
+        <section class="slide divider cost-tone">
+          <p class="sec-num" aria-hidden="true">03</p>
+          <p class="sec-kicker">Section｜章節<span class="zh">費用</span></p>
+          <h1>
+            Cost estimate
+            <span class="zh">費用估算</span>
+          </h1>
+          <p class="lead">
+            How WhatsApp / Meta charging works, then a 4-month ballpark.
+            <span class="zh">先了解 WhatsApp／Meta 收費，再看四個月粗算。</span>
+          </p>
         </section>
 
-        <!-- 6 WhatsApp charging -->
+        <!-- 9 WhatsApp charging -->
         <section class="slide">
           <h2>
             How WhatsApp charging works (simple)
@@ -726,7 +828,7 @@
           </div>
         </section>
 
-        <!-- 7 Cost -->
+        <!-- 10 Cost -->
         <section class="slide">
           <h2>
             4-month cost estimate
@@ -796,7 +898,7 @@
           </div>
         </section>
 
-        <!-- 8 Success -->
+        <!-- 11 Success -->
         <section class="slide">
           <h2>
             What success looks like after 4 months
@@ -845,7 +947,7 @@
           </div>
         </section>
 
-        <!-- 9 Plan -->
+        <!-- 12 Plan -->
         <section class="slide">
           <h2>
             Trial plan in one page
