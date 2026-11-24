@@ -1515,12 +1515,15 @@
       pointer-events: auto;
     }
 
-    /* Presenter rundown tracker (audience-safe: compact chip; expand with R) */
+    /* Presenter rundown tracker — hover hit-zone (hidden until mouse over / panel open / R) */
     #rundownChip {
       position: fixed;
-      top: 0.65rem;
-      right: 0.75rem;
+      top: 0;
+      right: 0;
       z-index: 62;
+      width: 11rem;
+      min-height: 3.25rem;
+      padding: 0.55rem 0.65rem 0.35rem;
       display: flex;
       flex-direction: column;
       align-items: flex-end;
@@ -1544,6 +1547,19 @@
       font-size: 0.72rem;
       font-weight: 800;
       letter-spacing: 0.02em;
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+      pointer-events: none;
+    }
+    #rundownChip:hover #rundownChipBtn,
+    #rundownChip:focus-within #rundownChipBtn,
+    #rundownChip.is-open #rundownChipBtn {
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
     }
     #rundownChipBtn .rd-clock { font-variant-numeric: tabular-nums; font-family: ui-monospace, monospace; }
     #rundownChipBtn .rd-seg { max-width: 9.5rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -1570,8 +1586,13 @@
       box-shadow: 0 18px 40px -18px rgba(0,0,0,0.55);
       backdrop-filter: blur(12px);
       display: none;
+      margin-right: 0.1rem;
     }
     #rundownPanel.is-open { display: block; }
+    #rundownChip.is-open {
+      width: auto;
+      max-width: min(22rem, calc(100vw - 1.5rem));
+    }
     #rundownPanel h3 {
       margin: 0 0 0.35rem;
       font-size: 0.78rem;
@@ -4377,7 +4398,7 @@
         <button type="button" id="rdModeManual" onclick="setRundownMode('manual')">Manual pin</button>
       </div>
       <div id="rundownList"></div>
-      <p id="rundownHint">Tip: press <strong>R</strong> to open/close · click a row to pin that segment · Clock mode follows wall time every day (rehearsal-friendly).</p>
+      <p id="rundownHint">Tip: hover top-right to show the chip · press <strong>R</strong> to open/close · click a row to pin · Clock follows wall time (rehearsal-friendly).</p>
     </div>
   </div>
 
@@ -4787,9 +4808,17 @@
       const announce = idx >= 0
         ? (DEFAULT_GRAND_ANNOUNCE_PHOTOS[idx] || '')
         : '';
-      while (preview.firstChild) preview.removeChild(preview.firstChild);
+      // Keep the same <img> when the announce src is unchanged — avoids flicker that looks like photos "updating"
+      const existing = preview.querySelector('img');
       if (announce && prize) {
         preview.classList.remove('is-empty');
+        if (existing && existing.getAttribute('src') === announce) {
+          if (detail) {
+            detail.textContent = `${grandPrizeNames[idx] || prize.name} · drawn #6 → #1 · voucher opens on win`;
+          }
+          return;
+        }
+        while (preview.firstChild) preview.removeChild(preview.firstChild);
         const img = document.createElement('img');
         img.src = announce;
         img.alt = `${prize.rank}${prize.rank === 1 ? 'st' : prize.rank === 2 ? 'nd' : prize.rank === 3 ? 'rd' : 'th'} prize announce`;
@@ -4798,6 +4827,7 @@
           detail.textContent = `${grandPrizeNames[idx] || prize.name} · drawn #6 → #1 · voucher opens on win`;
         }
       } else {
+        while (preview.firstChild) preview.removeChild(preview.firstChild);
         preview.classList.add('is-empty');
         preview.textContent = 'All six drawn';
         if (detail) detail.textContent = 'Honor roll complete — sock reveal next, then group photo';
@@ -6202,6 +6232,7 @@
     function toggleRundownPanel(forceOpen) {
       rundownPanelOpen = forceOpen == null ? !rundownPanelOpen : !!forceOpen;
       document.getElementById('rundownPanel')?.classList.toggle('is-open', rundownPanelOpen);
+      document.getElementById('rundownChip')?.classList.toggle('is-open', rundownPanelOpen);
       if (rundownPanelOpen) updateRundownTracker({ forceList: true });
     }
     function buildRundownList() {
