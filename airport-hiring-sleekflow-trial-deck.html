@@ -15,6 +15,8 @@
       --mark-bg: #eef6f2;
       --pain: #8a4b12;
       --pain-bg: #faf3ea;
+      --human: #555;
+      --human-bg: #f4f4f4;
       --sans: "Helvetica Neue", "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", Helvetica, Arial, sans-serif;
       --bar: 44px;
       --dots: 26px;
@@ -61,7 +63,10 @@
       display: none;
       position: absolute;
       inset: 0;
-      background: var(--paper);
+      background:
+        radial-gradient(ellipse 80% 50% at 100% 0%, rgba(26,95,74,0.06), transparent 55%),
+        radial-gradient(ellipse 60% 40% at 0% 100%, rgba(138,75,18,0.05), transparent 50%),
+        var(--paper);
       padding: clamp(24px, 3.8vh, 48px) clamp(28px, 4vw, 64px);
       overflow: auto;
     }
@@ -69,6 +74,11 @@
       display: flex;
       flex-direction: column;
       gap: clamp(10px, 1.6vh, 16px);
+      animation: fadeIn 0.35s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: none; }
     }
 
     h1 {
@@ -106,9 +116,11 @@
     .row { display: grid; gap: 10px; }
     .row.two { grid-template-columns: 1fr 1fr; }
     .row.three { grid-template-columns: 1fr 1fr 1fr; }
+    .row.cost { grid-template-columns: 1.1fr 1fr; align-items: stretch; }
 
     .box {
       border: 1px solid var(--line); border-radius: 4px; padding: 11px 13px;
+      position: relative;
     }
     .box h3 {
       margin: 0 0 6px; font-size: clamp(13px, 1.7vh, 15px); font-weight: 700;
@@ -124,6 +136,16 @@
     .box.help { border-color: #b9d4c8; background: var(--mark-bg); }
     .box.pick { border-color: var(--mark); background: var(--mark-bg); }
 
+    .ico {
+      width: 28px; height: 28px; margin-bottom: 8px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 6px;
+    }
+    .ico svg { width: 16px; height: 16px; }
+    .ico.pain { background: #f0e0cc; color: var(--pain); }
+    .ico.help { background: #d5e9df; color: var(--mark); }
+    .ico.pick { background: #d5e9df; color: var(--mark); }
+
     .tag {
       display: inline-block; font-size: 11px; font-weight: 700;
       margin-bottom: 6px; color: var(--pain);
@@ -137,8 +159,9 @@
     }
     .flow > div {
       border: 1px solid var(--line); border-radius: 4px;
-      padding: 7px 3px; text-align: center;
+      padding: 8px 3px 7px; text-align: center;
       font-size: clamp(10px, 1.3vh, 12px); font-weight: 600;
+      position: relative;
     }
     .flow b {
       display: block; font-size: 10px; color: var(--soft);
@@ -147,8 +170,31 @@
     .flow .sub {
       display: block; font-size: 10px; color: var(--soft); font-weight: 500; margin-top: 2px;
     }
+    .flow .glyph {
+      display: flex; justify-content: center; margin: 2px 0 4px;
+      color: var(--soft);
+    }
+    .flow .glyph svg { width: 18px; height: 18px; }
     .flow .hot { border-color: #e2d2bc; background: var(--pain-bg); }
+    .flow .hot .glyph { color: var(--pain); }
     .flow .sf { border-color: #b9d4c8; background: var(--mark-bg); }
+    .flow .sf .glyph { color: var(--mark); }
+    .flow .human { border-color: #ccc; background: var(--human-bg); }
+    .flow .human .glyph { color: var(--human); }
+
+    .legend {
+      display: flex; flex-wrap: wrap; gap: 14px; align-items: center;
+      font-size: 12px; color: var(--soft);
+    }
+    .legend span {
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .swatch {
+      width: 14px; height: 14px; border-radius: 3px; border: 1px solid var(--line);
+    }
+    .swatch.hot { background: var(--pain-bg); border-color: #e2d2bc; }
+    .swatch.sf { background: var(--mark-bg); border-color: #b9d4c8; }
+    .swatch.human { background: var(--human-bg); border-color: #ccc; }
 
     table {
       width: 100%; border-collapse: collapse;
@@ -160,6 +206,8 @@
     }
     th { color: var(--soft); font-size: 11px; font-weight: 600; }
     td .zh { font-size: 0.92em; color: var(--soft); font-weight: 400; }
+    tr.sf-row td:last-child { color: var(--mark); font-weight: 600; }
+    tr.human-row td:last-child { color: var(--human); }
 
     .money {
       border-left: 4px solid var(--mark);
@@ -169,6 +217,150 @@
     .money strong {
       display: block; margin-bottom: 4px;
       font-size: clamp(14px, 1.9vh, 17px);
+    }
+
+    /* Cover agenda with big numbers */
+    .agenda {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .agenda .box {
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+    }
+    .agenda .num {
+      font-size: clamp(40px, 7vh, 64px);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      opacity: 0.18;
+      position: absolute;
+      top: 8px;
+      right: 12px;
+    }
+    .agenda .box.pain .num { color: var(--pain); opacity: 0.22; }
+    .agenda .box.help .num { color: var(--mark); opacity: 0.22; }
+    .agenda .box.pick .num { color: var(--mark); opacity: 0.28; }
+
+    /* Phone mock */
+    .split-viz {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 16px;
+      align-items: center;
+    }
+    .phone {
+      width: 160px;
+      margin: 0 auto;
+      border: 2px solid #333;
+      border-radius: 18px;
+      padding: 10px 8px 12px;
+      background: #fafafa;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+    .phone .notch {
+      width: 40%; height: 6px; margin: 0 auto 8px;
+      background: #333; border-radius: 4px;
+    }
+    .phone .bubble {
+      font-size: 10px; line-height: 1.35;
+      padding: 6px 8px; border-radius: 8px;
+      margin-bottom: 6px; max-width: 92%;
+    }
+    .phone .bot {
+      background: var(--mark-bg); color: var(--mark);
+      border: 1px solid #b9d4c8;
+    }
+    .phone .user {
+      background: #eee; color: #444; margin-left: auto;
+    }
+    .phone .meta {
+      background: #fff8ee; color: var(--pain);
+      border: 1px dashed #e2d2bc;
+      font-size: 9px;
+    }
+    .phone .label {
+      text-align: center; font-size: 10px; color: var(--soft); margin-top: 4px;
+    }
+
+    /* Cost bars */
+    .bars {
+      display: flex; flex-direction: column; gap: 12px;
+      justify-content: center; padding: 8px 4px;
+    }
+    .bar-row { display: grid; grid-template-columns: 90px 1fr 72px; gap: 8px; align-items: center; }
+    .bar-row .lbl { font-size: 12px; font-weight: 600; color: var(--soft); }
+    .bar-row .lbl .zh { font-size: 0.85em; font-weight: 500; }
+    .track {
+      height: 22px; background: #f0f0f0; border-radius: 4px; overflow: hidden;
+      border: 1px solid var(--line);
+    }
+    .fill {
+      height: 100%; border-radius: 3px;
+      display: flex; align-items: center; padding-left: 8px;
+      font-size: 11px; font-weight: 700; color: #fff;
+      animation: growBar 0.8s ease both;
+    }
+    .fill.big { width: 92%; background: var(--mark); }
+    .fill.tiny { width: 8%; background: var(--pain); min-width: 10px; color: transparent; }
+    .bar-row .amt { font-size: 13px; font-weight: 700; text-align: right; }
+    @keyframes growBar {
+      from { transform: scaleX(0); transform-origin: left; }
+      to { transform: scaleX(1); }
+    }
+    .source-note {
+      font-size: 12px; color: var(--soft);
+      border-top: 1px dashed var(--line);
+      padding-top: 8px;
+      margin-top: 4px;
+    }
+
+    /* Effort compare */
+    .effort {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 10px;
+      align-items: stretch;
+    }
+    .effort .arrow {
+      display: flex; align-items: center; justify-content: center;
+      color: var(--mark); font-size: 22px; font-weight: 700;
+    }
+    .pips {
+      display: flex; gap: 3px; margin-top: 8px; flex-wrap: wrap;
+    }
+    .pip {
+      width: 10px; height: 10px; border-radius: 2px; background: #ddd;
+    }
+    .pip.on { background: var(--pain); }
+    .pip.ok { background: var(--mark); }
+
+    /* Success checks */
+    .check-list li {
+      list-style: none;
+      position: relative;
+      padding-left: 1.4em;
+    }
+    .check-list { margin: 0; padding: 0; }
+    .check-list li::before {
+      content: "";
+      position: absolute; left: 0; top: 0.35em;
+      width: 0.7em; height: 0.7em;
+      border: 2px solid var(--mark);
+      border-radius: 2px;
+      background:
+        linear-gradient(var(--mark), var(--mark)) center/60% 2px no-repeat,
+        linear-gradient(var(--mark), var(--mark)) center/2px 60% no-repeat;
+      transform: rotate(45deg);
+      border-left: 0; border-top: 0;
+      width: 0.45em; height: 0.7em;
+      background: none;
+      border: solid var(--mark);
+      border-width: 0 2px 2px 0;
     }
 
     .dots {
@@ -181,7 +373,6 @@
     }
     .dot.on { background: #fff; }
 
-    /* Fullscreen: keep white stage visible; only shrink chrome chrome bars */
     .chrome.is-fs {
       grid-template-rows: 0 minmax(0, 1fr) 0;
       background: #fff;
@@ -194,9 +385,7 @@
       height: 100%;
       border-radius: 0;
     }
-    .chrome.is-fs .slide {
-      border-radius: 0;
-    }
+    .chrome.is-fs .slide { border-radius: 0; }
     .fs-hint {
       display: none;
       position: fixed;
@@ -213,8 +402,11 @@
     .chrome.is-fs .fs-hint { display: block; }
 
     @media (max-width: 900px) {
-      .row.two, .row.three { grid-template-columns: 1fr; }
+      .row.two, .row.three, .agenda, .row.cost, .effort, .split-viz { grid-template-columns: 1fr; }
       .flow { grid-template-columns: repeat(3, 1fr); }
+      .phone { margin-bottom: 8px; }
+      .effort .arrow { transform: rotate(90deg); }
+      .bar-row { grid-template-columns: 70px 1fr 64px; }
     }
     @media print {
       body { background: #fff; overflow: visible; }
@@ -224,8 +416,9 @@
       .slide {
         display: flex !important; position: relative; inset: auto;
         min-height: 90vh; page-break-after: always; border-radius: 0;
-        border: 1px solid #ccc; margin-bottom: 12px;
+        border: 1px solid #ccc; margin-bottom: 12px; animation: none;
       }
+      .fill { animation: none; }
     }
   </style>
 </head>
@@ -246,6 +439,7 @@
       <div class="frame" id="frame">
         <div class="fs-hint">Press Esc or F to exit｜按 Esc 或 F 離開全螢幕</div>
 
+        <!-- 1 Cover -->
         <section class="slide on">
           <h1>
             Airport catering hiring WhatsApp — discussion recap
@@ -256,23 +450,36 @@
             <span class="zh">以下整理目前討論：招聘流程、痛點、四個月試用中 SleekFlow 可如何協助，以及大概費用。</span>
           </p>
           <div class="body">
-            <div class="row three">
+            <div class="agenda">
               <div class="box pain">
-                <h3>1. Pain points<span class="zh">痛點</span></h3>
+                <span class="num">1</span>
+                <div class="ico pain" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v10M8 9l4 4 4-4"/><path d="M5 19h14"/></svg>
+                </div>
+                <h3>Pain points<span class="zh">痛點</span></h3>
                 <p>On the 9-step path<span class="zh">對應九個步驟</span></p>
               </div>
               <div class="box help">
-                <h3>2. How SleekFlow helps<span class="zh">SleekFlow 可協助處</span></h3>
+                <span class="num">2</span>
+                <div class="ico help" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h12v10H8l-4 3V6z"/><path d="M16 9h4v10l-3-2h-1"/></svg>
+                </div>
+                <h3>How SleekFlow helps<span class="zh">SleekFlow 可協助處</span></h3>
                 <p>What to try in 4 months<span class="zh">四個月試用範圍</span></p>
               </div>
               <div class="box pick">
-                <h3>3. Cost estimate<span class="zh">費用估算</span></h3>
+                <span class="num">3</span>
+                <div class="ico pick" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M8 14h3"/></svg>
+                </div>
+                <h3>Cost estimate<span class="zh">費用估算</span></h3>
                 <p>Platform + Meta messages<span class="zh">平台費 + Meta 訊息費</span></p>
               </div>
             </div>
           </div>
         </section>
 
+        <!-- 2 Path -->
         <section class="slide">
           <h2>
             Full hiring path (today)
@@ -284,23 +491,24 @@
           </p>
           <div class="body">
             <div class="flow">
-              <div class="hot"><b>1</b>Apply<span class="sub">申請</span></div>
-              <div class="hot"><b>2</b>Screen<span class="sub">篩選</span></div>
-              <div><b>3</b>Interview<span class="sub">面試</span></div>
-              <div class="hot"><b>4</b>Docs<span class="sub">文件</span></div>
-              <div><b>5</b>Permit<span class="sub">許可證</span></div>
-              <div class="hot"><b>6</b>Book test<span class="sub">預約考試</span></div>
-              <div class="hot"><b>7</b>Pass test<span class="sub">通過考試</span></div>
-              <div><b>8</b>Offer<span class="sub">口頭聘用</span></div>
-              <div class="hot"><b>9</b>Day 1<span class="sub">到職日</span></div>
+              <div class="hot"><b>1</b><span class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M8 11l4 4 4-4"/><rect x="5" y="17" width="14" height="3" rx="1"/></svg></span>Apply<span class="sub">申請</span></div>
+              <div class="hot"><b>2</b><span class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="6"/><path d="M16 16l4 4"/></svg></span>Screen<span class="sub">篩選</span></div>
+              <div class="human"><b>3</b><span class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3"/><path d="M5 19c1.5-3 4-4.5 7-4.5S17.5 16 19 19"/></svg></span>Interview<span class="sub">面試</span></div>
+              <div class="hot"><b>4</b><span class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3h7l3 3v15H7z"/><path d="M14 3v4h4"/></svg></span>Docs<span class="sub">文件</span></div>
+              <div><b>5</b><span class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 12h8M8 9h5"/></svg></span>Permit<span class="sub">許可證</span></div>
+              <div class="hot"><b>6</b><span class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/></svg></span>Book test<span class="sub">預約考試</span></div>
+              <div class="hot"><b>7</b><span class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg></span>Pass test<span class="sub">通過考試</span></div>
+              <div class="human"><b>8</b><span class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4h4l2 5-2.5 1.5a10 10 0 005 5L16 13l5 2v4a2 2 0 01-2 2A15 15 0 014 6a2 2 0 012-2z"/></svg></span>Offer<span class="sub">口頭聘用</span></div>
+              <div class="hot"><b>9</b><span class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10l8-5 8 5v10"/><path d="M10 20v-6h4v6"/></svg></span>Day 1<span class="sub">到職日</span></div>
             </div>
-            <p class="soft">
-              Tinted steps = where chase / reminders / care usually take time. Interview and offer stay human either way.
-              <span class="zh">有底色步驟＝追蹤／提醒／照顧通常較花時間。面試與口頭聘用無論用什麼工具，仍需人手。</span>
-            </p>
+            <div class="legend">
+              <span><i class="swatch hot"></i> Chase / reminders take time｜追蹤／提醒較花時間</span>
+              <span><i class="swatch human"></i> Stays human｜仍需人手</span>
+            </div>
           </div>
         </section>
 
+        <!-- 3 Pain -->
         <section class="slide">
           <h2>
             Pain points we are targeting
@@ -309,6 +517,9 @@
           <div class="body">
             <div class="row two">
               <div class="box pain">
+                <div class="ico pain" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="9" r="3"/><circle cx="16" cy="10" r="2.5"/><path d="M3 19c1-3 3.5-4.5 6-4.5S14 16 15 19M13.5 16.5c1.2-.8 2.7-1.2 4.5-1 1.2.1 2.2.5 3 1.2"/></svg>
+                </div>
                 <span class="tag">Pain A｜痛點 A</span>
                 <h3>Not enough candidates<span class="zh">候選人不足</span></h3>
                 <ul>
@@ -318,6 +529,9 @@
                 </ul>
               </div>
               <div class="box pain">
+                <div class="ico pain" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h12v10H8l-4 3V6z"/><path d="M14 9h2M14 12h2"/><path d="M18 8v8"/></svg>
+                </div>
                 <span class="tag">Pain B｜痛點 B</span>
                 <h3>Follow-up is tedious<span class="zh">跟進繁瑣</span></h3>
                 <ul>
@@ -327,16 +541,27 @@
                 </ul>
               </div>
             </div>
-            <div class="box">
-              <h3>Not the main problem<span class="zh">不是主要問題</span></h3>
-              <p>
-                We are not drowning under too many applications. The trial is about keeping scarce candidates moving, and cutting retyping / missed follow-ups.
-                <span class="zh">重點不是申請量太大；試用是要留住稀缺候選人，並減少重覆輸入與漏跟進。</span>
-              </p>
+            <div class="effort">
+              <div class="box">
+                <h3>Today｜現況</h3>
+                <p>Manual chase on personal WhatsApp<span class="zh">人手在個人 WhatsApp 追蹤</span></p>
+                <div class="pips" title="High effort">
+                  <i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i>
+                </div>
+              </div>
+              <div class="arrow" aria-hidden="true">→</div>
+              <div class="box help">
+                <h3>Not the main problem<span class="zh">不是主要問題</span></h3>
+                <p>
+                  We are not drowning under too many applications. The trial is about keeping scarce candidates moving, and cutting retyping / missed follow-ups.
+                  <span class="zh">重點不是申請量太大；試用是要留住稀缺候選人，並減少重覆輸入與漏跟進。</span>
+                </p>
+              </div>
             </div>
           </div>
         </section>
 
+        <!-- 4 Where SF helps -->
         <section class="slide">
           <h2>
             Where SleekFlow can help on the path
@@ -344,39 +569,54 @@
           </h2>
           <div class="body">
             <div class="flow">
-              <div class="sf"><b>1</b>Apply bot<span class="sub">申請機械人</span></div>
-              <div class="sf"><b>2</b>Book / remind<span class="sub">預約／提醒</span></div>
-              <div><b>3</b>Human<span class="sub">人手</span></div>
-              <div class="sf"><b>4</b>Doc chase<span class="sub">追文件</span></div>
-              <div class="sf"><b>5</b>Status ping<span class="sub">進度通知</span></div>
-              <div class="sf"><b>6</b>Book test<span class="sub">預約考試</span></div>
-              <div class="sf"><b>7</b>Rebook<span class="sub">改期</span></div>
-              <div><b>8</b>Call<span class="sub">致電</span></div>
-              <div class="sf"><b>9</b>Day-1 ping<span class="sub">到職提醒</span></div>
+              <div class="sf"><b>1</b><span class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2"/><circle cx="12" cy="18" r="1"/></svg></span>Apply bot<span class="sub">申請機械人</span></div>
+              <div class="sf"><b>2</b><span class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/></svg></span>Book / remind<span class="sub">預約／提醒</span></div>
+              <div class="human"><b>3</b><span class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3"/><path d="M5 19c1.5-3 4-4.5 7-4.5S17.5 16 19 19"/></svg></span>Human<span class="sub">人手</span></div>
+              <div class="sf"><b>4</b><span class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3h7l3 3v15H7z"/><path d="M10 12h4M10 15h4"/></svg></span>Doc chase<span class="sub">追文件</span></div>
+              <div class="sf"><b>5</b><span class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v8l4 2"/><circle cx="12" cy="12" r="9"/></svg></span>Status ping<span class="sub">進度通知</span></div>
+              <div class="sf"><b>6</b><span class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16"/></svg></span>Book test<span class="sub">預約考試</span></div>
+              <div class="sf"><b>7</b><span class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12a8 8 0 0114-5M20 12a8 8 0 01-14 5"/><path d="M18 3v4h-4M6 21v-4h4"/></svg></span>Rebook<span class="sub">改期</span></div>
+              <div class="human"><b>8</b><span class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4h4l2 5-2.5 1.5a10 10 0 005 5L16 13l5 2v4a2 2 0 01-2 2A15 15 0 014 6a2 2 0 012-2z"/></svg></span>Call<span class="sub">致電</span></div>
+              <div class="sf"><b>9</b><span class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10l8-5 8 5v10"/><path d="M10 20v-6h4v6"/></svg></span>Day-1 ping<span class="sub">到職提醒</span></div>
             </div>
-            <div class="row two">
-              <div class="box help">
-                <span class="tag ok">In 4-month trial｜試用範圍</span>
-                <ul>
-                  <li>Bot collects apply details when they write first<span class="zh">對方先留言時，機械人收集申請資料</span></li>
-                  <li>Shared inbox + stages for the team<span class="zh">共用收件匣 + 階段標籤</span></li>
-                  <li>Scheduled reminders (book, docs, test, day 1)<span class="zh">排程提醒（預約、文件、考試、到職）</span></li>
-                  <li>Optional: message past applicants when a new intake opens<span class="zh">可選：新一輪招聘時聯絡舊申請人</span></li>
-                </ul>
+            <div class="legend">
+              <span><i class="swatch sf"></i> SleekFlow can assist｜SleekFlow 可協助</span>
+              <span><i class="swatch human"></i> Stays with the team｜仍要人手</span>
+            </div>
+            <div class="split-viz">
+              <div class="phone" aria-hidden="true">
+                <div class="notch"></div>
+                <div class="bubble bot">Hi! Apply for airport catering?<br/>請選職位｜Choose role</div>
+                <div class="bubble user">Junior kitchen｜廚房初級</div>
+                <div class="bubble bot">Name + phone?<br/>姓名及電話？</div>
+                <div class="bubble meta">Later: Utility reminder<br/>其後：Utility 提醒（Meta）</div>
+                <div class="label">Candidate WhatsApp｜候選人端</div>
               </div>
-              <div class="box pain">
-                <span class="tag">Still the team｜仍要人手</span>
-                <ul>
-                  <li>Interview itself<span class="zh">面試本身</span></li>
-                  <li>Verbal offer call<span class="zh">口頭聘用電話</span></li>
-                  <li>Calling someone who is lost / not replying<span class="zh">迷路或不回覆時致電</span></li>
-                  <li>Airport permit filing and authority test<span class="zh">機場許可證及官方考試</span></li>
-                </ul>
+              <div class="row two">
+                <div class="box help">
+                  <span class="tag ok">In 4-month trial｜試用範圍</span>
+                  <ul>
+                    <li>Bot collects apply details when they write first<span class="zh">對方先留言時，機械人收集申請資料</span></li>
+                    <li>Shared inbox + stages for the team<span class="zh">共用收件匣 + 階段標籤</span></li>
+                    <li>Scheduled reminders (book, docs, test, day 1)<span class="zh">排程提醒（預約、文件、考試、到職）</span></li>
+                    <li>Optional: message past applicants when a new intake opens<span class="zh">可選：新一輪招聘時聯絡舊申請人</span></li>
+                  </ul>
+                </div>
+                <div class="box pain">
+                  <span class="tag">Still the team｜仍要人手</span>
+                  <ul>
+                    <li>Interview itself<span class="zh">面試本身</span></li>
+                    <li>Verbal offer call<span class="zh">口頭聘用電話</span></li>
+                    <li>Calling someone who is lost / not replying<span class="zh">迷路或不回覆時致電</span></li>
+                    <li>Airport permit filing and authority test<span class="zh">機場許可證及官方考試</span></li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
+        <!-- 5 Step by step -->
         <section class="slide">
           <h2>
             Step by step — pain → SleekFlow idea
@@ -392,46 +632,51 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr class="sf-row">
                   <td>1 Apply<span class="zh">申請</span></td>
                   <td>Retype details; easy to lose the lead<span class="zh">重覆輸入；易流失</span></td>
                   <td>QR / link → bot asks name, phone, role<span class="zh">二維碼／連結 → 機械人問姓名、電話、職位</span></td>
                 </tr>
-                <tr>
+                <tr class="sf-row">
                   <td>2 Screen &amp; book<span class="zh">篩選／預約</span></td>
                   <td>Manual booking + reminder<span class="zh">人手預約及提醒</span></td>
                   <td>Slot buttons; day-before reminder template<span class="zh">時段按鈕；前一天提醒範本</span></td>
                 </tr>
-                <tr>
+                <tr class="human-row">
                   <td>3 Interview<span class="zh">面試</span></td>
                   <td>Must be face to face<span class="zh">必須面談</span></td>
                   <td>Human only; result note in inbox<span class="zh">人手；結果記在收件匣</span></td>
                 </tr>
-                <tr>
+                <tr class="sf-row">
                   <td>4 Docs / ID<span class="zh">文件／身份證</span></td>
                   <td>Chase blurry photos<span class="zh">追模糊照片</span></td>
                   <td>Template chase + tips; team helps if stuck<span class="zh">範本催收 + 提示；卡住時人手協助</span></td>
                 </tr>
-                <tr>
+                <tr class="sf-row">
                   <td>5–7 Permit / test<span class="zh">許可證／考試</span></td>
                   <td>Status + rebook by hand<span class="zh">人手查進度、改期</span></td>
                   <td>Status / book / fail-rebook templates<span class="zh">進度／預約／不合格改期範本</span></td>
                 </tr>
-                <tr>
+                <tr class="human-row">
                   <td>8 Offer<span class="zh">口頭聘用</span></td>
                   <td>Call is personal<span class="zh">電話需個人處理</span></td>
                   <td>Call stays human; short written summary optional<span class="zh">電話仍人手；可選書面摘要</span></td>
                 </tr>
-                <tr>
+                <tr class="sf-row">
                   <td>9 Day 1<span class="zh">到職日</span></td>
                   <td>Morning care for every starter<span class="zh">每位新人都要早上照顧</span></td>
                   <td>7am map + supervisor template; team takes live rescue<span class="zh">早上地圖＋主管範本；緊急情況人手處理</span></td>
                 </tr>
               </tbody>
             </table>
+            <div class="legend">
+              <span style="color:var(--mark);font-weight:600">Green row tip = SleekFlow can carry｜綠色＝SleekFlow 可分擔</span>
+              <span style="color:var(--human);font-weight:600">Grey tip = stays human｜灰色＝仍人手</span>
+            </div>
           </div>
         </section>
 
+        <!-- 6 WhatsApp charging -->
         <section class="slide">
           <h2>
             How WhatsApp charging works (simple)
@@ -440,6 +685,9 @@
           <div class="body">
             <div class="row two">
               <div class="box help">
+                <div class="ico help" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
+                </div>
                 <h3>Often free / inside chat window<span class="zh">多數免費／對話窗內</span></h3>
                 <ul>
                   <li>Candidate writes first (apply)<span class="zh">候選人先留言（申請）</span></li>
@@ -448,12 +696,27 @@
                 </ul>
               </div>
               <div class="box pain">
+                <div class="ico pain" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16h.01"/></svg>
+                </div>
                 <h3>Usually costs Meta fee<span class="zh">通常要付 Meta 費用</span></h3>
                 <ul>
                   <li>We reach out first after the window closed<span class="zh">對話窗關閉後我們主動聯絡</span></li>
                   <li>Reminders, status, day-1 morning ping<span class="zh">提醒、進度、到職日早上訊息</span></li>
                   <li>Approved Utility template (~US$0.03 / delivered to HK)<span class="zh">已審批 Utility 範本（香港約每則 US$0.03）</span></li>
                 </ul>
+              </div>
+            </div>
+            <div class="phone" style="width:min(100%,420px);display:grid;grid-template-columns:1fr 1fr;gap:8px;border-radius:12px;padding:12px;" aria-hidden="true">
+              <div>
+                <div class="bubble user">Hi I want to apply</div>
+                <div class="bubble bot">Free window opens → bot / team reply</div>
+                <div class="label">Inbound｜對方先來</div>
+              </div>
+              <div>
+                <div class="bubble meta">Template: “Interview tomorrow 10am”</div>
+                <div class="bubble meta">Meta Utility fee per delivery</div>
+                <div class="label">Outreach｜我們主動發</div>
               </div>
             </div>
             <p class="soft">
@@ -463,6 +726,7 @@
           </div>
         </section>
 
+        <!-- 7 Cost -->
         <section class="slide">
           <h2>
             4-month cost estimate
@@ -473,45 +737,66 @@
             <span class="zh">僅供參考 — 以實際報價及 Meta 帳單為準。</span>
           </p>
           <div class="body">
-            <table>
-              <thead>
-                <tr>
-                  <th>Item｜項目</th>
-                  <th>Assumption｜假設</th>
-                  <th>4-month estimate｜四個月估算</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>SleekFlow platform<span class="zh">平台費</span></td>
-                  <td>~20k / year → pro-rate 4 months<span class="zh">約每年 20k → 按四個月比例</span></td>
-                  <td><b>~6.7k</b></td>
-                </tr>
-                <tr>
-                  <td>Meta Utility templates<span class="zh">Meta Utility 範本</span></td>
-                  <td>~US$0.026 / delivered (HK)<br />Example: 40 people / month × ~6 outreach × 4 months ≈ 960 msgs<span class="zh">例：每月 40 人 × 約 6 則主動訊息 × 4 個月 ≈ 960 則</span></td>
-                  <td><b>~US$25</b><br /><span class="soft">(~HK$200)</span></td>
-                </tr>
-                <tr>
-                  <td>Higher volume case<span class="zh">較高用量</span></td>
-                  <td>100 people / month × 8 msgs × 4 months ≈ 3,200 msgs<span class="zh">每月 100 人 × 8 則 × 4 個月 ≈ 3,200 則</span></td>
-                  <td><b>~US$83</b><br /><span class="soft">(~HK$650)</span></td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="money">
-              <strong>
-                Working total for 4 months: ~6.7k platform + a few hundred HKD in Meta fees
-                <span class="zh">四個月粗算：平台約 6.7k + Meta 約數百港元</span>
-              </strong>
-              <p>
-                Meta is small next to the platform fee at our likely volume. The real question is whether time saved / fewer drop-offs justify ~6.7k for four months.
-                <span class="zh">以現時用量，Meta 相對平台費很小。關鍵是節省時間／減少流失，是否值得這四個月約 6.7k。</span>
-              </p>
+            <div class="row cost">
+              <div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Item｜項目</th>
+                      <th>Assumption｜假設</th>
+                      <th>4-month｜四個月</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>SleekFlow platform<span class="zh">平台費</span></td>
+                      <td>~20k / year → × 4/12<span class="zh">約每年 20k → × 4/12</span></td>
+                      <td><b>~6.7k</b></td>
+                    </tr>
+                    <tr>
+                      <td>Meta Utility<span class="zh">Meta Utility</span></td>
+                      <td>~US$0.026 / msg · 40×6×4 ≈ 960<span class="zh">約每則 US$0.026 · 40×6×4 ≈ 960</span></td>
+                      <td><b>~US$25</b><br /><span class="soft">(~HK$200)</span></td>
+                    </tr>
+                    <tr>
+                      <td>Higher volume<span class="zh">較高用量</span></td>
+                      <td>100×8×4 ≈ 3,200 msgs<span class="zh">100×8×4 ≈ 3,200 則</span></td>
+                      <td><b>~US$83</b><br /><span class="soft">(~HK$650)</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p class="source-note">
+                  Platform ~20k/yr came from you (your note on SleekFlow annual charge). 6.7k = 20k × 4÷12. Meta rate is a public HK Utility ballpark; message counts are example volumes for discussion.
+                  <span class="zh">平台每年約 20k 來自你提供的數字；6.7k＝20k×4÷12。Meta 單價為公開香港 Utility 粗算；訊息量為討論用例子。</span>
+                </p>
+              </div>
+              <div class="bars">
+                <div class="bar-row">
+                  <div class="lbl">Platform<span class="zh">平台</span></div>
+                  <div class="track"><div class="fill big">~6.7k</div></div>
+                  <div class="amt">~6.7k</div>
+                </div>
+                <div class="bar-row">
+                  <div class="lbl">Meta<span class="zh">訊息</span></div>
+                  <div class="track"><div class="fill tiny" title="~HK$200–650"></div></div>
+                  <div class="amt">~0.2–0.7k</div>
+                </div>
+                <div class="money" style="margin-top:4px">
+                  <strong>
+                    Working total: ~6.7k + a few hundred HKD Meta
+                    <span class="zh">粗算：平台約 6.7k + Meta 約數百港元</span>
+                  </strong>
+                  <p>
+                    Meta is small next to the platform fee. Real question: does time saved / fewer drop-offs justify ~6.7k for four months?
+                    <span class="zh">Meta 相對平台費很小。關鍵是節省時間／減少流失是否值得這四個月約 6.7k。</span>
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
+        <!-- 8 Success -->
         <section class="slide">
           <h2>
             What success looks like after 4 months
@@ -520,22 +805,31 @@
           <div class="body">
             <div class="row three">
               <div class="box help">
+                <div class="ico help" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h5"/></svg>
+                </div>
                 <h3>Apply &amp; inbox<span class="zh">申請與收件匣</span></h3>
-                <ul>
+                <ul class="check-list">
                   <li>Less retyping of name / phone / role<span class="zh">少重覆輸入姓名／電話／職位</span></li>
                   <li>One shared inbox the team can hand off<span class="zh">團隊可交接的共用收件匣</span></li>
                 </ul>
               </div>
               <div class="box help">
+                <div class="ico help" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4L19 6"/></svg>
+                </div>
                 <h3>Follow-up<span class="zh">跟進</span></h3>
-                <ul>
+                <ul class="check-list">
                   <li>Reminders go out without hunting chats<span class="zh">提醒自動發出，不用翻對話</span></li>
                   <li>Clear stages: applied → interview → day 1<span class="zh">清晰階段：已申請 → 面試 → 到職</span></li>
                 </ul>
               </div>
               <div class="box help">
+                <div class="ico help" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10l8-5 8 5v10"/><path d="M10 20v-6h4v6"/></svg>
+                </div>
                 <h3>Day 1<span class="zh">到職日</span></h3>
-                <ul>
+                <ul class="check-list">
                   <li>Morning ping is consistent<span class="zh">早上提醒穩定發出</span></li>
                   <li>Team only jumps in for live problems<span class="zh">團隊只處理即時突發</span></li>
                 </ul>
@@ -551,6 +845,7 @@
           </div>
         </section>
 
+        <!-- 9 Plan -->
         <section class="slide">
           <h2>
             Trial plan in one page
@@ -559,8 +854,11 @@
           <div class="body">
             <div class="row two">
               <div class="box pick">
+                <div class="ico pick" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 4h6v4H9zM5 8h14v12H5z"/><path d="M9 13h6M9 16h4"/></svg>
+                </div>
                 <h3>Do in months 1–4<span class="zh">第 1–4 個月做</span></h3>
-                <ul>
+                <ul class="check-list">
                   <li>Connect WhatsApp number; shared inbox<span class="zh">接上 WhatsApp 號碼；共用收件匣</span></li>
                   <li>Apply bot + contact stages<span class="zh">申請機械人 + 聯絡人階段</span></li>
                   <li>Templates: book, docs chase, test, day 1<span class="zh">範本：預約、追文件、考試、到職</span></li>
@@ -568,9 +866,12 @@
                 </ul>
               </div>
               <div class="box">
+                <div class="ico pick" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg>
+                </div>
                 <h3>Cost to remember<span class="zh">費用要記</span></h3>
                 <ul>
-                  <li>Platform ≈ <b>6.7k</b> for 4 months<span class="zh">平台四個月約 <b>6.7k</b></span></li>
+                  <li>Platform ≈ <b>6.7k</b> for 4 months <span class="soft">(from your ~20k/yr)</span><span class="zh">平台四個月約 <b>6.7k</b>（來自你提供的每年約 20k）</span></li>
                   <li>Meta templates ≈ small (hundreds HKD unless volume jumps)<span class="zh">Meta 範本通常較少（除非用量急升）</span></li>
                   <li>Confirm final SleekFlow quote before sign<span class="zh">簽約前確認最終報價</span></li>
                 </ul>
@@ -630,7 +931,6 @@
           else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
         }
       } catch (err) {
-        // Fallback if browser blocks Fullscreen API: CSS-only expand
         chromeEl.classList.toggle("is-fs");
       }
       syncFsClass();
