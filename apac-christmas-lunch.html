@@ -4,14 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>APAC Christmas Lunch — Back to School Edition</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <!-- Canvas Confetti CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <!-- QR Code CDN (for VDO.ninja phone broadcast) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <!-- Local vendor copies (no third-party executable without integrity) -->
+  <script src="vendor/tailwindcss-3.4.16.js"></script>
+  <script src="vendor/confetti.browser.min.js"></script>
+  <script src="vendor/qrcode.min.js"></script>
+  <!-- Font Awesome (pinned + SRI; CDN allows CORS) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0" crossorigin="anonymous" />
   <script>
     tailwind.config = {
       theme: {
@@ -3459,11 +3457,13 @@
         <p class="mt-4 text-sm sm:text-base font-bold text-slate-700" contenteditable="true">
           Answer every question · Guess wisely · 請回答全部題目
         </p>
-        <div class="mt-5">
-          <a id="ahaPresenterLaunchBtn" href="https://presenter.ahaslides.com/share/1793154443570-hpjbw2yzme/present" target="_blank" rel="noopener noreferrer"
-             onclick="pauseBgmForPresenterTab()" class="g1-aha-cta">
+        <div class="mt-5 flex flex-col items-center gap-2">
+          <button type="button" id="ahaPresenterLaunchBtn" onclick="openAhaSlidesSession()" class="g1-aha-cta cursor-pointer">
             <i class="fa-solid fa-play"></i> Open AhaSlides · 開始測驗
-          </a>
+          </button>
+          <p class="text-[11px] sm:text-xs font-semibold text-slate-500 max-w-md" contenteditable="true">
+            Paste the audience / join link at event time (never ship a presenter control URL).
+          </p>
         </div>
       </div>
     </div>
@@ -3760,10 +3760,10 @@
           <div class="vdo-link-banner">
             <span class="text-[10px] font-black uppercase tracking-wider text-slate-500 shrink-0">Livestream</span>
             <a id="vdoViewLinkDisplay"
-               href="https://vdo.ninja/?view=ssp_christmas_2026&amp;room=SSP_Christmas_Party_2026&amp;solo"
+               href="#"
                target="_blank" rel="noopener noreferrer"
                class="font-mono text-[11px] sm:text-xs font-bold text-[#23486A] hover:underline break-all">
-              https://vdo.ninja/?view=ssp_christmas_2026&amp;room=SSP_Christmas_Party_2026&amp;solo
+              Connect to create a private room
             </a>
             <input id="vdoPasswordInput" type="password" autocomplete="off" spellcheck="false" placeholder="Password (session)" aria-label="Stream password for this session" class="w-[8.5rem] shrink-0 font-mono text-[11px] font-bold text-[#23486A] bg-white border border-slate-200 rounded-lg px-2 py-1" />
             <button type="button" onclick="applyVdoPasswordFromUi()" class="shrink-0 px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-[10px] font-black cursor-pointer">
@@ -4283,15 +4283,8 @@
 
   <script>
     let currentSlideIdx = 0;
-    const DEFAULT_ROSTER = [
-      "Alexander Wright", "Beatrix Potter", "Charles Darwin", "Diana Prince",
-      "Edward Norton", "Fiona Gallagher", "George Lucas", "Hannah Abbott",
-      "Ian Malcolm", "Julia Roberts", "Kevin Morgan", "Laura Cox",
-      "Michael Scott", "Nancy Drew", "Oliver Twist", "Patricia Quinn",
-      "Quincy Adams", "Rachel Clark", "Samuel Wright", "Tina Robinson",
-      "Uma Sharma", "Victor Hugo", "Wendy Hall", "Xavier Young",
-      "Yvonne Strahovski", "Zachary Quinto", "Amy Pond", "Brian Cox"
-    ];
+    // Anonymous sample placeholders only — load the real roster at the event (do not publish real names).
+    const DEFAULT_ROSTER = Array.from({ length: 28 }, (_, i) => `Guest ${String(i + 1).padStart(2, '0')}`);
     let items = [...DEFAULT_ROSTER]; // #SAVE:items
     let masterRoster = [...DEFAULT_ROSTER]; // #SAVE:masterRoster
     let winners = [];
@@ -4305,13 +4298,13 @@
     let soundEnabled = true;
     let currentWinningItem = null;
     let activeProductSetIdx = 1;
-    const DEFAULT_VDO_STREAM_ID = 'ssp_christmas_2026';
-    const DEFAULT_VDO_ROOM_ID = 'SSP_Christmas_Party_2026';
-    // No room password in shipped defaults — enter at event time (sessionStorage only).
-    const DEFAULT_VDO_VIEW_URL = `https://vdo.ninja/?view=${DEFAULT_VDO_STREAM_ID}&room=${DEFAULT_VDO_ROOM_ID}&solo`;
-    const DEFAULT_VDO_PUSH_URL = `https://vdo.ninja/?push=${DEFAULT_VDO_STREAM_ID}&room=${DEFAULT_VDO_ROOM_ID}&webcam&autostart&label=${encodeURIComponent('FloorCam')}&quality=0`;
+    // No fixed public room IDs in the shipped bundle — generate per session.
+    const VDO_ROOM_SESSION_KEY = 'apacVdoRoomId';
     const VDO_PASSWORD_SESSION_KEY = 'apacVdoStreamPassword';
-    let customVdoNinjaUrl = DEFAULT_VDO_VIEW_URL; // session view base only — never #SAVE (password must not export)
+    const AHA_JOIN_SESSION_KEY = 'apacAhaJoinUrl';
+    let vdoRoomId = ''; // session-only until Connect
+    let customVdoNinjaUrl = ''; // session view base only — never #SAVE (password must not export)
+    let vdoPushUrl = '';
     let companyLogoDataUrl = ''; // #SAVE:companyLogoDataUrl
     // Phase BGM: { name, url?, dataUrl?, youtubeId? }. YouTube preferred when set (no dataUrl override).
     const DEFAULT_PHASE_MP3S = {
@@ -4331,8 +4324,6 @@
       finale: { name: 'finale.mp3', url: 'audio/finale.mp3', volumeGain: 1.0 }
     };
     let customPhaseMp3s = { ...DEFAULT_PHASE_MP3S }; // #SAVE:customPhaseMp3s
-    let vdoRoomId = DEFAULT_VDO_ROOM_ID; // #SAVE:vdoRoomId
-    let vdoPushUrl = DEFAULT_VDO_PUSH_URL;
     let vdoStreamPassword = ''; // session only — never #SAVE / never baked into HTML
     let christmasBatchIndex = 0; // #SAVE:christmasBatchIndex
     let grandPrizeIndex = 5; // #SAVE:grandPrizeIndex
@@ -4876,16 +4867,22 @@
 
     function buildVdoUrls(roomId) {
       // Room/view IDs only — never include session password; attach at load/QR/copy time
-      if (!roomId || roomId === DEFAULT_VDO_ROOM_ID) {
-        return {
-          push: stripVdoPassword(DEFAULT_VDO_PUSH_URL),
-          view: stripVdoPassword(DEFAULT_VDO_VIEW_URL)
-        };
-      }
-      const id = encodeURIComponent(roomId);
+      const id = encodeURIComponent(roomId || makeRoomId());
       const push = `https://vdo.ninja/?push=${id}&webcam&autostart&label=${encodeURIComponent('FloorCam')}&quality=0`;
       const view = `https://vdo.ninja/?view=${id}&scene&cleanoutput&solidbg&bgcolor=000000`;
-      return { push: stripVdoPassword(push), view: stripVdoPassword(view) };
+      return { push: stripVdoPassword(push), view: stripVdoPassword(view), roomId: decodeURIComponent(id) };
+    }
+
+    function ensureSessionVdoRoom(forceNew = false) {
+      try {
+        if (!forceNew) {
+          const saved = sessionStorage.getItem(VDO_ROOM_SESSION_KEY) || '';
+          if (saved) return saved;
+        }
+      } catch (_) { /* ignore */ }
+      const id = makeRoomId();
+      try { sessionStorage.setItem(VDO_ROOM_SESSION_KEY, id); } catch (_) { /* ignore */ }
+      return id;
     }
 
     function isAllowedVdoUrl(url) {
@@ -4913,46 +4910,60 @@
           pushLink.textContent = 'Open push link';
         }
       }
+      updateVdoViewLinkDisplay();
     }
 
     function refreshVdoLinksWithPassword(opts = {}) {
-      const baseView = stripVdoPassword(customVdoNinjaUrl) || DEFAULT_VDO_VIEW_URL;
-      const basePush = stripVdoPassword(vdoPushUrl) || (
-        (!vdoRoomId || vdoRoomId === DEFAULT_VDO_ROOM_ID)
-          ? DEFAULT_VDO_PUSH_URL
-          : `https://vdo.ninja/?push=${encodeURIComponent(vdoRoomId)}&webcam&autostart&label=${encodeURIComponent('FloorCam')}&quality=0`
-      );
+      if (!vdoRoomId) vdoRoomId = ensureSessionVdoRoom(false);
+      const urls = buildVdoUrls(vdoRoomId);
+      const baseView = stripVdoPassword(customVdoNinjaUrl) || urls.view;
+      const basePush = stripVdoPassword(vdoPushUrl) || urls.push;
       // Persist password-free bases only (never store session p= on these vars)
       customVdoNinjaUrl = stripVdoPassword(baseView);
       vdoPushUrl = stripVdoPassword(basePush);
       syncVdoRoomUi();
       renderVdoQr(withVdoPassword(vdoPushUrl));
-      if (opts.forceReload) {
+      updateVdoViewLinkDisplay();
+      if (opts.forceReload && customVdoNinjaUrl) {
         loadVdoNinjaStream(customVdoNinjaUrl, { forceReload: true, showQr: opts.showQr });
       }
     }
 
+    function updateVdoViewLinkDisplay() {
+      const a = document.getElementById('vdoViewLinkDisplay');
+      if (!a) return;
+      const live = withVdoPassword(stripVdoPassword(customVdoNinjaUrl || ''));
+      if (!live) {
+        a.href = '#';
+        a.textContent = 'Connect to create a private room';
+        return;
+      }
+      a.href = live;
+      a.textContent = stripVdoPassword(live) + (vdoStreamPassword ? ' (+ session password)' : '');
+    }
+
     function startVdoNinjaRoom(forceNew = false, opts = {}) {
-      if (forceNew) vdoRoomId = makeRoomId();
-      else if (!vdoRoomId) vdoRoomId = DEFAULT_VDO_ROOM_ID;
+      vdoRoomId = ensureSessionVdoRoom(!!forceNew);
       const urls = buildVdoUrls(vdoRoomId);
+      vdoRoomId = urls.roomId;
+      try { sessionStorage.setItem(VDO_ROOM_SESSION_KEY, vdoRoomId); } catch (_) { /* ignore */ }
       vdoPushUrl = stripVdoPassword(urls.push);
       customVdoNinjaUrl = stripVdoPassword(urls.view);
       syncVdoRoomUi();
+      updateVdoViewLinkDisplay();
       renderVdoQr(withVdoPassword(vdoPushUrl));
       loadVdoNinjaStream(customVdoNinjaUrl, { forceReload: true, showQr: opts.showQr });
       if (!opts.silent) {
-        showToast(forceNew ? 'New room ready — scan QR, then Full Stage' : 'Party livestream ready — enter password if the room needs one');
+        showToast(forceNew ? 'New private room ready — set a password if needed' : 'Private livestream room ready — enter password if required');
       }
     }
 
     function regenerateVdoRoom() {
-      vdoRoomId = DEFAULT_VDO_ROOM_ID;
-      startVdoNinjaRoom(false, { silent: true, showQr: true });
+      startVdoNinjaRoom(true, { silent: true, showQr: true });
       setQrVisible(true);
       showToast(vdoStreamPassword
-        ? 'Restored party livestream (session password applied)'
-        : 'Restored party livestream — enter stream password if required');
+        ? 'New private room (session password applied)'
+        : 'New private room — enter stream password if required');
     }
 
     function renderVdoQr(url) {
@@ -4995,9 +5006,13 @@
     }
 
     function getDisplayedVdoViewUrl() {
+      if (customVdoNinjaUrl && isAllowedVdoUrl(customVdoNinjaUrl)) {
+        return withVdoPassword(stripVdoPassword(customVdoNinjaUrl));
+      }
       const el = document.getElementById('vdoViewLinkDisplay');
-      const href = el?.getAttribute('href') || el?.textContent || '';
-      return String(href || '').trim();
+      const href = el?.getAttribute('href') || '';
+      if (!href || href === '#') return '';
+      return String(href).trim();
     }
 
     function copyVdoViewLink() {
@@ -5009,23 +5024,44 @@
     function connectTonyVdoStream(opts = {}) {
       const input = document.getElementById('vdoPasswordInput');
       if (input && input.value.trim()) writeVdoPasswordToSession(input.value.trim());
-      const url = stripVdoPassword(getDisplayedVdoViewUrl());
-      if (!url || !isAllowedVdoUrl(url)) {
-        if (!opts.silent) showToast('Livestream URL must be on vdo.ninja', 'error');
-        return;
+      // Always use / create an ephemeral private room — never a shipped fixed ID
+      startVdoNinjaRoom(false, { silent: true, showQr: false });
+      if (!opts.silent) {
+        showToast(vdoStreamPassword ? 'Private livestream connected (session password)' : 'Private livestream connected — set a password if the room should stay closed');
       }
+    }
+
+    function isAllowedAhaJoinUrl(url) {
       try {
         const u = new URL(url);
-        vdoRoomId = u.searchParams.get('room') || DEFAULT_VDO_ROOM_ID;
-      } catch (_) { /* keep defaults */ }
-      // Session password (if any) is attached at load time — never store on customVdoNinjaUrl
-      loadVdoNinjaStream(url, { forceReload: true, showQr: false });
-      const pushBase = `https://vdo.ninja/?push=${encodeURIComponent(DEFAULT_VDO_STREAM_ID)}&room=${encodeURIComponent(DEFAULT_VDO_ROOM_ID)}&webcam&autostart&label=${encodeURIComponent('FloorCam')}&quality=0`;
-      vdoPushUrl = stripVdoPassword(pushBase);
-      syncVdoRoomUi();
-      if (!opts.silent) {
-        showToast(vdoStreamPassword ? 'Party livestream connected (session password)' : 'Party livestream connected — enter password if the room needs one');
+        const host = (u.hostname || '').toLowerCase();
+        if (!(host === 'ahaslides.com' || host.endsWith('.ahaslides.com'))) return false;
+        // Block presenter-control paths in the public deck
+        if (/\/present\/?$/i.test(u.pathname) || host.startsWith('presenter.')) return false;
+        return true;
+      } catch (_) {
+        return false;
       }
+    }
+
+    function openAhaSlidesSession() {
+      pauseBgmForPresenterTab();
+      let url = '';
+      try { url = (sessionStorage.getItem(AHA_JOIN_SESSION_KEY) || '').trim(); } catch (_) { url = ''; }
+      if (!url || !isAllowedAhaJoinUrl(url)) {
+        const entered = window.prompt(
+          'Paste the AhaSlides audience / join link for this session (not a presenter control URL):',
+          url || ''
+        );
+        if (entered == null) return;
+        url = String(entered).trim();
+        if (!url || !isAllowedAhaJoinUrl(url)) {
+          showToast('Use an audience/join AhaSlides link — presenter URLs are blocked', 'error');
+          return;
+        }
+        try { sessionStorage.setItem(AHA_JOIN_SESSION_KEY, url); } catch (_) { /* ignore */ }
+      }
+      window.open(url, '_blank', 'noopener,noreferrer');
     }
 
     function syncQrToggleLabels(visible) {
@@ -7224,17 +7260,14 @@
       // Do not bake stream password into exported HTML display / push links
       const cloneViewLink = cloneDoc.querySelector('#vdoViewLinkDisplay');
       if (cloneViewLink) {
-        const clean = stripVdoPassword(cloneViewLink.getAttribute('href') || cloneViewLink.textContent || '') || DEFAULT_VDO_VIEW_URL;
-        cloneViewLink.setAttribute('href', clean);
-        cloneViewLink.textContent = clean;
+        // Never bake a live room URL into the exported HTML
+        cloneViewLink.setAttribute('href', '#');
+        cloneViewLink.textContent = 'Connect to create a private room';
       }
       const clonePushLink = cloneDoc.querySelector('#vdoPushLink');
       if (clonePushLink) {
-        const cleanPush = stripVdoPassword(clonePushLink.getAttribute('href') || '') || DEFAULT_VDO_PUSH_URL;
-        clonePushLink.setAttribute('href', cleanPush);
-        if (clonePushLink.textContent && /vdo\.ninja/i.test(clonePushLink.textContent)) {
-          clonePushLink.textContent = cleanPush;
-        }
+        clonePushLink.setAttribute('href', '#');
+        clonePushLink.textContent = 'Open push link';
       }
       const clonePwd = cloneDoc.querySelector('#vdoPasswordInput');
       if (clonePwd) clonePwd.removeAttribute('value');
@@ -7342,16 +7375,18 @@
     renderSockGuessUI();
     buildFestiveScatter();
     window.addEventListener('resize', () => buildFestiveScatter());
-    // Party livestream room/view IDs only — password is session-entered, never stored on #SAVE vars
+    // Livestream room is session-generated on Connect — never ship a fixed public room ID
     writeVdoPasswordToSession(readVdoPasswordFromSession());
-    if (!vdoRoomId) vdoRoomId = DEFAULT_VDO_ROOM_ID;
-    customVdoNinjaUrl = stripVdoPassword(customVdoNinjaUrl) || DEFAULT_VDO_VIEW_URL;
-    vdoPushUrl = stripVdoPassword(vdoPushUrl) || (
-      vdoRoomId === DEFAULT_VDO_ROOM_ID
-        ? DEFAULT_VDO_PUSH_URL
-        : `https://vdo.ninja/?push=${encodeURIComponent(vdoRoomId)}&webcam&autostart&label=${encodeURIComponent('FloorCam')}&quality=0`
-    );
+    try { vdoRoomId = sessionStorage.getItem(VDO_ROOM_SESSION_KEY) || ''; } catch (_) { vdoRoomId = ''; }
+    customVdoNinjaUrl = '';
+    vdoPushUrl = '';
+    if (vdoRoomId) {
+      const urls = buildVdoUrls(vdoRoomId);
+      customVdoNinjaUrl = stripVdoPassword(urls.view);
+      vdoPushUrl = stripVdoPassword(urls.push);
+    }
     syncVdoRoomUi();
+    updateVdoViewLinkDisplay();
     renderVdoQr(withVdoPassword(vdoPushUrl));
   </script>
 </body>
