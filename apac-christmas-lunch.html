@@ -4251,19 +4251,19 @@
     // Phase BGM: { name, url?, dataUrl?, youtubeId? }. YouTube preferred when set (no dataUrl override).
     const DEFAULT_PHASE_MP3S = {
       // volumeGain: quieter YouTube masters get a boost; louder ones get attenuated
-      opening: { name: 'Opening · festive pop (local bed)', youtubeId: 'aAkMkVFwAoo', url: 'audio/Opening.mp3', volumeGain: 0.95 },
-      mcs: { name: 'MC · playful (local bed)', youtubeId: 'ibEOS9i77R4', url: 'audio/MC.mp3', volumeGain: 1.0 },
-      headmaster: { name: 'Headmaster · magical waltz (local bed)', youtubeId: '7gswtbX8G7Q', url: 'audio/headmaster.mp3', volumeGain: 1.0 },
-      buffet: { name: 'Buffet · soft Christmas (local bed)', youtubeId: 'E8gmARGvPlI', url: 'audio/buffet.mp3', volumeGain: 0.95 },
-      sockGuess: { name: 'Sock Guess · draw energy (local bed)', youtubeId: 'lAwiWIBOz24', url: 'audio/LuckyDraw.mp3', volumeGain: 0.95 },
-      game1: { name: 'Game 1 · retro gameshow (local bed)', youtubeId: '9rJi02Jq8FM', url: 'audio/Game1.mp3', volumeGain: 0.9 },
-      game2: { name: 'Game 2 · kitchen rush (local bed)', youtubeId: 'r_3RN7688rE', url: 'audio/Game2.mp3', volumeGain: 0.92 },
-      recess: { name: 'Recess · soft Christmas (local bed)', youtubeId: 'E8gmARGvPlI', url: 'audio/buffet.mp3', volumeGain: 0.95 },
-      // Prize draws share LuckyDraw.mp3 local bed; YouTube stays Inkpot when online
-      christmasGifts: { name: 'Christmas Gifts · draw energy (local bed)', youtubeId: 'lAwiWIBOz24', url: 'audio/LuckyDraw.mp3', volumeGain: 0.95 },
-      bestDressed: { name: 'Best Dressed · runway (local bed)', youtubeId: 'Ll6kYJPLNxg', url: 'audio/bestDressed.mp3', volumeGain: 1.08 },
-      grandPrizes: { name: 'Grand Prizes · draw energy (local bed)', youtubeId: 'lAwiWIBOz24', url: 'audio/LuckyDraw.mp3', volumeGain: 0.95 },
-      finale: { name: 'Finale (local bed)', url: 'audio/finale.mp3', volumeGain: 1.0 }
+      opening: { name: 'Opening (YouTube)', youtubeId: 'aAkMkVFwAoo', url: 'audio/Opening.mp3', volumeGain: 0.95 },
+      mcs: { name: 'MC (YouTube)', youtubeId: 'ibEOS9i77R4', url: 'audio/MC.mp3', volumeGain: 1.0 },
+      headmaster: { name: 'Headmaster (YouTube)', youtubeId: '7gswtbX8G7Q', url: 'audio/headmaster.mp3', volumeGain: 1.0 },
+      buffet: { name: 'Buffet (YouTube)', youtubeId: 'E8gmARGvPlI', url: 'audio/buffet.mp3', volumeGain: 0.95 },
+      sockGuess: { name: 'Sock Guess Reveal (YouTube)', youtubeId: 'lAwiWIBOz24', url: 'audio/LuckyDraw.mp3', volumeGain: 0.95 },
+      game1: { name: 'Retro Gameshow Theme (YouTube)', youtubeId: '9rJi02Jq8FM', url: 'audio/Game1.mp3', volumeGain: 0.9 },
+      game2: { name: 'Game 2 (YouTube)', youtubeId: 'r_3RN7688rE', url: 'audio/Game2.mp3', volumeGain: 0.92 },
+      recess: { name: 'Recess (YouTube)', youtubeId: 'E8gmARGvPlI', url: 'audio/buffet.mp3', volumeGain: 0.95 },
+      // Prize draws keep Inkpot; local LuckyDraw.mp3 if embed is blocked / offline
+      christmasGifts: { name: 'Shocking Blue — Inkpot (YouTube)', youtubeId: 'lAwiWIBOz24', url: 'audio/LuckyDraw.mp3', volumeGain: 0.95 },
+      bestDressed: { name: 'Best Dressed Catwalk (YouTube)', youtubeId: 'Ll6kYJPLNxg', url: 'audio/buffet.mp3', volumeGain: 1.08 },
+      grandPrizes: { name: 'Shocking Blue — Inkpot (YouTube)', youtubeId: 'lAwiWIBOz24', url: 'audio/LuckyDraw.mp3', volumeGain: 0.95 },
+      finale: { name: 'finale.mp3', url: 'audio/finale.mp3', volumeGain: 1.0 }
     };
     let customPhaseMp3s = { ...DEFAULT_PHASE_MP3S }; // #SAVE:customPhaseMp3s
     let vdoRoomId = DEFAULT_VDO_ROOM_ID; // #SAVE:vdoRoomId
