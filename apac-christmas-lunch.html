@@ -634,14 +634,8 @@
       object-position: center;
       display: block;
     }
-    .slide[data-title="10. Game 2: Order & Prepare"] .stage-board {
+    .slide[data-title="8. Game 2: Win Rules & Order Form"] .stage-board {
       max-width: min(96rem, 96vw);
-    }
-    .slide[data-title="10. Game 2: Order & Prepare"] .menu-board-shell {
-      padding: 0.55rem 0.55rem 0.7rem;
-    }
-    .slide[data-title="10. Game 2: Order & Prepare"] .menu-board-chalk {
-      padding: 0.55rem 0.6rem 0.7rem;
     }
     /* Game 2 — How to Play (horizontal role swimlanes, L→R) */
     .slide[data-title="9. Game 2: How to Play"] {
@@ -893,14 +887,14 @@
       .hswim-arrows { display: none; }
     }
 
-    /* Game 2 — Order & Prepare (kitchen pass) */
-    .slide[data-title="10. Game 2: Order & Prepare"] {
-      padding-top: 3.0rem;
-      padding-bottom: 3.5rem;
+    /* Game 2 — Win Rules & Order Form (merged brief + form) */
+    .slide[data-title="8. Game 2: Win Rules & Order Form"] {
+      padding-top: 2.6rem;
+      padding-bottom: 3.2rem;
       padding-left: 0.75rem;
       padding-right: 0.75rem;
     }
-    .slide[data-title="10. Game 2: Order & Prepare"] .order-prep-board {
+    .slide[data-title="8. Game 2: Win Rules & Order Form"] .rules-form-board {
       width: 100%;
       max-width: min(98rem, 98vw);
       flex: 1 1 auto;
@@ -909,64 +903,68 @@
       display: flex;
       flex-direction: column;
       gap: 0.55rem;
-      padding: 1.15rem 0.75rem 0.75rem;
+      padding: 1.05rem 0.85rem 0.75rem;
       margin-inline: auto;
     }
-    .slide[data-title="10. Game 2: Order & Prepare"] .menu-set-card {
-      border-radius: 0;
-      border: 1.5px solid #111 !important;
-      background: #fffef8;
-      box-shadow: none;
-    }
-    .slide[data-title="10. Game 2: Order & Prepare"] .order-prep-form {
-      border-radius: 0;
-      border: 1.5px solid #111 !important;
-      background: #fff;
-      box-shadow: none;
-    }
-    .order-prep-grid {
+    .rules-form-grid {
       flex: 1 1 auto;
       min-height: 0;
       display: grid;
       grid-template-columns: 1fr;
-      gap: 0.65rem;
+      gap: 0.75rem;
       align-items: stretch;
     }
     @media (min-width: 1024px) {
-      .order-prep-grid {
-        grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      .rules-form-grid {
+        grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
       }
     }
-    .order-prep-menus {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 0.5rem;
-      min-height: 0;
-    }
-    @media (max-width: 640px) {
-      .order-prep-menus {
-        grid-template-columns: 1fr;
-      }
-    }
-    .order-prep-menus .menu-set-card {
-      padding: 0.45rem 0.45rem 0.55rem;
-      min-width: 0;
-    }
-    .order-prep-menus .menu-photo-box {
-      width: 100%;
-      max-height: min(42vh, 320px);
-      margin-bottom: 0.3rem;
-    }
-    .order-prep-form {
+    .rules-form-rules {
       min-height: 0;
       display: flex;
       flex-direction: column;
-      gap: 0.35rem;
+      justify-content: center;
+      padding: 0.85rem 1rem 1rem;
+      border: 1.5px solid rgba(30, 107, 59, 0.35);
+      border-radius: 1.1rem;
+      background: rgba(255, 255, 255, 0.92);
     }
-    .order-prep-form .order-sheet-frame {
+    .rules-form-rules .g2-brief-rules {
+      margin-top: 0.65rem;
+      gap: 0.7rem;
+    }
+    .rules-form-rules .g2-brief-rules li {
+      padding-bottom: 0.65rem;
+    }
+    .rules-form-sheet {
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.75rem 0.85rem 0.85rem;
+      border: 1.5px solid rgba(35, 72, 106, 0.35);
+      border-radius: 1.1rem;
+      background: #fff;
+    }
+    .rules-form-sheet .order-sheet-frame {
       flex: 1 1 auto;
       min-height: 0;
-      max-height: min(58vh, 560px);
+      max-height: min(62vh, 620px);
+    }
+    /* Game 2 — Floor get ready */
+    .slide[data-title="10. Game 2: Floor — Get Ready"] {
+      padding-top: 2.4rem;
+      padding-bottom: 3rem;
+    }
+    .floor-ready-card {
+      width: min(52rem, 94vw);
+      margin-inline: auto;
+      background:
+        radial-gradient(ellipse 70% 55% at 50% 0%, rgba(217, 119, 36, 0.16), transparent 70%),
+        rgba(255, 255, 255, 0.96);
+    }
+    .floor-ready-card.theme-rail::after {
+      background: linear-gradient(180deg, #D97724, #C8372D, #1E6B3B);
     }
     .order-sheet-toolbar {
       display: flex;
@@ -1022,11 +1020,6 @@
       transform: rotate(-6deg);
       opacity: 0.85;
     }
-    /* Game 2 kitchen mission brief */
-    .slide[data-title="8. Game 2: Mission Brief"] {
-      padding-top: 2.4rem;
-      padding-bottom: 3rem;
-    }
     /* Game 2 boards share festive-card chrome; accent classes above */
 
     .lab-live-bar {
@@ -1048,25 +1041,6 @@
       border: 1px solid rgba(35, 72, 106, 0.2);
     }
     .menu-board-grid-light {
-      margin-top: 0.35rem;
-    }
-    .slide[data-title="10. Game 2: Order & Prepare"] .menu-board-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 0.85rem;
-    }
-    @media (max-width: 900px) {
-      .slide[data-title="10. Game 2: Order & Prepare"] .menu-board-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-    .slide[data-title="10. Game 2: Order & Prepare"] .order-sheet-slide {
-      width: 100%;
-      max-width: min(72rem, 96vw);
-      margin-inline: auto;
-    }
-    .slide[data-title="10. Game 2: Order & Prepare"] .order-sheet-frame {
-      max-height: min(58vh, 560px);
       margin-top: 0.35rem;
     }
     .catwalk-yearbook {
@@ -3436,39 +3410,62 @@
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 8: GAME 2 — MISSION BRIEF                                       -->
+  <!-- SLIDE 8: GAME 2 — WIN RULES & ORDER FORM (merged brief + form)        -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center" data-title="8. Game 2: Mission Brief">
-    <div class="g2-brief-card festive-card theme-rail canteen-frame rounded-3xl border-4 border-[#1E6B3B]" role="document" aria-label="Game 2 mission brief">
-      <p class="g2-kitchen-kicker mb-1" contenteditable="true">Game 2 rules · 遊戲二規則</p>
-      <h1 class="g2-kitchen-title text-3xl sm:text-4xl" contenteditable="true">MISSION BRIEF</h1>
-      <h2 class="g2-kitchen-sub text-base sm:text-lg mt-1 mb-1" contenteditable="true">料理狂熱者 · Team of 3 · 10 minutes</h2>
-      <ol class="g2-brief-rules">
-        <li>
-          <span class="g2-brief-num">1</span>
-          <div contenteditable="true">
-            <strong>Form up</strong>
-            <span class="en">Each table forms a team of 3.</span>
-            <span class="zh">每桌組成三人小組。</span>
+  <section class="slide flex-col items-stretch justify-center" data-title="8. Game 2: Win Rules & Order Form">
+    <div class="stage-board g2-kitchen-board festive-card theme-rail canteen-frame rules-form-board" role="document" aria-label="Game 2 win rules and order form">
+      <div class="shrink-0 text-center relative z-10">
+        <span class="g2-ticket mb-1.5"><i class="fa-solid fa-clipboard-check"></i> Rules + order sheet</span>
+        <h1 class="g2-kitchen-title text-xl sm:text-3xl md:text-4xl" contenteditable="true">How to win · Order form</h1>
+        <h2 class="g2-kitchen-sub text-sm sm:text-base mt-0.5" contenteditable="true">勝出規則 · 落單紙長這樣</h2>
+      </div>
+
+      <input type="file" id="productPhotoInput" accept="image/*" class="hidden" />
+
+      <div class="rules-form-grid">
+        <div class="rules-form-rules">
+          <p class="g2-kitchen-kicker mb-1" contenteditable="true">Win rules · 勝出條件</p>
+          <ol class="g2-brief-rules">
+            <li>
+              <span class="g2-brief-num">1</span>
+              <div contenteditable="true">
+                <strong>Form up</strong>
+                <span class="en">Each table forms a team of 3.</span>
+                <span class="zh">每桌組成三人小組。</span>
+              </div>
+            </li>
+            <li>
+              <span class="g2-brief-num">2</span>
+              <div contenteditable="true">
+                <strong>Double orders</strong>
+                <span class="en">Complete 1 head-table order + 1 other-table order.</span>
+                <span class="zh">完成主桌 1 張訂單 + 其他桌 1 張訂單。</span>
+              </div>
+            </li>
+            <li>
+              <span class="g2-brief-num">3</span>
+              <div contenteditable="true">
+                <strong>Fastest wins</strong>
+                <span class="en">Within 10 minutes, the fastest correct team wins.</span>
+                <span class="zh">限時 10 分鐘，最快且正確的隊伍勝出。</span>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <div class="rules-form-sheet">
+          <div class="flex items-center justify-between gap-2 shrink-0">
+            <p class="g2-exam-sub text-sm sm:text-base leading-tight" contenteditable="true">Sample Order Form · 範本落單紙</p>
+            <span class="g2-exam-kicker text-[10px] sm:text-xs">Worksheet</span>
           </div>
-        </li>
-        <li>
-          <span class="g2-brief-num">2</span>
-          <div contenteditable="true">
-            <strong>Double orders</strong>
-            <span class="en">Complete 1 head-table order + 1 other-table order.</span>
-            <span class="zh">完成主桌 1 張訂單 + 其他桌 1 張訂單。</span>
+          <div id="orderFormPhotoBox" class="order-sheet-frame rounded-xl border-2 border-solid border-[#23486A]/40 overflow-hidden">
+            <img src="media/order-sheet/order-sheet.png" alt="SSOB School Home Economics exam order sheet — Orders A–C" class="order-sheet-img" />
           </div>
-        </li>
-        <li>
-          <span class="g2-brief-num">3</span>
-          <div contenteditable="true">
-            <strong>Fastest wins</strong>
-            <span class="en">Within 10 minutes, the fastest correct team wins.</span>
-            <span class="zh">限時 10 分鐘，最快且正確的隊伍勝出。</span>
-          </div>
-        </li>
-      </ol>
+          <p class="text-[10px] sm:text-xs text-slate-600 font-semibold leading-snug shrink-0" contenteditable="true">
+            Tick your order · pass to Order Taker · 每桌勾選訂單 · 交予落單員
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -3602,82 +3599,29 @@
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 10: GAME 2: ORDER & PREPARE (MENUS + FORM)                      -->
+  <!-- SLIDE 10: GAME 2 — FLOOR GET READY                                    -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-stretch justify-center" data-title="10. Game 2: Order & Prepare">
-    <div class="stage-board g2-kitchen-board g2-exam-sheet festive-card theme-rail canteen-frame order-prep-board">
-      <div class="shrink-0 text-center pt-2 relative z-10">
-        <span class="g2-ticket mb-2"><i class="fa-solid fa-burger"></i> Order station</span>
-        <p class="g2-kitchen-kicker mb-1" contenteditable="true">2026-XMAS GAME 2 · Menus on the pass</p>
-        <h1 class="g2-kitchen-title text-xl sm:text-3xl md:text-4xl" contenteditable="true">
-          MENUS + ORDER FORM
+  <section class="slide floor-ready-slide flex-col items-center justify-center text-center" data-title="10. Game 2: Floor — Get Ready">
+    <div class="g2-kitchen-board festive-card theme-rail canteen-frame stage-card floor-ready-card rounded-3xl border-4 border-[#D97724] px-6 py-8 sm:px-12 sm:py-11">
+      <div class="relative z-10">
+        <span class="g2-ticket mb-3"><i class="fa-solid fa-bullhorn"></i> Floor call</span>
+        <p class="g2-kitchen-kicker mb-2" contenteditable="true">Hold the room · stations stand by</p>
+        <h1 class="g2-kitchen-title text-3xl sm:text-5xl md:text-6xl" contenteditable="true">
+          FLOOR — GET READY
         </h1>
-        <h2 class="g2-kitchen-sub text-sm sm:text-lg mt-1" contenteditable="true">
-          餐牌 + 落單紙
+        <h2 class="g2-kitchen-sub text-xl sm:text-2xl mt-2" contenteditable="true">
+          現場準備 · 各就各位
         </h2>
-        <p class="text-[11px] sm:text-sm text-slate-600 font-semibold mt-1" style="font-family: Arial, Helvetica, sans-serif;" contenteditable="true">
-          Pick a set · fill the form · pass to Order Taker · 選套餐 · 填表格 · 交接單員
+        <p class="mt-4 max-w-2xl mx-auto text-base sm:text-lg font-bold text-slate-700 leading-snug" contenteditable="true">
+          Form teams of 3 · grab order forms · Order Takers / Chef / Server to stations.
         </p>
-      </div>
-
-      <input type="file" id="productPhotoInput" accept="image/*" class="hidden" />
-
-      <div class="order-prep-grid">
-        <div class="order-prep-menus min-h-0">
-          <div class="festive-card menu-set-card rounded-2xl border-2 border-[#C8372D]/40 flex flex-col bg-white/90">
-            <div class="flex items-center justify-between mb-1 gap-1">
-              <span class="px-2 py-0.5 bg-[#C8372D] text-white font-black text-[10px] sm:text-xs uppercase tracking-wide" style="font-family:Arial,Helvetica,sans-serif;">Order A</span>
-              <button type="button" onclick="triggerProductPhotoUpload(1)" class="text-[10px] sm:text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer shrink-0"><i class="fa-solid fa-image"></i></button>
-            </div>
-            <div id="setPhotoBox1" onclick="triggerProductPhotoUpload(1)" class="menu-photo-box hover:border-[#C8372D]" title="Replace Order A photo">
-              <img src="media/menus/order-a-classic-beef.jpg" alt="Order A Classic Beef" />
-            </div>
-            <h3 class="font-black text-slate-800 text-sm sm:text-base" contenteditable="true">Classic Beef</h3>
-            <p class="menu-set-sub text-slate-600 font-semibold text-[11px] sm:text-xs mt-0.5" contenteditable="true">Order A · 經典牛肉堡</p>
-          </div>
-
-          <div class="festive-card menu-set-card rounded-2xl border-2 border-[#1E6B3B]/40 flex flex-col bg-white/90">
-            <div class="flex items-center justify-between mb-1 gap-1">
-              <span class="px-2 py-0.5 bg-[#1E6B3B] text-white font-black text-[10px] sm:text-xs uppercase tracking-wide" style="font-family:Arial,Helvetica,sans-serif;">Order B</span>
-              <button type="button" onclick="triggerProductPhotoUpload(2)" class="text-[10px] sm:text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer shrink-0"><i class="fa-solid fa-image"></i></button>
-            </div>
-            <div id="setPhotoBox2" onclick="triggerProductPhotoUpload(2)" class="menu-photo-box hover:border-[#1E6B3B]" title="Replace Order B photo">
-              <img src="media/menus/order-b-fish.jpg" alt="Order B Fish" />
-            </div>
-            <h3 class="font-black text-slate-800 text-sm sm:text-base" contenteditable="true">Fish</h3>
-            <p class="menu-set-sub text-slate-600 font-semibold text-[11px] sm:text-xs mt-0.5" contenteditable="true">Order B · 魚柳堡</p>
-          </div>
-
-          <div class="festive-card menu-set-card rounded-2xl border-2 border-[#23486A]/40 flex flex-col bg-white/90">
-            <div class="flex items-center justify-between mb-1 gap-1">
-              <span class="px-2 py-0.5 bg-[#23486A] text-white font-black text-[10px] sm:text-xs uppercase tracking-wide" style="font-family:Arial,Helvetica,sans-serif;">Order C</span>
-              <button type="button" onclick="triggerProductPhotoUpload(3)" class="text-[10px] sm:text-[11px] font-bold text-[#23486A] hover:underline cursor-pointer shrink-0"><i class="fa-solid fa-image"></i></button>
-            </div>
-            <div id="setPhotoBox3" onclick="triggerProductPhotoUpload(3)" class="menu-photo-box hover:border-[#23486A]" title="Replace Order C photo">
-              <img src="media/menus/order-c-chicken.jpg" alt="Order C Chicken" />
-            </div>
-            <h3 class="font-black text-slate-800 text-sm sm:text-base" contenteditable="true">Chicken</h3>
-            <p class="menu-set-sub text-slate-600 font-semibold text-[11px] sm:text-xs mt-0.5" contenteditable="true">Order C · 雞肉堡</p>
-          </div>
-        </div>
-
-        <div class="order-prep-form p-2 sm:p-3 flex flex-col min-h-0">
-          <div class="flex items-center justify-between gap-2 mb-1 shrink-0">
-            <p class="g2-exam-sub text-sm sm:text-base leading-tight" contenteditable="true">Sample Order Form · 範本落單紙</p>
-            <span class="g2-exam-kicker text-[10px] sm:text-xs">Worksheet</span>
-          </div>
-          <div id="orderFormPhotoBox" class="order-sheet-frame rounded-xl border-2 border-solid border-[#23486A]/40 overflow-hidden flex-1 min-h-0">
-            <img src="media/order-sheet/order-sheet.png" alt="SSOB School Home Economics exam order sheet — Orders A–C" class="order-sheet-img" />
-          </div>
-          <p class="text-[10px] sm:text-xs text-slate-600 font-semibold mt-1 leading-snug shrink-0" contenteditable="true">
-            Tick your order · table guests fill this · pass to Order Taker · 每桌勾選訂單 · 交予落單員
-          </p>
-        </div>
+        <p class="mt-2 text-sm sm:text-base font-semibold text-slate-500" contenteditable="true">
+          三人一組 · 取落單紙 · 落單員／大廚／侍應就位 · 等 MC 開跑
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- ===================================================================== -->
   <!-- ===================================================================== -->
   <!-- SLIDE 11: GAME 2: TIMER & LIVESTREAM (DEMO)                            -->
   <!-- ===================================================================== -->
@@ -5983,14 +5927,14 @@
       if (currentSlideIdx === SLIDE_SOCK_GUESS && prevIdx !== SLIDE_SOCK_GUESS) resetSockGuessReveal({ silent: true });
       // Always sync VDO room + viewer when entering the cook slide (room may already exist from boot)
       if (currentSlideIdx === SLIDE_COOK) connectTonyVdoStream({ silent: true });
-      if (slides[currentSlideIdx]?.dataset?.title === '8. Game 2: How to Play') {
+      if (slides[currentSlideIdx]?.dataset?.title === '9. Game 2: How to Play') {
         requestAnimationFrame(() => requestAnimationFrame(drawHowPlaySwimArrows));
       }
       updateRundownTracker();
     }
 
     window.addEventListener('resize', () => {
-      if (slides[currentSlideIdx]?.dataset?.title === '8. Game 2: How to Play') drawHowPlaySwimArrows();
+      if (slides[currentSlideIdx]?.dataset?.title === '9. Game 2: How to Play') drawHowPlaySwimArrows();
     });
 
     function parseRundownHM(hm) {
