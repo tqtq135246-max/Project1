@@ -1008,6 +1008,52 @@
     .floor-ready-card.theme-rail::after {
       background: linear-gradient(180deg, #D97724, #C8372D, #1E6B3B);
     }
+    .floor-ready-points {
+      display: grid;
+      gap: 0.85rem;
+      max-width: 36rem;
+      margin: 1.35rem auto 0;
+      text-align: left;
+    }
+    .floor-ready-point {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.85rem;
+      align-items: start;
+      padding: 0.85rem 1rem;
+      border-radius: 1rem;
+      border: 1.5px solid rgba(217, 119, 36, 0.35);
+      background: rgba(255, 251, 235, 0.9);
+    }
+    .floor-ready-num {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      color: #fff;
+      background: #D97724;
+      flex-shrink: 0;
+    }
+    .floor-ready-point strong {
+      display: block;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #C8372D;
+      line-height: 1.2;
+    }
+    .floor-ready-point span {
+      display: block;
+      margin-top: 0.25rem;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #475569;
+      line-height: 1.35;
+    }
     .order-sheet-toolbar {
       display: flex;
       flex-wrap: wrap;
@@ -3649,19 +3695,29 @@
     <div class="g2-kitchen-board festive-card theme-rail canteen-frame stage-card floor-ready-card rounded-3xl border-4 border-[#D97724] px-6 py-8 sm:px-12 sm:py-11">
       <div class="relative z-10">
         <span class="g2-ticket mb-3"><i class="fa-solid fa-bullhorn"></i> Floor call</span>
-        <p class="g2-kitchen-kicker mb-2" contenteditable="true">Hold the room · stations stand by</p>
+        <p class="g2-kitchen-kicker mb-2" contenteditable="true">Last call before the clock · 開鐘前最後提醒</p>
         <h1 class="g2-kitchen-title text-3xl sm:text-5xl md:text-6xl" contenteditable="true">
           FLOOR — GET READY
         </h1>
         <h2 class="g2-kitchen-sub text-xl sm:text-2xl mt-2" contenteditable="true">
           現場準備 · 各就各位
         </h2>
-        <p class="mt-4 max-w-2xl mx-auto text-base sm:text-lg font-bold text-slate-700 leading-snug" contenteditable="true">
-          Form teams of 3 · finish filling forms now · Order Takers / Chef / Server stand by for collect.
-        </p>
-        <p class="mt-2 text-sm sm:text-base font-semibold text-slate-500" contenteditable="true">
-          三人一組 · 現在填妥落單紙 · 落單員／大廚／侍應就位 · 收單即開鐘
-        </p>
+        <div class="floor-ready-points" role="list">
+          <div class="floor-ready-point" role="listitem">
+            <span class="floor-ready-num" aria-hidden="true">1</span>
+            <div>
+              <strong contenteditable="true">Tables — finish your orders</strong>
+              <span contenteditable="true">Fill and check every order form now · 各枱現在填妥並核對落單紙</span>
+            </div>
+          </div>
+          <div class="floor-ready-point" role="listitem">
+            <span class="floor-ready-num" aria-hidden="true">2</span>
+            <div>
+              <strong contenteditable="true">Teams — get ready</strong>
+              <span contenteditable="true">Order Taker / Chef / Server stand by · 落單員／大廚／侍應就位待命</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
