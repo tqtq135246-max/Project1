@@ -75,29 +75,40 @@
     .font-festive-script { font-family: 'Caveat', cursive; }
     .font-festive-display { font-family: 'Fredoka', sans-serif; }
 
-    /* ========== GAME 1 — HKCEE exam booklet (monochrome cover) ========== */
-    .hkcee-exam-cta {
-      display: inline-block;
-      margin: 0.85rem auto 0;
-      padding: 0.55rem 1.1rem;
-      border: 1.5px solid #111;
-      background: #111;
-      color: #fff;
-      font-family: Arial, Helvetica, sans-serif;
-      font-weight: 800;
-      font-size: 0.85rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      text-decoration: none;
-      text-align: center;
+    /* ========== GAME 1 — festive quiz board (matches Game 2 / deck chrome) ========== */
+    .g1-quiz-board {
+      width: 100%;
+      margin-inline: auto;
+      color: #1e293b;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      position: relative;
+      border-radius: 1.5rem;
     }
-    .hkcee-exam-cta:hover { background: #222; color: #fff; }
-    .hkcee-mark-caption {
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 0.68rem;
+    .g1-quiz-board.theme-rail::after {
+      content: '🎄 ❓ 📱 🎁 ❄️ ⭐';
+    }
+    .g1-aha-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      margin: 0 auto;
+      padding: 0.85rem 1.45rem;
+      border-radius: 1rem;
+      border: 2px solid #fde68a;
+      background: linear-gradient(145deg, #C8372D, #D97724);
+      color: #fff;
+      font-family: 'Fredoka', sans-serif;
       font-weight: 700;
-      text-align: center;
-      margin: 0.15rem 0 0.1rem;
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      box-shadow: 0 14px 28px -16px rgba(200, 55, 45, 0.65);
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+    .g1-aha-cta:hover {
+      filter: brightness(1.06);
+      transform: translateY(-1px);
+      color: #fff;
     }
     .g2-brief-card {
       width: min(42rem, 94vw);
@@ -1018,170 +1029,6 @@
     }
     /* Game 2 boards share festive-card chrome; accent classes above */
 
-    .hkcee-cover {
-      width: 100%;
-      max-width: min(58rem, 96vw);
-      margin-inline: auto;
-      background: #fff;
-      color: #111;
-      border: 1.5px solid #111;
-      border-radius: 0;
-      box-shadow:
-        0 0 0 3px rgba(255, 255, 255, 0.7),
-        0 18px 40px -22px rgba(35, 72, 106, 0.28);
-      display: grid;
-      grid-template-columns: minmax(0, 1.55fr) minmax(12rem, 0.72fr);
-      min-height: min(78vh, 44rem);
-      font-family: Arial, Helvetica, sans-serif;
-      position: relative;
-    }
-    @media (max-width: 900px) {
-      .hkcee-cover { grid-template-columns: 1fr; }
-      .hkcee-side { border-left: 0; border-top: 1.5px solid #111; }
-    }
-    .hkcee-main {
-      padding: 1.15rem 1.05rem 0.9rem 1.15rem;
-      border-right: 0;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-    .hkcee-paper-code {
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-    }
-    .hkcee-diag {
-      width: 4.6rem;
-      height: 1.05rem;
-      margin: 0.4rem 0 0.7rem;
-      background: #111;
-      transform: skewX(-32deg);
-      transform-origin: left center;
-    }
-    .hkcee-authority {
-      text-align: center;
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      line-height: 1.35;
-      text-transform: uppercase;
-    }
-    .hkcee-paper-title {
-      text-align: center;
-      margin-top: 0.85rem;
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: clamp(1.15rem, 2.6vw, 1.55rem);
-      font-weight: 800;
-      letter-spacing: 0.06em;
-    }
-    .hkcee-paper-sub {
-      text-align: center;
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 0.95rem;
-      font-weight: 700;
-      margin-top: 0.15rem;
-    }
-    .hkcee-time {
-      text-align: center;
-      font-size: 0.82rem;
-      margin-top: 0.55rem;
-      line-height: 1.45;
-    }
-    .hkcee-instructions-label {
-      font-family: Arial, Helvetica, sans-serif;
-      font-weight: 800;
-      font-size: 0.95rem;
-      letter-spacing: 0.12em;
-      margin: 1.1rem 0 0.55rem;
-      text-align: left;
-    }
-    .hkcee-instructions {
-      margin: 0;
-      padding-left: 1.35rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.65rem;
-      font-size: clamp(0.88rem, 1.55vw, 1.02rem);
-      line-height: 1.45;
-    }
-    .hkcee-instructions li { padding-left: 0.15rem; }
-    .hkcee-instructions .zh {
-      display: block;
-      font-size: 0.86em;
-      color: #333;
-      margin-top: 0.15rem;
-    }
-    .hkcee-footer {
-      margin-top: auto;
-      padding-top: 1rem;
-      font-size: 0.68rem;
-      text-align: center;
-      color: #222;
-      line-height: 1.4;
-    }
-    .hkcee-side {
-      padding: 1.15rem 0.65rem 0.75rem;
-      border-left: 1.5px solid #111;
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-    .hkcee-barcode {
-      border: 1.5px solid #111;
-      min-height: 4.6rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 0.5rem;
-    }
-    .hkcee-cand-label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      margin-top: 0.15rem;
-    }
-    .hkcee-cand-boxes {
-      display: grid;
-      grid-template-columns: repeat(8, 1fr);
-      border: 1.5px solid #111;
-    }
-    .hkcee-cand-boxes span {
-      aspect-ratio: 1;
-      border-right: 1px solid #111;
-    }
-    .hkcee-cand-boxes span:last-child { border-right: 0; }
-    .hkcee-mark-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.65rem;
-      line-height: 1.2;
-    }
-    .hkcee-mark-table th,
-    .hkcee-mark-table td {
-      border: 1px solid #111;
-      padding: 0.28rem 0.2rem;
-      text-align: center;
-      vertical-align: middle;
-    }
-    .hkcee-mark-table th {
-      font-weight: 700;
-      background: #f0f0f0;
-    }
-    .hkcee-mark-table .shade { background: #e6e6e6; }
-    .hkcee-mark-table .tall { height: 1.55rem; }
-    .hkcee-check-box {
-      border: 1.5px solid #111;
-      padding: 0.4rem 0.35rem;
-      font-size: 0.68rem;
-      font-weight: 700;
-      text-align: center;
-    }
     .lab-live-bar {
       background:
         linear-gradient(90deg, rgba(200,55,45,0.08), rgba(30,107,59,0.08)),
@@ -3491,78 +3338,54 @@
 
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 6: GAME 1 SESSION INTRO (HKCEE EXAM COVER)                      -->
+  <!-- SLIDE 6: GAME 1 SESSION INTRO (FESTIVE — MATCHES DECK CHROME)         -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center" data-title="6. Game 1: Make a Guess — Intro">
-    <div class="hkcee-cover" role="document" aria-label="Game 1 HKCEE-style exam booklet cover">
-      <div class="hkcee-main">
-        <div class="hkcee-paper-code" contenteditable="true">2026-XMAS GAME 1 · PAPER A</div>
-        <div class="hkcee-diag" aria-hidden="true"></div>
-        <div class="hkcee-authority" contenteditable="true">
-          APAC CHRISTMAS LUNCH AUTHORITY<br />
-          SCHOOL QUIZ EXAMINATION 2026
+  <section class="slide flex-col items-center justify-center text-center" data-title="6. Game 1: Make a Guess — Intro">
+    <div class="g1-quiz-board festive-card theme-rail canteen-frame stage-card rounded-3xl border-4 border-[#C8372D] px-6 py-8 sm:px-10 sm:py-10 text-center">
+      <div class="relative z-10">
+        <span class="g2-ticket mb-3" style="background:linear-gradient(145deg,#C8372D,#D97724);"><i class="fa-solid fa-mobile-screen"></i> Live class quiz · 即時課堂測驗</span>
+        <p class="g2-kitchen-kicker mb-2" contenteditable="true">Phones out · AhaSlides · 2026-XMAS GAME 1</p>
+        <h1 class="g2-kitchen-title text-3xl sm:text-5xl md:text-6xl text-[#C8372D]" contenteditable="true">
+          MAKE A GUESS
+        </h1>
+        <h2 class="g2-kitchen-sub text-xl sm:text-2xl mt-2" contenteditable="true">
+          遊戲一：猜一猜
+        </h2>
+        <div class="g2-intro-icons" aria-hidden="true">
+          <div class="g2-intro-icon ticket" title="Phone quiz"><i class="fa-solid fa-mobile-screen-button"></i></div>
+          <div class="g2-intro-icon board" title="Questions"><i class="fa-solid fa-circle-question"></i></div>
+          <div class="g2-intro-icon chef" title="Guess"><i class="fa-solid fa-lightbulb"></i></div>
+          <div class="g2-intro-icon tray" title="Fast answers"><i class="fa-solid fa-bolt"></i></div>
+          <div class="g2-intro-icon timer" title="Live scores"><i class="fa-solid fa-ranking-star"></i></div>
+          <div class="g2-intro-icon pass" title="Team cheer"><i class="fa-solid fa-hands-clapping"></i></div>
         </div>
-        <h1 class="hkcee-paper-title" contenteditable="true">GAME 1: MAKE A GUESS</h1>
-        <div class="hkcee-paper-sub" contenteditable="true">Question-Answer Book · 遊戲一：猜一猜</div>
-        <div class="hkcee-time" contenteditable="true">
-          Phones out · Live class quiz<br />
-          This paper must be answered on your phone
+        <div class="g2-intro-stations">
+          <div class="g2-intro-station">
+            <i class="fa-solid fa-qrcode" aria-hidden="true"></i>
+            <strong contenteditable="true">Join on phone</strong>
+            <span contenteditable="true">掃碼入場 · AhaSlides</span>
+          </div>
+          <div class="g2-intro-station">
+            <i class="fa-solid fa-hand-pointer" aria-hidden="true"></i>
+            <strong contenteditable="true">Tap your guess</strong>
+            <span contenteditable="true">快答 · 猜一猜</span>
+          </div>
+          <div class="g2-intro-station">
+            <i class="fa-solid fa-trophy" aria-hidden="true"></i>
+            <strong contenteditable="true">Cheer the leaders</strong>
+            <span contenteditable="true">排行榜 · 歡呼</span>
+          </div>
         </div>
-        <div class="hkcee-instructions-label">INSTRUCTIONS</div>
-        <ol class="hkcee-instructions" contenteditable="true">
-          <li>Write nothing on this cover until the quiz opens.
-            <span class="zh">測驗開始前請勿在封面書寫。</span>
-          </li>
-          <li>When instructed, use your phone to join the live class quiz.
-            <span class="zh">按指示用手機加入即時課堂測驗。</span>
-          </li>
-          <li>Answer all questions. Guess wisely.
-            <span class="zh">請回答全部題目，小心作答。</span>
-          </li>
-          <li>Do not turn over until told to do so.
-            <span class="zh">未獲指示前請勿翻頁。</span>
-          </li>
-        </ol>
-        <div style="text-align:center;margin-top:0.65rem;">
+        <p class="mt-4 text-sm sm:text-base font-bold text-slate-700" contenteditable="true">
+          Answer every question · Guess wisely · 請回答全部題目
+        </p>
+        <div class="mt-5">
           <a id="ahaPresenterLaunchBtn" href="https://presenter.ahaslides.com/share/1793154443570-hpjbw2yzme/present" target="_blank" rel="noopener noreferrer"
-             onclick="pauseBgmForPresenterTab()" class="hkcee-exam-cta">
-            OPEN AHASLIDES · 開卷
+             onclick="pauseBgmForPresenterTab()" class="g1-aha-cta">
+            <i class="fa-solid fa-play"></i> Open AhaSlides · 開始測驗
           </a>
         </div>
-        <div class="hkcee-footer" contenteditable="true">
-          © Hong Kong Examinations style homage · APAC Christmas Lunch 2026<br />
-          考試卷封面格式致敬 · 聖誕午餐活動專用
-        </div>
       </div>
-
-        <aside class="hkcee-side" aria-label="Examination administration panel">
-          <div class="hkcee-barcode">Please stick the<br />barcode label here</div>
-          <div class="hkcee-cand-label">Candidate Number</div>
-          <div class="hkcee-cand-boxes" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
-          <div class="hkcee-mark-caption">Marker’s Use Only</div>
-          <table class="hkcee-mark-table" aria-hidden="true">
-            <thead><tr><th>Question No.</th><th>Marks</th><th>Marks</th></tr></thead>
-            <tbody>
-              <tr><td>1–2</td><td class="tall"></td><td class="tall shade"></td></tr>
-              <tr><td>3–4</td><td class="tall"></td><td class="tall shade"></td></tr>
-              <tr><td>5–6</td><td class="tall"></td><td class="tall shade"></td></tr>
-              <tr><td>7–8</td><td class="tall"></td><td class="tall shade"></td></tr>
-              <tr><td>Total</td><td class="tall"></td><td class="tall shade"></td></tr>
-            </tbody>
-          </table>
-          <div class="hkcee-check-box">Checker’s Use Only</div>
-          <div class="hkcee-mark-caption">Examiner’s Use Only</div>
-          <table class="hkcee-mark-table" aria-hidden="true">
-            <thead><tr><th>Question No.</th><th>Marks</th><th>Marks</th></tr></thead>
-            <tbody>
-              <tr><td>9</td><td class="tall"></td><td class="tall shade"></td></tr>
-              <tr><td>10</td><td class="tall"></td><td class="tall shade"></td></tr>
-              <tr><td>Total</td><td class="tall"></td><td class="tall shade"></td></tr>
-            </tbody>
-          </table>
-          <div class="hkcee-check-box">Checker’s Use Only</div>
-          <p style="font-size:0.62rem;margin:0.2rem 0 0;line-height:1.3;">* To be filled in by the candidate</p>
-        </aside>
     </div>
   </section>
 
@@ -4433,7 +4256,7 @@
       headmaster: { name: 'Headmaster (YouTube)', youtubeId: '7gswtbX8G7Q', url: 'audio/headmaster.mp3', volumeGain: 1.0 },
       buffet: { name: 'Buffet (YouTube)', youtubeId: 'E8gmARGvPlI', url: 'audio/buffet.mp3', volumeGain: 0.95 },
       sockGuess: { name: 'Sock Guess Reveal (YouTube)', youtubeId: 'lAwiWIBOz24', url: 'audio/LuckyDraw.mp3', volumeGain: 0.95 },
-      game1: { name: 'Game 1 (YouTube)', youtubeId: 'o0QK_V9ZsgM', url: 'audio/Game1.mp3', volumeGain: 0.88 },
+      game1: { name: 'Retro Gameshow Theme (YouTube)', youtubeId: '9rJi02Jq8FM', url: 'audio/Game1.mp3', volumeGain: 0.9 },
       game2: { name: 'Game 2 (YouTube)', youtubeId: 'r_3RN7688rE', url: 'audio/Game2.mp3', volumeGain: 0.92 },
       recess: { name: 'Recess (YouTube)', youtubeId: 'E8gmARGvPlI', url: 'audio/buffet.mp3', volumeGain: 0.95 },
       // Prize draws keep Inkpot; local LuckyDraw.mp3 if embed is blocked / offline
@@ -5868,7 +5691,7 @@
       maruko: { key: 'maruko', title: "Eric Maruko Theme (OP)", beatSec: 0.25, sleighPattern: [0, 1, 2, 3], bars: [{ chord: [F.C4, F.E4, F.G4], melody: [[F.G5, 0, 0.5], [F.E5, 0.5, 0.5], [F.G5, 1, 0.5], [F.E5, 1.5, 0.5], [F.G5, 2, 0.5], [F.A5, 2.5, 0.5], [F.G5, 3, 1]] }] },
       dumbledore: { key: 'dumbledore', title: "Jonathan Magical Theme", beatSec: 0.34, sleighPattern: [0, 2], bars: [{ chord: [F.E3, F.G3, F.B3], melody: [[F.B4, 0, 1], [F.E5, 1, 1.5], [F.G5, 2.5, 0.5]] }] },
       buffet: { key: 'buffet', title: "Deck the Halls", beatSec: 0.38, sleighPattern: [0, 2], bars: [{ chord: [F.C4, F.E4, F.G4], melody: [[F.G5, 0, 1.5], [F.F5, 1.5, 0.5], [F.E5, 2, 1], [F.D5, 3, 1]] }] },
-      game1: { key: 'game1', title: "Carol of the Bells", beatSec: 0.30, sleighPattern: [0, 1, 2], bars: [{ chord: [F.G3, F.As4, F.D4], melody: [[F.As4, 0, 1], [F.A4, 1, 0.5], [F.As4, 1.5, 0.5], [F.G4, 2, 1]] }] },
+      game1: { key: 'game1', title: "Festive Gameshow Bounce", beatSec: 0.30, sleighPattern: [0, 1, 2], bars: [{ chord: [F.G3, F.As4, F.D4], melody: [[F.As4, 0, 1], [F.A4, 1, 0.5], [F.As4, 1.5, 0.5], [F.G4, 2, 1]] }] },
       game2: { key: 'game2', title: "Santa Claus Is Comin' to Town", beatSec: 0.35, sleighPattern: [0, 1, 2, 3], bars: [{ chord: [F.C4, F.E4, F.G4], melody: [[F.G4, 0, 0.5], [F.E4, 0.5, 0.5], [F.F4, 1, 0.5], [F.G4, 1.5, 1.2], [F.G4, 2.8, 1.2]] }] },
       recess: { key: 'recess', title: "Let It Snow", beatSec: 0.42, sleighPattern: [0, 2], bars: [{ chord: [F.C4, F.E4, F.G4], melody: [[F.G4, 0, 0.5], [F.G4, 0.5, 0.5], [F.G5, 1, 1], [F.G5, 2, 0.5], [F.F5, 2.5, 0.5], [F.E5, 3, 1]] }] },
       luckyDraw: { key: 'luckyDraw', title: "Festive Celesta", beatSec: 0.28, sleighPattern: [0, 2], bars: [{ chord: [F.C4, F.E4, F.G4], melody: [[F.C5, 0, 0.6], [F.E5, 0.5, 0.6], [F.G5, 1, 0.6], [F.B5, 1.5, 0.6], [F.C6, 2, 0.8], [F.G5, 3, 0.8]] }] },
@@ -5881,7 +5704,7 @@
       { id: 'mcs', label: 'MCs Intro', slides: [1], trackKey: 'maruko' },
       { id: 'headmaster', label: 'Headmaster Intro', slides: [2], trackKey: 'dumbledore' },
       { id: 'buffet', label: 'Buffet', slides: [3], trackKey: 'buffet' },
-      // Game Time + Game 1 share Game 1 YouTube (o0QK_V9ZsgM); 1s muted lead-in via MUSIC_START_DELAY_MS
+      // Game Time + Game 1 share upbeat gameshow BGM for AhaSlides quiz energy
       { id: 'game1', label: 'Game Time / Game 1', slides: [4, 5], trackKey: 'game1' },
       // Game 2 music (r_3RN7688rE) throughout all Game 2 slides
       { id: 'game2', label: 'Game 2 Culinary Fanatic', slides: [6, 7, 8, 9, 10], trackKey: 'game2' },
