@@ -911,7 +911,7 @@
       .hswim-arrows { display: none; }
     }
 
-    /* Game 2 — Win Rules & Order Form (rules on top, form dominant) */
+    /* Game 2 — How to win, then reveal order form */
     .slide[data-title="8. Game 2: Win Rules & Order Form"] {
       padding-top: 2.4rem;
       padding-bottom: 3rem;
@@ -920,78 +920,96 @@
     }
     .slide[data-title="8. Game 2: Win Rules & Order Form"] .rules-form-board {
       width: 100%;
-      max-width: min(98rem, 98vw);
+      max-width: min(56rem, 96vw);
       flex: 1 1 auto;
       min-height: 0;
       max-height: 100%;
       display: flex;
       flex-direction: column;
-      gap: 0.45rem;
-      padding: 0.85rem 0.85rem 0.65rem;
+      gap: 0.65rem;
+      padding: 1.15rem 1.15rem 1rem;
       margin-inline: auto;
     }
-    .rules-form-grid {
+    .slide[data-title="8. Game 2: Win Rules & Order Form"].is-form-revealed .rules-form-board {
+      max-width: min(98rem, 98vw);
+    }
+    .win-how-panel,
+    .win-form-panel {
       flex: 1 1 auto;
       min-height: 0;
       display: flex;
       flex-direction: column;
-      gap: 0.55rem;
     }
-    .rules-form-rules {
-      flex: 0 0 auto;
-      padding: 0.55rem 0.75rem 0.65rem;
-      border: 1.5px solid rgba(30, 107, 59, 0.3);
-      border-radius: 0.95rem;
-      background: rgba(255, 255, 255, 0.94);
+    .slide[data-title="8. Game 2: Win Rules & Order Form"].is-form-revealed .win-how-panel,
+    .slide[data-title="8. Game 2: Win Rules & Order Form"]:not(.is-form-revealed) .win-form-panel {
+      display: none;
     }
-    .rules-form-rules .g2-brief-rules {
-      margin-top: 0.4rem;
-      gap: 0.45rem;
-      display: grid;
-      grid-template-columns: 1fr;
+    .win-how-panel .g2-brief-rules {
+      margin-top: 1rem;
+      gap: 1rem;
+      flex: 1 1 auto;
+      justify-content: center;
     }
-    @media (min-width: 900px) {
-      .rules-form-rules .g2-brief-rules {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 0.55rem 0.85rem;
-      }
+    .win-how-panel .g2-brief-rules li {
+      padding-bottom: 1rem;
     }
-    .rules-form-rules .g2-brief-rules li {
-      padding-bottom: 0;
-      border-bottom: 0;
+    .win-how-panel .g2-brief-rules strong {
+      font-size: clamp(1.15rem, 2.4vh, 1.55rem);
+    }
+    .win-how-panel .g2-brief-rules .en {
+      font-size: clamp(1rem, 2.1vh, 1.25rem);
+      margin-top: 0.3rem;
+    }
+    .win-how-panel .g2-brief-rules .zh {
+      font-size: clamp(0.88rem, 1.8vh, 1.05rem);
+      margin-top: 0.2rem;
+    }
+    .win-how-panel .g2-brief-num {
+      width: 2.25rem;
+      height: 2.25rem;
+      font-size: 1.15rem;
+    }
+    .win-reveal-btn {
+      display: inline-flex;
       align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      margin: 1.1rem auto 0;
+      padding: 0.85rem 1.45rem;
+      border-radius: 999px;
+      border: 0;
+      cursor: pointer;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 800;
+      font-size: clamp(0.95rem, 2vh, 1.15rem);
+      color: #fff;
+      background: linear-gradient(145deg, #1E6B3B, #14532D);
+      box-shadow: 0 12px 28px -16px rgba(30, 107, 59, 0.7);
+      transition: transform 0.15s ease, filter 0.15s ease;
     }
-    .rules-form-rules .g2-brief-rules strong {
-      font-size: 0.95rem;
+    .win-reveal-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
     }
-    .rules-form-rules .g2-brief-rules .en {
-      font-size: 0.84rem;
-      margin-top: 0.1rem;
+    .win-reveal-btn.secondary {
+      background: linear-gradient(145deg, #23486A, #1e3a55);
+      box-shadow: 0 12px 28px -16px rgba(35, 72, 106, 0.7);
     }
-    .rules-form-rules .g2-brief-rules .zh {
-      font-size: 0.74rem;
-      margin-top: 0.08rem;
+    .win-form-panel {
+      gap: 0.45rem;
     }
-    .rules-form-rules .g2-brief-num {
-      width: 1.55rem;
-      height: 1.55rem;
-      font-size: 0.85rem;
-    }
-    .rules-form-sheet {
-      flex: 1 1 auto;
-      min-height: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-      padding: 0.55rem 0.7rem 0.65rem;
-      border: 1.5px solid rgba(35, 72, 106, 0.35);
-      border-radius: 1.1rem;
-      background: #fff;
-    }
-    .rules-form-sheet .order-sheet-frame {
+    .win-form-panel .order-sheet-frame {
       flex: 1 1 auto;
       min-height: 0;
       max-height: none;
+    }
+    .win-form-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem 0.85rem;
+      flex: 0 0 auto;
     }
     /* Game 2 — Floor get ready */
     .slide[data-title="10. Game 2: Floor — Get Ready"] {
@@ -3505,60 +3523,63 @@
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 8: GAME 2 — WIN RULES & ORDER FORM (merged brief + form)        -->
+  <!-- SLIDE 8: GAME 2 — HOW TO WIN → reveal order form                      -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-stretch justify-center" data-title="8. Game 2: Win Rules & Order Form">
-    <div class="stage-board g2-kitchen-board festive-card theme-rail canteen-frame rules-form-board" role="document" aria-label="Game 2 win rules and order form">
-      <div class="shrink-0 text-center relative z-10">
-        <span class="g2-ticket mb-1"><i class="fa-solid fa-clipboard-check"></i> Rules + form</span>
-        <h1 class="g2-kitchen-title text-xl sm:text-2xl md:text-3xl" contenteditable="true">How to win</h1>
-        <h2 class="g2-kitchen-sub text-sm sm:text-base mt-0.5" contenteditable="true">勝出規則 · 落單紙長這樣</h2>
-      </div>
-
+  <section id="winRulesOrderSlide" class="slide flex-col items-stretch justify-center" data-title="8. Game 2: Win Rules & Order Form">
+    <div class="stage-board g2-kitchen-board festive-card theme-rail canteen-frame rules-form-board" role="document" aria-label="Game 2 how to win and order form">
       <input type="file" id="productPhotoInput" accept="image/*" class="hidden" />
 
-      <div class="rules-form-grid">
-        <div class="rules-form-rules">
-          <p class="g2-kitchen-kicker mb-0" contenteditable="true">Win in 3 steps · 三步勝出</p>
-          <ol class="g2-brief-rules">
-            <li>
-              <span class="g2-brief-num">1</span>
-              <div contenteditable="true">
-                <strong>Team of 3</strong>
-                <span class="en">Form a team of three.</span>
-                <span class="zh">組成三人一隊。</span>
-              </div>
-            </li>
-            <li>
-              <span class="g2-brief-num">2</span>
-              <div contenteditable="true">
-                <strong>Finish both orders</strong>
-                <span class="en">Complete both assigned orders correctly.</span>
-                <span class="zh">正確完成兩張指定訂單。</span>
-              </div>
-            </li>
-            <li>
-              <span class="g2-brief-num">3</span>
-              <div contenteditable="true">
-                <strong>Be fastest</strong>
-                <span class="en">10 minutes — first correct team wins.</span>
-                <span class="zh">限時 10 分鐘，最快正確隊伍勝出。</span>
-              </div>
-            </li>
-          </ol>
+      <div class="win-how-panel" id="winHowPanel">
+        <div class="shrink-0 text-center relative z-10">
+          <span class="g2-ticket mb-1.5"><i class="fa-solid fa-trophy"></i> Game 2 rules</span>
+          <h1 class="g2-kitchen-title text-2xl sm:text-4xl md:text-5xl" contenteditable="true">How to win</h1>
+          <h2 class="g2-kitchen-sub text-base sm:text-xl mt-1" contenteditable="true">勝出規則</h2>
         </div>
+        <ol class="g2-brief-rules">
+          <li>
+            <span class="g2-brief-num">1</span>
+            <div contenteditable="true">
+              <strong>Two orders · 10 minutes</strong>
+              <span class="en">Each team must complete two orders within 10 minutes.</span>
+              <span class="zh">每隊須於 10 分鐘內完成兩張訂單。</span>
+            </div>
+          </li>
+          <li>
+            <span class="g2-brief-num">2</span>
+            <div contenteditable="true">
+              <strong>Forms on your tables</strong>
+              <span class="en">You’ll find order forms on your tables.</span>
+              <span class="zh">落單紙已放在各枱上。</span>
+            </div>
+          </li>
+          <li>
+            <span class="g2-brief-num">3</span>
+            <div contenteditable="true">
+              <strong>Fastest correct wins</strong>
+              <span class="en">The fastest team to get both orders right wins!</span>
+              <span class="zh">最快且兩單都正確的隊伍勝出！</span>
+            </div>
+          </li>
+        </ol>
+        <button type="button" id="revealOrderFormBtn" class="win-reveal-btn" onclick="setOrderFormReveal(true)">
+          <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+          Show order form · 顯示落單紙
+        </button>
+      </div>
 
-        <div class="rules-form-sheet">
-          <div class="flex items-center justify-between gap-2 shrink-0">
-            <p class="g2-exam-sub text-sm sm:text-base leading-tight" contenteditable="true">Sample Order Form · 範本落單紙</p>
-            <span class="g2-exam-kicker text-[10px] sm:text-xs">Worksheet</span>
+      <div class="win-form-panel" id="winFormPanel">
+        <div class="win-form-toolbar">
+          <div class="text-left min-w-0">
+            <p class="g2-exam-sub text-base sm:text-lg leading-tight" contenteditable="true">Sample Order Form · 範本落單紙</p>
+            <p class="text-[11px] sm:text-sm text-slate-600 font-semibold mt-0.5" contenteditable="true">This is what the form looks like · 落單紙長這樣</p>
           </div>
-          <div id="orderFormPhotoBox" class="order-sheet-frame rounded-xl border-2 border-solid border-[#23486A]/40 overflow-hidden">
-            <img src="media/order-sheet/order-sheet.png" alt="SSOB School Home Economics exam order sheet — Orders A–C" class="order-sheet-img" />
-          </div>
-          <p class="text-[10px] sm:text-xs text-slate-600 font-semibold leading-snug shrink-0" contenteditable="true">
-            Forms ready before start · Order Takers collect when the clock starts · 開鐘前填妥 · 收單即計時
-          </p>
+          <button type="button" class="win-reveal-btn secondary" onclick="setOrderFormReveal(false)">
+            <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+            Back to How to win
+          </button>
+        </div>
+        <div id="orderFormPhotoBox" class="order-sheet-frame rounded-xl border-2 border-solid border-[#23486A]/40 overflow-hidden">
+          <img src="media/order-sheet/order-sheet.png" alt="SSOB School Home Economics exam order sheet — Orders A–C" class="order-sheet-img" />
         </div>
       </div>
     </div>
@@ -6029,7 +6050,25 @@
       if (slides[currentSlideIdx]?.dataset?.title === '9. Game 2: How to Play') {
         requestAnimationFrame(() => requestAnimationFrame(drawHowPlaySwimArrows));
       }
+      if (slides[currentSlideIdx]?.dataset?.title === '8. Game 2: Win Rules & Order Form') {
+        setOrderFormReveal(false, { silent: true });
+      }
       updateRundownTracker();
+    }
+
+    function setOrderFormReveal(show, opts = {}) {
+      const slide = document.getElementById('winRulesOrderSlide')
+        || slides.find?.(s => s.dataset?.title === '8. Game 2: Win Rules & Order Form')
+        || document.querySelector('[data-title="8. Game 2: Win Rules & Order Form"]');
+      if (!slide) return;
+      slide.classList.toggle('is-form-revealed', !!show);
+      const how = document.getElementById('winHowPanel');
+      const form = document.getElementById('winFormPanel');
+      if (how) how.setAttribute('aria-hidden', show ? 'true' : 'false');
+      if (form) form.setAttribute('aria-hidden', show ? 'false' : 'true');
+      if (!opts.silent) {
+        showToast(show ? 'Order form revealed' : 'How to win');
+      }
     }
 
     window.addEventListener('resize', () => {
