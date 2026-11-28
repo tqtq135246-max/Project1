@@ -793,6 +793,31 @@
     .hswim-node.n4 .node-en {
       font-size: clamp(0.62rem, 1.2vh, 0.78rem);
     }
+    .hswim-node.is-preclock {
+      border-style: dashed;
+      background: #fffbeb;
+    }
+    .hswim-node .node-pre,
+    .hswim-node .node-clock {
+      display: inline-block;
+      margin-left: 0.2rem;
+      padding: 0.05rem 0.3rem;
+      border-radius: 999px;
+      font-style: normal;
+      font-size: 0.62em;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      vertical-align: middle;
+    }
+    .hswim-node .node-pre {
+      color: #92400e;
+      background: #fde68a;
+    }
+    .hswim-node .node-clock {
+      color: #14532d;
+      background: #bbf7d0;
+    }
     .hswim-node .node-zh {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 600;
@@ -3480,7 +3505,7 @@
             <img src="media/order-sheet/order-sheet.png" alt="SSOB School Home Economics exam order sheet — Orders A–C" class="order-sheet-img" />
           </div>
           <p class="text-[10px] sm:text-xs text-slate-600 font-semibold leading-snug shrink-0" contenteditable="true">
-            Tick your order · pass to Order Taker · 每桌勾選訂單 · 交予落單員
+            Fill before the clock · Order Takers collect at tables · 開鐘前填妥 · 落單員到枱收單
           </p>
         </div>
       </div>
@@ -3498,8 +3523,11 @@
           How the game is played
         </h1>
         <h2 class="g2-kitchen-sub text-sm sm:text-base mt-0.5" contenteditable="true">
-          遊戲玩法 · 食堂六步 · 三人小組
+          遊戲玩法 · 落單不計時 · 開鐘後才衝刺
         </h2>
+        <p class="text-[11px] sm:text-sm font-bold text-slate-600 mt-1" contenteditable="true">
+          Steps 1–2 before the clock · forms ready first · then Order Takers collect · 開鐘前填妥落單紙，落單員先收單
+        </p>
       </div>
 
       <div class="hswim" id="howPlayHSwim" role="group" aria-label="Game 2 how to play horizontal swimlanes">
@@ -3540,27 +3568,27 @@
           <span class="hswim-role-text"><strong>Examiner</strong><small>考官</small></span>
         </div>
 
-        <article class="hswim-node c-tables n1" data-hswim="n1">
+        <article class="hswim-node c-tables n1 is-preclock" data-hswim="n1">
           <span class="node-icon" aria-hidden="true"><i class="fa-solid fa-pen-to-square"></i></span>
           <div class="node-copy">
-            <p class="node-en" contenteditable="true"><span class="node-num">1</span>Place order</p>
-            <p class="node-zh" contenteditable="true">按落單紙落單</p>
+            <p class="node-en" contenteditable="true"><span class="node-num">1</span>Fill forms <em class="node-pre">before clock</em></p>
+            <p class="node-zh" contenteditable="true">開鐘前填妥落單紙</p>
           </div>
         </article>
 
-        <article class="hswim-node c-ot n2" data-hswim="n2">
+        <article class="hswim-node c-ot n2 is-preclock" data-hswim="n2">
           <span class="node-icon" aria-hidden="true"><i class="fa-solid fa-clipboard-list"></i></span>
           <div class="node-copy">
-            <p class="node-en" contenteditable="true"><span class="node-num">2</span>Collect orders</p>
-            <p class="node-zh" contenteditable="true">向負責枱收單</p>
+            <p class="node-en" contenteditable="true"><span class="node-num">2</span>Collect forms <em class="node-pre">before clock</em></p>
+            <p class="node-zh" contenteditable="true">落單員到各枱收單</p>
           </div>
         </article>
 
         <article class="hswim-node c-ot n3a" data-hswim="n3a">
           <span class="node-icon" aria-hidden="true"><i class="fa-solid fa-comments"></i></span>
           <div class="node-copy">
-            <p class="node-en" contenteditable="true"><span class="node-num">3</span>Brief Chef</p>
-            <p class="node-zh" contenteditable="true">向大廚講單</p>
+            <p class="node-en" contenteditable="true"><span class="node-num">3</span>Brief Chef <em class="node-clock">clock on</em></p>
+            <p class="node-zh" contenteditable="true">開鐘 · 向大廚講單</p>
           </div>
         </article>
 
@@ -3583,7 +3611,7 @@
         <article class="hswim-node c-server n4" data-hswim="n4">
           <span class="node-icon" aria-hidden="true"><i class="fa-solid fa-bell-concierge"></i></span>
           <div class="node-copy">
-            <p class="node-en" contenteditable="true"><span class="node-num">4</span>Deliver Tray with Order Form</p>
+            <p class="node-en" contenteditable="true"><span class="node-num">4</span>Deliver tray + form</p>
             <p class="node-zh" contenteditable="true">送回托盤連落單紙</p>
           </div>
         </article>
@@ -3631,10 +3659,10 @@
           現場準備 · 各就各位
         </h2>
         <p class="mt-4 max-w-2xl mx-auto text-base sm:text-lg font-bold text-slate-700 leading-snug" contenteditable="true">
-          Form teams of 3 · grab order forms · Order Takers / Chef / Server to stations.
+          Form teams of 3 · fill order forms now · Order Takers collect at tables before the clock.
         </p>
         <p class="mt-2 text-sm sm:text-base font-semibold text-slate-500" contenteditable="true">
-          三人一組 · 取落單紙 · 落單員／大廚／侍應就位 · 等 MC 開跑
+          三人一組 · 先填落單紙 · 落單員開鐘前到各枱收單 · 大廚／侍應就位
         </p>
       </div>
     </div>
