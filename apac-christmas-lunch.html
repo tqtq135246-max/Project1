@@ -2710,7 +2710,7 @@
       to { height: 34px; }
     }
 
-    /* Sock Guess reveal — after grand prize draw */
+    /* Sock Guess reveal — after 2nd buffet */
     .sock-reveal-stage {
       position: relative;
       overflow: hidden;
@@ -4076,7 +4076,7 @@
           <i class="fa-solid fa-camera"></i> Up Next • 緊接活動
         </div>
         <h3 class="text-xl sm:text-2xl font-black text-slate-800" contenteditable="true">
-          Best Dressed catwalk next! • 接下來是最佳服裝走秀！
+          Sock Guess reveal next! • 接下來是襪子猜謎揭曉！
         </h3>
       </div>
 
@@ -4092,9 +4092,50 @@
   <!-- (unused award intro comment kept for history)                         -->
   <!-- ===================================================================== -->
   <!-- ===================================================================== -->
-  <!-- SLIDE 14: BEST DRESSED — CATWALK                                      -->
+  <!-- SLIDE 14: SOCK GUESS REVEAL (AFTER 2ND BUFFET)                        -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center overflow-hidden" data-title="14. Best Dressed — Catwalk">
+<section class="slide flex-col items-center justify-center text-center" data-title="14. Sock Guess Reveal">
+    <div id="sockGuessRevealStage" class="sock-reveal-stage stage-board stage-board-pad rounded-3xl border-4 relative shadow-2xl">
+      <div class="sock-twinkle" aria-hidden="true"></div>
+      <div class="sock-flash" aria-hidden="true"></div>
+
+      <span class="relative z-10 px-4 py-1.5 rounded-full bg-rose-200/20 border border-rose-100/50 text-rose-50 text-xs font-extrabold uppercase tracking-widest backdrop-blur-sm">
+        Surprise reveal · 驚喜揭曉
+      </span>
+
+      <div class="sock-sealed mt-4">
+        <div class="sock-icon-badge" aria-hidden="true"><i class="fa-solid fa-socks"></i></div>
+        <div class="bd-drum-bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <p class="text-sm sm:text-base font-bold text-rose-50/95 max-w-xl mx-auto leading-snug" contenteditable="true">
+          Dessert break done — sock guess surprise! · 甜品小休後——襪子猜謎驚喜！
+        </p>
+        <p id="sockGuessDrumStatus" class="text-sm font-bold text-amber-100/90 mt-2">Sock guess winners · 襪子猜謎得獎者</p>
+        <button type="button" id="sockGuessRevealBtn" onclick="startSockGuessReveal()" class="mt-2 inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#C8372D] to-[#D97724] hover:from-[#b91c1c] hover:to-[#b45309] text-white font-black text-base sm:text-lg tracking-wide shadow-xl transition transform hover:scale-105 active:scale-95 cursor-pointer border-2 border-amber-200">
+          <i class="fa-solid fa-drum"></i> Drumroll &amp; Reveal · 擊鼓揭曉
+        </button>
+        <p class="text-[11px] font-semibold text-rose-50/60 mt-1">or press <kbd class="px-1.5 py-0.5 rounded bg-black/30 border border-rose-100/40 font-mono">SPACE</kbd></p>
+      </div>
+
+      <div class="sock-results mt-2">
+        <h1 class="font-festive-display text-3xl sm:text-5xl font-bold tracking-tight text-amber-100 mb-1 drop-shadow" contenteditable="true">
+          SOCK GUESS WINNERS · 襪子猜謎得獎者
+        </h1>
+        <p class="text-sm font-bold text-rose-50/85 mb-3" contenteditable="true">
+          Tap each sock to attach the reveal photo · 點擊襪子貼上揭曉照片（每襪 1 張）
+        </p>
+        <div id="sockGuessRevealGrid" class="sock-guess-grid"></div>
+        <button type="button" onclick="resetSockGuessReveal()" class="mt-4 text-xs font-bold text-rose-50/70 hover:text-rose-50 underline cursor-pointer">
+          Reset seal · 重設封印（綵排）
+        </button>
+      </div>
+    </div>
+    <input type="file" id="sockGuessPhotoInput" accept="image/*" class="hidden" />
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SLIDE 15: BEST DRESSED — CATWALK                                      -->
+  <!-- ===================================================================== -->
+  <section class="slide flex-col items-center justify-center text-center overflow-hidden" data-title="15. Best Dressed — Catwalk">
     <div class="stage-card festive-card yearbook-card theme-rail rounded-3xl border-4 border-[#C8372D] relative catwalk-yearbook" id="bestDressedRevealStage">
       <div class="cc-walkers cc-walkers-on-yearbook" aria-hidden="true">
         <i class="fa-solid fa-person-walking cc-w1"></i>
@@ -4120,9 +4161,9 @@
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 15: GRAND PRIZES INTRO                                          -->
+  <!-- SLIDE 16: GRAND PRIZES INTRO                                          -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col items-center justify-center text-center" data-title="15. Grand Prizes Intro">
+  <section class="slide flex-col items-center justify-center text-center" data-title="16. Grand Prizes Intro">
     <div class="festive-card finale-card theme-rail stage-card rounded-3xl border-4 border-[#D97724]">
       <div class="w-24 h-24 mx-auto mb-5 rounded-3xl bg-gradient-to-tr from-[#C8372D] to-[#D97724] text-white flex items-center justify-center text-4xl shadow-lg animate-float">
         <i class="fa-solid fa-gift"></i>
@@ -4140,9 +4181,9 @@
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 16: GRAND PRIZES SPINNER                                        -->
+  <!-- SLIDE 17: GRAND PRIZES SPINNER                                        -->
   <!-- ===================================================================== -->
-  <section class="slide flex-col overflow-hidden" style="padding-top: 3.1rem; padding-bottom: 4rem;" data-title="16. Grand Prizes Spinner">
+  <section class="slide flex-col overflow-hidden" style="padding-top: 3.1rem; padding-bottom: 4rem;" data-title="17. Grand Prizes Spinner">
     <div class="flex-1 max-w-[1600px] w-full mx-auto flex flex-col justify-center">
       <div class="flex flex-wrap items-center justify-between gap-2 mb-1 px-1">
         <div class="flex items-center gap-3 flex-wrap">
@@ -4154,7 +4195,7 @@
           </h1>
         </div>
         <div class="flex items-center gap-2 flex-wrap">
-          <span id="grandPoolHint" class="px-3 py-1.5 rounded-xl bg-amber-50 border-2 border-amber-300 text-amber-900 text-xs font-black">Shared pool · no re-draws</span>
+          <span id="grandPoolHint" class="px-3 py-1.5 rounded-xl bg-amber-50 border-2 border-amber-300 text-amber-900 text-xs font-black">Shared pool · re-draw if absent</span>
         </div>
       </div>
 
@@ -4228,47 +4269,6 @@
 
 
   <!-- ===================================================================== -->
-  <!-- SLIDE 17: SOCK GUESS REVEAL (AFTER GRAND DRAW)                        -->
-  <!-- ===================================================================== -->
-<section class="slide flex-col items-center justify-center text-center" data-title="17. Sock Guess Reveal">
-    <div id="sockGuessRevealStage" class="sock-reveal-stage stage-board stage-board-pad rounded-3xl border-4 relative shadow-2xl">
-      <div class="sock-twinkle" aria-hidden="true"></div>
-      <div class="sock-flash" aria-hidden="true"></div>
-
-      <span class="relative z-10 px-4 py-1.5 rounded-full bg-rose-200/20 border border-rose-100/50 text-rose-50 text-xs font-extrabold uppercase tracking-widest backdrop-blur-sm">
-        Surprise reveal · 驚喜揭曉
-      </span>
-
-      <div class="sock-sealed mt-4">
-        <div class="sock-icon-badge" aria-hidden="true"><i class="fa-solid fa-socks"></i></div>
-        <div class="bd-drum-bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
-        <p class="text-sm sm:text-base font-bold text-rose-50/95 max-w-xl mx-auto leading-snug" contenteditable="true">
-          Grand prizes are in — one more surprise! · 大獎已揭曉——再來一個驚喜！
-        </p>
-        <p id="sockGuessDrumStatus" class="text-sm font-bold text-amber-100/90 mt-2">Sock guess winners · 襪子猜謎得獎者</p>
-        <button type="button" id="sockGuessRevealBtn" onclick="startSockGuessReveal()" class="mt-2 inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#C8372D] to-[#D97724] hover:from-[#b91c1c] hover:to-[#b45309] text-white font-black text-base sm:text-lg tracking-wide shadow-xl transition transform hover:scale-105 active:scale-95 cursor-pointer border-2 border-amber-200">
-          <i class="fa-solid fa-drum"></i> Drumroll &amp; Reveal · 擊鼓揭曉
-        </button>
-        <p class="text-[11px] font-semibold text-rose-50/60 mt-1">or press <kbd class="px-1.5 py-0.5 rounded bg-black/30 border border-rose-100/40 font-mono">SPACE</kbd></p>
-      </div>
-
-      <div class="sock-results mt-2">
-        <h1 class="font-festive-display text-3xl sm:text-5xl font-bold tracking-tight text-amber-100 mb-1 drop-shadow" contenteditable="true">
-          SOCK GUESS WINNERS · 襪子猜謎得獎者
-        </h1>
-        <p class="text-sm font-bold text-rose-50/85 mb-3" contenteditable="true">
-          Tap each sock to attach the reveal photo · 點擊襪子貼上揭曉照片（每襪 1 張）
-        </p>
-        <div id="sockGuessRevealGrid" class="sock-guess-grid"></div>
-        <button type="button" onclick="resetSockGuessReveal()" class="mt-4 text-xs font-bold text-rose-50/70 hover:text-rose-50 underline cursor-pointer">
-          Reset seal · 重設封印（綵排）
-        </button>
-      </div>
-    </div>
-    <input type="file" id="sockGuessPhotoInput" accept="image/*" class="hidden" />
-  </section>
-
-  <!-- ===================================================================== -->
   <!-- SLIDE 18: GROUP PHOTO BACKDROP                                        -->
   <!-- ===================================================================== -->
   <section class="slide flex-col items-center justify-between text-center" data-title="18. Group Photo Backdrop">
@@ -4321,7 +4321,7 @@
       <p id="modalCongratsText" class="text-xs text-slate-500 font-semibold mb-4">🎄 Congratulations!</p>
       <p id="modalHoldHint" class="text-[10px] font-bold text-slate-400 mb-4">Tap Continue when ready</p>
       <div id="modalActionRow" class="flex flex-col sm:flex-row gap-2.5 opacity-40 pointer-events-none transition-opacity">
-        <button type="button" id="modalSpinAgainBtn" class="flex-1 py-3 px-4 rounded-xl bg-[#23486A] hover:bg-[#1a3650] text-white font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 cursor-pointer"><i class="fa-solid fa-rotate-right"></i> Spin Again</button>
+        <button type="button" id="modalRedrawBtn" class="flex-1 py-3 px-4 rounded-xl bg-[#23486A] hover:bg-[#1a3650] text-white font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 cursor-pointer" title="Void this win and draw again — use when the winner is not present"><i class="fa-solid fa-user-xmark"></i> Re-draw · absent</button>
         <button type="button" id="modalContinueBtn" class="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-[#C8372D] to-[#DC2626] hover:from-[#b91c1c] hover:to-[#C8372D] text-white font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 shadow-lg cursor-pointer"><i class="fa-solid fa-check"></i> Continue</button>
       </div>
       <button type="button" id="closeModalBtn" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 p-2 rounded-lg cursor-pointer opacity-40 pointer-events-none"><i class="fa-solid fa-xmark text-lg"></i></button>
@@ -4409,6 +4409,7 @@
     let winners = [];
     let winnersPhase1 = []; // #SAVE:winnersPhase1
     let winnersPhase2 = []; // #SAVE:winnersPhase2
+    let absentNames = []; // #SAVE:absentNames — voided as not present; stay off the wheel
     let drawPhase = 1; // 1 = Christmas Gifts, 2 = Grand Prizes
     let isSpinning = false;
     let isBatchRunning = false;
@@ -4455,10 +4456,10 @@
     const SLIDE_COOK = 10;
     const SLIDE_XMAS_SPIN = 11; // first lucky draw — before 2nd buffet
     const SLIDE_RECESS = 12; // 2nd round buffet (dessert & coffee)
-    const SLIDE_BEST_REVEAL = 13; // catwalk yearbook backdrop
-    const SLIDE_GRAND_INTRO = 14;
-    const SLIDE_GRAND_SPIN = 15;
-    const SLIDE_SOCK_GUESS = 16; // after grand prize draw
+    const SLIDE_SOCK_GUESS = 13; // right after 2nd buffet
+    const SLIDE_BEST_REVEAL = 14; // catwalk yearbook backdrop
+    const SLIDE_GRAND_INTRO = 15;
+    const SLIDE_GRAND_SPIN = 16;
     const SLIDE_GROUP = 17;
     const SOCK_GUESS_COUNT = 3;
 
@@ -4473,8 +4474,9 @@
       { id: 'buffet1', start: '12:40', end: '13:10', session: '3', title: '1st round buffet', detail: '30 min lunch service', slideFrom: 3, slideTo: 3 },
       { id: 'games', start: '13:10', end: '13:25', session: '4', title: 'Games', detail: 'Game 1 Guessing + Game 2 Cooking · 15 min', slideFrom: 4, slideTo: 10 },
       { id: 'lucky1', start: '13:25', end: '13:35', session: '4', title: '1st lucky draw', detail: 'Christmas gifts · batch draws · 10–15 min', slideFrom: 11, slideTo: 11 },
-      { id: 'buffet2', start: '13:35', end: '13:45', session: '5', title: '2nd round buffet', detail: 'Dessert & coffee bridge to Best Dress', slideFrom: 12, slideTo: 12 },
-      { id: 'bestdress', start: '13:45', end: '14:07', session: '6', title: 'Best Dress · 2nd lucky draw · socks', detail: 'Catwalk · grand prizes · sock reveal · ~22 min', slideFrom: 13, slideTo: 16 },
+      { id: 'buffet2', start: '13:35', end: '13:45', session: '5', title: '2nd round buffet', detail: 'Dessert & coffee · then sock reveal', slideFrom: 12, slideTo: 12 },
+      { id: 'socks', start: '13:45', end: '13:52', session: '5', title: 'Sock Guess reveal', detail: 'Drumroll · sock winners · ~7 min', slideFrom: 13, slideTo: 13 },
+      { id: 'bestdress', start: '13:52', end: '14:07', session: '6', title: 'Best Dress · 2nd lucky draw', detail: 'Catwalk · grand prizes · ~15 min', slideFrom: 14, slideTo: 16 },
       { id: 'closing', start: '14:07', end: '14:25', session: '7', title: 'Closing · group photo', detail: 'Thanks · group photo · mingling supply', slideFrom: 17, slideTo: 17 },
       { id: 'buffer', start: '14:25', end: '14:40', session: '8', title: 'Buffer · dismantle', detail: 'Party end ~14:30 · pack-down from 14:40', slideFrom: 17, slideTo: 17, soft: true }
     ];
@@ -4487,6 +4489,7 @@
     const GRAND_SLOTS = 6;
     let winnerModalHoldTimer = null;
     let winnerModalResolver = null;
+    let lastDrawModalContext = null; // { phase, names, giftIndex?, rankIndex?, batch? }
     const WINNER_HOLD_MS = 2500;
     const BATCH_HOLD_MS = 2200;
 
@@ -4553,8 +4556,11 @@
 
     function sharedPoolRemaining(source, opts = {}) {
       // Default: Christmas winners blocked (Grand eligibility). Optionally also block Grand winners.
+      // Absent (not-present) names stay off the wheel for the rest of the session.
       const blocked = opts.excludeGrand ? allDrawnNames() : christmasWinnerNames();
-      const list = (source && source.length ? source : masterRoster).filter(n => !blocked.has(n));
+      const absent = new Set(absentNames || []);
+      const list = (source && source.length ? source : masterRoster)
+        .filter(n => !blocked.has(n) && !absent.has(n));
       return list;
     }
 
@@ -4703,7 +4709,7 @@
           : 'px-3 py-1 rounded-xl bg-[#D97724] text-white font-black text-xs uppercase tracking-wider shadow';
       }
       if (hint) {
-        hint.textContent = drawPhase === 1 ? 'Christmas · shared pool' : 'Grand · shared pool (no re-draws)';
+        hint.textContent = drawPhase === 1 ? 'Christmas · shared pool' : 'Grand · shared pool (re-draw if absent)';
         hint.className = drawPhase === 1
           ? 'px-3 py-1.5 rounded-xl bg-white border-2 border-slate-200 text-slate-700 text-xs font-black'
           : 'px-3 py-1.5 rounded-xl bg-amber-50 border-2 border-amber-300 text-amber-900 text-xs font-black';
@@ -5307,6 +5313,13 @@
       const showPhoto = opts.showPhoto !== false;
       const waitUntilContinue = opts.waitUntilContinue !== false;
       const last = opts.entry || (drawPhase === 2 ? winnersPhase2 : winnersPhase1).slice(-1)[0];
+      lastDrawModalContext = {
+        phase: drawPhase,
+        names: names.slice(),
+        giftIndex: last?.giftIndex != null ? last.giftIndex : (opts.entry?.giftIndex ?? null),
+        rankIndex: last?.rankIndex != null ? last.rankIndex : (opts.entry?.rankIndex ?? null),
+        batch: names.length > 1
+      };
       if (names.length > 1) {
         nameEl.classList.add('hidden');
         if (listEl) {
@@ -5369,8 +5382,8 @@
           ? 'fa-solid fa-crown text-3xl animate-bounce text-amber-500'
           : 'fa-solid fa-trophy text-3xl animate-bounce';
       }
-      const spinAgainBtn = document.getElementById('modalSpinAgainBtn');
-      if (spinAgainBtn) spinAgainBtn.classList.toggle('hidden', !!opts.hideSpinAgain);
+      const redrawBtn = document.getElementById('modalRedrawBtn');
+      if (redrawBtn) redrawBtn.classList.toggle('hidden', !!opts.hideRedraw);
       modal.classList.toggle('winner-modal-mega', intensity >= 3);
       modal.classList.remove('opacity-0', 'pointer-events-none');
       const card = modal.querySelector('.festive-card');
@@ -5874,9 +5887,9 @@
       { id: 'game2', label: 'Game 2 Culinary Fanatic', slides: [6, 7, 8, 9, 10], trackKey: 'game2' },
       { id: 'christmasGifts', label: 'Christmas Gifts', slides: [11], trackKey: 'luckyDraw' },
       { id: 'recess', label: '2nd Round Buffet', slides: [12], trackKey: 'recess' },
-      { id: 'bestDressed', label: 'Best Dressed Catwalk', slides: [13], trackKey: 'buffet' },
-      { id: 'grandPrizes', label: 'Grand Prizes', slides: [14, 15], trackKey: 'luckyDraw' },
-      { id: 'sockGuess', label: 'Sock Guess Reveal', slides: [16], trackKey: 'luckyDraw' },
+      { id: 'sockGuess', label: 'Sock Guess Reveal', slides: [13], trackKey: 'luckyDraw' },
+      { id: 'bestDressed', label: 'Best Dressed Catwalk', slides: [14], trackKey: 'buffet' },
+      { id: 'grandPrizes', label: 'Grand Prizes', slides: [15, 16], trackKey: 'luckyDraw' },
       { id: 'finale', label: 'Finale', slides: [17], trackKey: 'finale' }
     ];
 
@@ -6831,11 +6844,78 @@
           entry,
           photo: getPrizePhotoForWinner(entry),
           showPhoto: true,
-          waitUntilContinue: true,
-          hideSpinAgain: drawPhase === 2
+          waitUntilContinue: true
         });
       }
       return winnerName;
+    }
+
+    function voidDrawForAbsentRedraw() {
+      const ctx = lastDrawModalContext;
+      if (!ctx || !ctx.names?.length) {
+        showToast('Nothing to re-draw', 'error');
+        return false;
+      }
+      const nameSet = new Set(ctx.names);
+      if (ctx.phase === 2) {
+        winnersPhase2 = winnersPhase2.filter(w => !nameSet.has(w.name));
+        if (ctx.rankIndex != null) {
+          // Restore the voided rank as next-to-draw (#6→#1)
+          grandPrizeIndex = Math.max(grandPrizeIndex, ctx.rankIndex);
+        } else if (!winnersPhase2.length) {
+          grandPrizeIndex = GRAND_PRIZES.length - 1;
+        }
+      } else {
+        const giftIndex = ctx.giftIndex != null ? ctx.giftIndex : christmasBatchIndex;
+        winnersPhase1 = winnersPhase1.filter(w => !(nameSet.has(w.name) && (ctx.giftIndex == null || w.giftIndex === giftIndex)));
+        if (giftIndex != null) christmasBatchIndex = Math.min(christmasBatchIndex, giftIndex);
+      }
+      // Mark absent and keep them off the wheel for later draws too
+      const absentSet = new Set(absentNames || []);
+      ctx.names.forEach(n => absentSet.add(n));
+      absentNames = [...absentSet];
+      items = items.filter(n => !nameSet.has(n));
+      syncInputFromItems();
+      winners = drawPhase === 2 ? winnersPhase2 : winnersPhase1;
+      updateBatchLabels();
+      updateWinnersListUI();
+      syncPrizeWinnersGrid1();
+      syncPrizeWinnersGrid2();
+      drawWheel();
+      updateSharedPoolHud();
+      lastDrawModalContext = null;
+      return true;
+    }
+
+    async function redrawAbsentWinner() {
+      if (isSpinning || isBatchRunning) {
+        showToast('Wait for the current spin to finish', 'error');
+        return;
+      }
+      const ctx = lastDrawModalContext;
+      if (!ctx) {
+        showToast('No winner to re-draw', 'error');
+        return;
+      }
+      const names = ctx.names.slice();
+      const phase = ctx.phase;
+      const giftIndex = ctx.giftIndex;
+      if (!voidDrawForAbsentRedraw()) return;
+      hideWinnerModal();
+      showToast(`${names.length === 1 ? names[0] : names.length + ' winners'} absent — drawing again`, 'error');
+      await sleep(350);
+      if (phase === 2) {
+        if (items.length === 0) {
+          showToast('No names left to re-draw', 'error');
+          return;
+        }
+        await spinWheel();
+      } else {
+        // Restore batch pointer then fill remaining slots for that gift
+        if (giftIndex != null) christmasBatchIndex = giftIndex;
+        updateBatchLabels();
+        await runBatchDraw();
+      }
     }
 
     function recordWinner(name, meta = {}) {
@@ -6940,7 +7020,6 @@
             || '',
           showPhoto: true,
           waitUntilContinue: true,
-          hideSpinAgain: true,
           intensity: 2,
           entry: { giftIndex, prizeName }
         });
@@ -7051,6 +7130,7 @@
     document.getElementById('resetWinnersBtn').addEventListener('click', () => {
       if (drawPhase === 2) { winnersPhase2 = []; grandPrizeIndex = GRAND_PRIZES.length - 1; }
       else { winnersPhase1 = []; christmasBatchIndex = 0; }
+      absentNames = [];
       winners = drawPhase === 2 ? winnersPhase2 : winnersPhase1;
       updateBatchLabels();
       updateWinnersListUI(); syncPrizeWinnersGrid1(); syncPrizeWinnersGrid2();
@@ -7097,10 +7177,8 @@
     });
 
     document.getElementById('closeModalBtn').addEventListener('click', hideWinnerModal);
-    document.getElementById('modalSpinAgainBtn').addEventListener('click', () => {
-      hideWinnerModal();
-      if (drawPhase === 1) runBatchDraw();
-      else spinWheel();
+    document.getElementById('modalRedrawBtn').addEventListener('click', () => {
+      redrawAbsentWinner();
     });
     document.getElementById('modalContinueBtn').addEventListener('click', hideWinnerModal);
     document.getElementById('winnerModal').addEventListener('click', (e) => {
@@ -7278,6 +7356,7 @@
         masterRoster,
         winnersPhase1,
         winnersPhase2,
+        absentNames,
         customPhaseMp3s: baked.customPhaseMp3s,
         customBellDataUrl: baked.customBellDataUrl,
         customBellFileName,
