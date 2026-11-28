@@ -261,6 +261,10 @@
       max-width: 36rem;
       margin: 1rem auto 0;
     }
+    .g2-intro-stations.is-roles {
+      max-width: min(48rem, 94vw);
+      gap: 0.75rem;
+    }
     @media (max-width: 640px) {
       .g2-intro-stations { grid-template-columns: 1fr; }
     }
@@ -292,6 +296,29 @@
       color: #64748b;
       margin-top: 0.1rem;
     }
+    .g2-intro-station .role-rr-en {
+      margin-top: 0.35rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #334155;
+      line-height: 1.3;
+    }
+    .g2-intro-station .role-rr-zh {
+      margin-top: 0.15rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #64748b;
+      line-height: 1.3;
+    }
+    .g2-intro-station.is-ot { border-color: rgba(217, 119, 36, 0.45); }
+    .g2-intro-station.is-ot i,
+    .g2-intro-station.is-ot strong { color: #D97724; }
+    .g2-intro-station.is-chef { border-color: rgba(200, 55, 45, 0.45); }
+    .g2-intro-station.is-chef i,
+    .g2-intro-station.is-chef strong { color: #C8372D; }
+    .g2-intro-station.is-server { border-color: rgba(30, 107, 59, 0.45); }
+    .g2-intro-station.is-server i,
+    .g2-intro-station.is-server strong { color: #1E6B3B; }
 
     /* ========== GAME 2 — kitchen accents on shared festive chrome ========== */
     .g2-kitchen-board {
@@ -658,7 +685,7 @@
       flex: 1 1 auto;
       min-height: 0;
       display: grid;
-      grid-template-columns: var(--lane-label) repeat(5, minmax(0, 1fr));
+      grid-template-columns: var(--lane-label) repeat(4, minmax(0, 1fr));
       grid-template-rows: repeat(5, minmax(0, 1fr));
       gap: 0.28rem 0.45rem;
       border: 2px solid rgba(35, 72, 106, 0.16);
@@ -790,33 +817,8 @@
       color: #1c1917;
       line-height: 1.15;
     }
-    .hswim-node.n4 .node-en {
+    .hswim-node.n3 .node-en {
       font-size: clamp(0.62rem, 1.2vh, 0.78rem);
-    }
-    .hswim-node.is-preclock {
-      border-style: dashed;
-      background: #fffbeb;
-    }
-    .hswim-node .node-pre,
-    .hswim-node .node-clock {
-      display: inline-block;
-      margin-left: 0.2rem;
-      padding: 0.05rem 0.3rem;
-      border-radius: 999px;
-      font-style: normal;
-      font-size: 0.62em;
-      font-weight: 800;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      vertical-align: middle;
-    }
-    .hswim-node .node-pre {
-      color: #92400e;
-      background: #fde68a;
-    }
-    .hswim-node .node-clock {
-      color: #14532d;
-      background: #bbf7d0;
     }
     .hswim-node .node-zh {
       font-family: 'Plus Jakarta Sans', sans-serif;
@@ -842,14 +844,13 @@
     .hswim-node.c-exam .node-icon,
     .hswim-node.c-exam .node-num { background: #7C3AED; }
     /* Positions: cols 2–6 = flow stages; rows 1–5 = roles */
-    .hswim-node.n1 { grid-row: 1; grid-column: 2; }
-    .hswim-node.n2 { grid-row: 2; grid-column: 3; }
-    .hswim-node.n3a { grid-row: 2; grid-column: 4; }
-    .hswim-node.n3b { grid-row: 3; grid-column: 4; }
-    .hswim-node.n3c { grid-row: 4; grid-column: 4; }
-    .hswim-node.n4 { grid-row: 4; grid-column: 5; }
-    .hswim-node.n5 { grid-row: 1; grid-column: 6; }
-    .hswim-node.n6 { grid-row: 5; grid-column: 6; }
+    .hswim-node.n1 { grid-row: 2; grid-column: 2; }
+    .hswim-node.n2a { grid-row: 2; grid-column: 3; }
+    .hswim-node.n2b { grid-row: 3; grid-column: 3; }
+    .hswim-node.n2c { grid-row: 4; grid-column: 3; }
+    .hswim-node.n3 { grid-row: 4; grid-column: 4; }
+    .hswim-node.n4 { grid-row: 1; grid-column: 5; }
+    .hswim-node.n5 { grid-row: 5; grid-column: 5; }
     .hswim-arrows {
       position: absolute;
       inset: 0;
@@ -887,28 +888,26 @@
       }
       .hswim-label small { display: none; }
       .hswim-node.n1,
-      .hswim-node.n2,
-      .hswim-node.n3a,
-      .hswim-node.n3b,
-      .hswim-node.n3c,
+      .hswim-node.n2a,
+      .hswim-node.n2b,
+      .hswim-node.n2c,
+      .hswim-node.n3,
       .hswim-node.n4,
-      .hswim-node.n5,
-      .hswim-node.n6 {
+      .hswim-node.n5 {
         grid-column: 2;
       }
       .hswim-node.n1 { grid-row: 1; }
-      .hswim-node.n2 { grid-row: 2; }
-      .hswim-node.n3a { grid-row: 3; }
-      .hswim-node.n3b { grid-row: 4; }
-      .hswim-node.n3c { grid-row: 5; }
+      .hswim-node.n2a { grid-row: 2; }
+      .hswim-node.n2b { grid-row: 3; }
+      .hswim-node.n2c { grid-row: 4; }
+      .hswim-node.n3 { grid-row: 5; }
       .hswim-node.n4 { grid-row: 6; }
       .hswim-node.n5 { grid-row: 7; }
-      .hswim-node.n6 { grid-row: 8; }
-      .hswim-label.r1 { grid-row: 1; }
-      .hswim-label.r2 { grid-row: 2; }
-      .hswim-label.r3 { grid-row: 4; }
-      .hswim-label.r4 { grid-row: 5 / span 2; }
-      .hswim-label.r5 { grid-row: 8; }
+      .hswim-label.r1 { grid-row: 6; }
+      .hswim-label.r2 { grid-row: 1 / span 2; }
+      .hswim-label.r3 { grid-row: 3; }
+      .hswim-label.r4 { grid-row: 4 / span 2; }
+      .hswim-label.r5 { grid-row: 7; }
       .hswim-arrows { display: none; }
     }
 
@@ -3428,25 +3427,32 @@
           <div class="g2-intro-icon timer" title="10-minute rush"><i class="fa-solid fa-stopwatch"></i></div>
           <div class="g2-intro-icon pass" title="Kitchen pass"><i class="fa-solid fa-kitchen-set"></i></div>
         </div>
-        <div class="g2-intro-stations">
-          <div class="g2-intro-station">
-            <i class="fa-solid fa-pen-to-square" aria-hidden="true"></i>
-            <strong contenteditable="true">Take orders</strong>
-            <span contenteditable="true">落單 · tickets</span>
+        <p class="g2-kitchen-kicker mt-3 mb-1" contenteditable="true">Team of 3 · Roles &amp; responsibilities · 三人職責</p>
+        <div class="g2-intro-stations is-roles">
+          <div class="g2-intro-station is-ot">
+            <i class="fa-solid fa-clipboard-list" aria-hidden="true"></i>
+            <strong contenteditable="true">Order Taker</strong>
+            <span contenteditable="true">落單員</span>
+            <p class="role-rr-en" contenteditable="true">Collect forms from tables · brief the Chef</p>
+            <p class="role-rr-zh" contenteditable="true">到各枱收單 · 向大廚講單</p>
           </div>
-          <div class="g2-intro-station">
+          <div class="g2-intro-station is-chef">
             <i class="fa-solid fa-fire-burner" aria-hidden="true"></i>
-            <strong contenteditable="true">Cook on the pass</strong>
-            <span contenteditable="true">廚房衝刺 · plates</span>
+            <strong contenteditable="true">Chef</strong>
+            <span contenteditable="true">大廚</span>
+            <p class="role-rr-en" contenteditable="true">Fetch the right ingredients from the pool</p>
+            <p class="role-rr-zh" contenteditable="true">按單到食材池取料</p>
           </div>
-          <div class="g2-intro-station">
+          <div class="g2-intro-station is-server">
             <i class="fa-solid fa-bell-concierge" aria-hidden="true"></i>
-            <strong contenteditable="true">Serve &amp; check</strong>
-            <span contenteditable="true">送餐 · examiner</span>
+            <strong contenteditable="true">Server</strong>
+            <span contenteditable="true">樓面侍應</span>
+            <p class="role-rr-en" contenteditable="true">Load tray · deliver with form · help verify</p>
+            <p class="role-rr-zh" contenteditable="true">上托盤 · 連單送回 · 協助核對</p>
           </div>
         </div>
         <p class="mt-4 text-sm sm:text-base font-bold text-slate-700" contenteditable="true">
-          Team of 3 · Tickets flying · 十分鐘廚房衝刺
+          Forms ready first · clock starts when Order Takers collect · 十分鐘廚房衝刺
         </p>
       </div>
     </div>
@@ -3505,7 +3511,7 @@
             <img src="media/order-sheet/order-sheet.png" alt="SSOB School Home Economics exam order sheet — Orders A–C" class="order-sheet-img" />
           </div>
           <p class="text-[10px] sm:text-xs text-slate-600 font-semibold leading-snug shrink-0" contenteditable="true">
-            Fill before the clock · Order Takers collect at tables · 開鐘前填妥 · 落單員到枱收單
+            Forms ready before start · Order Takers collect when the clock starts · 開鐘前填妥 · 收單即計時
           </p>
         </div>
       </div>
@@ -3523,10 +3529,10 @@
           How the game is played
         </h1>
         <h2 class="g2-kitchen-sub text-sm sm:text-base mt-0.5" contenteditable="true">
-          遊戲玩法 · 落單不計時 · 開鐘後才衝刺
+          遊戲玩法 · 鐘響即計時 · 五步衝刺
         </h2>
         <p class="text-[11px] sm:text-sm font-bold text-slate-600 mt-1" contenteditable="true">
-          Steps 1–2 before the clock · forms ready first · then Order Takers collect · 開鐘前填妥落單紙，落單員先收單
+          Forms ready before start · Step 1 Collect starts the clock · 開鐘前表格已填妥，落單員收單即計時
         </p>
       </div>
 
@@ -3568,66 +3574,58 @@
           <span class="hswim-role-text"><strong>Examiner</strong><small>考官</small></span>
         </div>
 
-        <article class="hswim-node c-tables n1 is-preclock" data-hswim="n1">
-          <span class="node-icon" aria-hidden="true"><i class="fa-solid fa-pen-to-square"></i></span>
-          <div class="node-copy">
-            <p class="node-en" contenteditable="true"><span class="node-num">1</span>Fill forms <em class="node-pre">before clock</em></p>
-            <p class="node-zh" contenteditable="true">開鐘前填妥落單紙</p>
-          </div>
-        </article>
-
-        <article class="hswim-node c-ot n2 is-preclock" data-hswim="n2">
+        <article class="hswim-node c-ot n1" data-hswim="n1">
           <span class="node-icon" aria-hidden="true"><i class="fa-solid fa-clipboard-list"></i></span>
           <div class="node-copy">
-            <p class="node-en" contenteditable="true"><span class="node-num">2</span>Collect forms <em class="node-pre">before clock</em></p>
+            <p class="node-en" contenteditable="true"><span class="node-num">1</span>Collect forms</p>
             <p class="node-zh" contenteditable="true">落單員到各枱收單</p>
           </div>
         </article>
 
-        <article class="hswim-node c-ot n3a" data-hswim="n3a">
+        <article class="hswim-node c-ot n2a" data-hswim="n2a">
           <span class="node-icon" aria-hidden="true"><i class="fa-solid fa-comments"></i></span>
           <div class="node-copy">
-            <p class="node-en" contenteditable="true"><span class="node-num">3</span>Brief Chef <em class="node-clock">clock on</em></p>
-            <p class="node-zh" contenteditable="true">開鐘 · 向大廚講單</p>
+            <p class="node-en" contenteditable="true"><span class="node-num">2</span>Brief Chef</p>
+            <p class="node-zh" contenteditable="true">向大廚講單</p>
           </div>
         </article>
 
-        <article class="hswim-node c-chef n3b" data-hswim="n3b">
+        <article class="hswim-node c-chef n2b" data-hswim="n2b">
           <span class="node-icon" aria-hidden="true"><i class="fa-solid fa-basket-shopping"></i></span>
           <div class="node-copy">
-            <p class="node-en" contenteditable="true"><span class="node-num">3</span>Fetch food</p>
+            <p class="node-en" contenteditable="true"><span class="node-num">2</span>Fetch food</p>
             <p class="node-zh" contenteditable="true">食材池取料</p>
           </div>
         </article>
 
-        <article class="hswim-node c-server n3c" data-hswim="n3c">
+        <article class="hswim-node c-server n2c" data-hswim="n2c">
           <span class="node-icon" aria-hidden="true"><i class="fa-solid fa-utensils"></i></span>
           <div class="node-copy">
-            <p class="node-en" contenteditable="true"><span class="node-num">3</span>Load tray</p>
+            <p class="node-en" contenteditable="true"><span class="node-num">2</span>Load tray</p>
             <p class="node-zh" contenteditable="true">食材上托盤</p>
           </div>
         </article>
 
-        <article class="hswim-node c-server n4" data-hswim="n4">
+        <article class="hswim-node c-server n3" data-hswim="n3">
           <span class="node-icon" aria-hidden="true"><i class="fa-solid fa-bell-concierge"></i></span>
           <div class="node-copy">
-            <p class="node-en" contenteditable="true"><span class="node-num">4</span>Deliver tray + form</p>
+            <p class="node-en" contenteditable="true"><span class="node-num">3</span>Deliver tray + form</p>
             <p class="node-zh" contenteditable="true">送回托盤連落單紙</p>
           </div>
         </article>
 
-        <article class="hswim-node c-tables n5" data-hswim="n5">
+        <article class="hswim-node c-tables n4" data-hswim="n4">
           <span class="node-icon" aria-hidden="true"><i class="fa-solid fa-circle-check"></i></span>
           <div class="node-copy">
-            <p class="node-en" contenteditable="true"><span class="node-num">5</span>Verify & tick</p>
+            <p class="node-en" contenteditable="true"><span class="node-num">4</span>Verify & tick</p>
             <p class="node-zh" contenteditable="true">核對並勾選完成</p>
           </div>
         </article>
 
-        <article class="hswim-node c-exam n6" data-hswim="n6">
+        <article class="hswim-node c-exam n5" data-hswim="n5">
           <span class="node-icon" aria-hidden="true"><i class="fa-solid fa-trophy"></i></span>
           <div class="node-copy">
-            <p class="node-en" contenteditable="true"><span class="node-num">6</span>Fastest wins</p>
+            <p class="node-en" contenteditable="true"><span class="node-num">5</span>Fastest wins</p>
             <p class="node-zh" contenteditable="true">兩單完成找考官</p>
           </div>
         </article>
@@ -3659,10 +3657,10 @@
           現場準備 · 各就各位
         </h2>
         <p class="mt-4 max-w-2xl mx-auto text-base sm:text-lg font-bold text-slate-700 leading-snug" contenteditable="true">
-          Form teams of 3 · fill order forms now · Order Takers collect at tables before the clock.
+          Form teams of 3 · finish filling forms now · Order Takers / Chef / Server stand by for collect.
         </p>
         <p class="mt-2 text-sm sm:text-base font-semibold text-slate-500" contenteditable="true">
-          三人一組 · 先填落單紙 · 落單員開鐘前到各枱收單 · 大廚／侍應就位
+          三人一組 · 現在填妥落單紙 · 落單員／大廚／侍應就位 · 收單即開鐘
         </p>
       </div>
     </div>
@@ -5925,13 +5923,12 @@
         return { x, y };
       };
       const links = [
-        ['n1', 'bottom', 'n2', 'top'],
-        ['n2', 'right', 'n3a', 'left'],
-        ['n3a', 'bottom', 'n3b', 'top'],
-        ['n3b', 'bottom', 'n3c', 'top'],
-        ['n3c', 'right', 'n4', 'left'],
-        ['n4', 'top', 'n5', 'bottom'],
-        ['n5', 'bottom', 'n6', 'top'],
+        ['n1', 'right', 'n2a', 'left'],
+        ['n2a', 'bottom', 'n2b', 'top'],
+        ['n2b', 'bottom', 'n2c', 'top'],
+        ['n2c', 'right', 'n3', 'left'],
+        ['n3', 'top', 'n4', 'bottom'],
+        ['n4', 'bottom', 'n5', 'top'],
       ];
       const paths = links.map(([a, ae, b, be]) => {
         const from = pt(a, ae);
